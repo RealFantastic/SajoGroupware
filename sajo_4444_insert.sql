@@ -843,7 +843,8 @@ INSERT INTO EMPLOYEE VALUES
 null,null,default,10,1,1110022222,NULL,NULL,1);
 COMMIT;
 
-
+insert into commute_record values 
+(1,202230001,systimestamp,systimestamp);
 
 
 
