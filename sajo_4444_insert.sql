@@ -736,7 +736,7 @@ JOIN JOB USING(JOB_NO);
 INSERT INTO DEPARTMENT VALUES(20, '영업팀');
 INSERT INTO EMPLOYEE VALUES (202210002,'김혜린',0,'hhyrin03@gmail.com',
 '010-1111-3333','경기도 고양시 일산동구','900동 203호','10303','951203-2222222',default,
-null,null,default,20,1,111,NULL,NULL,2);
+null,null,default,20,1,111,NULL,NULL,1);
 
 INSERT INTO PROJ VALUES (1, '엄뮤', DEFAULT, '첫 업뮤', 202210002, 1);
 
