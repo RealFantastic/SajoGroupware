@@ -690,7 +690,9 @@ SELECT * FROM EMPLOYEE;
 
 
 -------------------------------------------------------  박정환  시작(692 ~ )  ---------------------------------------------------------------------------------------
-
+SELECT EMP_NAME,ADDRESS,PHONE, JOB_NAME, DEPT_NAME, HIRE_DATE FROM EMPLOYEE
+JOIN DEPARTMENT USING(DEPT_NO)
+JOIN JOB USING(JOB_NO);
 
 
 

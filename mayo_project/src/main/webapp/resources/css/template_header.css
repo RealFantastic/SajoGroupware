@@ -1,0 +1,123 @@
+@charset "UTF-8";
+#menu_bar_container{
+    background-color: rgb(107, 191, 152);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#logo img{
+    width: 150px;
+    height: 60px;
+    margin-left: 30px;
+}
+#menus_container{
+    display: flex;
+    flex-direction: row;
+    height: 57px;
+}
+/* #menus_container img{
+    width: 60px;
+    height: 50px;
+} */
+#menus{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom:0;
+}
+#menus li a{
+    color: white;
+    font-weight: 700;
+    padding: 15px;
+    margin: 5px;
+}
+#search_area{
+    display: flex;
+    border-radius: 5px;
+    float: right;
+    align-items: center;
+}
+
+#search_area>form{
+    display: flex;
+    border-radius: 5px;
+    float: right;
+    align-items: center;
+}
+#search_area>form>input[type="text"]{
+   width: 50px;
+   border: 0;
+   border-top-left-radius: 10px;
+   border-bottom-left-radius: 10px;
+  
+   transition: .7s;
+   text-indent: 1rem;
+   font-family: 'GmarketSansMedium';
+   /* font-size: 15px; */
+   text-align: center;
+   display: block;
+   height: 40px;
+}
+#search_area>form>input[type="text"]:hover{
+    width: 200px;
+    border-top-left-radius: 20px;
+   border-bottom-left-radius: 20px;
+    transition:.7s;
+}
+#search_area>form>input[type="text"]:focus{
+    width: 200px;
+    border-top-left-radius: 20px;
+   border-bottom-left-radius: 20px;
+}
+#s_button{
+    padding-left: 10px;
+    padding-right: 15px;
+    border:1px 1px 1px 0 #ccc;
+    background-color: rgb(242, 184, 75);
+    cursor: pointer;
+    height: 40px;
+    border: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+    transition: .7s;
+}
+.fa-magnifying-glass{
+    font-size: 20px;
+    vertical-align: middle;
+    color: white;
+}
+#profile{
+    margin-right: 30px;
+   
+}
+#profile > a{
+   display: flex;
+   padding-right: 20px ;
+   align-items: center;
+   height: 57px;
+   box-sizing: border-box;
+}
+#profile > a > strong{
+   font-size: 20px;
+   color: white;
+}
+#profile>a>img{
+    width: inherit;
+    height: inherit;
+    box-sizing: border-box;
+}
+.hide{
+    display: none;
+}
+.dropdown_menu{
+    position: absolute;
+    background-color:white ;
+    margin: 0px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    border-radius: 0.375rem;
+}
+.dropdown_menu li{
+    padding: 4px 30px 4px 30px;
+    font-weight: 700;
+}

@@ -23,7 +23,6 @@
 				<div>직급번호 : ${emp.job_no }</div>
 			</c:forEach>
 		</c:otherwise>
-	
 	</c:choose>
 </body>
 </html>
