@@ -8,10 +8,13 @@
 	<typeAlias type="com.group.mayo.employee.domain.Employee" alias="Employee"/>
 	<typeAlias type="com.group.mayo.project.domain.Project" alias="Project"/>
 	<typeAlias type="com.group.mayo.work.domain.Work" alias="Work"/>
+	<typeAlias type="com.group.mayo.company.domain.Company" alias="Company"/>
+	<typeAlias type="com.group.mayo.department.domain.Dept" alias="Dept"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
 	<mapper resource="mappers/project-mapper.xml"/>
 	<mapper resource="mappers/work-mapper.xml"/>
+	<mapper resource="mappers/company-mapper.xml"/>
 </mappers>
 </configuration>

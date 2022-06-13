@@ -1,6 +1,11 @@
 package com.group.mayo.company.domain;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
+
+import com.group.mayo.department.domain.Dept;
+import com.group.mayo.employee.domain.Employee;
 
 @Component
 public class Company {
@@ -23,11 +28,29 @@ public class Company {
 	private String cp_king;
 	private String cp_tel;
 	private String cp_birth;
+	
+	private List<Dept> deptlist;
+	private List<Employee> emplist;
+	
+
 	@Override
 	public String toString() {
 		return "Company [cp_number=" + cp_number + ", cp_name=" + cp_name + ", cp_category=" + cp_category
 				+ ", cp_address=" + cp_address + ", cp_detail_address=" + cp_detail_address + ", cp_postcode="
-				+ cp_postcode + ", cp_king=" + cp_king + ", cp_tel=" + cp_tel + ", cp_birth=" + cp_birth + "]";
+				+ cp_postcode + ", cp_king=" + cp_king + ", cp_tel=" + cp_tel + ", cp_birth=" + cp_birth + ", deptlist="
+				+ deptlist + ", emplist=" + emplist + "]";
+	}
+	public List<Dept> getDeptlist() {
+		return deptlist;
+	}
+	public void setDeptlist(List<Dept> deptlist) {
+		this.deptlist = deptlist;
+	}
+	public List<Employee> getEmplist() {
+		return emplist;
+	}
+	public void setEmplist(List<Employee> emplist) {
+		this.emplist = emplist;
 	}
 	public String getCp_number() {
 		return cp_number;
