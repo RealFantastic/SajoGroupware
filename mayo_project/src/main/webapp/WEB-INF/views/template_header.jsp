@@ -83,31 +83,42 @@
 				url:"<%=request.getContextPath()%>/member/empchart",
 				success:function(result){
 					console.log(result);
-// 					createJSTree(result);
+					createJSTree(result);
 				}
 			});
-			
+		
 			function createJSTree(jsonData){
+				console.log('aa'+jsonData);
+				console.log(typeof jsonData);
+				//JSON String => JSON Object로 형변환
+				//이유 : JSTree에서 String 형태의 JSON을 파싱하지 못함.
+				var objData = JSON.parse(jsonData);
+				//JSON.stringify
+				console.log(typeof objData);
+				console.log('bb'+objData);
+/*
+				'data' : [
+				      { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+				      { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+				      { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+				      { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+				    ],
+				    
+				'data' : [
+					{"parent":"#","id":"ajson1","text":"Simple root node"},
+					{"parent":"#","id":"ajson2","text":"Root node 2"}
+					],
+*/ 
 				$("#jstree_empchart").jstree({
 					  'core' : {
 						  	'check_callback' : true,
 						  	'themes' : {"stripes" : true},
-						    'data' : {
-						    	'type': 'post',
-						    	'url':'/member/empchart',
-						    	'dataType' : 'json'
-						    },
+						  	'data' : objData,
 						    "plugins" : ["search"],
 						    "search" : {
 						    	"show_only_matches" : true,
 						    	"show_only_matches_children" : true,
 						    }
-//	 					    'data' : [
-//	 					      { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-//	 					      { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-//	 					      { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-//	 					      { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-//	 					    ]
 						  },
 				    "plugins" : [ "search" ]
 				  });

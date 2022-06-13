@@ -16,13 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.model.service.EmpServiceImpl;
+import com.group.mayo.employee.model.service.EmpService;
+
 
 @Controller
 @RequestMapping("member")
 public class EmpController {
 	@Autowired
-	private EmpServiceImpl service;
+	private EmpService service;
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -39,28 +40,46 @@ public class EmpController {
 	@PostMapping(value="/empchart", produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String selectEmpChart(ModelAndView mv) {
-		
+		//사원 목록
 		List<Employee> emp = service.selectListEmp();
 		//루트, 트리 노드 저장용
+//		List<Department> dept = service.selectListDept();
+		
 		List<Object> treeList = new ArrayList<Object>();
+	
 		
-		Map <String,Object> root = new HashMap<String, Object>();
-		Map <String,Object> rootState = new HashMap<String, Object>();
+		Map<String,Object> root = new HashMap<String, Object>();
+//		Map<String,Object> root2 = new HashMap<String, Object>();
+		Map<String,Object> rootState = new HashMap<String, Object>();
 		
-		
+
 		root.put("id", "0");
 		root.put("parent", "#");
 		root.put("text", "마요그룹");
 		rootState.put("opened", true);
 		root.put("state", rootState);
+		treeList.add(root);
+
+		
+		
+		
+		Map<String,Object> tree = new HashMap<String, Object>();
+		Map<String,Object> treeState = new HashMap<String, Object>();
+		
+		for(Employee employee : emp) {
+			tree.put("id", String.valueOf(employee.getEmp_no()) );
+			tree.put("parent", String.valueOf(employee.getDept_no()));
+			tree.put("text", String.valueOf(employee.getEmp_name()));
+		}
+		
 		
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
-		String jsonEmp = gson.toJson(emp);
+		String jsonRoot = gson.toJson(treeList);
 		
-		System.out.println(jsonEmp);
+		System.out.println(jsonRoot);
 		
-		return "왔다감";
+		return jsonRoot;
 	}
 }
