@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/projectmain.css" rel="stylesheet">
 </head>
 <body>
 <script>
@@ -21,10 +22,15 @@
 </script>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
  
-<div id="insertProj">
-<button id="newProj" class="btn_green" data-bs-toggle="modal" data-bs-target="#newProject">새 프로젝트</button>
+<div id="body">
+ 
+<div id="side">
+	<div id="insertProj">
+	<button id="newProj" class="btn_green" data-bs-toggle="modal" data-bs-target="#newProject">새 프로젝트</button>
+	</div>
 </div>
 
+<!--  새 프로젝트 추가 모달창 -->
 <div class="modal fade" id="newProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -45,7 +51,7 @@
         </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">프로젝트명</label>
-            <input type="text" class="form-control" id="title" name="proj_name">
+            <input type="text" class="form-control" id="title" name="proj_name" required="required">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
@@ -83,10 +89,13 @@ $("#submitP").click(function(){
 });
 
 </script>
+
+<div id="container">
+<!--  전체 프로젝트 리스트 -->
 <div id="projList">
 <div class="font4">전체 프로젝트</div>
 <div>
-	<table>
+	<table class="table tabletext">
 		<tr class="font2" style="background-color:rgb(242, 184, 75);">
 			<td>번호</td>
 			<td>프로젝트명</td>
@@ -95,7 +104,7 @@ $("#submitP").click(function(){
 	<c:forEach var="project" items="${project }">
 		<tr class="font1">
 			<td>${project.proj_no }</td>
-			<td>${project.proj_name }</td>
+			<td><a href="#">${project.proj_name }</a></td> <!-- 프로젝트 페이지로 이동 -->
 			<td>${project.proj_type }</td>
 		<tr>
 	</c:forEach>
@@ -103,10 +112,11 @@ $("#submitP").click(function(){
 </div>
 </div>
 
+<!--  전체 업무 리스트 -->
 <div id="worklist">
 <div class="font4">전체 업무</div>
 <div>
-	<table>
+	<table class="table tabletext">
 		<tr class="font2" style="background-color:rgb(242, 184, 75);">
 			<td>번호</td>
 			<td>상태</td>
@@ -129,6 +139,9 @@ $("#submitP").click(function(){
 </div>
 </div>
 
+</div>
+
+</div>
 
 </body>
 </html>
