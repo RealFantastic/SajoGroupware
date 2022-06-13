@@ -1,0 +1,124 @@
+
+
+
+ /* body  */
+#j_background{
+    /* 배경색상 */
+    background-color: rgb(235, 255, 246);
+    /* 가운데 정렬 */
+    margin: 0 auto;
+
+}
+
+#j_container{
+    box-sizing: border-box;
+    background-color: white;
+    padding: 25px;
+    width: 1000px;
+    height: 700px;
+
+    /* 가운데 정렬 */
+    margin: 0 auto;
+
+    border-radius: 15px;
+}
+#j_container1{
+    float: left;
+    padding: 10px;
+    width: 450px;
+    box-sizing: border-box;
+
+    height: 400px;
+
+    padding-top: 30px;
+    
+}
+#j_container2{
+    float: left;
+    padding: 10px;
+    width: 450px;
+    box-sizing: border-box;
+
+    height: 400px;
+    position: relative;
+    left: 10px;
+
+    padding-top: 30px;
+
+}
+/* 가운데 선 */
+#j_line {
+    border-left :2px solid rgb(117, 117, 117);
+    margin: 10px;
+    height : 500px;
+    float: left;
+   
+}
+/* 이용약관 */
+#clause{
+    display: block;
+    float: left;
+    position: relative;
+    top: 40px;
+}
+/* 이용약관 선 */
+#j_cline{
+    align-content: center;
+    margin: 20px 0px;
+}
+/* 각 행들- 주소 제외*/
+.j_c{
+    padding: 6px;
+    position: relative;
+    top: 30px;
+
+    font-size: larger;
+}
+/* footer */
+#j_footer{
+    padding: 5px;
+    text-align: center;
+}
+/* 버튼 위치*/
+#j_btn{
+    float: right;
+    position: relative;
+    top: 150px;
+    
+}
+/* input 입력칸 크기 */
+
+#cp_name{
+    width: 80%;
+}
+#cp_number{
+    width: 60%;
+}
+#selboxDirect{
+    width: 50%;
+}
+#cp_king{
+    width: 70%;
+}
+#email_id{
+    display: inline-block;
+    width: 20%;
+}
+#domain{
+    width: 42%;
+}
+#domain_list{
+	margin: 10px 0 0;
+}
+#cp_tel{
+   width: 75%;
+}
+#email_check{
+    font-size: medium;
+}
+/* 회사 주소  */
+#j_addr{
+	box-sizing: border-box;
+    padding: 40px 0;
+}
+
