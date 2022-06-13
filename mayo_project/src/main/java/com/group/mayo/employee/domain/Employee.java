@@ -1,4 +1,4 @@
-package com.group.mayo.employee.model.vo;
+package com.group.mayo.employee.domain;
 
 import java.sql.Date;
 

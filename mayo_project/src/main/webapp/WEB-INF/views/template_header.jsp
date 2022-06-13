@@ -10,6 +10,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 </head>
@@ -28,7 +31,7 @@
                     <li><a href="#">근태관리</a></li>
                     <li><a href="#">업무관리</a></li>
                     <li><a href="#">연차관리</a></li>
-                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">조직도</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#empchart">조직도</a></li>
                     <li><a href="#">전자결재</a></li>
                 </ul>
                 <div id="search_area">
@@ -50,23 +53,76 @@
             </div>
         </div>
         <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<div class="modal fade" id="empchart" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">조직도</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<input type="text" id="empchart_search">
+						<div id="jstree_empchart"></div>
+						
+						<div id="emp_detail"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		$(function () {
+			$.ajax({
+				type:'post',
+				url:"<%=request.getContextPath()%>/member/empchart",
+				success:function(result){
+					console.log(result);
+// 					createJSTree(result);
+				}
+			});
+			
+			function createJSTree(jsonData){
+				$("#jstree_empchart").jstree({
+					  'core' : {
+						  	'check_callback' : true,
+						  	'themes' : {"stripes" : true},
+						    'data' : {
+						    	'type': 'post',
+						    	'url':'/member/empchart',
+						    	'dataType' : 'json'
+						    },
+						    "plugins" : ["search"],
+						    "search" : {
+						    	"show_only_matches" : true,
+						    	"show_only_matches_children" : true,
+						    }
+//	 					    'data' : [
+//	 					      { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+//	 					      { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+//	 					      { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+//	 					      { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+//	 					    ]
+						  },
+				    "plugins" : [ "search" ]
+				  });
+			}
+			  var to = false;
+			  $('#empchart_search').keyup(function () {
+			    if(to) { clearTimeout(to); }
+			    to = setTimeout(function () {
+			      var v = $('#empchart_search').val();
+			      let result= $('#jstree_empchart').jstree(true).search(v);
+			      $('#jstree_empchart').jstree('open_node',result);
+			    },250);
+			  });
+			});
+		</script>
 		<script>
 			$("#searchBox").hover(function() {
 				$("#s_button").css("border-top-right-radius", "20px");

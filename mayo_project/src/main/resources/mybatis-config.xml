@@ -5,7 +5,7 @@
 	<setting name="jdbcTypeForNull" value="NULL"/>
 </settings>
 <typeAliases>
-	<typeAlias type="com.group.mayo.employee.model.vo.Employee" alias="Employee"/>
+	<typeAlias type="com.group.mayo.employee.domain.Employee" alias="Employee"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
