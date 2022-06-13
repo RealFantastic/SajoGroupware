@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.left_bar{
+	background-color :rgb(235, 255, 246);
+	border: 1px solid;
+	float: left;
+	text-align: center;
+	width: 20%;
+}
+
+.commute_table{
+/* 	border :1px solid; */
+	text-align: center;
+}
+.commute_table_tr{
+/* 	border: 1px solid; */
+}
+
+
+
+
+.left_bar_date{
+    font-weight: bolder;
+}
+
+.left_bar_time{
+	font-weight: bolder;
+}
+.left_bar_btn{
+	
+}
+.btn_attendance{
+	font-weight: bolder;
+}
+.btn_leave{
+	font-weight: bolder;
+}
+.btn_off{
+	font-weight: bolder;
+}
+
+
+
+.left_bar_exception{
+	width: 80%
+}
+
+
+
+/* 인사팀 전용 */
+.commute_bottom_btn{
+	float: right;
+}
+.btn_commute_list{
+	font-weight: bolder;
+}
+
+.btn_commute_change{
+	font-weight: bolder;
+}
