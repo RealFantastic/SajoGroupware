@@ -3,7 +3,7 @@
 <mapper namespace="Company">
 <insert id="insertCompany">
 	INSERT INTO COMPANY 
-	VALUES (#{CP_NUMBER},#{CP_NAME},#{CP_CATEGORY},#{CP_ADDRESS},#{CP_DETAIL_ADDRESS},#{CP_POSTCODE}
-			,#{CP_KING},#{CP_TEL},#{CP_BIRTH})
+	VALUES (#{cp_number},#{cp_name},#{cp_category},#{cp_address},#{cp_detail_address},#{cp_postcode}
+			,#{cp_king},#{cp_tel},REPLACE(#{cp_birth},'-','/'))
 </insert>
 </mapper>

@@ -70,25 +70,25 @@
              <div id="j_container1">
                     <div id="j_cp_name" class="j_c">
                         <label>회사명 : </label>
-                        <input type="text" id="cp_name">
+                        <input type="text" id="cp_name" name="cp_name" required="required">
                     </div>
                     <div id="j_cp_number" class="j_c">
                         <label>사업자 번호 : </label>
-                        <input type="text" id="cp_number" name="cp_number">
+                        <input type="text" id="cp_number" name="cp_number" required="required">
                         <button type="button">조회</button>
                     </div>
                     <div id="j_name" class="j_c">
                         <label>관리자 이름 : </label>
-                        <input type="text" id="cp_king">
+                        <input type="text" id="cp_king" name="cp_king" required="required">
                     </div>
                     <div id="j_cp_tel" class="j_c">
                         <label>전화번호 : </label>
-                        <input type="text" id="cp_tel">
+                        <input type="text" id="cp_tel" name="cp_tel" required="required">
                     </div>
                     <div class="j_c">
                         <label for="cp_category">업종 : </label>
                         <input type="text" id="selboxDirect" name="selboxDirect" />
-                        <select id="cp_category" name="cp_category">
+                        <select id="cp_category" name="cp_category" required="required">
                             <option value="">선택</option>
                             <option value="도매">도매</option>
                             <option value="제조">제조</option>
@@ -105,17 +105,18 @@
                     <div class="j_c">
                         <div>
                             <label>우편번호 : </label>
-                            <input type="text" id="sample6_postcode" placeholder="우편번호"
-                            style="width: 45%; margin: 10px 0;">
+                            <input type="text" id="sample6_postcode" placeholder="우편번호" name="cp_postcode"
+                            style="width: 45%; margin: 10px 0;" required="required">
                             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                         </div>
                         <div>
                             <label>주소 : </label>
-                            <input type="text" id="sample6_address" placeholder="주소"
-                            style="width: 85%; margin: 0 0 10px 0; "><br>                        </div>
+                            <input type="text" id="sample6_address" placeholder="주소" name="cp_address" required="required"
+                            style="width: 85%; margin: 0 0 10px 0; "><br>                        
+                        </div>
                         <div>
                             <label>상세주소 : </label>
-                            <input type="text" id="sample6_detailAddress" placeholder="상세주소"
+                            <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="cp_detail_address" required="required"
                             style="width: 50%">
                             <input type="text" id="sample6_extraAddress" placeholder="참고항목" 
                             style="width: 100px;">
@@ -127,18 +128,21 @@
                 <div id="j_line" class="j_c">
                 </div>
                 <div id="j_container2">
+                	<div id="j_birth" >
+                	 <label id="j_birth_t">회사창립일 : </label>
+                	<input type="date" class="form-control" id="cp_birth" name="cp_birth" placeholder="YYYY/MM/DD" required="required">	
+                	</div>
                     <div id="j_email" class="j_c">
                         <label>이메일 : </label>
                         <div>
-                        <input type="text" id="email_id" name="email_id" >
+                        <input type="text" id="email_id" name="email_id" required="required">
                         <span>@</span>
                         <input type="text" id="domain" name="domain" />
-                        <select id="domain_list">
+                        <select id="domain_list" name="domain" required="required">
                             <option value="naver.com">naver.com</option>
                             <option value="google.com">google.com</option>
                             <option value="hanmail.net">hanmail.net</option>
                             <option value="nate.com">nate.com</option>
-                            <option value="kakao.com">kakao.com</option>
                             <option value="kakao.com">kakao.com</option>
                             <option value="direct" >직접입력</option>
                           </select>
@@ -147,7 +151,7 @@
 
                     <div id="email_check" class="j_c">
                         <label>인증번호 : </label>
-                        <input type="text" id="email_check_no">
+                        <input type="text" id="email_check_no" required="required">
                         <button type="button" id="email_check_btn">인증</button>
                     </div>
 

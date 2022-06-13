@@ -102,7 +102,7 @@
 }
 #email_id{
     display: inline-block;
-    width: 20%;
+    width: 50%;
 }
 #domain{
     width: 42%;
@@ -111,7 +111,7 @@
 	margin: 10px 0 0;
 }
 #cp_tel{
-   width: 75%;
+   width: 76%;
 }
 #email_check{
     font-size: medium;
@@ -120,5 +120,9 @@
 #j_addr{
 	box-sizing: border-box;
     padding: 40px 0;
+}
+/* 창립일  */
+#j_birth_t{
+	font-size: larger;
 }
 

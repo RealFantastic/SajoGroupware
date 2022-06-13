@@ -35,6 +35,7 @@ public class CompanyController {
 			, HttpServletRequest req
 			) {
 //		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
+	
 		int result = service.insertCompany(company);
 		if(result < 1) {
 			rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
