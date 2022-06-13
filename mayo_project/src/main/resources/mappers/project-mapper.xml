@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Project">
+
+<!-- 	private int proj_no; -->
+<!-- 	private String proj_name; -->
+<!-- 	private Timestamp proj_date; -->
+<!-- 	private String proj_content; -->
+<!-- 	private String proj_mgr; -->
+<!-- 	private int proj_type; -->
+
+<select id="selectAllProj" resultType="Project">
+	select * from proj
+</select>
+
+<insert id="insertProj" parameterType="Project">
+<!-- 	insert into proj values  -->
+<!-- 	((select nvl(max(PROJ_NUM),0)+1 from proj)), #{proj_name}, default, #{proj_content}, #{proj_mgr}, #{proj_type})  -->
+	<!-- TODO 로그인 세션, 프로젝트 종류 -->
+	insert into proj values 
+	((select nvl(max(proj_no),0)+1 from proj), #{proj_name}, default, #{proj_content}, 202220123 , 3) 
+</insert>
+
+</mapper>
