@@ -1,4 +1,4 @@
-package com.group.mayo.employee.domain;
+package com.group.mayo.company.domain;
 
 import org.springframework.stereotype.Component;
 
