@@ -39,13 +39,13 @@
 
 	<div class="left_bar">
 		<div class="left_bar_img">
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
 			<img alt="" src="">
+			이미지 자리<br>
+			이미지 자리<br>
+			이미지 자리<br>
+			이미지 자리<br>
+			이미지 자리<br>
+			이미지 자리<br>
 		</div>
 		<div>
 			<div id="date" class="left_bar_date font3"></div>
@@ -94,12 +94,12 @@
 			</colgroup>
 			<thead>
 				<tr class="commute_table_tr">
-					<th scope="col">근무일</td>
-					<th scope="col">출근 시간</td>
-					<th scope="col">퇴근 시간</td>
-					<th scope="col">일 근무 시간</td>
-					<th scope="col">주 누적 근무시간</td>
-					<th scope="col">주 남은 근무시간</td>
+					<th class="commute_table_th" scope="col">근무일</th>
+					<th class="commute_table_th" scope="col">출근 시간</th>
+					<th class="commute_table_th" scope="col">퇴근 시간</th>
+					<th class="commute_table_th" scope="col">일 근무 시간</th>
+					<th class="commute_table_th" scope="col">주 누적 근무시간</th>
+					<th class="commute_table_th" scope="col">주 남은 근무시간</th>
 				</tr>
 			</thead>
 		<%-- 	<c:forEach items=""> --%>

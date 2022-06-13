@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="CommuteRecord">
-	<select id="commuteMyStatus" resultType="CommuteRecord">
+<!-- 	<select id="commuteMyStatus" resultType="CommuteRecord">
 		select * from COMMUTE_RECORD
+	</select> -->
+	
+	<select id="empCommuteList" resultType="CommuteEmployee">
+		SELECT EMP_NO
+			, EMP_NAME
+			, PHONE
+			, (SELECT dept_name FROM department b WHERE b.dept_no = a.dept_no ) DEPT_NM
+			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
+		FROM employee a order by EMP_NO
+	</select>
+	
+	<select id="empCommuteChange" resultType="CommuteRecord">
+	 
 	</select>
 </mapper>

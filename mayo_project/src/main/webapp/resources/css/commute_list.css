@@ -11,14 +11,15 @@
 
 
 .left_bar_date{
-    font-weight: bolder;
+	font-weight: bolder;
 }
 
 .left_bar_time{
 	font-weight: bolder;
 }
+
+
 .left_bar_btn{
-	
 }
 .btn_attendance{
 	font-weight: bolder;
@@ -34,6 +35,9 @@
 
 
 
+
+
+
 /* 왼쪽메뉴바를 제외한 */
 .left_bar_exception{
 	width: 80%;
@@ -43,36 +47,38 @@
 }
 
 
-.commute_title{
+.commute_list{
 	padding: 20px 0 20px 0;
 	font-weight: bolder;
 }
 
+
+.search_bar{
+		float: right;
+}
+
+
+
+
 /* 왼쪽메뉴바를 제외한 테이블 */
-.commute_table{
+.commute_list_table{
 	text-align: center;
 	width: 100%;
 }
 
-.commute_table_th{
+.commute_table_list_th{
 	border: 1px solid;
 	padding: 5px;
 	background-color :rgb(235, 255, 246);
 }
 
-
-
-
-
-/* 인사팀 전용 */
-.commute_bottom_btn{
-	float: right;
-/* 	padding: 20px; */
-}
-.btn_commute_list{
-	font-weight: bolder;
+.commute_table_list_td{
+	border: 1px solid;
+	padding: 5px;
 }
 
-.btn_commute_change{
-	font-weight: bolder;
-}
+
+
+
+
+

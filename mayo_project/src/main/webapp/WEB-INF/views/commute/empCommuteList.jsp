@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>직원근태내역 수정</title>
+<title>전체 직원 근태내역 리스트</title>
 	<!-- 부트스트랩 -->
 	<link 
 		rel="stylesheet" 
@@ -20,12 +20,12 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
-
-
-<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
+	
+	
+	<link href="<%=request.getContextPath()%>/resources/css/commute_list.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+	
+	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>
 	<script type="text/javascript">
@@ -82,59 +82,74 @@
 		<!-- 혜리니자리 -->
 		</div>
 	</div>
-	
 
 
 
 	<div class="left_bar_exception">
-
-		<div class="commute_title font4">직원 근태내역 수정</div>
+	
+		<div class="commute_list font4">전체 직원별 근태내역 리스트</div>
 		
-		<div >
-			<div>
-				그래프 자리
+		<!-- 	검색 -->
+		<div class="search_bar">
+		
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						사원번호
+					</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">사원명</a>
+						<a class="dropdown-item" href="#">부서명</a>
+					</div>
+				</div>
+				<input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="검색내용 입력 후 Enter">
 			</div>
-			<div>
-				조회날짜 자리
-			</div>
-			<div>
-				사원번호 :  사원명 :  직함 :  <br>
-				부서명 :  연락처 :  
-			</div>
+
 		</div>
+
+
+
+
 		<div>
-			<table class="commute_table">
+			<table class="commute_list_table">
 				<colgroup>
-					<col width="15%">
-					<col width="15%">
-					<col width="15%">
-					<col width="15%">
-					<col width="20%">
+					<col width="25%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="25%">
 					<col width="20%">
 				</colgroup>
 				<thead>
-					<tr class="commute_table_tr">
-						<th class="commute_table_th font2" >근무일</th>
-						<th class="commute_table_th font2" >출근 시간</th>
-						<th class="commute_table_th font2" >퇴근 시간</th>
-						<th class="commute_table_th font2" >일 근무 시간</th>
-						<th class="commute_table_th font2" >주 누적 근무시간</th>
-						<th class="commute_table_th font2" >주 남은 근무시간</th>
+					<tr>
+						<th class="commute_table_list_th font2">사원번호</th>
+						<th class="commute_table_list_th font2">사원명</th>
+						<th class="commute_table_list_th font2">직함</th>
+						<th class="commute_table_list_th font2">부서명</th>
+						<th class="commute_table_list_th font2">연락처</th>
+						<th class="commute_table_list_th font2">수정</th>
 					</tr>
 				</thead>
 				<tbody>
-				
+					<c:if test="${fn:length(empCommuteList) == 0 }">
+						<tr Class="no_list">
+							<!-- 보여질 공지사항이 없을 경우 -->
+							<td colspan="6"> 조회된 내용이 없습니다. </td>
+						</tr>
+					</c:if>
+					<c:forEach var="emp" items="${empCommuteList}">
+						<tr>
+							<td class="commute_table_list_td">${emp.emp_no}</td>
+							<td class="commute_table_list_td">${emp.emp_name }</td>
+							<td class="commute_table_list_td">${emp.job_nm }</td>
+							<td class="commute_table_list_td">${emp.dept_nm }</td>
+							<td class="commute_table_list_td">${emp.phone }</td>
+							<td class="commute_table_list_td"><button class="btn_red">수정하기</button></td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-		
-		<div class="commute_bottom_btn">
-			<button class="btn_green btn_commute_list">직원별 근태목록</button>
-			<button class="btn_yellow btn_commute_change">수정완료</button>
-		</div>
-		
-		
-		
 	</div>
 </body>
 </html>
