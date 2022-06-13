@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.group.mayo.department.domain.Dept;
+import com.group.mayo.department.service.DeptService;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.service.EmpService;
 
@@ -24,6 +26,9 @@ import com.group.mayo.employee.model.service.EmpService;
 public class EmpController {
 	@Autowired
 	private EmpService service;
+	
+	@Autowired
+	private DeptService deptService;
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -41,13 +46,13 @@ public class EmpController {
 	@ResponseBody
 	public String selectEmpChart(ModelAndView mv) {
 		//사원 목록
-		List<Employee> emp = service.selectListEmp();
+		List<Employee> emplist = service.selectListEmp();
+		//부서목록
+		List<Dept> deptlist = deptService.selectDeptList();
 		//루트, 트리 노드 저장용
-//		List<Department> dept = service.selectListDept();
-		
 		List<Object> treeList = new ArrayList<Object>();
 	
-		
+		//루트 노드용 맵
 		Map<String,Object> root = new HashMap<String, Object>();
 //		Map<String,Object> root2 = new HashMap<String, Object>();
 		Map<String,Object> rootState = new HashMap<String, Object>();
@@ -59,21 +64,38 @@ public class EmpController {
 		rootState.put("opened", true);
 		root.put("state", rootState);
 		treeList.add(root);
-
-		
-		
-		
-		Map<String,Object> tree = new HashMap<String, Object>();
-		Map<String,Object> treeState = new HashMap<String, Object>();
-		
-		for(Employee employee : emp) {
-			tree.put("id", String.valueOf(employee.getEmp_no()) );
-			tree.put("parent", String.valueOf(employee.getDept_no()));
-			tree.put("text", String.valueOf(employee.getEmp_name()));
+		//부서목록 list -> map으로 변환
+		for(Dept dept : deptlist) {
+			Map<String,Object> tree = new HashMap<String, Object>();
+			Map<String,Object> treeState = new HashMap<String, Object>();
+			
+			System.out.println("반복" + dept);
+			tree.put("id", dept.getDept_no());
+			tree.put("parent",root.get("id"));
+			tree.put("text",dept.getDept_name());
+			treeState.put("opened", true);
+			tree.put("state", treeState);
+			treeList.add(tree);
 		}
 		
 		
+		//사원목록 list -> map으로 변환
+		for(Employee employee : emplist) {
+			Map<String,Object> tree = new HashMap<String, Object>();
+			Map<String,Object> treeState = new HashMap<String, Object>();
+
+			System.out.println("반복" + employee);
+			
+			tree.put("id", employee.getEmp_no());
+			tree.put("parent", employee.getDept_no());
+			tree.put("text",employee.getEmp_name());
+			treeState.put("opened", true);
+			tree.put("state", treeState);
+			treeList.add(tree);
+		}
 		
+		
+		//Json 형변환
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		String jsonRoot = gson.toJson(treeList);

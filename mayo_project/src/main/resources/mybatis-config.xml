@@ -16,5 +16,6 @@
 	<mapper resource="mappers/project-mapper.xml"/>
 	<mapper resource="mappers/work-mapper.xml"/>
 	<mapper resource="mappers/company-mapper.xml"/>
+	<mapper resource="mappers/dept-mapper.xml"/>
 </mappers>
 </configuration>
