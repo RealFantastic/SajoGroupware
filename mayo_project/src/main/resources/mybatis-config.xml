@@ -12,7 +12,6 @@
 	<typeAlias type="com.group.mayo.department.domain.Dept" alias="Dept"/>
 	<typeAlias type="com.group.mayo.employee.domain.CommuteEmployee" alias="CommuteEmployee"/>
 	<typeAlias type="com.group.mayo.employee.domain.CommuteRecord" alias="CommuteRecord"/>
-	<typeAlias type="com.group.mayo.employee.domain.Rest" alias="Rest"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
@@ -21,7 +20,6 @@
 	<mapper resource="mappers/company-mapper.xml"/>
 	<mapper resource="mappers/dept-mapper.xml"/>
 	<mapper resource="mappers/commute-mapper.xml"/>
-	<mapper resource="mappers/rest-mapper.xml"/>
 	
 	
 	

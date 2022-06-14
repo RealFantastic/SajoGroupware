@@ -22,7 +22,7 @@
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
 
-	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/holiday.css" rel="stylesheet">
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>

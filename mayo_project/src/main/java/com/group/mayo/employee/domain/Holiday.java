@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Rest {
+public class Holiday {
 //이름       널?       유형            
 //-------- -------- ------------- 
 //HD_NO    NOT NULL NUMBER        
