@@ -694,11 +694,14 @@ SELECT EMP_NAME,ADDRESS,PHONE, JOB_NAME, DEPT_NAME, HIRE_DATE FROM EMPLOYEE
 JOIN DEPARTMENT USING(DEPT_NO)
 JOIN JOB USING(JOB_NO);
 
+desc elec_approval;
+
+select * ,'#' as parent 
+from department left outer join EMPLOYEE using(dept_no);
 
 
-
-
-
+select  d.*,(select '#' parent from dual)
+from department d;
 
 
 
