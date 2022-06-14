@@ -14,6 +14,7 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <button type="button" onclick="location.href='<%= request.getContextPath()%>/member/list'">회원목록</button>
+<button type="button" onclick="location.href='<%= request.getContextPath()%>/company/enroll'">회사등록</button>
 
 </body>
 </html>

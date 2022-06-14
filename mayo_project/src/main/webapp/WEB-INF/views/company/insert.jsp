@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">  
-<link href="<%=request.getContextPath()%>/resources/css/cp_enroll.css" rel="stylesheet">  
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회사 등록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">  
+<link href="<%=request.getContextPath()%>/resources/css/cp_enroll.css" rel="stylesheet">
    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- 다음 우편주소api  -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -63,32 +66,35 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
     <div style="padding: 50px;">
-        <form id="cp_enroll" action="<%=request.getContextPath()%>/company/enroll" method="post">
+        <form id="cp_enroll" name="cp_enroll" action="<%=request.getContextPath()%>/company/enroll" method="post">
             <section>
             <div id="j_container">
             <p id="j_title"><h1><strong>회사등록</strong></h1></p>
              <div id="j_container1">
-                    <div id="j_cp_name" class="j_c">
-                        <label>회사명 : </label>
-                        <input type="text" id="cp_name" name="cp_name" required="required">
+                    <div id="j_cp_name" class="j_c" class="col-md-4 position-relative">
+                        <label for="validationTooltip01" class="form-label">회사명 : </label>
+                        <input type="text" id="cp_name" name="cp_name" required>
+					    <div class="valid-tooltip">
+					      아주 좋아요!
+					    </div>                        
                     </div>
                     <div id="j_cp_number" class="j_c">
                         <label>사업자 번호 : </label>
-                        <input type="text" id="cp_number" name="cp_number" required="required">
+                        <input type="text" id="cp_number" name="cp_number" required>
                         <button type="button">조회</button>
                     </div>
                     <div id="j_name" class="j_c">
                         <label>관리자 이름 : </label>
-                        <input type="text" id="cp_king" name="cp_king" required="required">
+                        <input type="text" id="cp_king" name="cp_king" required>
                     </div>
                     <div id="j_cp_tel" class="j_c">
                         <label>전화번호 : </label>
-                        <input type="text" id="cp_tel" name="cp_tel" required="required">
+                        <input type="text" id="cp_tel" name="cp_tel" required>
                     </div>
                     <div class="j_c">
                         <label for="cp_category">업종 : </label>
                         <input type="text" id="selboxDirect" name="selboxDirect" />
-                        <select id="cp_category" name="cp_category" required="required">
+                        <select id="cp_category" name="cp_category" required>
                             <option value="">선택</option>
                             <option value="도매">도매</option>
                             <option value="제조">제조</option>
@@ -162,11 +168,11 @@
                             </li>
                         <li>
                             <label><a>이용약관 동의</a>(필수)</label>
-                            <input type="checkbox" class="clause" id="clause1" name="clause1" required="required">
+                            <input type="checkbox" class="clause" id="clause1" name="clause1" required>
                         </li>
                         <li>
                             <label><a>개인 정보 수집및 이용 동의</a>(필수)</label>
-                            <input type="checkbox" class="clause" id="clause2" name="clause2" required="required">
+                            <input type="checkbox" class="clause" id="clause2" name="clause2" required>
                         </li>
                         <li>
                             <label><a>마케팅 정보 활용 및 광고성 정보 수신 동의</a>(선택)</label>
@@ -180,8 +186,8 @@
                     </ul>
                 </div>
                 <div id="j_btn">
-                    <button type="reset" class="btn_yellow">뒤로가기</button>
-                    <button type="submit" class="btn_green">가입</button>
+                    <button type="reset" class="btn_yellow" id="j_cancle_btn">뒤로가기</button>
+                    <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
                 </div>
             </div>
             </div>
@@ -191,7 +197,98 @@
             <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
         </footer>
     </div>
+    
+    <!-- 가입 버튼 클릭 이벤트 -->
+    <script> 
+    //TODO 순서 정리 + 미기입시 -> 추후 하단에 문구로 띄어 유효성 검사하는걸로 변경
+    $("#j_enroll_btn").click(function(){
+    	   
+		/*회사명 미기입시 alert창  */
+ 		if($("#cp_name").val() == '') {
+			alert("회사명을 입력해주십시오");
+			$("#cp_name").focus();
+			return false;
+		} 
+		
+		/*사업자 번호 형식 체크*/
+	 		var cp_number = $("#cp_number").val().trim();
+		var regExpCp_number = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/; // 숫자3-숫자3,4-숫자4
+		if(!regExpCp_number.test(cp_number)){
+			alert("사업자번호 입력란에는 000-00-00000 형식으로 입력해주세요.");
+			$("#cp_number").val('');
+			$("#cp_number").focus();
+			return false;
+		} 	
+    	/*전화번호 형식 체크*/
+ 		var phone = $("#cp_tel").val().trim();
+		var regExpPhone = /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}$/; // 숫자3-숫자3,4-숫자4
+		if(!regExpPhone.test(phone)){
+			alert("전화번호 입력란에는 000-0000-0000 형식");
+			$("#cp_tel").focus();
+			return false;
+		} 
+		
+		/*회사 창립일 미기입시 */
+	    if($("#cp_birth").val() == '') {
+	    	alert("생년월일을 선택해주십시오");
+	    	$("#cp_birth").focus();
+	    	return false;
+	    } 
+		
+		/* 약관 동의  */
+		if($("#clause1").is(':checked') == false) {
+		alert("필수 약관에 동의해주세요.");
+		$("#clause1").focus();
+		return false;
+		}
+		
+		if($("#clause2").is(':checked') == false) {
+			alert("필수 약관에 동의해주세요.");
+			$("#clause2").focus();
+			return false;
+		}
+		   
+<%-- 	
+	var frm = $("#cp_enroll");
+	frm.attr("action","<%= request.getContextPath()%>/company/enroll"); 
+	frm.attr("method","post");
+	frm.submit(); 
+--%>
+	});
+    
+    </script>
+    
+    <!--사업자 번호 하이픈 정규식 DOM  -->
+    <script>
+    $("#cp_number").on("input",
+            function() {
+                var target = document.getElementById("cp_number");
+                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,2})(\d{0,5})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
+    }); 
+    </script>
+    <!--전화번호 하이픈 정규식 DOM  -->
+    <script>
+    $("#cp_tel").on("input",
+            function() {
+                var target = document.getElementById("cp_tel");
+                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
+    }); 
+    </script>
+    
 
+	<!-- 뒤로 가기 버튼 -->
+	<script>
+	   //뒤로 가기
+	   $("#j_cancle_btn").click(function() {
+	        var result = confirm('메인페이지로 이동하시겠습니까?'); 
+	        if(result) { 
+	            //yes //TODO 메인페이지로 이동
+	            location.href="<%= request.getContextPath()%>";
+	            } else { 
+	            //no 
+	            }
+	    });
+	</script>
     <!-- 업종 select box 직접입력 -->
     <script>
         
@@ -211,6 +308,9 @@
             }) 
         });
     </script>
+    
+    <!-- 이메일 아이디 형식 체크  -->
+    
     <!-- 이메일 직접입력 -->
     <script>
         $(function (){
