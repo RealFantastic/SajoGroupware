@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group.mayo.employee.domain.Holiday;
+import com.group.mayo.employee.domain.HolidayEmployee;
 
 @Repository
 public class HolidayDao {
@@ -14,7 +15,7 @@ public class HolidayDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Holiday> holidayEmpList() {
+	public List<HolidayEmployee> holidayEmpList() {
 		return sqlSession.selectList("Holiday.holidayEmpList");
 	}
 }

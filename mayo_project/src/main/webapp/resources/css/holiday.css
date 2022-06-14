@@ -1,95 +1,75 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'GmarketSansLight';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'GmarketSansLight';
-}
-
-a {
-    text-decoration: none;
-    color: black
-}
-
-li{
-    list-style-type: none;
+/* 왼쪽 메뉴바 */
+.left_bar{
+	background-color :rgb(235, 255, 246);
+	float: left;
+	text-align: center;
+	width: 250px;
+	height: 100vh;
 }
 
 
-.btn_green{
-    border-radius: 6px;
-    background-color: rgb(107, 191, 152);
-    border: 0px;
-    padding: 7px 15px 7px 15px ;
-    color: white;
+.left_bar_date{
+	font-weight: bolder;
 }
-.btn_green:hover{
-    background-color: rgb(22, 160, 133);
+
+.left_bar_time{
+	font-weight: bolder;
 }
-.btn_gray{
-    border-radius: 6px;
-    background-color: #ccc;
-    border: 0px;
-    padding: 7px 15px 7px 15px ;
-    color: rgba(0, 0, 0, 0.6);
+
+
+.left_bar_btn{
 }
-.btn_gray:hover{
-    background-color: rgb(150, 150, 150);
+.btn_attendance{
+	font-weight: bolder;
 }
-.btn_yellow{
-    border-radius: 6px;
-    background-color: rgb(242, 184, 75);
-    border: 0px;
-    padding: 7px 15px 7px 15px ;
-    color: white;
+.btn_leave{
+	font-weight: bolder;
 }
-.btn_yellow:hover{
-    background-color: rgb(255, 166, 0);
+.btn_off{
+	font-weight: bolder;
 }
-.btn_red{
-    border-radius: 6px;
-    border: 0px;
-    padding: 7px 15px 7px 15px ;
-    color: white;
-    background-color: rgb(242, 89, 75);
+
+
+
+
+
+
+/* 왼쪽메뉴바를 제외한 */
+.left_bar_exception{
+	width: 80%;
+	clear: both;
+	display: inline-block;
+	padding: 20px;
 }
-.btn_red:hover{
-    background-color: rgb(208,61,47);
+.holiday_list{
+	padding: 20px 0 20px 0;
+	font-weight: bolder;
 }
-.font1{
-    /* 기본글씨크기 */
-    font-size: 1rem;
+
+
+.search_bar{
+		float: right;
 }
-.font2{
-    /* 표 제목 */
-    font-size: 1.234rem;
+
+
+
+
+/* 왼쪽메뉴바를 제외한 테이블 */
+.holiday_list_table{
+	text-align: center;
+	width: 100%;
 }
-.font3{
-    /* 소제목 */
-    font-size: 1.567rem;
+
+.holiday_table_list_th{
+	border: 1px solid;
+	padding: 5px;
+	background-color :rgb(235, 255, 246);
 }
-.font4{
-    /* 중제목 */
-    font-size: 1.789rem;
-}
-.font5{
-    /* 대제목 */
-    font-size: 2rem;
-}
-.font6{
-    /* 타이틀 */
-    font-size: 2.123rem;
+
+.holiday_table_list_td{
+	border: 1px solid;
+	padding: 5px;
 }
 

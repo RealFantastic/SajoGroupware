@@ -13,6 +13,7 @@
 	<typeAlias type="com.group.mayo.employee.domain.CommuteEmployee" alias="CommuteEmployee"/>
 	<typeAlias type="com.group.mayo.employee.domain.CommuteRecord" alias="CommuteRecord"/>
 	<typeAlias type="com.group.mayo.employee.domain.Holiday" alias="Holiday"/>
+	<typeAlias type="com.group.mayo.employee.domain.HolidayEmployee" alias="HolidayEmployee"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>

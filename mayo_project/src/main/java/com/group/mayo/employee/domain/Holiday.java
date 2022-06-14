@@ -18,103 +18,86 @@ public class Holiday {
 //HD_COUNT          NUMBER        
 //HD_RESON          VARCHAR2(100) 
 
-	private int HD_NO;
-	private String EMP_NO;
-	private	Timestamp REQ_DATE;
-	private	Date HD_START;
-	private	Date HD_END;
-	private	String HD_CODE;
-	private	int HD_COUNT;
-	private	String HD_RESON;
+	private int hd_no;
+	private String emp_no;
+	private	Timestamp req_date;
+	private	Date hd_start;
+	private	Date hd_end;
+	private	String hd_code;
+	private	int hd_count;
+	private	String hd_reson;
 	
 	
 	@Override
 	public String toString() {
-		return "Rest [HD_NO=" + HD_NO + ", EMP_NO=" + EMP_NO + ", REQ_DATE=" + REQ_DATE + ", HD_START=" + HD_START
-				+ ", HD_END=" + HD_END + ", HD_CODE=" + HD_CODE + ", HD_COUNT=" + HD_COUNT + ", HD_RESON=" + HD_RESON
+		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
+				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reson=" + hd_reson
 				+ "]";
 	}
 
 
-	public int getHD_NO() {
-		return HD_NO;
+	public int getHd_no() {
+		return hd_no;
+	}
+	public void setHd_no(int hd_no) {
+		this.hd_no = hd_no;
 	}
 
 
-	public void setHD_NO(int hD_NO) {
-		HD_NO = hD_NO;
+	public String getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
 	}
 
 
-	public String getEMP_NO() {
-		return EMP_NO;
+	public Timestamp getReq_date() {
+		return req_date;
+	}
+	public void setReq_date(Timestamp req_date) {
+		this.req_date = req_date;
 	}
 
 
-	public void setEMP_NO(String eMP_NO) {
-		EMP_NO = eMP_NO;
+	public Date getHd_start() {
+		return hd_start;
+	}
+	public void setHd_start(Date hd_start) {
+		this.hd_start = hd_start;
 	}
 
 
-	public Timestamp getREQ_DATE() {
-		return REQ_DATE;
+	public Date getHd_end() {
+		return hd_end;
+	}
+	public void setHd_end(Date hd_end) {
+		this.hd_end = hd_end;
 	}
 
 
-	public void setREQ_DATE(Timestamp rEQ_DATE) {
-		REQ_DATE = rEQ_DATE;
+	public String getHd_code() {
+		return hd_code;
+	}
+	public void setHd_code(String hd_code) {
+		this.hd_code = hd_code;
 	}
 
 
-	public Date getHD_START() {
-		return HD_START;
+	public int getHd_count() {
+		return hd_count;
+	}
+	public void setHd_count(int hd_count) {
+		this.hd_count = hd_count;
 	}
 
 
-	public void setHD_START(Date hD_START) {
-		HD_START = hD_START;
+	public String getHd_reson() {
+		return hd_reson;
 	}
-
-
-	public Date getHD_END() {
-		return HD_END;
+	public void setHd_reson(String hd_reson) {
+		this.hd_reson = hd_reson;
 	}
-
-
-	public void setHD_END(Date hD_END) {
-		HD_END = hD_END;
-	}
-
-
-	public String getHD_CODE() {
-		return HD_CODE;
-	}
-
-
-	public void setHD_CODE(String hD_CODE) {
-		HD_CODE = hD_CODE;
-	}
-
-
-	public int getHD_COUNT() {
-		return HD_COUNT;
-	}
-
-
-	public void setHD_COUNT(int hD_COUNT) {
-		HD_COUNT = hD_COUNT;
-	}
-
-
-	public String getHD_RESON() {
-		return HD_RESON;
-	}
-
-
-	public void setHD_RESON(String hD_RESON) {
-		HD_RESON = hD_RESON;
-	}
-	
 	
 	
 }

@@ -1,6 +1,6 @@
 package com.group.mayo.employee.domain;
 
-public class CommuteEmployee {
+public class HolidayEmployee {
 
 	private String emp_no;
 	private String emp_name;
@@ -8,11 +8,17 @@ public class CommuteEmployee {
 	private String dept_nm;
 	private String job_nm;
 	
+	//테이블 명 : EMPLOYEE_HOLIDAY
+	private int total;
+	private int used_count; // 사용개수  
+	private int left_count; // 잔여개수
+	
 	
 	@Override
 	public String toString() {
-		return "CommuteEmployee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", phone=" + phone + ", dept_nm="
-				+ dept_nm + ", job_nm=" + job_nm + "]";
+		return "HolidayEmployee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", phone=" + phone + ", dept_nm="
+				+ dept_nm + ", job_nm=" + job_nm + ", total=" + total + ", used_count=" + used_count + ", left_count="
+				+ left_count + "]";
 	}
 	public String getEmp_no() {
 		return emp_no;
@@ -44,4 +50,25 @@ public class CommuteEmployee {
 	public void setJob_nm(String job_nm) {
 		this.job_nm = job_nm;
 	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public int getUsed_count() {
+		return used_count;
+	}
+	public void setUsed_count(int used_count) {
+		this.used_count = used_count;
+	}
+	public int getLeft_count() {
+		return left_count;
+	}
+	public void setLeft_count(int left_count) {
+		this.left_count = left_count;
+	}
+	
+	
+	
 }

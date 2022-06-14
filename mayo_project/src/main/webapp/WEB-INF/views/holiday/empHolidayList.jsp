@@ -23,6 +23,8 @@
 		crossorigin="anonymous"></script>
 
 	<link href="<%=request.getContextPath()%>/resources/css/holiday.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+	
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>
@@ -85,7 +87,7 @@
 
 	<div class="left_bar_exception">
 	
-		<div class="commute_list font4">전체 직원별 연차내역 리스트</div>
+		<div class="holiday_list font4">전체 직원별 연차내역 리스트</div>
 		<!-- 	검색 -->
 		<div class="search_bar">
 		
@@ -108,7 +110,7 @@
 		
 		
 				<div>
-			<table class="commute_list_table">
+			<table class="holiday_list_table">
 				<colgroup>
 					<col width="25%">
 					<col width="10%">
@@ -119,29 +121,29 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th class="commute_table_list_th font2">사원번호</th>
-						<th class="commute_table_list_th font2">사원명</th>
-						<th class="commute_table_list_th font2">직함</th>
-						<th class="commute_table_list_th font2">부서명</th>
-						<th class="commute_table_list_th font2">연락처</th>
-						<th class="commute_table_list_th font2">잔여연차</th>
+						<th class="holiday_table_list_th font2">사원번호</th>
+						<th class="holiday_table_list_th font2">사원명</th>
+						<th class="holiday_table_list_th font2">직함</th>
+						<th class="holiday_table_list_th font2">부서명</th>
+						<th class="holiday_table_list_th font2">연락처</th>
+						<th class="holiday_table_list_th font2">잔여연차</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${fn:length(empCommuteList) == 0 }">
+					<c:if test="${fn:length(holidayEmpList) == 0 }">
 						<tr Class="no_list">
 							<!-- 보여질 공지사항이 없을 경우 -->
 							<td colspan="6"> 조회된 내용이 없습니다. </td>
 						</tr>
 					</c:if>
-					<c:forEach var="emp" items="${empCommuteList}">
+					<c:forEach var="empholiday" items="${holidayEmpList}">
 						<tr>
-							<td class="commute_table_list_td">${emp.emp_no}</td>
-							<td class="commute_table_list_td">${emp.emp_name }</td>
-							<td class="commute_table_list_td">${emp.job_nm }</td>
-							<td class="commute_table_list_td">${emp.dept_nm }</td>
-							<td class="commute_table_list_td">${emp.phone }</td>
-							<td class="commute_table_list_td"></td>
+							<td class="holiday_table_list_td">${empholiday.emp_no}</td>
+							<td class="holiday_table_list_td">${empholiday.emp_name }</td>
+							<td class="holiday_table_list_td">${empholiday.job_nm }</td>
+							<td class="holiday_table_list_td">${empholiday.dept_nm }</td>
+							<td class="holiday_table_list_td">${empholiday.phone }</td>
+							<td class="holiday_table_list_td">${empholiday.left_count }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

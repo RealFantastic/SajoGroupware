@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="holiday">
+<mapper namespace="Holiday">
 
-	<select id="holidayEmpList" resultType="holiday">
-		
+	<select id="holidayEmpList" resultType="HolidayEmployee">
+		SELECT EMP_NO
+			, EMP_NAME
+			, PHONE
+			,(SELECT dept_name FROM department b WHERE b.dept_no=a.dept_no) DEPT_NM
+			,(SELECT job_name FROM job b WHERE b.job_no=a.job_no) JOB_NM
+			,(SELECT left_count FROM employee_holiday b WHERE b.emp_no=a.emp_no) LEFT_COUNT
+		FROM employee a order by EMP_NO
 	</select>
 	
 </mapper>
