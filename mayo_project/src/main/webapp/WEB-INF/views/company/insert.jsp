@@ -6,11 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회사 등록</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">  
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">  
 <link href="<%=request.getContextPath()%>/resources/css/cp_enroll.css" rel="stylesheet">
    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 다음 우편주소api  -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
@@ -71,17 +70,15 @@
             <div id="j_container">
             <p id="j_title"><h1><strong>회사등록</strong></h1></p>
              <div id="j_container1">
-                    <div id="j_cp_name" class="j_c" class="col-md-4 position-relative">
-                        <label for="validationTooltip01" class="form-label">회사명 : </label>
-                        <input type="text" id="cp_name" name="cp_name" required>
-					    <div class="valid-tooltip">
-					      아주 좋아요!
-					    </div>                        
+                    <div id="j_cp_name" class="j_c">
+                        <label for="cp_name" >회사명 : </label>
+                        <input type="text" id="cp_name" name="cp_name" required>                       
                     </div>
                     <div id="j_cp_number" class="j_c">
                         <label>사업자 번호 : </label>
-                        <input type="text" id="cp_number" name="cp_number" required>
-                        <button type="button">조회</button>
+                        <input type="text" id="cp_number" name="cp_number" required >
+                        <button type="button" id="cp_number_btn" onclick = "checkNum()">조회</button>
+                        <br><font id="check_result" size ="2"></font>
                     </div>
                     <div id="j_name" class="j_c">
                         <label>관리자 이름 : </label>
@@ -338,5 +335,36 @@
           } );
         } );
       </script>
+          <!--사업자 번호 중복체크  -->
+	<script type="text/javascript">
+	function checkNum(){
+			var cp_number = $('#cp_number').val();
+			console.log("cp_number: "+cp_number);
+			
+			$.ajax({
+				url:'<%=request.getContextPath()%>/company/check',
+				type:"post",
+				data: {"cp_number":cp_number},
+// 				contentType:"json",
+				success: function(result){
+					console.log("result"+result);
+					if(result == "false"){
+						console.log("안녕");
+						$("#check_result").html('이미 등록된 사업자번호 입니다');
+						$("#check_result").attr('color','red');
+					}else if(result == "ok"){
+						$("#check_result").html('사업자번호가 등록되었습니다.');
+						$("#check_result").attr('color','blue');
+					} 
+				},
+				error : function(){
+					alert("서버요청실패");
+				}
+			
+			});
+			
+		};
+	
+	</script>  
 </body>
 </html>

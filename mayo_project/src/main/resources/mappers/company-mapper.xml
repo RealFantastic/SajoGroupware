@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Company">
+
+<!--회사등록  -->
 <insert id="insertCompany">
 	INSERT INTO COMPANY 
 	VALUES (#{cp_number},#{cp_name},#{cp_category},#{cp_address},#{cp_detail_address},#{cp_postcode}
 			,#{cp_king},#{cp_tel},REPLACE(#{cp_birth},'-','/'))
 </insert>
+<!--사업자 번호 중복확인  -->
+<select id="checkCpNumber" parameterType="string" resultType="_int">
+	SELECT COUNT(CP_NUMBER) FROM COMPANY WHERE CP_NUMBER = #{cp_number}
+</select>
 </mapper>

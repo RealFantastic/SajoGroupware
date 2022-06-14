@@ -10,5 +10,10 @@ public interface CompanyService {
 	 * @author XeonSnee
 	 */
 	public int insertCompany(Company company);
-
+	/**
+	 * 
+	 * @return 사업자 번호 중복확인
+	 * @author XeonSnee
+	 */
+	public int checkCpNumber(String cp_number);
 }
