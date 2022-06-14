@@ -38,11 +38,10 @@ public class CommuteController {
 //	인사팀 - 직원별 근태내역 리스트
 	@RequestMapping(value = "/empCommuteList", method = RequestMethod.GET)
 	public ModelAndView commuteEmpList(ModelAndView mv) {
-		
 		List<CommuteEmployee> commuteEmpList=service.empCommuteList();
 		mv.addObject("empCommuteList",commuteEmpList);
 		mv.setViewName("commute/empCommuteList");
 		return mv;
 	}
-		
+	
 }

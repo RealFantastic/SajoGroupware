@@ -12,7 +12,7 @@ public class CommuteRecord {
 //EMP_NO     NOT NULL VARCHAR2(50)	사원번호(아이디)
 //START_TIME          TIMESTAMP(6)	시작시간
 //END_TIME            TIMESTAMP(6)	종료시간
-	
+
 	private int record_no;
 	private String emp_no;
 	private Timestamp start_time;

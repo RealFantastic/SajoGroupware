@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체 직원 근태내역 리스트</title>
+<title>전체 직원 연차내역 리스트</title>
 	<!-- 부트스트랩 -->
 	<link 
 		rel="stylesheet" 
@@ -21,11 +21,8 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
-	
-	
-	<link href="<%=request.getContextPath()%>/resources/css/commute_list.css" rel="stylesheet">
+
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-	
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>
@@ -88,8 +85,7 @@
 
 	<div class="left_bar_exception">
 	
-		<div class="commute_list font4">전체 직원별 근태내역 리스트</div>
-		
+		<div class="commute_list font4">전체 직원별 연차내역 리스트</div>
 		<!-- 	검색 -->
 		<div class="search_bar">
 		
@@ -107,11 +103,11 @@
 			</div>
 
 		</div>
-
-
-
-
-		<div>
+		
+		
+		
+		
+				<div>
 			<table class="commute_list_table">
 				<colgroup>
 					<col width="25%">
@@ -128,7 +124,7 @@
 						<th class="commute_table_list_th font2">직함</th>
 						<th class="commute_table_list_th font2">부서명</th>
 						<th class="commute_table_list_th font2">연락처</th>
-						<th class="commute_table_list_th font2">수정</th>
+						<th class="commute_table_list_th font2">잔여연차</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -145,7 +141,7 @@
 							<td class="commute_table_list_td">${emp.job_nm }</td>
 							<td class="commute_table_list_td">${emp.dept_nm }</td>
 							<td class="commute_table_list_td">${emp.phone }</td>
-							<td class="commute_table_list_td"><button class="btn_red">수정하기</button></td>
+							<td class="commute_table_list_td"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
