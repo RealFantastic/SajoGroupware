@@ -20,6 +20,22 @@ public class WorkServiceImpl implements WorkService{
 	public List<Work> selectAllWork(){
 		return dao.selectAllWork();
 	}
+
+	@Override
+	public List<Work> selectWork(int proj_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Work viewWork(int work_no) {
+		return dao.viewWork(work_no);
+	}
+
+	@Override
+	public int insertWork(Work work) {
+		return dao.insertWork(work);
+	}
 	
 	
 }

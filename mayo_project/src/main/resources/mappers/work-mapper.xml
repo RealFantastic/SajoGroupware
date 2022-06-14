@@ -2,9 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Work">
 
+<!-- WORK_NO         NOT NULL NUMBER          -->
+<!-- PROJ_NO         NOT NULL NUMBER          -->
+<!-- WORK_TITLE               VARCHAR2(50)    -->
+<!-- WORK_CONTENT             VARCHAR2(3000)  -->
+<!-- WORK_MGR                 VARCHAR2(30)    -->
+<!-- WORK_START_DATE          DATE            -->
+<!-- WORK_DEADLINE            DATE            -->
+<!-- WORK_PROGRESS            NUMBER  10%단위 설정 가능 / 최대 100 / 100= 완료-->
+<!-- ISEMERGENCY     NOT NULL VARCHAR2(3)     Y/N-->
+<!-- WORK_STATUS              NUMBER   0:요청 1:진행, 2: 완료, 3: 보류       -->
+<!-- WORK_DATE                TIMESTAMP(6)    -->
+
 <select id="selectAllWork" resultType="Work"> 
 	select * from work_board 
 <!-- 	join proj using (proj_no) -->
 </select>
+
+<select id="selectWork" resultType="Work">
+	select * from work_board where proj_no=#{proj_no}
+</select>
+
+<select id="viewWork" resultType="Work">
+	select * from work_board where work_no=#{work_no}
+</select>
+
+<insert id="insertWork" parameterType="Work"> 
+<!-- 작성자 수정, -->
+	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
+	#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
+	#{work_progress}, default, #{work_status}, default)
+</insert>
 
 </mapper>

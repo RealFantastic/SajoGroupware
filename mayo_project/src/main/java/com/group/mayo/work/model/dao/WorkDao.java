@@ -17,4 +17,16 @@ public class WorkDao {
 	public List<Work> selectAllWork() {
 		return sqlSession.selectList("Work.selectAllWork");
 	}
+	
+	public List<Work> selectWork(int proj_no) {
+		return sqlSession.selectList("Work.selectWork", proj_no);
+	}
+	
+	public Work viewWork(int work_no) {
+		return sqlSession.selectOne("Work.viewWork", work_no);
+	}
+	
+	public int insertWork(Work work) {
+		return sqlSession.insert("Work.insertWork", work);
+	}
 }

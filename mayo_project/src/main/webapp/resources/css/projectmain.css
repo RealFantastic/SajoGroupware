@@ -7,13 +7,14 @@
 /* 테이블 */
 .tabletext{
 	text-align: center;
-	width: 70vw !important; 
+	width: 65vw !important; 
 	margin: 0 30px 0 10vw;
+	min-width: max-content;
 }
 
 /* 메인 제목 */
 .font4 {
-	margin: 0 30px 30px 10vw;
+	margin: 0 30px 25px 10vw;
 }
 
 #projList{
@@ -32,3 +33,18 @@
 	margin: 30px 0 30px 65px;
 }
 /* 사이드 250px */
+
+
+.btn_detail{
+	font-size:0.8rem;
+}
+
+ /* 업무 상태 디자인 */
+.status {
+ /* display block일 때, 가운데 정렬 방법*/
+	margin-left: auto;
+    margin-right: auto;
+    
+    padding: 0 !important;
+	width:70px;
+}

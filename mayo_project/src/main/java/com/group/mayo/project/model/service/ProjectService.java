@@ -18,12 +18,16 @@ public interface ProjectService {
 	 */
 	public int insertProj(Project proj);
 	
-	
 	/**
-	 * 
 	 * @param proj 프로젝트 번호 proj_no
 	 * @return 삭제된 프로젝트 개수
 	 */
 	public int deleteProj(int proj_no);
+	
+	/**
+	 * @param proj 프로젝트 번호 proj_no
+	 * @return 프로젝트 정보
+	 */
+	public Project selectProj(int proj_no);
 	
 }

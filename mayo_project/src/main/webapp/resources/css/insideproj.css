@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#side{
+	width:250px;
+	min-width:250px;
+	height:100vh;
+	background-color: rgb(235, 255, 246);
+	position:absolute;
+}
+
+#side-content{
+	top: 30px;
+	position: relative;
+	flex-direction: column;
+}
+
+#body{
+	margin: 30px 300px;
+}
+
+.btn_detail{
+	font-size:0.8rem;
+}

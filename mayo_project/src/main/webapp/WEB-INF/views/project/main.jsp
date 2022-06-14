@@ -24,11 +24,11 @@
  
 <div id="body">
  
-<div id="side">
+<aside id="side">
 	<div id="insertProj">
 	<button id="newProj" class="btn_green" data-bs-toggle="modal" data-bs-target="#newProject">새 프로젝트</button>
 	</div>
-</div>
+</aside>
 
 <!--  새 프로젝트 추가 모달창 -->
 <div class="modal fade" id="newProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,13 +41,13 @@
         <form action="<%=request.getContextPath()%>/project/insert" method="POST">
       <div class="modal-body">
         <div>
-<!--         	<select name="category" class="form-select" aria-label="Default select example"> -->
-<!-- 			  <option selected>종류</option> -->
-<!-- 			  <option value="1">업무</option> -->
-<!-- 			  <option value="2">동호회</option> -->
-<!-- 			  <option value="3">정보공유</option> -->
-<!-- 			  <option value="0">기타</option> -->
-<!-- 			</select>	 -->
+        	<select name="proj_type" class="form-select" aria-label="Default select example">
+			  <option selected>종류</option>
+			  <option value="1">업무</option>
+			  <option value="2">동호회</option>
+			  <option value="3">정보공유</option>
+			  <option value="0">기타</option>
+			</select>
         </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">프로젝트명</label>
@@ -100,12 +100,23 @@ $("#submitP").click(function(){
 			<td>번호</td>
 			<td>프로젝트명</td>
 			<td>종류</td>
+<!-- 			<td></td> -->
 		</tr>
 	<c:forEach var="project" items="${project }">
 		<tr class="font1">
 			<td>${project.proj_no }</td>
-			<td><a href="#">${project.proj_name }</a></td> <!-- 프로젝트 페이지로 이동 -->
-			<td>${project.proj_type }</td>
+			<td><a href="<%=request.getContextPath()%>/project/select?proj_no=${project.proj_no}">${project.proj_name }</a></td> <!-- 프로젝트 페이지로 이동 -->
+			<td>
+			<c:if test="${not empty project.proj_type }">
+			<c:choose>
+			<c:when test="${project.proj_type eq '1'}">업무</c:when>
+			<c:when test="${project.proj_type eq '2'}">동호회</c:when>
+			<c:when test="${project.proj_type eq '3'}">정보공유</c:when>
+			<c:otherwise>기타</c:otherwise>
+			</c:choose>
+			</c:if>
+			</td>
+<!-- 			<td><button class="btn_gray btn_detail" style="margin-right:20px;">수정</button> <button class="btn_red btn_detail">삭제</button><td> -->
 		<tr>
 	</c:forEach>
 	</table>
@@ -128,7 +139,16 @@ $("#submitP").click(function(){
 	<c:forEach var="work" items="${work }">
 		<tr class="font1">
 			<td>${work.work_no }</td>
-			<td>${work.work_status}</td>
+			<td>
+			<c:if test="${not empty work.work_status }">
+			<c:choose>
+			<c:when test="${work.work_status eq '0'}"><div class="btn_green status">요청</div></c:when>
+			<c:when test="${work.work_status eq '1'}"><div class="btn_yellow status">진행</div></c:when>
+			<c:when test="${work.work_status eq '2'}"><div class="btn_gray status">완료</div></c:when>
+			<c:when test="${work.work_status eq '3'}"><div class="btn_red status">보류</div></c:when>
+			</c:choose>
+			</c:if>
+			</td>
 			<td>${work.isemergency}</td>
 			<td>${work.work_title }</td>
 			<td></td>

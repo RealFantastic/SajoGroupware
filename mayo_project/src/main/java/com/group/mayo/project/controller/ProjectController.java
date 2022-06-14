@@ -25,21 +25,21 @@ public class ProjectController {
 	@Autowired
 	private WorkService workService;
 	
-	@GetMapping("/list")
+	@GetMapping("/list") // 전체 프로젝트, 업무 목록
 	public ModelAndView selectAllProj(ModelAndView mv){
 		
 		List<Project> proj = service.selectAllProj();
-		
-		List<Work> work = workService.selectAllWork();
+		List<Work> work = workService.selectAllWork();		
 		
 		mv.addObject("work", work);
 		
 		mv.addObject("project", proj);
+	
 		mv.setViewName("project/main");
 		return mv;
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/insert") // 새 프로젝트 만들기
 	public ModelAndView insertProj(ModelAndView mv, Project proj, RedirectAttributes rttr) {
 		
 		int result = service.insertProj(proj);
@@ -48,9 +48,22 @@ public class ProjectController {
 			System.out.println("프로젝트 등록 실패");
 		} else {
 			System.out.println("프로젝트 등록 성공");
-			rttr.addFlashAttribute("msg", "프로젝트가 등록되었습니다!");
+			rttr.addFlashAttribute("msg", "프로젝트가 등록되었습니다");
 			mv.setViewName("redirect:/project/list");
 		}
+		
+		return mv;
+	}
+	
+	@GetMapping("/select") // 특정 프로젝트 선택 - 프로젝트 내부로 이동
+	public ModelAndView selectProj(ModelAndView mv, @RequestParam(name="proj_no", required=false) int proj_no) {
+		
+		System.out.println(proj_no);
+		Project proj = service.selectProj(proj_no);
+		System.out.println("프로젝트" + proj);
+		
+		mv.addObject("project", proj);
+		mv.setViewName("project/insideproject");
 		
 		return mv;
 	}

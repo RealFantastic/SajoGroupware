@@ -5,8 +5,11 @@
 <html>
 <head>
 	<title>Home</title>
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">	
 </head>
 <body>
+<jsp:include page="template_header.jsp"/>
 <h1>
 	Hello world!  
 </h1>
