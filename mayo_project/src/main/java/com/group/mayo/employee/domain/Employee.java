@@ -20,7 +20,7 @@ public class Employee {
 //	--PIC_PATH                VARCHAR2(500) 
 //	--PIC_NAME                VARCHAR2(500) 
 //	--IS_LEAVE       NOT NULL VARCHAR2(3)   
-//	--DEPT_NO2                NUMBER        
+//	--DEPT_NO               NUMBER        
 //	--JOB_NO         NOT NULL NUMBER        
 //	--CP_NUMBER      NOT NULL NUMBER        
 //	--SIGN_PATH               VARCHAR2(500) 

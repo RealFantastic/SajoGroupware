@@ -1,6 +1,10 @@
 package com.group.mayo.department.domain;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
+
+import com.group.mayo.employee.domain.Employee;
 
 @Component
 public class Dept {
@@ -11,11 +15,28 @@ public class Dept {
 	private int dept_no;
 	private String dept_name;
 	
+	private List<Employee> emplist;
+	
+	
+	
+	
+	
+	
+	
+	
+
 	@Override
 	public String toString() {
-		return "Dept [dept_no=" + dept_no + ", dept_name=" + dept_name + "]";
+		return "Dept [dept_no=" + dept_no + ", dept_name=" + dept_name + ", emplist=" + emplist + "]";
 	}
 	
+	
+	public List<Employee> getEmplist() {
+		return emplist;
+	}
+	public void setEmplist(List<Employee> emplist) {
+		this.emplist = emplist;
+	}
 	public int getDept_no() {
 		return dept_no;
 	}

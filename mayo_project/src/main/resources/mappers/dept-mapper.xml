@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Dept">
-  <select id="selectDeptList" resultType="Dept">
-  	select * from department
+<resultMap type="hashmap" id="DeptResultMap">
+	<id column="DEPT_NO" property="id"/>
+	<result column="DEPT_NAME" property="text"/>
+	<collection property="children" javaType="java.util.List" resultMap="EmployeeResultMap"></collection> 
+</resultMap>
+<resultMap type="hashmap" id="EmployeeResultMap">
+	<id column="EMP_NO" property="id"/>
+	<result column="EMP_NAME" property="text"/>
+</resultMap>
+  <select id="selectDeptList" resultMap="DeptResultMap">
+  	select * from department left outer join employee using (dept_no)
   </select>
 </mapper>

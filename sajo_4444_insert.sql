@@ -699,9 +699,11 @@ desc elec_approval;
 select * ,'#' as parent 
 from department left outer join EMPLOYEE using(dept_no);
 
-
-select  d.*,(select '#' parent from dual)
-from department d;
+select * from
+(select  d.*,'#' parent from department d) dept
+ join (select * from employee) emp
+on dept.dept_no = emp.dept_no
+;
 
 
 

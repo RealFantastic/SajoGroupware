@@ -14,6 +14,7 @@
 	<typeAlias type="com.group.mayo.employee.domain.CommuteRecord" alias="CommuteRecord"/>
 	<typeAlias type="com.group.mayo.employee.domain.Holiday" alias="Holiday"/>
 	<typeAlias type="com.group.mayo.employee.domain.HolidayEmployee" alias="HolidayEmployee"/>
+	<typeAlias type="com.group.mayo.approval.domain.EapDomain" alias="Eap"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
@@ -23,7 +24,7 @@
 	<mapper resource="mappers/dept-mapper.xml"/>
 	<mapper resource="mappers/commute-mapper.xml"/>
 	<mapper resource="mappers/holiday-mapper.xml"/>
-	
+	<mapper resource="mappers/eap-mapper.xml"/>
 	
 </mappers>
 </configuration>

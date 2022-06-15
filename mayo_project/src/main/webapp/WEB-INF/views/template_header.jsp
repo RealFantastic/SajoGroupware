@@ -32,7 +32,7 @@
                     <li><a href="<%=request.getContextPath()%>/project/list">업무관리</a></li>
                     <li><a href="#">연차관리</a></li>
                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#empchart">조직도</a></li>
-                    <li><a href="#">전자결재</a></li>
+                    <li><a href="<%=request.getContextPath()%>/eap/main">전자결재</a></li>
                 </ul>
                 <div id="search_area">
                     <form action="#" method="post">
@@ -64,14 +64,13 @@
 					<div class="modal-body">
 						<input type="text" id="empchart_search">
 						<div id="jstree_empchart"></div>
-						
-						<div id="emp_detail"></div>
+						<div id="emp_detail">
+							
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary">Save
-							changes</button>
 					</div>
 				</div>
 			</div>
