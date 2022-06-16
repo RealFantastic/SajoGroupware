@@ -11,13 +11,13 @@ public class CompanyServiceImpl implements CompanyService{
 	@Autowired
 	private CompanyDao dao;
 	
-	//È¸»çµî·Ï
+	//íšŒì‚¬ë“±ë¡
 	@Override
 	public int insertCompany(Company company) {
 		return dao.insertCompany(company);
 	}
 	
-	//»ç¾÷ÀÚ ¹øÈ£ Áßº¹ È®ÀÎ
+	//ì‚¬ì—…ì ë²ˆí˜¸ ì¤‘ë³µ í™•ì¸
 	@Override
 	public int checkCpNumber(String cp_number) {
 		int result = dao.checkCpNumber(cp_number);

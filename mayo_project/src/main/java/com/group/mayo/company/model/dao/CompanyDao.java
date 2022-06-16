@@ -11,14 +11,14 @@ public class CompanyDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	//È¸»çµî·Ï
+	//íšŒì‚¬ë“±ë¡
 	public int insertCompany(Company company) {
 		return sqlSession.insert("Company.insertCompany",company);
 	}
-	//»ç¾÷ÀÚ ¹øÈ£ Áßº¹ È®ÀÎ
+	//ì‚¬ì—…ì ë²ˆí˜¸ ì¤‘ë³µ í™•ì¸
 	public int checkCpNumber(String cp_number) {
 		int result = sqlSession.selectOne("Company.checkCpNumber",cp_number);
-		System.out.println("¾È³ç1!!");
+		System.out.println("ì•ˆë…•1!!");
 		
 		
 		
