@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Employee">
-<!-- 	<resultMap type="" id=""> -->
-
-<!-- 	</resultMap> -->
+	<resultMap type="Employee" id="EmployeeResultMap">
+		<id column="EMP_NO" property="emp_no"/>
+		<result column="EMP_NAME" property="emp_name"/>
+<!-- 		<result column="PASSWORD" property=""/> -->
+		<result column="EMAIL" property="email"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ADDRESS" property="address"/>
+<!-- 		<result column="DETAIL_ADDRESS" property=""/> -->
+<!-- 		<result column="EMP_POSTCODE" property=""/> -->
+		<result column="RRN" property="rrn"/>
+		<result column="HIRE_DATE" property="hire_date"/>
+<!-- 		<result column="PHONE" property="phone"/> -->
+		<result column="PIC_PATH" property="pic_path"/>
+		<association property="dept" resultMap="DeptResultMap"></association>
+		<association property="job" resultMap="JobResultMap"></association>
+	</resultMap>
+	
+	<resultMap type="Dept" id="DeptResultMap">
+		<id column="DEPT_NO" property="dept_no"/>
+		<result column="DEPT_NAME" property="dept_name"/>
+	</resultMap>
+	<resultMap type="Job" id="JobResultMap">
+		<id column="JOB_NO" property="job_no"/>
+		<result column="JOB_NAME" property="job_name"/>
+	</resultMap>
+	
+	
 	<select id="selectListEmp" resultType="Employee">
 		select * from employee
 	</select>
+	
+	<select id="selectMember" parameterType="string" resultType="Employee">
+		SELECT EMP_NO, EMP_NAME,ADDRESS,PHONE, JOB_NAME,EMAIL, SUBSTR(RRN,1,6) RRN, DEPT_NAME, HIRE_DATE,DEPT_NO,JOB_NO
+			FROM (select * from EMPLOYEE where emp_no = #{emp_no}) e
+    	JOIN DEPARTMENT USING(DEPT_NO)
+    	JOIN JOB USING(JOB_NO)
+	</select>
+	
 </mapper>

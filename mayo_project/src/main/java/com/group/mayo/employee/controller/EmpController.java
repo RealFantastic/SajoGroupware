@@ -10,15 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.group.mayo.department.domain.Dept;
 import com.group.mayo.department.service.DeptService;
+import com.group.mayo.department.service.DeptServiceImpl;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.service.EmpService;
+import com.group.mayo.employee.model.service.EmpServiceImpl;
 
 
 @Controller
@@ -28,7 +30,7 @@ public class EmpController {
 	private EmpService service;
 	
 	@Autowired
-	private DeptService deptService;
+	private DeptService dservice;
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -48,7 +50,7 @@ public class EmpController {
 		//사원 목록
 //		List<Employee> emplist = service.selectListEmp();
 		//부서목록
-		List<Map<String,Object>> deptlist = deptService.selectDeptList();
+		List<Map<String,Object>> deptlist = dservice.selectDeptList();
 		System.out.println(deptlist);
 		//루트, 트리 노드 저장용
 		List<Object> treeList = new ArrayList<Object>();
@@ -128,4 +130,19 @@ public class EmpController {
 		
 		return jsonRoot;
 	}
+	
+	@PostMapping(value="/detail" ,produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String selectMember(@RequestParam(name="emp_no", required=false) String emp_no) {
+		System.out.println("들어왔다");
+		Employee employee = service.selectEmployee(emp_no);
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		String empJson = gson.toJson(employee);
+		
+		return empJson;
+	}
+	
+	
 }

@@ -17,4 +17,7 @@ public class EmpDao {
 		return sqlSession.selectList("Employee.selectListEmp");
 	}
 	
+	public Employee selectEmployee(String emp_no) {
+		return sqlSession.selectOne("Employee.selectMember",emp_no);
+	}
 }

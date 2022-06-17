@@ -12,5 +12,12 @@ public interface EmpService {
 	 * @author JHPark
 	 */
 	public List<Employee> selectListEmp();
+	
+	/**
+	 * @author JHpark
+	 * @param emp_no : 사원 번호
+	 * @return
+	 */
+	public Employee selectEmployee(String emp_no);	
 
 }

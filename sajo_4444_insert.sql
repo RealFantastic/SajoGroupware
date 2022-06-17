@@ -690,9 +690,13 @@ SELECT * FROM EMPLOYEE;
 
 
 -------------------------------------------------------  박정환  시작(692 ~ )  ---------------------------------------------------------------------------------------
-SELECT EMP_NAME,ADDRESS,PHONE, JOB_NAME, DEPT_NAME, HIRE_DATE FROM EMPLOYEE
-JOIN DEPARTMENT USING(DEPT_NO)
-JOIN JOB USING(JOB_NO);
+SELECT EMP_NAME,ADDRESS,PHONE, JOB_NAME, DEPT_NAME, CONCAT(TO_CHAR(HIRE_DATE,'YYYY/MM/DD'),'일')
+FROM (select * from EMPLOYEE where emp_no = 202210001) e
+    JOIN DEPARTMENT USING(DEPT_NO)
+    JOIN JOB USING(JOB_NO)
+;
+
+SELECT * FROM EMPLOYEE WHERE EMP_NO = 202210001;
 
 desc elec_approval;
 
@@ -704,7 +708,8 @@ select * from
  join (select * from employee) emp
 on dept.dept_no = emp.dept_no
 ;
-
+SELECT SUBSTR(RRN,1,6) FROM EMPLOYEE;
+SELECT EMP_NAME,RRN FROM EMPLOYEE;
 
 
 

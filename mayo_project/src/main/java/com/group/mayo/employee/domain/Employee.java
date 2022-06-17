@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+import com.group.mayo.department.domain.Dept;
+import com.group.mayo.job.domain.Job;
+
 @Component
 public class Employee {
 //	---------------- -------- ------------- 
@@ -46,7 +49,16 @@ public class Employee {
 	private String sign_file_name;
 	private String wt_code;
 	
+	private String dept_name;
+	private String job_name;
 	
+	
+	
+	
+	
+	
+	
+
 	@Override
 	public String toString() {
 		return "Employee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", password=" + password + ", email=" + email
@@ -54,10 +66,20 @@ public class Employee {
 				+ emp_postcode + ", rrn=" + rrn + ", hire_date=" + hire_date + ", pic_path=" + pic_path + ", pic_name="
 				+ pic_name + ", is_leave=" + is_leave + ", dept_no=" + dept_no + ", job_no=" + job_no + ", cp_number="
 				+ cp_number + ", sign_path=" + sign_path + ", sign_file_name=" + sign_file_name + ", wt_code=" + wt_code
-				+ "]";
+				+ ", dept_name=" + dept_name + ", job_name=" + job_name + "]";
 	}
-	
-	
+	public String getDeptP_name() {
+		return dept_name;
+	}
+	public void setDeptP_name(String deptP_name) {
+		this.dept_name = deptP_name;
+	}
+	public String getJob_name() {
+		return job_name;
+	}
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
 	public String getEmp_no() {
 		return emp_no;
 	}

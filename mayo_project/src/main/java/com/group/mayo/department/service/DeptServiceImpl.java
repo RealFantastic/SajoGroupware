@@ -11,7 +11,7 @@ import com.group.mayo.department.dao.DeptDao;
 import com.group.mayo.department.domain.Dept;
 
 @Service
-@Transactional
+//@Transactional
 public class DeptServiceImpl implements DeptService {
 	
 	@Autowired

@@ -10,7 +10,7 @@ import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.dao.EmpDao;
 
 @Service
-@Transactional
+//@Transactional
 public class EmpServiceImpl implements EmpService{
 	@Autowired
 	private EmpDao dao;
@@ -19,5 +19,11 @@ public class EmpServiceImpl implements EmpService{
 		return dao.selectListEmp();
 	}
 
-
+	@Override
+	public Employee selectEmployee(String emp_no) {
+		return dao.selectEmployee(emp_no);
+	}
+	
+	
+	
 }

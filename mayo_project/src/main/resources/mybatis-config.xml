@@ -15,6 +15,7 @@
 	<typeAlias type="com.group.mayo.employee.domain.Holiday" alias="Holiday"/>
 	<typeAlias type="com.group.mayo.employee.domain.HolidayEmployee" alias="HolidayEmployee"/>
 	<typeAlias type="com.group.mayo.approval.domain.EapDomain" alias="Eap"/>
+	<typeAlias type="com.group.mayo.job.domain.Job" alias="Job"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>

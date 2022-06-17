@@ -122,3 +122,22 @@
     padding: 4px 30px 4px 30px;
     font-weight: 700;
 }
+#emp_detail>img{
+	width:150px;
+	height:130px;
+}
+#emp_info{
+	display:flex;
+/* 	justify-content:space-around; */
+}
+#emp_detail_container{
+	margin-left:50px;
+}
+#emp_detail{
+	display:flex;
+}
+#emp_detail2{
+	margin-left:10px;
+	margin-top:10px;
+	padding-left:20px;
+}
