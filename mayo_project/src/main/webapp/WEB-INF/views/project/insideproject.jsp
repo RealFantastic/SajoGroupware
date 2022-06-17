@@ -64,7 +64,7 @@
         </div>
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label font3">제목</label>
+            <label for="recipient-name" class="col-form-label font2">제목</label>
             <input type="text" class="form-control" id="title" name="work_title" required="required">
           </div>
           <div class="date" style="display:flex;">
@@ -88,15 +88,21 @@
 <!-- 			  <option value="30">30</option> -->
 <!-- 			</select> -->
 					<!-- 전체 영역 -->
+				<div style="display:flex;">
 				<div class="progress">
 				  <!-- 프로그래스 바 -->
 				  <div class="state"></div>
 				</div>
 				  <input id="work_progress" name="work_progress" value="" readonly>%
 			</div>
+				</div>
+        </div>
+        <div class="mb-3">
+        	<label for="work_file" class="col-form-label">첨부파일</label>
+        	<input type="file" name="uploadfile" multiple="multiple">
         </div>
           <div class="mb-3">
-            <label for="message-text" class="col-form-label">내용</label>
+            <label for="message-text" class="col-form-label font2">내용</label>
             <textarea class="form-control" id="content" name="work_content" placeholder="내용을 입력해주세요" required="required" style="height:300px;"></textarea>
           </div>
       </div>
@@ -159,11 +165,11 @@ $(function(){
  		dataType: 'json',
  		success: function(result){
  			console.log(result);
-/*  			var work_title = "";
+ 			var html = "";
  			for(var i = 0; i < result.length; i++){
- 				work_title += "<div>"+result[i].work_title+"</div>";
- 			}
- 			$(".work_title").append(html); */
+ 				html += "<div>"+result[i].work_title+"</div>";
+  			}
+  			$(".work_list").append(html); 
  			
 		}
 	});

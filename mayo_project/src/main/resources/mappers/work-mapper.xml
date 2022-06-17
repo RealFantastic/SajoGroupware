@@ -14,9 +14,41 @@
 <!-- WORK_STATUS              NUMBER   0:요청 1:진행, 2: 완료, 3: 보류       -->
 <!-- WORK_DATE                TIMESTAMP(6)    -->
 
+<!-- 첨부파일 -->
+<!-- 	private int file_no; -->
+<!-- 	private String proj_file_path; -->
+<!-- 	private String proj_filename; -->
+<!-- 	private String proj_original_filename; -->
+<!-- 	private int work_no; -->
+<resultMap type="Project" id="Project">
+	<result column="PROJ_NAME" property="proj_name"/>
+</resultMap>
+
+<resultMap type="WorkFile" id="WorkFile">
+	<result column="FILE_NO" property="file_no"/>
+	<result column="PROJ_FILE_PATH" property="proj_file_path"/>
+	<result column="PROJ_FILENAME" property="proj_filename"/>
+	<result column="PROJ_ORIGINAL_FILENAME" property="proj_original_filename"/>
+	<result column="WORK_NO" property="work_no"/>
+</resultMap>
+
+<resultMap type="Work" id="Work">
+	<result column="WORK_NO" property="work_no"/>
+	<result column="PROJ_NO" property="proj_no"/>
+	<result column="WORK_TITLE" property="work_title"/>
+	<result column="WORK_CONTENT" property="work_content"/>
+	<result column="WORK_START_DATE" property="work_start_date"/>
+	<result column="WORK_DEADLINE" property="work_deadline"/>
+	<result column="WORK_PROGRESS" property="work_progress"/>
+	<result column="ISEMERGENCY" property="isemergency"/>
+	<result column="WORK_STATUS" property="work_status"/>
+	<result column="WORK_DATE" property="work_date"/>
+	<collection property="Project" resultMap="Project"/>
+	<collection property="WorkFile" resultMap="WorkFile"/>
+</resultMap>
+
 <select id="selectAllWork" resultType="Work"> 
-	select * from work_board 
-<!-- 	join proj using (proj_no) -->
+	select * from work_board join proj using (proj_no)
 </select>
 
 <select id="selectWork" resultType="Work">
@@ -27,11 +59,21 @@
 	select * from work_board where work_no=#{work_no}
 </select>
 
+<!-- 수정예정 -->
+<select id="selectWorkNo" parameterType="Work">
+	select nvl(max(work_no),0)+1 from dual)
+</select>
+
 <insert id="insertWork" parameterType="Work"> 
 <!-- 작성자 수정, -->
 	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
 	#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
 	#{work_progress}, #{isemergency}, #{work_status}, default)
+</insert>
+
+<insert id="insertFile" parameterType="Work">
+	insert into project_file values ()
+
 </insert>
 
 </mapper>

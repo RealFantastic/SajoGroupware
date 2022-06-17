@@ -50,3 +50,10 @@
     left:0;
     background-color: rgb(107, 191, 152);
 }
+
+#work_progress{
+	width: 30px;
+	margin-left:15px;
+	margin-right: 0;
+	border:0;
+}
