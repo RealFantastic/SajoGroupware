@@ -22,9 +22,8 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<Work> selectWork(int proj_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Work> selectWork(String proj_no) {
+		return dao.selectWork(proj_no);
 	}
 
 	@Override

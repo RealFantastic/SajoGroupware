@@ -16,7 +16,7 @@ public interface WorkService {
 	 * @param proj_no 프로젝트 번호
 	 * @return 해당 프로젝트 업무들
 	 */
-	public List<Work> selectWork(int proj_no);
+	public List<Work> selectWork(String proj_no);
 	
 	/**
 	 * @param work_no 업무번호

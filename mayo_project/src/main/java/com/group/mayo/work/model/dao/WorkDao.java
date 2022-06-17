@@ -18,7 +18,7 @@ public class WorkDao {
 		return sqlSession.selectList("Work.selectAllWork");
 	}
 	
-	public List<Work> selectWork(int proj_no) {
+	public List<Work> selectWork(String proj_no) {
 		return sqlSession.selectList("Work.selectWork", proj_no);
 	}
 	

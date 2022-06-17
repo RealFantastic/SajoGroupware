@@ -31,7 +31,7 @@
 <!-- 작성자 수정, -->
 	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
 	#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
-	#{work_progress}, default, #{work_status}, default)
+	#{work_progress}, #{isemergency}, #{work_status}, default)
 </insert>
 
 </mapper>

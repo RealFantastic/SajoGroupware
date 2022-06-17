@@ -149,10 +149,15 @@ $("#submitP").click(function(){
 			</c:choose>
 			</c:if>
 			</td>
-			<td>${work.isemergency}</td>
+			<td>
+			<c:if test="${work.isemergency=='Y'}">
+				<img id="alert" src="<%=request.getContextPath() %>/resources/images/alert.png" alt="긴급">
+			</c:if>
+			</td>
 			<td>${work.work_title }</td>
 			<td></td>
-			<td>${work.work_start_date } - ${work.work_deadline }</td>
+			<td style="display:flex; justify-content:center;">
+				<div style="margin-right:5px;">${work.work_start_date }</div> - <div style="margin-left:5px; color:red;">${work.work_deadline }</div></td>
 		<tr>
 	</c:forEach>
 	</table>
