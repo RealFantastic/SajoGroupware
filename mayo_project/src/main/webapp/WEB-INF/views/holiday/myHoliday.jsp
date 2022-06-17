@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 근태현황</title>
+<title>나의 연차현황</title>
 	<!-- 부트스트랩 -->
 	<link 
 		rel="stylesheet" 
@@ -26,14 +26,14 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 	
-<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/holiday.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
+	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>
 	<script type="text/javascript">
-// 		현재시간  https://stickode.tistory.com/124 
+	//현재시간  https://stickode.tistory.com/124 
 		function setClock(){
 		    var dateInfo = new Date(); 
 		    var hour = modifyNumber(dateInfo.getHours());
@@ -56,19 +56,8 @@
 			setClock();
 			setInterval(setClock,1000); //1초마다 setClock 함수실행
 		}
-		
-// // 		버튼 - 근무재시작 or 근무 외 시간
-// 		$ (function() {
-// 			$('#btn_off_on').click(function(){
-// 				if($(this).html()=='근무 외 시간'){
-// 					$(this).html('근무 재시작');
-// 				}else{
-// 					$(this).html('근무 외 시간');
-// 				}
-// 			});
-// 		});
 	</script>
-
+	
 	<div class="left_bar">
 		<div class="left_bar_img">
 			<img alt="" src="">
@@ -86,7 +75,7 @@
 		<div class="left_bar_btn">
 			<button class="btn_green btn_attendance">출근</button>
 			<button class="btn_green btn_leave">퇴근</button>
-<!-- 			<button class="btn_green btn_off" id="btn_off_on">근무 외 시간</button> -->
+<!-- 			<button class="btn_green btn_off">근무 외 시간</button> -->
 		</div>
 		<div>
 		달력 자리<br>
@@ -97,14 +86,12 @@
 		<!-- 혜리니자리 -->
 		</div>
 	</div>
-	
-
 
 
 
 	<div class="left_bar_exception">
 	
-		<div class="commute_title font4">나의 근태현황</div>
+		<div class="holiday_list font4">나의 연차현황</div>
 		
 		<div>
 			<div>
@@ -119,10 +106,10 @@
 			</div>
 		</div>
 
-
-
+	
+		
 		<div class="table_all">
-			<table class="commute_table">
+			<table class="holiday_table">
 				<colgroup>
 					<col width="15%">
 					<col width="15%">
@@ -132,24 +119,19 @@
 					<col width="20%">
 				</colgroup>
 				<thead>
-					<tr class="commute_table_tr">
-						<th class="commute_table_th font2" >근무일</th>
-						<th class="commute_table_th font2" >출근 시간</th>
-						<th class="commute_table_th font2" >퇴근 시간</th>
-						<th class="commute_table_th font2" >일 근무 시간</th>
-						<th class="commute_table_th font2" >주 누적 근무시간</th>
-						<th class="commute_table_th font2" >주 남은 근무시간</th>
+					<tr>
+						<th class="holiday_table_list_th font2">연차 신청일</th>
+						<th class="holiday_table_list_th font2">연차 시작일</th>
+						<th class="holiday_table_list_th font2">연차 종료일</th>
+						<th class="holiday_table_list_th font2">연차 일수</th>
+						<th class="holiday_table_list_th font2">연차 잔여일수</th>
+						<th class="holiday_table_list_th font2">비고</th>
 					</tr>
 				</thead>
-	
 				<tbody>
-				
+
 				</tbody>
 			</table>
-		
-		
-		
-		
 		</div>
 	</div>
 </body>

@@ -36,22 +36,24 @@
 
 /* 왼쪽메뉴바를 제외한 */
 .left_bar_exception{
-	width: 80%;
-	clear: both;
-	display: inline-block;
 	padding: 20px;
+	margin: 0 0 0 250px;
 }
 
 
 .commute_title{
-	padding: 20px 0 20px 0;
 	font-weight: bolder;
 }
 
 /* 왼쪽메뉴바를 제외한 테이블 */
+.table_all{
+	width: 100%;
+}
+
 .commute_table{
 	text-align: center;
 	width: 100%;
+	
 }
 
 .commute_table_th{

@@ -46,12 +46,15 @@
 }
 
 
-/* 왼쪽메뉴바를 제외한 테이블 */
-.table_all{
-	width: 100%;
+.search_bar{
+		float: right;
 }
 
-.holiday_table{
+
+
+
+/* 왼쪽메뉴바를 제외한 테이블 */
+.holiday_list_table{
 	text-align: center;
 	width: 100%;
 }
@@ -62,8 +65,14 @@
 	background-color :rgb(235, 255, 246);
 }
 
-/* .holiday_table_list_td{ */
-/* 	border: 1px solid; */
-/* 	padding: 5px; */
-/* } */
+.holiday_table_list_td{
+	border: 1px solid;
+	padding: 5px;
+}
+
+
+
+
+
+
 

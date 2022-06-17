@@ -21,8 +21,13 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
+		<!-- J쿼리 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
+	
 
-	<link href="<%=request.getContextPath()%>/resources/css/holiday.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/holiday_list.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 	
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -71,7 +76,7 @@
 		<div class="left_bar_btn">
 			<button class="btn_green btn_attendance">출근</button>
 			<button class="btn_green btn_leave">퇴근</button>
-			<button class="btn_green btn_off">근무 외 시간</button>
+<!-- 			<button class="btn_green btn_off">근무 외 시간</button> -->
 		</div>
 		<div>
 		달력 자리<br>
@@ -109,7 +114,7 @@
 		
 		
 		
-				<div>
+		<div>
 			<table class="holiday_list_table">
 				<colgroup>
 					<col width="25%">

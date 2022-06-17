@@ -40,15 +40,12 @@
 
 /* 왼쪽메뉴바를 제외한 */
 .left_bar_exception{
-	width: 80%;
-	clear: both;
-	display: inline-block;
 	padding: 20px;
+	margin: 0 0 0 250px;	
 }
 
 
 .commute_list{
-	padding: 20px 0 20px 0;
 	font-weight: bolder;
 }
 

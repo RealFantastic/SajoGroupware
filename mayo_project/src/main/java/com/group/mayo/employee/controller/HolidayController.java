@@ -19,7 +19,11 @@ public class HolidayController {
 	@Autowired
 	private HolidayService service;
 //	직원연차상세보기
-	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView holidayMyList(ModelAndView mv) {
+		mv.setViewName("holiday/myHoliday");
+		return mv;
+	}
 	
 //	인사팀-직원연차상세보기
 	

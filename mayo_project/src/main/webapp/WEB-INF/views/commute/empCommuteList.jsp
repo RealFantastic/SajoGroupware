@@ -21,7 +21,10 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
-	
+	<!-- J쿼리 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
 	
 	<link href="<%=request.getContextPath()%>/resources/css/commute_list.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
@@ -30,7 +33,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-	//현재시간  https://stickode.tistory.com/124 
+// 		현재시간  https://stickode.tistory.com/124 
 		function setClock(){
 		    var dateInfo = new Date(); 
 		    var hour = modifyNumber(dateInfo.getHours());
@@ -53,6 +56,17 @@
 			setClock();
 			setInterval(setClock,1000); //1초마다 setClock 함수실행
 		}
+		
+// // 		버튼 - 근무재시작 or 근무 외 시간
+// 		$ (function() {
+// 			$('#btn_off_on').click(function(){
+// 				if($(this).html()=='근무 외 시간'){
+// 					$(this).html('근무 재시작');
+// 				}else{
+// 					$(this).html('근무 외 시간');
+// 				}
+// 			});
+// 		});
 	</script>
 
 	<div class="left_bar">
@@ -72,14 +86,15 @@
 		<div class="left_bar_btn">
 			<button class="btn_green btn_attendance">출근</button>
 			<button class="btn_green btn_leave">퇴근</button>
-			<button class="btn_green btn_off">근무 외 시간</button>
+<!-- 			<button class="btn_green btn_off" id="btn_off_on">근무 외 시간</button> -->
 		</div>
 		<div>
 		달력 자리<br>
 		달력 자리<br> 
 		달력 자리<br>
 		달력 자리<br>
-		달력 자리<br>  
+		달력 자리<br>
+		달력 자리<br>
 		<!-- 혜리니자리 -->
 		</div>
 	</div>

@@ -20,7 +20,10 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
-
+	<!-- J쿼리 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
 
 <link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
@@ -31,13 +34,14 @@
 	<script type="text/javascript">
 	//현재시간  https://stickode.tistory.com/124 
 		function setClock(){
-		    var dateInfo = new Date(); 
-		    var hour = modifyNumber(dateInfo.getHours());
-		    var min = modifyNumber(dateInfo.getMinutes());
-		    var sec = modifyNumber(dateInfo.getSeconds());
-		    var year = dateInfo.getFullYear();
-		    var month = dateInfo.getMonth()+1; //monthIndex를 반환해주기 때문에 1을 더해준다.
-		    var date = dateInfo.getDate();
+		    var today = new Date(); 
+		    var hour = modifyNumber(today.getHours());
+		    var min = modifyNumber(today.getMinutes());
+		    var sec = modifyNumber(today.getSeconds());
+		    var year = today.getFullYear();
+		    var month = today.getMonth()+1; //monthIndex를 반환해주기 때문에 1을 더해준다.
+		    var date = today.getDate();
+
 		    document.getElementById("time").innerHTML = hour + ":" + min  + ":" + sec;
 		    document.getElementById("date").innerHTML = year + "년 " + month + "월 " + date + "일";
 		}
@@ -52,6 +56,35 @@
 			setClock();
 			setInterval(setClock,1000); //1초마다 setClock 함수실행
 		}
+		
+		
+// 		출근버튼 클릭시
+$(function() {
+	$('#btn_attendance').click(function() {
+		var today = new Date();   
+
+		var hours = ('0' + today.getHours()).slice(-2); 
+		var minutes = ('0' + today.getMinutes()).slice(-2);
+		var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+		var timeAttendance = hours + ':' + minutes  + ':' + seconds;
+		console.log("timeAttendance");
+	    document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance;
+	})
+})
+
+		
+		
+// // 		버튼 - 근무재시작 or 근무 외 시간
+// 		$ (function() {
+// 			$('#btn_off_on').click(function(){
+// 				if($(this).html()=='근무 외 시간'){
+// 					$(this).html('근무 재시작');
+// 				}else{
+// 					$(this).html('근무 외 시간');
+// 				}
+// 			});
+// 		});
 	</script>
 
 	<div class="left_bar">
@@ -69,9 +102,10 @@
 			<div id="time" class="left_bar_time font6"></div>
 		</div>
 		<div class="left_bar_btn">
-			<button class="btn_green btn_attendance">출근</button>
-			<button class="btn_green btn_leave">퇴근</button>
-			<button class="btn_green btn_off">근무 외 시간</button>
+			<button class="btn_green btn_attendance" id="btn_attendance">출근</button>
+			<div id="timeAttendance" class="font3"></div>
+			<button class="btn_green btn_leave" id="btn_leave" >퇴근</button>
+<!-- 			<button class="btn_green btn_off" id="btn_off_on">근무 외 시간</button> -->
 		</div>
 		<div>
 		달력 자리<br>
@@ -102,7 +136,10 @@
 				부서명 :  연락처 :  
 			</div>
 		</div>
-		<div>
+		
+
+	
+		<div class="table_all">
 			<table class="commute_table">
 				<colgroup>
 					<col width="15%">
@@ -122,19 +159,21 @@
 						<th class="commute_table_th font2" >주 남은 근무시간</th>
 					</tr>
 				</thead>
+				
 				<tbody>
 				
 				</tbody>
 			</table>
 		</div>
 		
+		
+<!-- 		인사팀전용 -->
 		<div class="commute_bottom_btn">
 			<button class="btn_green btn_commute_list">직원별 근태목록</button>
 			<button class="btn_yellow btn_commute_change">수정완료</button>
 		</div>
 		
-		
-		
 	</div>
+		
 </body>
 </html>
