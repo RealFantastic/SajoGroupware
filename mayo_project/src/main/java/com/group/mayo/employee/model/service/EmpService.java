@@ -2,6 +2,7 @@ package com.group.mayo.employee.model.service;
 
 import java.util.List;
 
+import com.group.mayo.company.domain.Company;
 import com.group.mayo.employee.domain.Employee;
 
 public interface EmpService {
@@ -19,5 +20,10 @@ public interface EmpService {
 	 * @return
 	 */
 	public Employee selectEmployee(String emp_no);	
-
+	/**
+	 * 
+	 * @return 추가된 직원수
+	 * @author XeonSnee
+	 */
+	public int insertEmployee(Employee employee);
 }

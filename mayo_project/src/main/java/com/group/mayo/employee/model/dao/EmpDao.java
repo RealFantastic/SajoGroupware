@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group.mayo.company.domain.Company;
 import com.group.mayo.employee.domain.Employee;
 
 @Repository
@@ -19,5 +20,9 @@ public class EmpDao {
 	
 	public Employee selectEmployee(String emp_no) {
 		return sqlSession.selectOne("Employee.selectMember",emp_no);
+	}
+		//직원등록
+	public int insertEmployee(Employee employee) {
+		return sqlSession.insert("Employee.insertEmployee",employee);
 	}
 }
