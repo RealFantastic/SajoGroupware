@@ -12,7 +12,7 @@ public interface CommuteService {
 	 * @return 리턴할 값 입력해주기 /TODO 각 사원별 출근시간 , 퇴근시간
 	 * @author hong
 	 */
-//	public List<CommuteRecord> selectMyCommute() ;
+	public List<CommuteRecord> myCommuteStatus() ;
 	
 	
 	

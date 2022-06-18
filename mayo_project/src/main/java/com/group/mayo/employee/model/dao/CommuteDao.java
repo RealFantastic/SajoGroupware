@@ -17,8 +17,8 @@ public class CommuteDao {
 	private SqlSession sqlSession;
 	
 	
-	public List<CommuteRecord>selectMyCommute(){
-		return sqlSession.selectList("CommuteRecord.selectMyCommute");
+	public List<CommuteRecord>myCommuteStatus(){
+		return sqlSession.selectList("CommuteRecord.myCommuteStatus");
 	}
 	
 	public List<CommuteEmployee>empCommuteList(){

@@ -22,6 +22,8 @@ public class CommuteController {
 //	직원근태상세보기
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
 	public ModelAndView commuteMyStatus(ModelAndView mv) {
+		List<CommuteRecord> commuteMystatus=service.myCommuteStatus();
+		mv.addObject("myCommuteStatus",commuteMystatus);
 		mv.setViewName("commute/myCommute");
 		return mv;
 	}

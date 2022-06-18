@@ -57,6 +57,41 @@
 			setInterval(setClock,1000); //1초마다 setClock 함수실행
 		}
 		
+		
+//		출근버튼 클릭시
+		$(function() {
+			$('#btn_attendance').click(function() {
+				var today = new Date();   
+
+				var hours = ('0' + today.getHours()).slice(-2); 
+				var minutes = ('0' + today.getMinutes()).slice(-2);
+				var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+				var timeAttendance = hours + ':' + minutes  + ':' + seconds;
+				console.log("timeAttendance");
+				document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance;
+				//버튼 비활성화
+				$('#btn_attendance').unbind('click');
+			})
+		})
+//				퇴근버튼 클릭시
+		$(function() {
+			$('#btn_leave').click(function() {
+				var today = new Date();   
+
+				var hours = ('0' + today.getHours()).slice(-2); 
+				var minutes = ('0' + today.getMinutes()).slice(-2);
+				var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+				var timeLeave = hours + ':' + minutes  + ':' + seconds;
+				console.log("timeLeave");
+				document.getElementById("timeLeave").innerHTML="퇴근시간 : "+ timeLeave;
+				//버튼 비활성화
+				$('#btn_leave').unbind('click');
+			})
+		})
+		
+		
 // // 		버튼 - 근무재시작 or 근무 외 시간
 // 		$ (function() {
 // 			$('#btn_off_on').click(function(){
@@ -84,8 +119,10 @@
 			<div id="time" class="left_bar_time font6"></div>
 		</div>
 		<div class="left_bar_btn">
-			<button class="btn_green btn_attendance">출근</button>
-			<button class="btn_green btn_leave">퇴근</button>
+			<button class="btn_green btn_attendance"id="btn_attendance">출근</button>
+			<div id="timeAttendance" class="font3"></div>
+			<button class="btn_green btn_leave" id="btn_leave" >퇴근</button>
+			<div id="timeLeave" class="font3"></div>
 <!-- 			<button class="btn_green btn_off" id="btn_off_on">근무 외 시간</button> -->
 		</div>
 		<div>

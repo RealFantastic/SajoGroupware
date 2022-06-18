@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +59,7 @@
 		}
 		
 		
-// 		출근버튼 클릭시
+//		출근버튼 클릭시
 $(function() {
 	$('#btn_attendance').click(function() {
 		var today = new Date();   
@@ -69,10 +70,27 @@ $(function() {
 
 		var timeAttendance = hours + ':' + minutes  + ':' + seconds;
 		console.log("timeAttendance");
-	    document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance;
+		document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance;
+		//버튼 비활성화
+		$('#btn_attendance').unbind('click');
 	})
 })
+//		퇴근버튼 클릭시
+$(function() {
+	$('#btn_leave').click(function() {
+		var today = new Date();   
 
+		var hours = ('0' + today.getHours()).slice(-2); 
+		var minutes = ('0' + today.getMinutes()).slice(-2);
+		var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+		var timeLeave = hours + ':' + minutes  + ':' + seconds;
+		console.log("timeLeave");
+		document.getElementById("timeLeave").innerHTML="퇴근시간 : "+ timeLeave;
+		//버튼 비활성화
+		$('#btn_leave').unbind('click');
+	})
+})
 		
 		
 // // 		버튼 - 근무재시작 or 근무 외 시간
@@ -105,6 +123,7 @@ $(function() {
 			<button class="btn_green btn_attendance" id="btn_attendance">출근</button>
 			<div id="timeAttendance" class="font3"></div>
 			<button class="btn_green btn_leave" id="btn_leave" >퇴근</button>
+			<div id="timeLeave" class="font3"></div>
 <!-- 			<button class="btn_green btn_off" id="btn_off_on">근무 외 시간</button> -->
 		</div>
 		<div>

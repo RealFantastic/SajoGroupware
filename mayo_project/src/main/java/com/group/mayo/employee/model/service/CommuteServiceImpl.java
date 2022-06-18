@@ -16,10 +16,10 @@ public class CommuteServiceImpl implements CommuteService{
 	@Autowired
 	private CommuteDao dao;
 	
-//	@Override
-//	public List<CommuteRecord> selectMyCommute() {
-//		return dao.selectMyCommute();
-//	}
+	@Override
+	public List<CommuteRecord> myCommuteStatus() {
+		return dao.myCommuteStatus();
+	}
 	
 	@Override
 	public List<CommuteEmployee> empCommuteList() {
