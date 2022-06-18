@@ -5,8 +5,8 @@
 
 
 	<select id="myCommuteStatus" resultType="CommuteRecord">
-		insert into 
-		
+<!-- 		insert into COMMUTE_RECORD (RECORD_NO,EMP_NO,START_TIME,END_TIME) -->
+<!-- 		values(1,) -->
 		
 		
 		select * from COMMUTE_RECORD
