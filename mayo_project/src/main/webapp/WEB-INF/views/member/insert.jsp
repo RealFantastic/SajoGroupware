@@ -65,7 +65,9 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
     <div>
-        <form id="emp_enroll">
+        <form id="emp_enroll"
+        	 action="<%=request.getContextPath()%>/member/enroll"
+			 method="post" enctype="multipart/form-data">
             <section>
             <div id="j_container">
             <p id="j_title"><h1><strong>회원가입</strong></h1></p>
@@ -88,7 +90,7 @@
                     </div>
                     <div class="j_e" id="j_dept">
                         <label>부서 : </label>
-                        <select id="dept_no" name="dept_no">
+                        <select id="dept_no" name="dept_no" required="required">
                             <option value="">선택</option>
                             <option value="10">인사팀</option>
                             <option value="20">영업팀</option>
@@ -97,13 +99,12 @@
                     </div>
                     <div class="j_e" id="j_job">
                         <label>직위 : </label>
-                        <select id="job_no" name="job_no">
-                            <option value="">선택</option>
-                            <option value="1">사원</option>
-                            <option value="2">대리</option>
-                            <option value="3">과장</option>
-
-                        </select>
+	                    <select>
+	                    	<option value="">선택</option>
+	                    	<option value="1">사원</option>
+	                    	<option value="2">대리</option>
+	                    	<option value="3">과장</option>
+	                    </select>
                     </div>
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
@@ -136,7 +137,7 @@
                                 <option value="hanmail.net">hanmail.net</option>
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
-                                <option value="direct" >직접입력</option>
+                                <option value="direct">직접입력</option>
                               </select>
                             </div>
                         </div>
@@ -160,17 +161,18 @@
                         <div class="j_e">
                             <div>
                                 <label>우편번호 : </label>
-                                <input type="text" id="sample6_postcode" placeholder="우편번호">
+                                <input type="text" id="sample6_postcode" placeholder="우편번호" value="emp_postcode">
                                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                             </div>
                             <div>
                                 <label>주소 : </label>
-                                <input type="text" id="sample6_address" placeholder="주소"><br>                        
+                                <input type="text" id="sample6_address" placeholder="주소" value="address"><br>                        
                             </div>
                             <div>
                                 <label for="sample6_detailAddress">상세주소 : </label>
-                                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
- 
+                                <input type="text" id="sample6_detailAddress" placeholder="상세주소" value="detail_address">
+                          	    <input type="text" id="sample6_extraAddress" placeholder="참고항목" 
+                            style="width: 100px;">
                             </div>
                         </div>
                     </div>
@@ -180,7 +182,7 @@
                     </div>
                     <div class="j_e" id="j_sign_file">
                         <label for="sign_file">서명파일 : </label>
-                        <input type="file" id="sign_file">
+                        <input type="file" id="sign_file" name="sign_file">
                     </div>
 
 
@@ -222,46 +224,7 @@
         </footer>
     </div>
 
-    <!-- dept_box 직접입력 -->
-    <script>
-        $(function inputbox(){
-
-        //직접입력 인풋박스 기존에는 숨어있다가
-        $("#dept_box").hide();
-        $("#dept_no").change(function() {
-            console.log("변했음.");
-            //  직접입력을 누를 때 나타남
-            if($(this).val() == 00) {
-                $("#dept_box").show();
-                
-            }  else {
-                $("#dept_box").hide();
-            }
-            }) 
-        });
-    </script>
-        <!-- job_box 직접입력 -->
-<!--         
-        <script>
-            $(function inputbox(){
-    
-            //직접입력 인풋박스 기존에는 숨어있다가
-            $("#job_box").hide();
-            $("#job_no").change(function() {
-                console.log("변했음.");
-                //  직접입력을 누를 때 나타남
-                if($(this).val() == 0) {
-                    $("#job_box").show();
-                    
-                }  else {
-                    $("#job_box").hide();
-                }
-                }) 
-            });
-        </script>
-         -->
     <!-- 이메일 직접입력 -->
-<!--     
     <script>
         $(function (){
 
@@ -280,7 +243,6 @@
         });
    
     </script>
-     -->
     <!-- 약관 모두 동의 -->
     <script>
         $(document).ready( function() {

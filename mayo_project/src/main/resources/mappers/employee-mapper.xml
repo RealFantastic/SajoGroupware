@@ -40,9 +40,17 @@
 	</select>
 	<!-- 회원 등록 - 승희  -->
 
-	<insert id="insertEmployee">
-		INSERT INTO EMPLOYEE(EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE,ADDRESS,DETAIL_ADDRESS,EMP_POSTCODE,RRN,HIRE_DATE,IS_LEAVE,DEPT_NO,JOB_NO,CP_NUMBER,SIGN_PATH,SIGN_FILE_NAME) 
-		VALUES (#{emp_no},#{emp_name},#{password},#{email},#{phone},#{address},#{detail_address},#{emp_postcode},#{rrn},#{hire_date},#{dept_no},#{job_no},#{cp_number},#{sign_path},#{sign_file_name})
+	<insert id="insertEmployee" parameterType="EMPLOYEE">
+			INSERT INTO EMPLOYEE
+        (EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE
+            ,ADDRESS,DETAIL_ADDRESS,EMP_POSTCODE
+            ,RRN,HIRE_DATE,IS_LEAVE,DEPT_NO,JOB_NO
+            ,CP_NUMBER,SIGN_PATH,SIGN_FILE_NAME) 
+		VALUES
+        (#{emp_no},#{emp_name},#{password},#{email},#{phone}
+        ,#{address},#{detail_address},#{emp_postcode}
+        ,#{rrn},#{hire_date},default,#{dept_no},#{job_no}
+        ,#{cp_number},#{sign_path},#{sign_file_name})
 	</insert>
 	
 </mapper>

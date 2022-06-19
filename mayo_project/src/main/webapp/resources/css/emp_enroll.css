@@ -71,6 +71,9 @@
     top: 45px;
 
     font-size: larger;
+    
+    display: block;
+	float: left;
 }
 /* footer */
 #j_footer{
@@ -84,6 +87,16 @@
     top: 15px;
     
 }
+/* div 크기 */
+#j_emp_no{
+	display: block;
+	float: left;
+}
+#j_pwd,#j_pwd_chk{
+	display: block;
+	float: left;	
+}
+
 /*  div 간격 */
 #j_dept,#j_job{
     float: left;

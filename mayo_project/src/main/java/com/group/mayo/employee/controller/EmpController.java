@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -36,6 +38,10 @@ public class EmpController {
 	
 	@Autowired
 	private DeptService dservice;
+	
+	@Autowired
+	private SignFileUpload commonFile;
+
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -160,6 +166,7 @@ public class EmpController {
 //			, @RequestParam(name="title", required = false) String t1
 			//, RedirectAttributes rttr
 			, Employee employee
+			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
 			, HttpServletRequest req
 			) {
 //		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
@@ -169,6 +176,17 @@ public class EmpController {
 			//rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
 			mv.setViewName("redirect:/employee/enroll");
 			return mv;
+		}
+		// 첨부파일있다면 첨부파일 저장
+		if(sign_file !=null) {
+			String rename_filename = commonFile.saveFile(sign_file, req);
+			if(rename_filename != null) {
+				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+				employee.setSign_path(sign_file.getOriginalFilename());
+				employee.setSign_file_name(rename_filename);
+//				board.setBoard_original_filename(uploadfile.getOriginalFilename());
+//				board.setBoard_rename_filename(rename_filename);
+			}
 		}
 		mv.setViewName("redirect:/");
 		return mv;
