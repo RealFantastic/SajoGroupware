@@ -1,10 +1,10 @@
 package com.group.mayo.employee.model.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
 import com.group.mayo.employee.domain.CommuteRecord;
-import com.group.mayo.employee.domain.Employee;
 
 public interface CommuteService {
 
@@ -14,7 +14,14 @@ public interface CommuteService {
 	 */
 	public List<CommuteRecord> myCommuteStatus() ;
 	
+	/**
+	 * @return 출근시간
+	 * 
+	 * @author hong
+	 */
+	public CommuteRecord statusAtt(String id);
 	
+//	public CommuteRecord selectStatusAtt();
 	
 	
 	/**
@@ -30,5 +37,7 @@ public interface CommuteService {
 	 * @author hong
 	 */
 	public List<CommuteRecord>empCommuteChange();
+
+	
 	
 }

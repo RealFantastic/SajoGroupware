@@ -60,23 +60,48 @@
 		
 //		출근버튼 클릭시
 		$(function() {
+			timeAttendance= null;//전역변수 선언
 			$('#btn_attendance').click(function() {
-				var today = new Date();   
+				var today = new Date();
 
 				var hours = ('0' + today.getHours()).slice(-2); 
 				var minutes = ('0' + today.getMinutes()).slice(-2);
 				var seconds = ('0' + today.getSeconds()).slice(-2); 
 
-				var timeAttendance = hours + ':' + minutes  + ':' + seconds;
-				console.log("timeAttendance");
-				document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance;
+				timeAttendance = hours + ':' + minutes  + ':' + seconds;
+				console.log(timeAttendance);
+// 				document.getElementById("timeAttendance").innerHTML="출근시간 : "+ timeAttendance; //ajax사용으로 불필요해짐
 				//버튼 비활성화
 				$('#btn_attendance').unbind('click');
-			})
-		})
+				$.ajax({
+					type:"post" //post or get
+					,url:"<%=request.getContextPath()%>/commute/statusAtt"
+// 					,data: {attandance : timeAttendance} //보내는 키,값
+					 ,dataType:"json"//받는자료형(@ResponseBody=스트링)
+					,success:function(resultAtt){
+						console.log(resultAtt);
+						if(resultAtt == "fail"){
+							alert("출근처리에 실패했습니다. 다시 시도하세요.");
+						}else {
+							console.log(resultAtt);
+							$("#timeAttendance").text("출근시간 : " + timeAttendance);
+							
+						}
+					}
+					,error:function(){
+						alert("ajax 제대로 동작 못했다. 다시해라");
+					}
+				});
+			});
+		});
 //				퇴근버튼 클릭시
 		$(function() {
 			$('#btn_leave').click(function() {
+				console.log(timeAttendance);
+				if(timeAttendance==null){
+					alert("출근시각이 명확하지 않습니다.");
+					return;
+				}
 				var today = new Date();   
 
 				var hours = ('0' + today.getHours()).slice(-2); 
@@ -87,7 +112,7 @@
 				console.log("timeLeave");
 				document.getElementById("timeLeave").innerHTML="퇴근시간 : "+ timeLeave;
 				//버튼 비활성화
-				$('#btn_leave').unbind('click');
+				$('#btn_leave').on('click');//unbind
 			})
 		})
 		

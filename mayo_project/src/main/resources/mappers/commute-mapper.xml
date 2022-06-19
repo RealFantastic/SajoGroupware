@@ -5,14 +5,21 @@
 
 
 	<select id="myCommuteStatus" resultType="CommuteRecord">
-<!-- 		insert into COMMUTE_RECORD (RECORD_NO,EMP_NO,START_TIME,END_TIME) -->
-<!-- 		values(1,) -->
-		
-		
 		select * from COMMUTE_RECORD
 	</select>
+	<insert id="statusAtt">
+		insert into COMMUTE_RECORD (RECORD_NO,EMP_NO,START_TIME,END_TIME)
+		values(
+		(select nvl(max(RECORD_NO),0)+1 from COMMUTE_RECORD)
+		,'202230001'
+		,systimestamp
+		,null)
+	</insert>
 	
+	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
 	
+	select * from (select * from COMMUTE_RECORD order by start_time desc) where emp_no = #{id} and rownum= 1
+	</select>
 	
 	<select id="empCommuteList" resultType="CommuteEmployee">
 		SELECT EMP_NO

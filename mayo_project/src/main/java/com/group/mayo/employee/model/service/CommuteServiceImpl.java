@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
 import com.group.mayo.employee.domain.CommuteRecord;
-import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.dao.CommuteDao;
 
 @Service
@@ -21,6 +20,24 @@ public class CommuteServiceImpl implements CommuteService{
 		return dao.myCommuteStatus();
 	}
 	
+	//출근시간
+	@Override
+	public CommuteRecord statusAtt(String id) {
+		
+		int result = dao.statusAtt();
+		CommuteRecord attTime= null;
+		if(result !=0)
+		 return dao.selectStatusAtt(id);
+
+		return attTime;
+		
+	}
+	
+	
+
+	
+
+
 	@Override
 	public List<CommuteEmployee> empCommuteList() {
 		
@@ -31,4 +48,6 @@ public class CommuteServiceImpl implements CommuteService{
 	public List<CommuteRecord> empCommuteChange() {
 		return dao.empCommuteChange();
 	}
+
+
 }
