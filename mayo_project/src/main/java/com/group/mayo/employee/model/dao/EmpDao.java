@@ -21,7 +21,7 @@ public class EmpDao {
 	public Employee selectEmployee(String emp_no) {
 		return sqlSession.selectOne("Employee.selectMember",emp_no);
 	}
-		//Á÷¿øµî·Ï
+		//ì§ì›ë“±ë¡
 	public int insertEmployee(Employee employee) {
 		return sqlSession.insert("Employee.insertEmployee",employee);
 	}

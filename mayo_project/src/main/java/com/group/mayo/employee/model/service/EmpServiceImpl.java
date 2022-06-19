@@ -27,7 +27,7 @@ public class EmpServiceImpl implements EmpService{
 		return dao.selectEmployee(emp_no);
 	}
 	
-		//Á÷¿øµî·Ï
+		//ì§ì›ë“±ë¡
 	@Override
 	public int insertEmployee(Employee employee) {
 		return dao.insertEmployee(employee);
