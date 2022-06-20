@@ -22,6 +22,14 @@ public class ProjectDao {
 		return sqlSession.insert("Project.insertProj", proj);
 	}
 	
+	public int updateProj(Project proj) {
+		return sqlSession.update("Project.updateProj", proj);
+	}
+	
+	public int deleteProj(int proj_no) {
+		return sqlSession.delete("Project.deleteProj", proj_no);
+	}
+	
 	public Project selectProj(int proj_no) {
 		return sqlSession.selectOne("Project.selectProj", proj_no);
 	}

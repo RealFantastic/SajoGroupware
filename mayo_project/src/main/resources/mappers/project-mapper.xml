@@ -13,6 +13,7 @@
 	select * from proj
 </select>
 
+<!-- 프로젝트 생성 -->
 <insert id="insertProj" parameterType="Project">
 <!-- 	insert into proj values  -->
 <!-- 	((select nvl(max(PROJ_NUM),0)+1 from proj)), #{proj_name}, default, #{proj_content}, #{proj_mgr}, #{proj_type})  -->
@@ -21,9 +22,19 @@
 	((select nvl(max(proj_no),0)+1 from proj), #{proj_name}, default, #{proj_content}, 202220123 , #{proj_type}) 
 </insert>
 
+<!-- 프로젝트 선택 -->
 <select id="selectProj" resultType="Project">
 	select * from proj where proj_no=#{proj_no}
 </select>
 
+<!-- 프로젝트 수정 -->
+<update id="updateProj" parameterType="Project">
+	update proj set proj_name=#{proj_name}, proj_content=#{proj_content} where proj_no=#{proj_no}
+</update>
+
+<!-- 프로젝트 삭제 -->
+<delete id="deleteProj" parameterType="Project">
+	delete from proj where proj_no=#{proj_no}
+</delete>
 
 </mapper>

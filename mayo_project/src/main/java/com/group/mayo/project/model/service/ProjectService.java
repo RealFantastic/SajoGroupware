@@ -19,7 +19,13 @@ public interface ProjectService {
 	public int insertProj(Project proj);
 	
 	/**
-	 * @param proj 프로젝트 번호 proj_no
+	 * @param proj_no, proj 프로젝트 번호, 수정 내용
+	 * @return 수정된 프로젝트 개수
+	 */
+	public int updateProj(Project proj);
+	
+	/**
+	 * @param proj_no 프로젝트 번호
 	 * @return 삭제된 프로젝트 개수
 	 */
 	public int deleteProj(int proj_no);

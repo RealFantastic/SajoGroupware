@@ -18,13 +18,55 @@
 
 	<aside id="side">
 		<div id="side-content">
-			<button class="btn_yellow">프로젝트 정보</button>
+			<button class="btn_yellow" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
 			<button id="insertWork" class="btn_green" data-bs-toggle="modal" data-bs-target="#newWork">업무 추가</button>
 			<button id="insertSch" class="btn_yellow">일정 추가</button>
 		</div>
 	</aside>
 
 	<div id="body">
+	
+	<!-- 프로젝트 정보 모달창 -->
+<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">프로젝트</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form name="mProject" action="<%=request.getContextPath()%>/project/modify" method="POST">
+      <div class="modal-body">
+      	<div style="display: flex;">
+      		<div>
+	      		<c:if test="${not empty project.proj_type }">
+				<c:choose>
+				<c:when test="${project.proj_type eq '1'}">업무</c:when>
+				<c:when test="${project.proj_type eq '2'}">동호회</c:when>
+				<c:when test="${project.proj_type eq '3'}">정보공유</c:when>
+				<c:otherwise>기타</c:otherwise>
+				</c:choose>
+				</c:if> 
+      		</div>
+				<div style="margin-left:10px;">${project.proj_no }</div>
+      	</div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">프로젝트명</label>
+            <input type="text" class="form-control" id="title" name="proj_name" value="${project.proj_name }" required="required">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">설명</label>
+            <textarea class="form-control" id="content" name="proj_content" required> ${project.proj_content } </textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteProj" class="btn_red">삭제</button>
+        <button id="submitM" type="submit" class="btn_green">수정</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 		<!-- 프로젝트 정보 -->
 		<div class="font4 proj">
 			<div>${project.proj_name } </div>
@@ -116,8 +158,43 @@
 </div>
 
 <script>
+// 프로젝트 수정 ajax
+$("#submitM").click(function(){
+		
+	var proj = $("form[name=mProject]").serialize();
+	
+	$.ajax({
+ 		type: "POST",
+		url: "<%=request.getContextPath()%>/project/update",
+		data: { 
+ 				proj: proj;
+ 				},
+ 		success: function(result){
+			alert(result);
+		}
+		
+ 	});
+});
 
-// progress bar
+$("#deleteProj").click(function(){
+	var proj_no = "${project.proj_no}";
+	
+	$.ajax({
+ 		type: "POST",
+		url: "<%=request.getContextPath()%>/project/delete",
+		data: { 
+ 				proj_no: proj_no;
+ 				},
+ 		success: function(result){
+ 			console.log("삭제");
+			alert(result);
+		}
+		
+ 	});
+});
+
+
+// progress bar 
 $(document).ready(function(){
 	  //프로그래스 바를 클릭
 	  $('.progress').click(function(e){
@@ -128,9 +205,10 @@ $(document).ready(function(){
 	        clickPercentage = x / $('.progress').width();
 	        //.state의 너비는 (.progress의 너비에서 변수 clickPercentage를 곱한 값);
 	        $('.state').width($('.progress').width() * clickPercentage);
-	        var percentage = clickPercentage * 100;
-	        //Math.floor() 소수점 버림, 정수를 반환하는 함수
-	        $('#work_progress').val(Math.floor(percentage));
+
+	        var percentage = clickPercentage * 10;
+	    	// 10 단위로 나타내기
+	        $('#work_progress').val(Math.round(percentage)*10);
 	    });
 	});
 	
@@ -165,39 +243,19 @@ $(function(){
  		dataType: 'json',
  		success: function(result){
  			console.log(result);
- 			var html = "";
+//  			var html = "";
  			for(var i = 0; i < result.length; i++){
- 				html += "<div>"+result[i].work_title+"</div>";
+				$("#worklist").load("<%=request.getContextPath()=%>/workDetail.jsp");
   			}
-  			$(".work_list").append(html); 
- 			
+//   			$("#worklist").append(html); 
 		}
 	});
 });
 
-// // 업무 등록 ajax
-// $("#submitP").click(function(){
-	
-// 	var newWork = $("form[name=newWork]").serializeObject();
-		
-// 	$.ajax({
-//  		type: "POST",
-<%-- 		url: "<%=request.getContextPath()%>/work/insert", --%>
-// 		data: { 
-//  				newWork: newWork;
-//  				},
-//  		success: function(result){
-// 			if(result){
-// 			}
-// 		}
-		
-//  	});
-// });
 
 </script>
 		
 		
-	</div>
 		
 </body>
 </html>

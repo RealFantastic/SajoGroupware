@@ -27,16 +27,19 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
+	public int updateProj(Project proj) {
+		return dao.updateProj(proj);
+	}
+	
+	@Override
 	public int deleteProj(int proj_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteProj(proj_no); 
 	}
 
 	@Override
 	public Project selectProj(int proj_no) {
 		return dao.selectProj(proj_no);
 	}
-	
-	
+
 	
 }

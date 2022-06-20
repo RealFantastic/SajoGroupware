@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,6 +55,40 @@ public class ProjectController {
 		
 		return mv;
 	}
+	
+	@PostMapping("/update") // 프로젝트 수정
+	@ResponseBody
+	public String updateProj(@RequestParam(name="proj_no", required=false) Project proj) {
+		int result = service.updateProj(proj);
+		String msg="";
+		
+		if(result <= 0) {
+			System.out.println("수정실패");
+			msg="수정에 실패했습니다";
+		} else {
+			msg="프로젝트 정보가 수정되었습니다";
+		}
+		return msg;			
+		
+	}
+	
+	@PostMapping("/delete") // 프로젝트 삭제
+	@ResponseBody
+	public String deleteProj(@RequestParam(name="proj_no", required=false) int proj_no) {
+		int result = service.deleteProj(proj_no);
+		String msg="";
+		
+		if(result <= 0) {
+			System.out.println("삭제실패");
+			msg="삭제에 실패했습니다";
+		} else {
+			msg="프로젝트가 삭제되었습니니다";
+		}
+		return msg;			
+		
+	}
+	
+	
 	
 	@GetMapping("/select") // 특정 프로젝트 선택 - 프로젝트 내부로 이동
 	public ModelAndView selectProj(ModelAndView mv, @RequestParam(name="proj_no", required=false) int proj_no) {
