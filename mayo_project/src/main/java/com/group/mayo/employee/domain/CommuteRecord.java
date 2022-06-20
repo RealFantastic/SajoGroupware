@@ -15,16 +15,20 @@ public class CommuteRecord {
 
 	private int record_no;
 	private String emp_no;
+	private String today_start_time;
+	private String today_end_time;
+	
 	private Timestamp start_time;
 	private Timestamp end_time;
 		
+
+	
+	
 	@Override
 	public String toString() {
-		return "CommuteRecord [record_no=" + record_no + ", emp_no=" + emp_no + ", start_time=" + start_time
-				+ ", end_time=" + end_time + "]";
+		return "CommuteRecord [record_no=" + record_no + ", emp_no=" + emp_no + ", today_start_time=" + today_start_time
+				+ ", today_end_time=" + today_end_time + ", start_time=" + start_time + ", end_time=" + end_time + "]";
 	}
-	
-	
 	public int getRecord_no() {
 		return record_no;
 	}
@@ -49,5 +53,18 @@ public class CommuteRecord {
 	public void setEnd_time(Timestamp end_time) {
 		this.end_time = end_time;
 	}
+	public String getToday_start_time() {
+		return today_start_time;
+	}
+	public void setToday_start_time(String today_start_time) {
+		this.today_start_time = today_start_time;
+	}
+	public String getToday_end_time() {
+		return today_end_time;
+	}
+	public void setToday_end_time(String today_end_time) {
+		this.today_end_time = today_end_time;
+	}
 
+	
 }

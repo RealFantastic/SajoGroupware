@@ -9,19 +9,25 @@ import com.group.mayo.employee.domain.CommuteRecord;
 public interface CommuteService {
 
 	/**
-	 * @return 리턴할 값 입력해주기 /TODO 각 사원별 출근시간 , 퇴근시간
+	 * @return 리턴할 값 입력해주기 /TODO 로그인한 사원 오늘 출근시간 , 퇴근시간
 	 * @author hong
 	 */
-	public List<CommuteRecord> myCommuteStatus() ;
-	
+	public CommuteRecord myCommuteStatus(String id ) ;
+
+
 	/**
 	 * @return 출근시간
-	 * 
 	 * @author hong
 	 */
 	public CommuteRecord statusAtt(String id);
-	
-//	public CommuteRecord selectStatusAtt();
+
+	/**
+	 * @return 퇴근시간
+	 * @author hong
+	 */
+	public CommuteRecord statusLeave(String id);
+
+
 	
 	
 	/**
@@ -29,15 +35,14 @@ public interface CommuteService {
 	 * @author hong
 	 */
 	public List<CommuteEmployee>empCommuteList();
-	
-	
-	
+
+
 	/**
 	 * @return 근무일, 출근시간, 퇴근시간
 	 * @author hong
 	 */
 	public List<CommuteRecord>empCommuteChange();
 
-	
-	
+
+
 }

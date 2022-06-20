@@ -21,15 +21,28 @@ public class CommuteController {
 	
 	@Autowired
 	private CommuteService service; 
-//	직원근태상세보기
+//	개인근태상세보기 - 페이지띄우기 
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
 	public ModelAndView commuteMyStatus(ModelAndView mv) {
-		List<CommuteRecord> commuteMystatus=service.myCommuteStatus();
-		mv.addObject("myCommuteStatus",commuteMystatus);
+		
+		String id = "202230001";
+		// 1. 로그인한 사람 오늘 출근시간/ 퇴근시간 있는지 조회 
+		CommuteRecord userInfo = service.myCommuteStatus(id);
+		
+		// 2. 출퇴근 리스트 불러오기 
+		//List<CommuteRecord> commuteMystatus = service.myCommuteStatusList();
+
+		//3.사원번호 ,사원명 ,직함 , 부서명, 연락처 
+		
+		
+		mv.addObject("toDayStatus",userInfo);
+		//mv.addObject("StatusList",commuteMystatus);
+		
 		mv.setViewName("commute/myCommute");
 		return mv;
 	}
 	
+//	개인근태상세보기 - 출근버튼 클릭시
 	@RequestMapping(value="/statusAtt",produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody //produces 꼭 써줘야함. 한글깨짐있음(반환자료형 String임)
 	public String statusAtt() {
@@ -44,11 +57,30 @@ public class CommuteController {
 		}else {
 			resultAtt= "fail";
 		}
-//	
 		
 		return resultAtt;
 	}
+	
+//	개인근태상세보기 - 퇴근버튼 클릭시
+	@RequestMapping(value = "/statusLeave", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	private String statusLeave() {
 		
+		String resultLeave=null;
+		String id = "202230001";
+		CommuteRecord statusLeave=service.statusLeave(id);
+		System.out.println(statusLeave);
+		if(statusLeave != null) {
+			Gson gson=new GsonBuilder().setPrettyPrinting().create();
+			resultLeave=gson.toJson(statusLeave);
+		}else {
+			resultLeave="fail";
+		}
+		return resultLeave;
+	}
+	
+	
+	
 //	인사팀 - 직원근태상세보기	
 	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.GET)
 	public ModelAndView commuteEmpSelect(ModelAndView mv) {

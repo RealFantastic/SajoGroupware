@@ -16,18 +16,28 @@ public class CommuteDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
-	public List<CommuteRecord>myCommuteStatus(){
-		return sqlSession.selectList("CommuteRecord.myCommuteStatus");
+//	개인근태
+	public CommuteRecord myCommuteStatus(String id){
+		return sqlSession.selectOne("CommuteRecord.toDayCommuteStatus", id);
 	}
-	
-	//출근시간
+
+//	출근시간
 	public int statusAtt() {
 		return sqlSession.insert("CommuteRecord.statusAtt");
 	}
 	public CommuteRecord selectStatusAtt(String id) {
 		return sqlSession.selectOne("CommuteRecord.selectStatusAtt",id);
 	}
+
+
+//	퇴근시간
+	public int statusLeave() {
+		return sqlSession.update("CommuteRecord.statusLeave");
+	}
+	public CommuteRecord selectStatusLeave(String id) {
+		return sqlSession.selectOne("CommuteRecord.selectStatusLeave",id);
+	}
+	
 	
 	
 	public List<CommuteEmployee>empCommuteList(){
@@ -37,4 +47,5 @@ public class CommuteDao {
 	public List<CommuteRecord>empCommuteChange(){
 		return sqlSession.selectList("CommuteRecord.empCommuteChange");
 	}
+
 }

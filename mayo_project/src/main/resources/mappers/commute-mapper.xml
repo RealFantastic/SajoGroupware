@@ -3,10 +3,17 @@
 
 <mapper namespace="CommuteRecord">
 
-
-	<select id="myCommuteStatus" resultType="CommuteRecord">
-		select * from COMMUTE_RECORD
+<!-- 	출근시간,퇴근시간 확인 -->
+	<select id="toDayCommuteStatus" resultType="CommuteRecord" parameterType="String">
+		SELECT 
+			TO_CHAR(START_TIME, 'HH24:MI:SS') today_start_time
+			,TO_CHAR(END_TIME, 'HH24:MI:SS') today_end_time
+		FROM commute_record
+		WHERE emp_no =#{id} 
+			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
 	</select>
+
+<!-- 출근시간 등록 -->
 	<insert id="statusAtt">
 		insert into COMMUTE_RECORD (RECORD_NO,EMP_NO,START_TIME,END_TIME)
 		values(
@@ -16,11 +23,24 @@
 		,null)
 	</insert>
 	
+	
+<!-- 퇴근시간 등록 -->
+	<update id="statusLeave">
+		UPDATE commute_record set end_time=SYSTIMESTAMP 
+		where emp_no='202230001'
+		and to_char(start_Time, 'YYYYMMDD') = to_char(sysdate, 'YYYYMMDD')
+	</update>
+
+
 	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
 	
 	select * from (select * from COMMUTE_RECORD order by start_time desc) where emp_no = #{id} and rownum= 1
 	</select>
+	<select id="selectStatusLeave" parameterType="string" resultType="CommuteRecord">
 	
+	select * from (select * from COMMUTE_RECORD order by end_time desc) where emp_no = #{id} and rownum= 1
+	</select>
+
 	<select id="empCommuteList" resultType="CommuteEmployee">
 		SELECT EMP_NO
 			, EMP_NAME
@@ -33,6 +53,6 @@
 	
 	
 	<select id="empCommuteChange" resultType="CommuteRecord">
-	 
+	
 	</select>
 </mapper>

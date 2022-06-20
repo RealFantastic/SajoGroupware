@@ -15,9 +15,10 @@ public class CommuteServiceImpl implements CommuteService{
 	@Autowired
 	private CommuteDao dao;
 	
+	//개인근태페이지
 	@Override
-	public List<CommuteRecord> myCommuteStatus() {
-		return dao.myCommuteStatus();
+	public CommuteRecord myCommuteStatus(String id) {
+		return dao.myCommuteStatus(id);
 	}
 	
 	//출근시간
@@ -27,12 +28,20 @@ public class CommuteServiceImpl implements CommuteService{
 		int result = dao.statusAtt();
 		CommuteRecord attTime= null;
 		if(result !=0)
-		 return dao.selectStatusAtt(id);
+			return dao.selectStatusAtt(id);
 
 		return attTime;
-		
 	}
-	
+	//퇴근시간
+	@Override
+	public CommuteRecord statusLeave(String id) {
+		int result =dao.statusLeave();
+		CommuteRecord leaveTime=null;
+		if(result !=0)
+			return dao.selectStatusLeave(id);
+		
+		return leaveTime;
+	}
 	
 
 	
