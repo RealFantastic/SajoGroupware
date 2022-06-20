@@ -31,14 +31,25 @@
 		and to_char(start_Time, 'YYYYMMDD') = to_char(sysdate, 'YYYYMMDD')
 	</update>
 
+<!-- 	나의 정보 -->
+	<select id="commuteMyInfo" resultType="CommuteEmployee">
+		SELECT EMP_NO
+			, EMP_NAME
+			, PHONE
+			, (SELECT dept_name FROM department b WHERE b.dept_no = a.dept_no ) DEPT_NM
+			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
+		FROM employee a where emp_no='202230001'
+	</select>
 
 	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
-	
-	select * from (select * from COMMUTE_RECORD order by start_time desc) where emp_no = #{id} and rownum= 1
+		select * from 
+		(select * from COMMUTE_RECORD order by start_time desc) 
+		where emp_no = #{id} and rownum= 1
 	</select>
 	<select id="selectStatusLeave" parameterType="string" resultType="CommuteRecord">
-	
-	select * from (select * from COMMUTE_RECORD order by end_time desc) where emp_no = #{id} and rownum= 1
+		select * from 
+		(select * from COMMUTE_RECORD order by end_time desc) 
+		where emp_no = #{id} and rownum= 1
 	</select>
 
 	<select id="empCommuteList" resultType="CommuteEmployee">

@@ -43,7 +43,10 @@ public class CommuteServiceImpl implements CommuteService{
 		return leaveTime;
 	}
 	
-
+	@Override
+	public CommuteEmployee commuteMyInfo() {
+		return dao.commuteMyInfo();
+}
 	
 
 

@@ -199,15 +199,71 @@
 		<div class="commute_title font4">나의 근태현황</div>
 		
 		<div>
-			<div>
-				그래프 자리
+			<div> 그래프자리
+<!-- 				Highcharts.chart('container', { -->
+<!--     chart: { -->
+<!--         plotBackgroundColor: null, -->
+<!--         plotBorderWidth: 0, -->
+<!--         plotShadow: false -->
+<!--     }, -->
+<!--     title: { -->
+<!--         text: 'Browser<br>shares<br>2017', -->
+<!--         align: 'center', -->
+<!--         verticalAlign: 'middle', -->
+<!--         y: 60 -->
+<!--     }, -->
+<!--     tooltip: { -->
+<!--         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' -->
+<!--     }, -->
+<!--     accessibility: { -->
+<!--         point: { -->
+<!--             valueSuffix: '%' -->
+<!--         } -->
+<!--     }, -->
+<!--     plotOptions: { -->
+<!--         pie: { -->
+<!--             dataLabels: { -->
+<!--                 enabled: true, -->
+<!--                 distance: -50, -->
+<!--                 style: { -->
+<!--                     fontWeight: 'bold', -->
+<!--                     color: 'white' -->
+<!--                 } -->
+<!--             }, -->
+<!--             startAngle: -90, -->
+<!--             endAngle: 90, -->
+<!--             center: ['50%', '75%'], -->
+<!--             size: '110%' -->
+<!--         } -->
+<!--     }, -->
+<!--     series: [{ -->
+<!--         type: 'pie', -->
+<!--         name: 'Browser share', -->
+<!--         innerSize: '50%', -->
+<!--         data: [ -->
+<!--             ['Chrome', 58.9], -->
+<!--             ['Firefox', 13.29], -->
+<!--             ['Internet Explorer', 13], -->
+<!--             ['Edge', 3.78], -->
+<!--             ['Safari', 3.42], -->
+<!--             { -->
+<!--                 name: 'Other', -->
+<!--                 y: 7.61, -->
+<!--                 dataLabels: { -->
+<!--                     enabled: false -->
+<!--                 } -->
+<!--             } -->
+<!--         ] -->
+<!--     }] -->
+<!-- }); -->
+        
 			</div>
 			<div>
 				조회날짜 자리
 			</div>
-			<div>
-				사원번호 :  사원명 :  직함 :  <br>
-				부서명 :  연락처 :  
+			<div class="my_info">
+				사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
+				 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
 			</div>
 		</div>
 

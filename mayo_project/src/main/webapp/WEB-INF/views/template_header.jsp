@@ -28,7 +28,7 @@
                 <ul id="menus" class="font3">
                     <li><a href="#">홈</a></li>
                     <li><a href="<%=request.getContextPath()%>/calendar/view">캘린더</a></li>
-                    <li><a href="#">근태관리</a></li>
+                    <li><a href="<%=request.getContextPath()%>/commute/status"">근태관리</a></li>
                     <li><a href="<%=request.getContextPath()%>/project/list">업무관리</a></li>
                     <li><a href="#">연차관리</a></li>
                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#empchart">조직도</a></li>

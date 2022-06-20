@@ -29,7 +29,6 @@ public class CommuteDao {
 		return sqlSession.selectOne("CommuteRecord.selectStatusAtt",id);
 	}
 
-
 //	퇴근시간
 	public int statusLeave() {
 		return sqlSession.update("CommuteRecord.statusLeave");
@@ -37,9 +36,13 @@ public class CommuteDao {
 	public CommuteRecord selectStatusLeave(String id) {
 		return sqlSession.selectOne("CommuteRecord.selectStatusLeave",id);
 	}
-	
-	
-	
+
+//	개인근태- 나의정보
+	public CommuteEmployee commuteMyInfo() {
+		return sqlSession.selectOne("CommuteRecord.commuteMyInfo");
+	}
+
+
 	public List<CommuteEmployee>empCommuteList(){
 		return sqlSession.selectList("CommuteRecord.empCommuteList");
 	}

@@ -44,7 +44,12 @@
 .commute_title{
 	font-weight: bolder;
 }
-
+/* 왼쪽메뉴바를 제외한 나의정보 */
+.my_info{
+	background-color :rgb(235, 255, 246);
+	width: 100%;
+	font-weight: bolder;
+}
 /* 왼쪽메뉴바를 제외한 테이블 */
 .table_all{
 	width: 100%;

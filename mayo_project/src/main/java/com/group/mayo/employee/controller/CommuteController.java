@@ -16,7 +16,7 @@ import com.group.mayo.employee.domain.CommuteRecord;
 import com.group.mayo.employee.model.service.CommuteService;
 
 @Controller
-@RequestMapping("commute")
+@RequestMapping("/commute")
 public class CommuteController {
 	
 	@Autowired
@@ -26,20 +26,25 @@ public class CommuteController {
 	public ModelAndView commuteMyStatus(ModelAndView mv) {
 		
 		String id = "202230001";
+		
 		// 1. 로그인한 사람 오늘 출근시간/ 퇴근시간 있는지 조회 
 		CommuteRecord userInfo = service.myCommuteStatus(id);
+		mv.addObject("toDayStatus",userInfo);
+		
 		
 		// 2. 출퇴근 리스트 불러오기 
 		//List<CommuteRecord> commuteMystatus = service.myCommuteStatusList();
 
 		//3.사원번호 ,사원명 ,직함 , 부서명, 연락처 
-		
-		
-		mv.addObject("toDayStatus",userInfo);
-		//mv.addObject("StatusList",commuteMystatus);
-		
+		CommuteEmployee commuteMyInfo=service.commuteMyInfo();
+		mv.addObject("commuteMyInfo",commuteMyInfo);
 		mv.setViewName("commute/myCommute");
 		return mv;
+		
+		
+
+		//mv.addObject("StatusList",commuteMystatus);
+		
 	}
 	
 //	개인근태상세보기 - 출근버튼 클릭시
@@ -64,7 +69,7 @@ public class CommuteController {
 //	개인근태상세보기 - 퇴근버튼 클릭시
 	@RequestMapping(value = "/statusLeave", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	private String statusLeave() {
+	public String statusLeave() {
 		
 		String resultLeave=null;
 		String id = "202230001";
@@ -79,8 +84,9 @@ public class CommuteController {
 		return resultLeave;
 	}
 	
-	
-	
+
+
+
 //	인사팀 - 직원근태상세보기	
 	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.GET)
 	public ModelAndView commuteEmpSelect(ModelAndView mv) {
