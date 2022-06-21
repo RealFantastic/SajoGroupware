@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="EaForm">
+  <select id="selectListEaForm" resultType="EaForm">
+  	select * from ea_form
+  </select>
+  <select id="selectForm" parameterType="string" resultType="EaForm">
+  	select * from ea_form whrere form_code=#{form_code}
+  </select>
+</mapper>

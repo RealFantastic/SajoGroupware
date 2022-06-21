@@ -1,0 +1,80 @@
+#side_bar_container{
+    width: 250px;
+    height: 100vh;
+    background-color:rgb(235, 255, 246);
+    padding: 1rem;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    position:fixed;
+}
+.new_button{
+   margin-bottom: 15px;
+    text-align: center;
+}
+#new_approval{
+    padding: 10px 20px 10px 20px;
+    font-size: 25px;
+    font-family: 'GmarketSansMedium';
+    cursor: pointer;
+}
+#contour{
+    margin: 15px 0 15px 0;
+    opacity: .25;
+}
+
+.top_menu >a{
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+    box-sizing: border-box;
+}
+.sub_menu{
+    padding: 0 10px;
+}
+.top_menu *{
+   color: rgb(37, 158, 101);
+}
+#side_bar_container>#menulist>ul li{
+    margin: 10px 0 10px 0;
+}
+.drop_motion{
+    transform: rotate(90deg);
+    transition: .2s;
+}
+.fa-caret-right{
+    margin-right: 15px;
+}
+/* 메인페이지 content css 시작 */
+#bodyContent{
+	margin-left: 250px;
+	min-height:600px;
+}
+.content_top{
+	padding:18px 24px;
+}
+/* 메인페이지 content css 종료 */
+/* 기안 진행문서 css시작 */
+#home_my_draftedlist{
+	position:relative;
+	margin-bottom:20px;
+}
+#home_my_draftedlist>h1{
+	font-size:22px;
+	font-family:'GmarketSansMedium';
+	padding:24px;
+}
+table#list_app{
+	width:100%;
+	border:1px solid #ddd;
+}
+table#list_app th{
+	padding: 0 16px;
+	height:30px;
+}
+table#list_app th:first-child{
+	padding-left:24px;
+	padding-right:0;
+}
+/* 기안 진행문서 css 종료 */

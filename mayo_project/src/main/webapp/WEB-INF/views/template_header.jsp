@@ -201,7 +201,6 @@
 					$("input[name=dept_name]").val(data.dept_name);
 					$("input[name=hire_date]").val(data.hire_date);
 					$("input[name=address]").val(data.address);
-					
 				},
 				error:function(){
 					alert("동작실패");

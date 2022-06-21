@@ -17,6 +17,7 @@
 	<typeAlias type="com.group.mayo.approval.domain.EapDomain" alias="Eap"/>
 	<typeAlias type="com.group.mayo.job.domain.Job" alias="Job"/>
 	<typeAlias type="com.group.mayo.work.domain.WorkFile" alias="WorkFile"/>
+	<typeAlias type="com.group.mayo.eaform.domain.EaForm" alias="EaForm"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
@@ -27,6 +28,6 @@
 	<mapper resource="mappers/commute-mapper.xml"/>
 	<mapper resource="mappers/holiday-mapper.xml"/>
 	<mapper resource="mappers/eap-mapper.xml"/>
-	
+	<mapper resource="mappers/eaForm-mapper.xml"/>
 </mappers>
 </configuration>

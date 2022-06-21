@@ -1,15 +1,142 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>전자결재</title>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script> -->
+<link href="<%=request.getContextPath()%>/resources/css/elec_approval_main.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 	<aside id="side_bar_container">
-		
-	</aside>
+        <div class="new_button">
+            <button type="button" id="new_approval" class="btn_green" data-bs-toggle="modal" data-bs-target="#select_ea_form">
+            새 결재 진행</button>
+        </div>
+        <hr id="contour">
+        <div id="menulist">
+            <ul>
+                <li>
+                    <div class="top_menu" >
+                        <a  class="top_menu_title" id="first_menu_title"><i class="fa-solid fa-caret-right" id="motion1"></i>결제하기</a>
+                        <div class="sub_menu" id="first_sub">
+                            <ul>
+                                <li><a href="#">결재 대기 문서</a></li>
+                                <li><a href="#">결재 수신 문서</a></li>
+                                <li><a href="#">결재 예정 문서</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="top_menu" >
+                        <a  class="top_menu_title" id="second_menu_title"><i class="fa-solid fa-caret-right" id="motion2"></i>개인 문서함</a>
+                        <div class="sub_menu" id="second_sub">
+                            <ul>
+                                <li><a href="#">기안 문서함</a></li>
+                                <li><a href="#">결재 문서함</a></li>
+                                <li><a href="#">참조 문서함</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+	<!-- Modal -->
+	<div class="modal fade" id="select_ea_form" tabindex="-1" aria-labelledby="form_modal_itle" aria-hidden="true">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="form_modal_itle">양식 선택</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <select class="form-select" aria-label="Default select example" name="formCategory">
+			  <option selected>양식 선택</option>
+			  <!-- TODO 양식 테이블에서 데이터 받아서 넣어두기 -->
+			  <c:if test="${not empty formlist }">
+		  	 	<c:forEach items="${formlist }" var="list">
+		  			<option value="${list.form_code}">${list.form_title}</option>
+			  	</c:forEach>
+			  </c:if>
+			</select>
+			<div class="form_sample"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary chooseForm">선택</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	  <script>
+	  $(function(){
+	  	$(".chooseForm").click(function(){
+	  		$(".content_page").empty();
+<%-- 	  		$(".content_page").load("<%=request.getContextPath()%>/eap/new/ar"); --%>
+			let form_code = $("select[name=formCategory]").val();
+			console.log(form_code);
+			$.ajax({
+				url:'<%=request.getContextPath()%>/eap/new/ar',
+				type:'get',
+				data:{form_code : form_code},
+				dataType:'html',
+				success:function(data){
+					$(".content_page").empty();
+					$(".content_page").append(data);
+				}
+			});
+	  	})
+		  
+	  });
+	  </script>
+	</div>
+    <div id="bodyContent">
+    	<div class="content_top">
+			<h1> 전자결재 홈 </h1>
+		</div>
+		<div class="content_page">
+			<div id="home_my_draftedlist">
+				<h1>기안 진행중</h1>
+				<div id="drafted_doc_table_container">
+					<div>
+						<table id="list_app">
+							<thead>
+								<tr>
+									<th>기안일</th>
+									<th>결재양식</th>
+									<th>긴급</th>
+									<th>제목</th>
+									<th>첨부</th>
+									<th>결재상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- TODO : 결재 작성 후 리스트 뿌릴 예정 -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div> 
+     <script>
+        $(".sub_menu").hide();
+        $(".top_menu_title").click(function(){
+            console.log($(this).attr('id'));
+            if($(this).attr('id') == $("#first_menu_title").attr('id')){
+                console.log("첫번째");
+                $("#motion1").toggleClass('drop_motion');
+                $("#first_sub").slideToggle(200);
+            }else if($(this).attr('id') == $("#second_menu_title").attr('id')){
+                $("#motion2").toggleClass('drop_motion');
+                $("#second_sub").slideToggle(200);
+            }
+        });
+    </script>
 </body>
 </html>
