@@ -26,4 +26,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public int insertEmployee(Employee employee);
+	/**
+	 * 
+	 * @return 로그인한 직원 정보
+	 * @author XeonSnee
+	 */
+	public Employee selectLogin(Employee employee);
 }

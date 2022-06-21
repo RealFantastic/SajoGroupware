@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -191,4 +193,30 @@ public class EmpController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}		
+	// 로그인
+	@GetMapping("/login")
+	public ModelAndView pageLogin(ModelAndView mv) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	@PostMapping("/login")
+	public ModelAndView selectLogin(ModelAndView mv
+			, Employee employee
+			, RedirectAttributes rttr
+			, HttpSession session
+			) {
+		
+//		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
+		Employee result = service.selectLogin(employee);
+		if(result == null) {
+			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
+			mv.setViewName("redirect:/member/login");
+			return mv;
+		} 
+	
+		session.setAttribute("loginSsInfo", result);
+		rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 }

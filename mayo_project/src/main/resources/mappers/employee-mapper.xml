@@ -41,7 +41,7 @@
 	<!-- 회원 등록 - 승희  -->
 
 	<insert id="insertEmployee" parameterType="EMPLOYEE">
-			INSERT INTO EMPLOYEE
+		INSERT INTO EMPLOYEE
         (EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE
             ,ADDRESS,DETAIL_ADDRESS,EMP_POSTCODE
             ,RRN,HIRE_DATE,IS_LEAVE,DEPT_NO,JOB_NO
@@ -53,4 +53,12 @@
         ,#{cp_number},#{sign_path},#{sign_file_name})
 	</insert>
 	
+	<!--로그인 - 승희  -->
+	<select id="selectLogin" parameterType="Member" resultType="Member">
+	SELECT EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE,ADDRESS,HIRE_DATE
+		,PIC_PATH,PIC_NAME,IS_LEAVE,DEPT_NO,JOB_NO,CP_NUMBER
+		,SIGN_PATH,SIGN_FILE_NAME  
+		FROM EMPLOYEE 
+		WHERE EMP_NO=#{emp_no} AND PASSWORD=#{password}
+</select>
 </mapper>

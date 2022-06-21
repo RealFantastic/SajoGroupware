@@ -27,10 +27,13 @@ public class EmpServiceImpl implements EmpService{
 		return dao.selectEmployee(emp_no);
 	}
 	
-		//직원등록
+	//직원등록
 	@Override
 	public int insertEmployee(Employee employee) {
 		return dao.insertEmployee(employee);
+	}
+	public Employee selectLogin(Employee employee) {
+		return dao.selectLogin(employee);		
 	}
 	
 }

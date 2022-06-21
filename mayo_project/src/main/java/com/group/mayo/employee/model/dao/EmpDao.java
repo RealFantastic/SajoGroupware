@@ -25,4 +25,7 @@ public class EmpDao {
 	public int insertEmployee(Employee employee) {
 		return sqlSession.insert("Employee.insertEmployee",employee);
 	}
+	public Employee selectLogin(Employee employee) {
+		return sqlSession.selectOne("Employee.selectLogin", employee);
+	}
 }

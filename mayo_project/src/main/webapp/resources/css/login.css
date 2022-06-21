@@ -1,81 +1,90 @@
-/* body  */
-#j_body{
-    /* 배경색상 */
-    background-color: rgb(235, 255, 246);
-    /* 가운데 정렬 */
-    margin: 0 auto;
-}
-#j_container{
-box-sizing: border-box;
-background-color: white;
-padding: 30px;
-width: 500px;
-height: 300px;
+        /* body  */
+        #j_body{
+            /* 배경색상 */
+            background-color: rgb(235, 255, 246);
+            /* 가운데 정렬 */
+            margin: 0 auto;
+        }
+        #j_container{
+        box-sizing: border-box;
+        background-color: white;
+        padding: 30px;
+        width: 500px;
+        height: 300px;
 
-/* 가운데 정렬 */
-margin: 0 auto;
+        /* 가운데 정렬 */
+        margin: 0 auto;
 
-border-radius: 15px;
-}
-#j_container2{
-    margin: 0 auto;
-}
-/* 로고 이미지 */
-#logo{
-    display: block;
-    width: 250px;
-    margin: 0 auto;
-}
-/* ID */
-#j_emp_no{
-    /* 가운데정렬 */
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-}
-#emp_no{
-    width: 70%;
-    margin-left: 15%;
-    border-radius: 6px;
-    border-color:rgb(107, 191, 152);
-}
+        border-radius: 15px;
+        }
+        #j_container2{
+            margin: 0 auto;
+        }
+        /* 로고 이미지 */
+        #logo{
+            display: block;
+            width: 250px;
+            margin: 0 auto;
+        }
+        /* ID */
+        #j_emp_no{
+            /* 가운데정렬 */
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+        /* ID input */
+        #emp_no{
+            width: 70%;
+            height: 20px;
+            margin-left: 15%;
+            border-radius: 6px;
+            border-color:rgb(107, 191, 152);
+           
+        }
+        /* input창 테두리 */
+        #emp_no:focus,#password:focus{
+            outline:none;
+        }
+        
+        /* PW */
+        #j_pwd{
+            /* 가운데정렬 */
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+        /* PW input*/
+        #password{
+            width: 70%;
+            height: 20px;
+            margin-left: 8%;
+            border-radius: 6px;
+            border-color:rgb(107, 191, 152);
+        }
+ 
+        /* font3 */
+        .font3{
+            font-weight: bolder;
+            color: rgb(107, 191, 152);
+        }
 
-/* PW */
-#j_pwd{
-    /* 가운데정렬 */
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-}
-#password{
-    width: 70%;
-    margin-left: 8%;
-    border-radius: 6px;
-    border-color:rgb(107, 191, 152);
-}
-
-/* font3 */
-.font3{
-    font-weight: bolder;
-    color: rgb(107, 191, 152);
-}
-
-/* 버튼 */
-#login_btn{
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-}
-#j_btn{
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-}
-#join_btn,#find_id_btn{
-    margin:5px 10px 0 0;
-}
-/* footer */
-#j_footer{
-    padding: 5px;
-    text-align: center;
-}
+        /* 버튼 */
+        #login_btn{
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+        #j_btn{
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+        #join_btn,#find_id_btn{
+            margin:5px 10px 0 0;
+        }
+        /* footer */
+        #j_footer{
+            padding: 5px;
+            text-align: center;
+        }
