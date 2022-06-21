@@ -34,7 +34,7 @@
         <h5 class="modal-title" id="exampleModalLabel">프로젝트</h5> 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        <form name="mProject" action="<%=request.getContextPath()%>/project/modify" method="POST">
+        <form name="mProject">
       <div class="modal-body">
       	<div style="display: flex;">
       		<div>
@@ -48,6 +48,7 @@
 				</c:if> 
       		</div>
 				<div style="margin-left:10px;">${project.proj_no }</div>
+				<input type="hidden" name="proj_no" value="${project.proj_no }">
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">프로젝트명</label>
@@ -66,7 +67,6 @@
       </div>
     </div>
   </div>
-</div>
 		<!-- 프로젝트 정보 -->
 		<div class="font4 proj">
 			<div>${project.proj_name } </div>
@@ -156,38 +156,64 @@
     </div>
   </div>
 </div>
+</div>
 
 <script>
+
+//다중 파일 업로드 예제
+<!-- //     var cnt = 1; -->
+<!-- //     function fn_addFile(){ -->
+<!-- //         $("#d_file").append("<br>" + "<input type='file' name='file" + cnt + "' />"); -->
+<!-- //         cnt++; -->
+<!-- //     } -->
+
+ 
+
+<!--     <form method="post"  -->
+<!--           action=${pageContext.request.contextPath}/upload enctype="multipart/form-data"> -->
+<!--         <label>아이디 : </label> -->
+<!--             <input type="text" name="id"><br> -->
+<!--         <label>이름 : </label> -->
+<!--             <input type="text" name="name"><br> -->
+<!--             <input type="button" value="파일 추가" onClick="fn_addFile()"><br> -->
+            
+<!--             <input type="submit" value="업로드"> -->
+<!--     </form> -->
+
+
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
 		
 	var proj = $("form[name=mProject]").serialize();
+	console.log(proj);
 	
 	$.ajax({
  		type: "POST",
 		url: "<%=request.getContextPath()%>/project/update",
 		data: { 
- 				proj: proj;
+ 				proj: proj
  				},
  		success: function(result){
 			alert(result);
+			$("#projInfo").modal().hide();
 		}
 		
  	});
 });
 
 $("#deleteProj").click(function(){
-	var proj_no = "${project.proj_no}";
+	var proj_no = ${project.proj_no};
 	
 	$.ajax({
  		type: "POST",
 		url: "<%=request.getContextPath()%>/project/delete",
 		data: { 
- 				proj_no: proj_no;
+ 				proj_no: proj_no
  				},
  		success: function(result){
  			console.log("삭제");
 			alert(result);
+			location.href="<%=request.getContextPath()%>/project/list";
 		}
 		
  	});
@@ -234,23 +260,23 @@ $("#eimg").click(function(){
 
     
 // 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
-$(function(){
+// $(function(){
 	
-	$.ajax({
-		type:"GET",
-		url: "<%=request.getContextPath()%>/work/select",
-		data: {proj_no : '${project.proj_no}'},
- 		dataType: 'json',
- 		success: function(result){
- 			console.log(result);
-//  			var html = "";
- 			for(var i = 0; i < result.length; i++){
-				$("#worklist").load("<%=request.getContextPath()=%>/workDetail.jsp");
-  			}
-//   			$("#worklist").append(html); 
-		}
-	});
-});
+// 	$.ajax({
+// 		type:"GET",
+<%-- 		url: "<%=request.getContextPath()%>/work/select", --%>
+// 		data: {proj_no : '${project.proj_no}'},
+//  		dataType: 'json',
+//  		success: function(result){
+//  			console.log(result);
+// //  			var html = "";
+// //  			for(var i = 0; i < result.length; i++){
+// 				$("#worklist").load("<%=request.getContextPath()%>/workDetail.jsp");
+// //   			}
+// //   			$("#worklist").append(html); 
+// 		}
+// 	});
+// });
 
 
 </script>

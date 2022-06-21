@@ -56,9 +56,10 @@ public class ProjectController {
 		return mv;
 	}
 	
-	@PostMapping("/update") // 프로젝트 수정
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") // 프로젝트 수정
 	@ResponseBody
-	public String updateProj(@RequestParam(name="proj_no", required=false) Project proj) {
+	public String updateProj(Project proj) {
+		System.out.println("수정된 프로젝트!! "+proj);
 		int result = service.updateProj(proj);
 		String msg="";
 		
@@ -72,7 +73,7 @@ public class ProjectController {
 		
 	}
 	
-	@PostMapping("/delete") // 프로젝트 삭제
+	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") // 프로젝트 삭제
 	@ResponseBody
 	public String deleteProj(@RequestParam(name="proj_no", required=false) int proj_no) {
 		int result = service.deleteProj(proj_no);
