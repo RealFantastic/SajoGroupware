@@ -27,7 +27,7 @@
 	<div id="body">
 	
 	<!-- 프로젝트 정보 모달창 -->
-<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,7 +56,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="proj_content" required> ${project.proj_content } </textarea>
+            <textarea class="form-control" id="content" name="proj_content" required>${project.proj_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -78,6 +78,7 @@
 		
 		<!-- 프로젝트 업무들 -->		
         <div id="worklist">
+        리스트여기~!
 		</div>
 		<!--  새 업무 추가 모달창 -->
 <div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -159,7 +160,6 @@
 </div>
 
 <script>
-
 //다중 파일 업로드 예제
 <!-- //     var cnt = 1; -->
 <!-- //     function fn_addFile(){ -->
@@ -185,22 +185,21 @@
 $("#submitM").click(function(){
 		
 	var proj = $("form[name=mProject]").serialize();
-	console.log(proj);
 	
 	$.ajax({
  		type: "POST",
 		url: "<%=request.getContextPath()%>/project/update",
-		data: { 
- 				proj: proj
- 				},
+		data: proj, 
  		success: function(result){
 			alert(result);
-			$("#projInfo").modal().hide();
+			location.reload();
 		}
 		
  	});
 });
 
+
+// 프로젝트 삭제 ajax
 $("#deleteProj").click(function(){
 	var proj_no = ${project.proj_no};
 	
@@ -260,23 +259,10 @@ $("#eimg").click(function(){
 
     
 // 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
-// $(function(){
-	
-// 	$.ajax({
-// 		type:"GET",
-<%-- 		url: "<%=request.getContextPath()%>/work/select", --%>
-// 		data: {proj_no : '${project.proj_no}'},
-//  		dataType: 'json',
-//  		success: function(result){
-//  			console.log(result);
-// //  			var html = "";
-// //  			for(var i = 0; i < result.length; i++){
-// 				$("#worklist").load("<%=request.getContextPath()%>/workDetail.jsp");
-// //   			}
-// //   			$("#worklist").append(html); 
-// 		}
-// 	});
-// });
+$(function(){
+		var proj_no = ${project.proj_no};
+		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
+});
 
 
 </script>

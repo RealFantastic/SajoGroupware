@@ -52,7 +52,7 @@
 </select>
 
 <select id="selectWork" resultType="Work">
-	select * from work_board where proj_no=#{proj_no}
+	select * from work_board where proj_no=#{proj_no} order by work_no desc
 </select>
 
 <select id="viewWork" resultType="Work">

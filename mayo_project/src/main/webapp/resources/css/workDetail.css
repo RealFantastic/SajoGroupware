@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/*사이드 영역*/
+#side{
+	width:250px;
+	min-width:250px;
+	height:100%;
+	background-color: rgb(235, 255, 246);
+	position:absolute;
+}
+
+/*사이드 안 내용*/
+#side-content{
+	top: 30px;
+	position: relative;
+	flex-direction: column;
+}
+
+/* 사이드랑 안 겹치게 margin 줌 */
+#body{
+	margin: 30px 300px;
+}
+
+/* 업무 상세글 몸통 */
+#workBody{
+	box-shadow: 5px 2px 2px rgb(235, 255, 246);
+	border:3px solid green;
+	border-radius: 10px;
+	padding: 40px;
+	margin: 70px;
+}
+
+/* 수정,삭제 버튼 */
+.btn-modify, .btn-delete{
+	width:50px;
+	font-size:0.9rem;
+	padding: 7px;
+}
+
+/* 긴급 아이콘 */
+#eimg{
+	width:35px;
+}
+#isemergency {
+	border:0;
+	background-color: white;
+}
+
+/* 프로그레스바 */
+.progress{
+    width : 50%;
+    height :100px;
+    position: relative;
+    top:0;
+    left:0;
+    overflow-x: hidden;
+    cursor: pointer;
+    border : 1px solid black;
+}
+
+.state{
+    width : 0;
+    height :50px;
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: rgb(107, 191, 152);
+}
+
+#work_progress{
+	width: 30px;
+	margin-left:15px;
+	margin-right: 0;
+	border:0;
+}
+
+/* 업무 글 내용 */
+#content{
+	background-color: white;
+	border: none;
+	resize: none;
+}
