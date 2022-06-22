@@ -166,7 +166,7 @@ public class EmpController {
 	public ModelAndView insert(ModelAndView mv
 //			, @RequestParam(name="title", defaultValue = "aaa") String t1
 //			, @RequestParam(name="title", required = false) String t1
-			//, RedirectAttributes rttr
+			, RedirectAttributes rttr
 			, Employee employee
 			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
 			, HttpServletRequest req
@@ -206,7 +206,7 @@ public class EmpController {
 			, HttpSession session
 			) {
 		
-//		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
+//		암호화 employee.setPasswd(pwdEncoding.encode(employee.getPasswd()));
 		Employee result = service.selectLogin(employee);
 		if(result == null) {
 			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
@@ -216,6 +216,7 @@ public class EmpController {
 	
 		session.setAttribute("loginSsInfo", result);
 		rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
+		//TODO 메인페이지 연결
 		mv.setViewName("redirect:/");
 		return mv;
 	}

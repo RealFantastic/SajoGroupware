@@ -12,7 +12,7 @@
 </head>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_body">
-    <div>
+    <div style="padding: 5%;">
         <form  id="login"
         	 action="<%=request.getContextPath()%>/member/login"
 			 method="post"  >

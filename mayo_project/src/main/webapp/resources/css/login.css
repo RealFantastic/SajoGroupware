@@ -10,7 +10,7 @@
         background-color: white;
         padding: 30px;
         width: 500px;
-        height: 300px;
+        height: 350px;
 
         /* 가운데 정렬 */
         margin: 0 auto;
@@ -30,17 +30,23 @@
         #j_emp_no{
             /* 가운데정렬 */
             display: block;
-            width: 60%;
+            width: 75%;
             margin: 0 auto;
+            
+            padding-bottom: 10px;
+            
+            position: relative;
+            left: 16px
         }
         /* ID input */
         #emp_no{
-            width: 70%;
-            height: 20px;
-            margin-left: 15%;
+            width: 65%;
+            height: 40px;
+            margin-left: 14%;
             border-radius: 6px;
             border-color:rgb(107, 191, 152);
-           
+            
+            
         }
         /* input창 테두리 */
         #emp_no:focus,#password:focus{
@@ -51,13 +57,18 @@
         #j_pwd{
             /* 가운데정렬 */
             display: block;
-            width: 60%;
+            width: 75%;
             margin: 0 auto;
+            
+            padding-bottom: 10px;
+            
+            position: relative;
+            left: 16px
         }
         /* PW input*/
         #password{
-            width: 70%;
-            height: 20px;
+            width: 65%;
+            height: 40px;
             margin-left: 8%;
             border-radius: 6px;
             border-color:rgb(107, 191, 152);
@@ -72,13 +83,16 @@
         /* 버튼 */
         #login_btn{
             display: block;
-            width: 60%;
+            width: 66%;
             margin: 0 auto;
         }
         #j_btn{
             display: block;
-            width: 60%;
+            width: 70%;
             margin: 0 auto;
+            
+           	position: relative;
+           	left:8px;
         }
         #join_btn,#find_id_btn{
             margin:5px 10px 0 0;
