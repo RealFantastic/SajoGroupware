@@ -83,3 +83,7 @@
 .btn_commute_change{
 	font-weight: bolder;
 }
+
+.complete_attend {
+	display: none;
+}

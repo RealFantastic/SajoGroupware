@@ -19,8 +19,9 @@
 		values(
 		(select nvl(max(RECORD_NO),0)+1 from COMMUTE_RECORD)
 		,'202230001'
-		,systimestamp
+		,to_date( to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
 		,null)
+		
 	</insert>
 	
 	
@@ -42,14 +43,19 @@
 	</select>
 
 	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
-		select * from 
-		(select * from COMMUTE_RECORD order by start_time desc) 
-		where emp_no = #{id} and rownum= 1
+		SELECT 
+			TO_CHAR(START_TIME, 'HH24:MI:SS') today_start_time
+		FROM commute_record
+		WHERE emp_no =#{id} 
+			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
 	</select>
+	
 	<select id="selectStatusLeave" parameterType="string" resultType="CommuteRecord">
-		select * from 
-		(select * from COMMUTE_RECORD order by end_time desc) 
-		where emp_no = #{id} and rownum= 1
+		SELECT 
+		TO_CHAR(END_TIME, 'HH24:MI:SS') today_end_time
+		FROM commute_record
+		WHERE emp_no =#{id} 
+			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
 	</select>
 
 	<select id="empCommuteList" resultType="CommuteEmployee">

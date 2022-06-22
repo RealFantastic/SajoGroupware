@@ -54,8 +54,9 @@ public class CommuteController {
 		
 		String resultAtt = null;
 		String id = "202230001";
-		CommuteRecord statusAtt=service.statusAtt(id);
+		CommuteRecord statusAtt = service.statusAtt(id);
 		System.out.println(statusAtt);
+		
 		if(statusAtt !=null) {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			resultAtt = gson.toJson(statusAtt);
@@ -73,11 +74,12 @@ public class CommuteController {
 		
 		String resultLeave=null;
 		String id = "202230001";
-		CommuteRecord statusLeave=service.statusLeave(id);
+		CommuteRecord statusLeave = service.statusLeave(id);
 		System.out.println(statusLeave);
 		if(statusLeave != null) {
-			Gson gson=new GsonBuilder().setPrettyPrinting().create();
-			resultLeave=gson.toJson(statusLeave);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			resultLeave = gson.toJson(statusLeave);
+			
 		}else {
 			resultLeave="fail";
 		}
