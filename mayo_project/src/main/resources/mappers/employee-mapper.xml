@@ -40,7 +40,7 @@
 	</select>
 	<!-- 회원 등록 - 승희  -->
 
-	<insert id="insertEmployee" parameterType="EMPLOYEE">
+	<insert id="insertEmployee" parameterType="Employee">
 		INSERT INTO EMPLOYEE
         (EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE
             ,ADDRESS,DETAIL_ADDRESS,EMP_POSTCODE
@@ -54,7 +54,7 @@
 	</insert>
 	
 	<!--로그인 - 승희  -->
-	<select id="selectLogin" parameterType="Member" resultType="Member">
+	<select id="selectLogin" parameterType="Employee" resultType="Employee">
 	SELECT EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE,ADDRESS,HIRE_DATE
 		,PIC_PATH,PIC_NAME,IS_LEAVE,DEPT_NO,JOB_NO,CP_NUMBER
 		,SIGN_PATH,SIGN_FILE_NAME  

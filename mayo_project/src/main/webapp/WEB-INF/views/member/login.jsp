@@ -13,7 +13,9 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_body">
     <div>
-        <form>
+        <form  id="login"
+        	 action="<%=request.getContextPath()%>/member/login"
+			 method="post"  >
             <div id="j_container">
                 <div id="j_container1">
                     <div id="j_logo"><img id="logo" alt="마요로고" src="https://cdn.discordapp.com/attachments/976717450655694879/988136708518346832/unknown.png"></div>
