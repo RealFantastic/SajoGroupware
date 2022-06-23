@@ -14,6 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <link href="<%=request.getContextPath()%>/resources/css/elec_approval_main.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -78,27 +80,6 @@
 	      </div>
 	    </div>
 	  </div>
-	  <script>
-	  $(function(){
-	  	$(".chooseForm").click(function(){
-	  		$(".content_page").empty();
-<%-- 	  		$(".content_page").load("<%=request.getContextPath()%>/eap/new/ar"); --%>
-			let form_code = $("select[name=formCategory]").val();
-			console.log(form_code);
-			$.ajax({
-				url:'<%=request.getContextPath()%>/eap/new/ar',
-				type:'get',
-				data:{form_code : form_code},
-				dataType:'html',
-				success:function(data){
-					$(".content_page").empty();
-					$(".content_page").append(data);
-				}
-			});
-	  	})
-		  
-	  });
-	  </script>
 	</div>
     <div id="bodyContent">
     	<div class="content_top">
@@ -127,9 +108,16 @@
 					</div>
 				</div>
 			</div>
+			<jsp:include page="/WEB-INF/views/ea_form/vacationForm.jsp"></jsp:include>
 		</div>
     </div> 
+
      <script>
+ 	  	$(".chooseForm").click(function(){
+ 	  		$('[data-bs-dismiss=modal]').dismiss();
+			$('#home_my_draftedlist').hide();
+ 	  	});  
+
         $(".sub_menu").hide();
         $(".top_menu_title").click(function(){
             console.log($(this).attr('id'));
