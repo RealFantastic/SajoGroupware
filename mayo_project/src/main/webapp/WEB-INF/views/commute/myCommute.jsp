@@ -26,12 +26,19 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 	
-<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
+<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
+<!-- JSTree -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
 
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
+
 <body>
+<jsp:include page="/WEB-INF/views/template_header.jsp"/>
+
 	<script type="text/javascript">
 // 		현재시간  https://stickode.tistory.com/124 
 		function setClock(){
