@@ -5,6 +5,6 @@
   	select * from ea_form
   </select>
   <select id="selectForm" parameterType="string" resultType="EaForm">
-  	select * from ea_form whrere form_code=#{form_code}
+  	select * from ea_form where form_code=#{form_code}
   </select>
 </mapper>
