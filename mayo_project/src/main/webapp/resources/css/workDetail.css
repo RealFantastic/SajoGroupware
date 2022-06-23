@@ -24,7 +24,7 @@
 /* 업무 상세글 몸통 */
 #workBody{
 	box-shadow: 5px 2px 2px rgb(235, 255, 246);
-	border:3px solid green;
+	border:1.7px solid rgb(107, 191, 152);
 	border-radius: 10px;
 	padding: 40px;
 	margin: 70px;

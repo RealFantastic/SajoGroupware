@@ -10,7 +10,7 @@
 <!-- 	private int proj_type; -->
 
 <select id="selectAllProj" resultType="Project">
-	select * from proj
+	select * from proj order by proj_no desc
 </select>
 
 <!-- 프로젝트 생성 -->
@@ -24,7 +24,7 @@
 
 <!-- 프로젝트 선택 -->
 <select id="selectProj" resultType="Project">
-	select * from proj where proj_no=#{proj_no}
+	select * from proj where proj_no=#{proj_no} order by proj_no desc
 </select>
 
 <!-- 프로젝트 수정 -->

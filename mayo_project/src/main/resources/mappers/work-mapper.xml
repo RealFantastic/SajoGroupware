@@ -24,6 +24,10 @@
 	<result column="PROJ_NAME" property="proj_name"/>
 </resultMap>
 
+<resultMap type="Employee" id="Employee">
+	<result column="EMP_NAME" property="emp_name"/>
+</resultMap>
+
 <resultMap type="WorkFile" id="WorkFile">
 	<result column="FILE_NO" property="file_no"/>
 	<result column="PROJ_FILE_PATH" property="proj_file_path"/>
@@ -45,16 +49,20 @@
 	<result column="WORK_DATE" property="work_date"/>
 	<collection property="Project" resultMap="Project"/>
 	<collection property="WorkFile" resultMap="WorkFile"/>
+	<collection property="Employee" resultMap="Employee"/>
 </resultMap>
 
+<!-- 모든 프로젝트의 모든 업무 글 보기 -->
 <select id="selectAllWork" resultType="Work"> 
-	select * from work_board join proj using (proj_no)
+	select * from work_board join proj using (proj_no) order by work_no desc
 </select>
 
+<!-- 특정 프로젝트의 모든 업무 글 보기 -->
 <select id="selectWork" resultType="Work">
 	select * from work_board where proj_no=#{proj_no} order by work_no desc
 </select>
 
+<!-- 특정 프로젝트의 특정 업무 글 보기 -->
 <select id="viewWork" resultType="Work">
 	select * from work_board where work_no=#{work_no}
 </select>
@@ -64,6 +72,7 @@
 	select nvl(max(work_no),0)+1 from dual)
 </select>
 
+<!-- 새 업무 글 작성 -->
 <insert id="insertWork" parameterType="Work"> 
 <!-- 작성자 수정, -->
 	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
@@ -73,7 +82,22 @@
 
 <insert id="insertFile" parameterType="Work">
 	insert into project_file values ()
-
 </insert>
+
+<!-- 업무 상태 수정 -->
+<update id="updateStatus" parameterType="Work">
+	update work_board set work_status=#{work_status}, work_progress=#{work_progress} where work_no=#{work_no}
+</update>
+
+<!-- 업무 글 수정 -->
+<update id="updateWork" parameterType="Work">
+	update work_board set work_title=#{work_title}, work_content=#{work_content}, work_start_date=#{work_start_date}, work_deadline=#{work_deadline},
+	work_progress=#{work_progress}, isemergency=#{isemergency}, work_status=#{work_status} where work_no=#{work_no}
+</update>
+
+<!-- 업무 글 삭제 -->
+<delete id="deleteWork">
+	delete from work_board where work_no = #{work_no}
+</delete>
 
 </mapper>

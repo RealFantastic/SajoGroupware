@@ -29,4 +29,12 @@ public class WorkDao {
 	public int insertWork(Work work) {
 		return sqlSession.insert("Work.insertWork", work);
 	}
+	
+	public int updateWork(Work work) {
+		return sqlSession.update("Work.updateWork", work);
+	}
+	
+	public int deleteWork(String work_no) {
+		return sqlSession.delete("Work.deleteWork",work_no);
+	}
 }

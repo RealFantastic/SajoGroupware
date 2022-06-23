@@ -70,15 +70,41 @@ public class WorkController {
 		return mv;
 	}
 	
-//	@PostMapping("insert")
-//	@ResponseBody
-//	public String insertWork(Object newWork) {
-//		
-//		
-//		int result = service.insertWork(work);
-//		
-//		return result;
-//	}
+
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") // 업무 글 수정
+	@ResponseBody
+	public String updateWork(Work work) {
+		
+		int result= service.updateWork(work);
+		
+		String msg= "";
+		
+		if(result<=0) {
+			System.out.println("업무 글 수정 실패~!");
+			msg="수정에 실패했습니다";
+		} else {
+			System.out.println("업무 글 수정 성공~!");
+			msg="글이 수정되었습니다!";
+		}
+		return msg;
+	}
 	
+	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") // 업무 글 삭제
+	@ResponseBody
+	public String deleteWork(@RequestParam(name="work_no", required=false) String work_no) {
+		 
+		int result = service.deleteWork(work_no);
+		
+		String msg="";
+		
+		if(result<=0) {
+			System.out.println("업무 글 삭제 실패~!");
+			msg="삭제에 실패했습니다";
+		} else {
+			System.out.println("업무 글 삭제 성공~!");
+			msg="업무가 삭제되었습니다";
+		}
+		return msg;
+	}
 
 }

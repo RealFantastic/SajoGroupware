@@ -30,5 +30,16 @@ public interface WorkService {
 	 */
 	public int insertWork(Work work);
 	
+	/**
+	 * @param work 업무 글 수정 내용
+	 * @return 수정된 업무 글 개수
+	 */
+	public int updateWork(Work work);
+	
+	/**
+	 * @param work_no 업무번호
+	 * @return 삭제된 업무 글 개수
+	 */
+	public int deleteWork(String work_no);
 	
 }

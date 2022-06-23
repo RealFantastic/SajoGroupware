@@ -35,6 +35,16 @@ public class WorkServiceImpl implements WorkService{
 	public int insertWork(Work work) {
 		return dao.insertWork(work);
 	}
+
+	@Override
+	public int updateWork(Work work) {
+		return dao.updateWork(work);
+	}
+
+	@Override
+	public int deleteWork(String work_no) {
+		return dao.deleteWork(work_no);
+	}
 	
 	
 }
