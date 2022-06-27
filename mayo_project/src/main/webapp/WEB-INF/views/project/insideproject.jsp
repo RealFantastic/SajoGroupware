@@ -12,6 +12,10 @@
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/insideproj.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+<!-- JSTree -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -78,7 +82,6 @@
 		
 		<!-- 프로젝트 업무들 -->		
         <div id="worklist">
-        리스트여기~!
 		</div>
 		<!--  새 업무 추가 모달창 -->
 <div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,7 +139,7 @@
 				  <!-- 프로그래스 바 -->
 				  <div class="state"></div>
 				</div>
-				  <input id="work_progress" name="work_progress" value="" readonly>%
+				  <input id="work_progress" name="work_progress" value="10" readonly>%
 			</div>
 				</div>
         </div>
@@ -220,22 +223,22 @@ $("#deleteProj").click(function(){
 
 
 // progress bar 
-$(document).ready(function(){
-	  //프로그래스 바를 클릭
-	  $('.progress').click(function(e){
-	      // 변수 x는 .progress의 left값에서 클릭한 위치의 X값을 뺀다.
-	        // e.pageX는 화면에서 클릭한 X의 위치를 가져온다. 
-	        var x = e.pageX - $('.progress').offset().left;
-	        //변수 clickPercentage는 변수 x / .progress.너비
-	        clickPercentage = x / $('.progress').width();
-	        //.state의 너비는 (.progress의 너비에서 변수 clickPercentage를 곱한 값);
-	        $('.state').width($('.progress').width() * clickPercentage);
+// $(document).ready(function(){
+// 	  //프로그래스 바를 클릭
+// 	  $('.progress').click(function(e){
+// 	      // 변수 x는 .progress의 left값에서 클릭한 위치의 X값을 뺀다.
+// 	        // e.pageX는 화면에서 클릭한 X의 위치를 가져온다. 
+// 	        var x = e.pageX - $('.progress').offset().left;
+// 	        //변수 clickPercentage는 변수 x / .progress.너비
+// 	        clickPercentage = x / $('.progress').width();
+// 	        //.state의 너비는 (.progress의 너비에서 변수 clickPercentage를 곱한 값);
+// 	        $('.state').width($('.progress').width() * clickPercentage);
 
-	        var percentage = clickPercentage * 10;
-	    	// 10 단위로 나타내기
-	        $('#work_progress').val(Math.round(percentage)*10);
-	    });
-	});
+// 	        var percentage = clickPercentage * 10;
+// 	    	// 10 단위로 나타내기
+// 	        $('#work_progress').val(Math.round(percentage)*10);
+// 	    });
+// 	});
 	
 // 아이콘 클릭하면 긴급 선택되게 하기
 /* $("#isemergency").click(function() {

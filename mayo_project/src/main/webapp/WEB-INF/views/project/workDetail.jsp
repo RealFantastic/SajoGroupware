@@ -17,19 +17,21 @@
 <body>
 	<c:if test="${not empty work }">
 		<c:forEach var="work" items="${work}">
+		<div id="reloadBody">
 			<div id="workBody" class='modal-lg'
 				aria-labelledby='exampleModalLabel'>
 				<div class='modal-dialog'>
 					<div class='modal-content'>
 						<div class='modal-header'>
 							<div style="display: block;">
+								<input id="work_no" type="hidden" value="${work.work_no }">
 								<div>${work.work_no }</div>
 								<h5 class='modal-title font3 work_title' id='exampleModalLabel'
 									style='font-weight: bold;'>${work.work_title }</h5>
 							</div>
 							<div>
-								<button type='button' class='btn_gray btn-modify'>수정</button>
-								<button type='button' class='btn_red btn-delete'>삭제</button>
+								<button type='button' id="wUpdate" class='btn_gray btn-modify'>수정</button>
+								<button type='button' id="wDelete" class='btn_red btn-delete'>삭제</button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -68,7 +70,7 @@
 							</div>
 						</div>
 						<div class="mb-3">
-							<label for="work_file" class="col-form-label">첨부파일</label>
+							<label for="work_file" class="col-form-label"><img src="<%=request.getContextPath() %>/resources/images/clip.png" alt="첨부파일"></label>
 						</div>
 						<div class="mb-3">
 							<textarea class="form-control" id="content"
@@ -78,7 +80,40 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</c:forEach>
 	</c:if>
+	<script>
+		$("#wUpdate").click(function(){
+			
+			$.ajax({
+				type: "POST",
+				url: "<%=request.getContextPath()%>/work/update",
+				data:{
+					work_no:$("#work_no").val()
+					},
+				success: function(result){
+					alert(result);
+				}
+			});
+		});
+		
+		$("#wDelete").click(function(){
+			
+			$.ajax({
+				type:"POST",
+				url: "<%=request.getContextPath()%>/work/delete",
+				data: {
+					work_no: $("#work_no").val()
+				},
+				success: function(result){
+					alert(result);
+					$("#reloadBody").load(location.href+" #reloadBody"); // 영역 reload
+					
+				}
+			});
+		});
+		
+	</script>
 </body>
 </html>
