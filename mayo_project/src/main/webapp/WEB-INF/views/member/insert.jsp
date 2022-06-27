@@ -5,10 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/emp_enroll.css" rel="stylesheet">   
-   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+   	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+   	
+   	
+   	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/emp_enroll.css" rel="stylesheet">   
+	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
+	
+	<!-- JSTree -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+	
+ 
+
     <!-- 다음 우편주소api  -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
@@ -61,11 +76,17 @@
         }
     </script>
     
+    <script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
+	<!-- JSTree -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+		    
 </head>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
     <div>
-        <form id="emp_enroll"
+        <form id="emp_enroll" name="emp_enroll"
         	 action="<%=request.getContextPath()%>/member/enroll"
 			 method="post" enctype="multipart/form-data">
             <section>
@@ -86,7 +107,7 @@
                     <div id="j_emp_number" class="j_e">
                         <label>주민 번호 : </label>
                         <input type="text" id="rrn" name="rrn">
-                        <button type="button">조회</button>
+                        <button type="button" onclick = "checkRrn()">조회</button>
                     </div>
                     <div class="j_e" id="j_dept">
                         <label>부서 : </label>
@@ -109,7 +130,8 @@
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
                         <input type="text" id="emp_no" name="emp_no">
-                        <button type="button">조회</button>
+                        <button type="button" onclick = "checkNum()">조회</button>
+                        <br><font id="check_result" size ="2"></font>
                     </div>
                     <div id="j_pwd" class="j_e">
                         <label>비밀번호 : </label>
@@ -223,6 +245,68 @@
             <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
         </footer>
     </div>
+    <!--아이디 중복체크-->
+	<script type="text/javascript">
+	function checkNum(){
+			var emp_no = $('#emp_no').val();
+			console.log("emp_no: "+emp_no);
+			
+			$.ajax({
+				url:'<%=request.getContextPath()%>/member/checkno',
+				type:"post",
+				data: {"emp_no":emp_no},
+// 				contentType:"json",
+				success: function(result){
+					console.log("result"+result);
+					if(result == "false"){
+						console.log("안녕");
+						$("#check_result").html('이미 등록된 사원번호 입니다.');
+						$("#check_result").attr('color','red');
+					}else if(result == "ok"){
+						$("#check_result").html('사원번호가 확인 되었습니다.');
+						$("#check_result").attr('color','blue');
+					} 
+				},
+				error : function(){
+					alert("서버요청실패");
+				}
+			
+			});
+			
+		};
+	
+	</script>  
+	<!--주민번호 중복체크-->
+	<script type="text/javascript">
+	function checkRrn(){
+			var rrn = $('#rrn').val();
+			console.log("rrn: "+rrn);
+			
+			$.ajax({
+				url:'<%=request.getContextPath()%>/member/check',
+				type:"post",
+				data: {"rrn":rrn},
+// 				contentType:"json",
+				success: function(result){
+					console.log("result"+result);
+					if(result == "false"){
+						console.log("안녕");
+						$("#check_rrn").html('이미 등록된 사원번호 입니다.');
+						$("#check_rrn").attr('color','red');
+					}else if(result == "ok"){
+						$("#check_rrn").html('사원번호가 확인 되었습니다.');
+						$("#check_rrn").attr('color','blue');
+					} 
+				},
+				error : function(){
+					alert("서버요청실패");
+				}
+			
+			});
+			
+		};
+	
+	</script>  
 
     <!-- 이메일 직접입력 -->
     <script>

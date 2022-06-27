@@ -60,5 +60,15 @@
 		,SIGN_PATH,SIGN_FILE_NAME  
 		FROM EMPLOYEE 
 		WHERE EMP_NO=#{emp_no} AND PASSWORD=#{password}
-</select>
+	</select>
+	
+	<!--아이디 중복확인  -->
+	<select id="checkEmpNo" parameterType="string" resultType="_int">
+		SELECT COUNT(EMP_NO) FROM EMPLOYEE WHERE EMP_NO = #{emp_no}
+	</select>
+	
+	<!--주민번호 중복확인  -->
+	<select id="checkRrn" parameterType="string" resultType="_int">
+		SELECT COUNT(RRN) FROM EMPLOYEE WHERE RRN = #{rrn}
+	</select>
 </mapper>

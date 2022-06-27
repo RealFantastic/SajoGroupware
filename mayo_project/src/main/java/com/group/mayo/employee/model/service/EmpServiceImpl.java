@@ -32,8 +32,17 @@ public class EmpServiceImpl implements EmpService{
 	public int insertEmployee(Employee employee) {
 		return dao.insertEmployee(employee);
 	}
+	
+	@Override
 	public Employee selectLogin(Employee employee) {
 		return dao.selectLogin(employee);		
+	}
+	
+	//사업자 번호 중복 확인
+	@Override
+	public int checkEmpNo(String emp_no) {
+		int result = dao.checkEmpNo(emp_no);
+		return result;
 	}
 	
 }

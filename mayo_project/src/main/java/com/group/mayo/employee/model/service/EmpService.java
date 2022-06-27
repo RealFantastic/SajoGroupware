@@ -32,4 +32,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public Employee selectLogin(Employee employee);
+	/**
+	 * 
+	 * @return 아이디(사원번호) 중복확인
+	 * @author XeonSnee
+	 */
+	public int checkEmpNo(String emp_no);
 }

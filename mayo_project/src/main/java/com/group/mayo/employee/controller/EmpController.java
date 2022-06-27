@@ -220,4 +220,21 @@ public class EmpController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
+	//아이디 중복 체크
+	 @PostMapping(value="/checkno",produces="text/plain;charset=UTF-8")
+	 @ResponseBody
+	 public String checkCpNumber(
+			 @RequestParam("emp_no") String emp_no
+			 ) {
+		 	
+		 	int result=service.checkEmpNo(emp_no);  
+		 	String ro = null;
+		 	if(result == 1) {
+		 		ro= "false";
+		 	}else {
+		 		ro ="ok";
+		 	}
+		 	
+		 	return ro;
+	 }
 }

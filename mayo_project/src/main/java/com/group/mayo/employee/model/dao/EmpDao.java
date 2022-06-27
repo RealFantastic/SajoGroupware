@@ -28,4 +28,11 @@ public class EmpDao {
 	public Employee selectLogin(Employee employee) {
 		return sqlSession.selectOne("Employee.selectLogin", employee);
 	}
+	// 아이디 중복 확인
+	public int checkEmpNo(String emp_no) {
+		int result = sqlSession.selectOne("Employee.checkEmpNo",emp_no);
+		System.out.println("안녕");
+		
+		return result;
+	}
 }
