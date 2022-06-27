@@ -69,7 +69,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <select class="form-select" aria-label="Default select example" name="formCategory">
+	        <select class="form-select" aria-label="Default select example" name="formCategory" id="formCategory">
 			  <option selected>양식 선택</option>
 			  <!-- TODO 양식 테이블에서 데이터 받아서 넣어두기 -->
 			  <c:if test="${not empty formlist }">
@@ -114,14 +114,37 @@
 					</div>
 				</div>
 			</div>
-			<jsp:include page="/WEB-INF/views/ea_form/vacationForm.jsp"></jsp:include>
+			<div id="vacationForm">
+				<jsp:include page="/WEB-INF/views/ea_form/vacationForm.jsp"></jsp:include>
+			</div>
+			<div id="bpForm">
+				<jsp:include page="/WEB-INF/views/ea_form/bpForm.jsp"></jsp:include>
+			</div>
+			
 		</div>
     </div> 
 
      <script>
  	  	$(".chooseForm").click(function(){
+ 	  		$('#select_ea_form').modal('hide');
 			$('#home_my_draftedlist').hide();
- 	  	});  
+			let selectForm = $('#formCategory').val();
+			console.log(selectForm);
+			switch(selectForm){
+				case "AR":
+					$('#vacationForm').show();
+					$('.content_top').children('h1').text("휴가신청서");
+					break;
+				case "BP":
+					$('#bpForm').show();
+					$('.content_top').children('h1').text("업무기안");
+					break;
+				case "SR":
+					$('#srForm').show();
+					$('.content_top').children('h1').text("지출결의서");
+					break;
+			}
+ 	  	});
 
         $(".sub_menu").hide();
         $(".top_menu_title").click(function(){

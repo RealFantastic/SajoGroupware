@@ -78,3 +78,14 @@ table#list_app th:first-child{
 	padding-right:0;
 }
 /* 기안 진행문서 css 종료 */
+
+/* 휴가신청서 display:none  */
+#vacationForm{
+	display:none;
+}
+/* 업무기안 display:none  */
+#bpForm{
+	display:none;
+}
+
+
