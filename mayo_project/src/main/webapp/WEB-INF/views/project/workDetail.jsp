@@ -61,21 +61,16 @@
 							<div class="mb-3">
 								<label for="work_progress" class="col-form-label">진행률</label>
 								<div style="display: flex;">
-									<div class="progress">
-										<div class="state"></div>
-									</div>
 									<input id="work_progress" name="work_progress"
 										placeholder="${work.work_progress }" readonly>%
 								</div>
 							</div>
 						</div>
 						<div class="mb-3">
-							<label for="work_file" class="col-form-label"><img src="<%=request.getContextPath() %>/resources/images/clip.png" alt="첨부파일"></label>
+							<label for="work_file" class="col-form-label"><img id="clip" src="<%=request.getContextPath() %>/resources/images/clip.png" alt="첨부파일"></label>
 						</div>
 						<div class="mb-3">
-							<textarea class="form-control" id="content"
-								placeholder="${work.work_content }" style="width: fit-content;"
-								readonly></textarea>
+							<textarea class="form-control" id="content" placeholder="${work.work_content }" readonly></textarea>
 						</div>
 					</div>
 				</div>
@@ -109,10 +104,10 @@
 				success: function(result){
 					alert(result);
 					$("#reloadBody").load(location.href+" #reloadBody"); // 영역 reload
-					
 				}
 			});
 		});
+		
 		
 	</script>
 </body>

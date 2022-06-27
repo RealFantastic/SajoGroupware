@@ -18,6 +18,11 @@
 	margin: 30px 300px;
 }
 
+/* 업무 추가 모달 내부 전체 */
+.insidebody{
+	padding:40px 40px 0 40px !important;
+}
+
 .btn_detail{
 	font-size:0.8rem;
 }
@@ -31,29 +36,13 @@
 	background-color: white;
 }
 
- .progress{
-    width : 50%;
-    height :100px;
-    position: relative;
-    top:0;
-    left:0;
-    overflow-x: hidden;
-    cursor: pointer;
-    border : 1px solid black;
+/* 업무 추가 제목 부분 border 설정 */
+#title{
+	border:none;
 }
 
-.state{
-    width : 0;
-    height :50px;
-    position: absolute;
-    top:0;
-    left:0;
-    background-color: rgb(107, 191, 152);
-}
-
-#work_progress{
-	width: 30px;
-	margin-left:15px;
-	margin-right: 0;
-	border:0;
+/* 프로그래스바 */
+#progress{
+	width:250px;
+	margin-left:10px;
 }
