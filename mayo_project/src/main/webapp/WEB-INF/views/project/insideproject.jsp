@@ -92,7 +92,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
         <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST">
-      <div class="modal-body">
+      <div class="modal-body insidebody">
       <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
         <div style="display:flex;">
         <div style="margin-right: 15px;">
@@ -111,7 +111,7 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label font2">제목</label>
-            <input type="text" class="form-control" id="title" name="work_title" required="required">
+            <input type="text" class="form-control" id="title" name="work_title" placeholder="제목을 입력해주세요" required="required">
           </div>
           <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
@@ -123,33 +123,17 @@
             	<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
           	</div>
           </div>
-	    <div>
-	    	<div class="mb-3">
+	    <div class="mb-3">
         	<label for="work_progress" class="col-form-label">진행률</label>
-<!--         	<select name="work_progress" class="form-select" aria-label="Default select example"> -->
-<!-- 			  <option selected>0</option> -->
-<!-- 			  <option value="100">100</option> -->
-<!-- 			  <option value="10">10</option> -->
-<!-- 			  <option value="20">20</option> -->
-<!-- 			  <option value="30">30</option> -->
-<!-- 			</select> -->
-					<!-- 전체 영역 -->
-				<div style="display:flex;">
-				<div class="progress">
-				  <!-- 프로그래스 바 -->
-				  <div class="state"></div>
-				</div>
-				  <input id="work_progress" name="work_progress" value="10" readonly>%
-			</div>
-				</div>
-        </div>
+			<input type="range" id="progress" min="0" max="100" step="10">
+		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label>
         	<input type="file" name="uploadfile" multiple="multiple">
         </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" id="content" name="work_content" placeholder="내용을 입력해주세요" required="required" style="height:300px;"></textarea>
+            <textarea class="form-control" id="content" name="work_content" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -223,22 +207,7 @@ $("#deleteProj").click(function(){
 
 
 // progress bar 
-// $(document).ready(function(){
-// 	  //프로그래스 바를 클릭
-// 	  $('.progress').click(function(e){
-// 	      // 변수 x는 .progress의 left값에서 클릭한 위치의 X값을 뺀다.
-// 	        // e.pageX는 화면에서 클릭한 X의 위치를 가져온다. 
-// 	        var x = e.pageX - $('.progress').offset().left;
-// 	        //변수 clickPercentage는 변수 x / .progress.너비
-// 	        clickPercentage = x / $('.progress').width();
-// 	        //.state의 너비는 (.progress의 너비에서 변수 clickPercentage를 곱한 값);
-// 	        $('.state').width($('.progress').width() * clickPercentage);
 
-// 	        var percentage = clickPercentage * 10;
-// 	    	// 10 단위로 나타내기
-// 	        $('#work_progress').val(Math.round(percentage)*10);
-// 	    });
-// 	});
 	
 // 아이콘 클릭하면 긴급 선택되게 하기
 /* $("#isemergency").click(function() {
