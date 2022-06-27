@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
@@ -21,73 +21,25 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
 		crossorigin="anonymous"></script>
-		<!-- J쿼리 -->
+	<!-- J쿼리 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 	
-
-	<link href="<%=request.getContextPath()%>/resources/css/holiday_list.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/holiday_list.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
+<!-- JSTree -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
 	
-	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 </head>
 <body>
-	<script type="text/javascript">
-	//현재시간  https://stickode.tistory.com/124 
-		function setClock(){
-		    var dateInfo = new Date(); 
-		    var hour = modifyNumber(dateInfo.getHours());
-		    var min = modifyNumber(dateInfo.getMinutes());
-		    var sec = modifyNumber(dateInfo.getSeconds());
-		    var year = dateInfo.getFullYear();
-		    var month = dateInfo.getMonth()+1; //monthIndex를 반환해주기 때문에 1을 더해준다.
-		    var date = dateInfo.getDate();
-		    document.getElementById("time").innerHTML = hour + ":" + min  + ":" + sec;
-		    document.getElementById("date").innerHTML = year + "년 " + month + "월 " + date + "일";
-		}
-		function modifyNumber(time) {
-			if(parseInt(time)<10){
-				return "0"+time;
-			}else{
-				return time;
-			}
-		}
-		window.onload=function(){
-			setClock();
-			setInterval(setClock,1000); //1초마다 setClock 함수실행
-		}
-	</script>
 
-	<div class="left_bar">
-		<div class="left_bar_img">
-			<img alt="" src="">
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-			이미지 자리<br>
-		</div>
-		<div>
-			<div id="date" class="left_bar_date font3"></div>
-			<div id="time" class="left_bar_time font6"></div>
-		</div>
-		<div class="left_bar_btn">
-			<button class="btn_green btn_attendance">출근</button>
-			<button class="btn_green btn_leave">퇴근</button>
-<!-- 			<button class="btn_green btn_off">근무 외 시간</button> -->
-		</div>
-		<div>
-		달력 자리<br>
-		달력 자리<br> 
-		달력 자리<br>
-		달력 자리<br>
-		달력 자리<br>  
-		<!-- 혜리니자리 -->
-		</div>
-	</div>
-
+<jsp:include page="/WEB-INF/views/template_header.jsp"/>
+<jsp:include page="/WEB-INF/views/template_left.jsp"/>
 
 
 	<div class="left_bar_exception">
