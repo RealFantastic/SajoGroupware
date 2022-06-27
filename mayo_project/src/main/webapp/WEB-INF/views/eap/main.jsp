@@ -127,19 +127,22 @@
      <script>
  	  	$(".chooseForm").click(function(){
  	  		$('#select_ea_form').modal('hide');
-			$('#home_my_draftedlist').hide();
+// 			$('#home_my_draftedlist').hide();
 			let selectForm = $('#formCategory').val();
 			console.log(selectForm);
 			switch(selectForm){
 				case "AR":
+					$('.content_page').children().hide();
 					$('#vacationForm').show();
 					$('.content_top').children('h1').text("휴가신청서");
 					break;
 				case "BP":
+					$('.content_page').children().hide();
 					$('#bpForm').show();
 					$('.content_top').children('h1').text("업무기안");
 					break;
 				case "SR":
+					$('.content_page').children().hide();
 					$('#srForm').show();
 					$('.content_top').children('h1').text("지출결의서");
 					break;

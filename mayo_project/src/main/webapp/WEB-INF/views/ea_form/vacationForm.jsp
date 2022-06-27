@@ -101,10 +101,18 @@
 								<td style="border-bottom:1px solid black;">
 									<input type="checkbox" id="is_half" name="is_half">
 									<label for="is_half">반차사용</label>
-									<div id="select_time_radio">
-										<input type="radio" name="selectTime" id="am" value="오전"><label for="am">오전</label>
-										<input type="radio" name="selectTime" id="pm" value="오후"><label for="pm">오후</label>
-									</div>
+									<span id="select_time_radio">
+										<label for="start_am">시작일</label>
+										(
+										<input type="radio" name="startHalf" id="start_am" value="오전" disabled><label for="am">오전</label>
+										<input type="radio" name="startHalf" id="start_pm" value="오후" disabled><label for="pm">오후</label>
+										)
+										<label for="end_am">종료일</label>
+										(
+										<input type="radio" name="endHalf" id="end_am" value="오전" disabled><label for="am">오전</label>
+										<input type="radio" name="endHalf" id="end_pm" value="오후" disabled><label for="pm">오후</label>
+										)
+									</span>
 								</td>
 							</tr>
 							<tr>
@@ -129,9 +137,63 @@
 			</div>
 			<script>
 				$(function(){
-					
 						
-						console.log('${selectForm}');
+					
+						$('#end_date').change(function(){
+							/* 사용자 입력값 변수 생성 */
+							var start = $('#start_date').val().split('-');
+							var end = $('#end_date').val().split('-');
+// 							console.log("start = " + start);
+// 							console.log("startType = " + typeof start);
+// 							console.log("end = " + end);
+// 							console.log("endType = " + typeof end);
+							/* 입력값(String) => Date로 변경 */
+							var hd_start = new Date(start[0],start[1],start[2]);
+							var hd_end = new Date(end[0],end[1],end[2]);
+// 							console.log(hd_start);
+// 							console.log(hd_end);
+							/* 두 날짜 차이 계산 */
+							let hd_countDate = hd_end - hd_start;
+							let currDay = 24*60*60*1000; //시 * 분 * 초 * 밀리세컨
+							
+							/* 날짜 차이 일수로 변경 */
+							hd_count = parseInt(hd_countDate/currDay);
+// 							if(hd_count ==0){
+// 								hd_count = 1;	
+// 							}
+// 							console.log("두 날짜 일수 차이 : " + hd_count);
+							if(hd_count > $('#left_count').val()){
+								$('.overAlert').text("사용일수 초과");
+							}
+							$('#hd_count').val(hd_count); //사용 일수 표시
+							$('#used_count').val(hd_count); //신청 연차 표시
+							
+						});
+						/* TODO : 반차체크된 경우 신청 연차가 0이면 0.5씩 계산,
+						체크가 해제되면 다시 1씩 계산되어 값이 바뀌도록 해야함 */
+						$("#is_half").click(function(){
+							if($(this).prop("checked")){
+								if($('#start_date').val() =="" || $('#end_date').val()==""){
+									alert('날짜를 먼저 설정하세요');
+									$(this).prop("checked",false);
+									return;
+								}
+								console.log("체크상태");
+								if(hd_count == 0){
+									$('input[name=startHalf]').removeAttr("disabled");
+								}else{
+									$('input[name=startHalf]').removeAttr("disabled");
+									$('input[name=endHalf]').removeAttr("disabled");
+								}
+							}else{
+								console.log("언체크상태");
+								$('input[name=startHalf]').attr("disabled","disabled");
+								$('input[name=endHalf]').attr("disabled","disabled");
+								$('#hd_count').val(hd_count); //사용 일수 표시
+								$('#used_count').val(hd_count); //신청 연차 표시
+							}
+						});
+						
 						/* SummerNote Library */
 						 $('#summernote').summernote({
 								toolbar: [
@@ -145,6 +207,8 @@
 						});
 					
 				});
+				
+				
 			</script>
 		</section>
 	</div>
