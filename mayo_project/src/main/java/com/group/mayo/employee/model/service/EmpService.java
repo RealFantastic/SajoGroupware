@@ -38,4 +38,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public int checkEmpNo(String emp_no);
+	/**
+	 * 
+	 * @return 주민번호 중복확인
+	 * @author XeonSnee
+	 */
+	public int checkRrn(String rrn);
 }

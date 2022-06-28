@@ -237,4 +237,21 @@ public class EmpController {
 		 	
 		 	return ro;
 	 }
+	//주민번호 중복 체크
+	 @PostMapping(value="/checkrrn",produces="text/plain;charset=UTF-8")
+	 @ResponseBody
+	 public String checkRrn(
+			 @RequestParam("rrn") String rrn
+			 ) {
+		 	
+		 	int result=service.checkRrn(rrn);  
+		 	String ro = null;
+		 	if(result == 1) {
+		 		ro= "false";
+		 	}else {
+		 		ro ="ok";
+		 	}
+		 	
+		 	return ro;
+	 }
 }

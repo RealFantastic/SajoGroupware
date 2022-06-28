@@ -38,10 +38,16 @@ public class EmpServiceImpl implements EmpService{
 		return dao.selectLogin(employee);		
 	}
 	
-	//사업자 번호 중복 확인
+	//아이디 중복 확인
 	@Override
 	public int checkEmpNo(String emp_no) {
 		int result = dao.checkEmpNo(emp_no);
+		return result;
+	}
+	//주민번호 중복 확인
+	@Override
+	public int checkRrn(String rrn) {
+		int result = dao.checkRrn(rrn);
 		return result;
 	}
 	

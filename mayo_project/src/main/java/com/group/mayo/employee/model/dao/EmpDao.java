@@ -35,4 +35,11 @@ public class EmpDao {
 		
 		return result;
 	}
+	// 주민번호 중복 확인
+	public int checkRrn(String rrn) {
+		int result = sqlSession.selectOne("Employee.checkRrn",rrn);
+		System.out.println("안녕");
+		
+		return result;
+	}
 }

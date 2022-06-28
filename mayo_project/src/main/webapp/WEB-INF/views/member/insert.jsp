@@ -98,7 +98,7 @@
                         <input type="text" id="cp_number" name="cp_number" required >
                         <!--TODO : 사업자 번호 조회 방식 추후 수정 -->
                         <button type="button" id="cp_number_btn" onclick = "checkNum()">조회</button>
-                        <br><font id="check_result" size ="2"></font>
+                        
                     </div>             
                     <div id="j_name" class="j_e">
                         <label>이름 : </label>
@@ -108,6 +108,7 @@
                         <label>주민 번호 : </label>
                         <input type="text" id="rrn" name="rrn">
                         <button type="button" onclick = "checkRrn()">조회</button>
+                        <br><font id="check_rrn" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_dept">
                         <label>부서 : </label>
@@ -130,7 +131,7 @@
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
                         <input type="text" id="emp_no" name="emp_no">
-                        <button type="button" onclick = "checkNum()">조회</button>
+                        <button type="button" onclick = "checkNo()">조회</button>
                         <br><font id="check_result" size ="2"></font>
                     </div>
                     <div id="j_pwd" class="j_e">
@@ -138,8 +139,9 @@
                         <input type="password" id="password" name="password">
                     </div>
                     <div id="j_pwd_chk" class="j_e">
-                        <label for="password">비밀번호 재확인 : </label>
-                        <input type="password" id="password_chk">
+                        <label for="password_chk">비밀번호 재확인 : </label>
+                        <input type="password" id="password_chk" name="password_chk" onkeyup="checkpwd()">
+                        <br><font id="check_pwd" size ="2"></font>
                     </div>
 
                     <div class="j_e">
@@ -183,16 +185,16 @@
                         <div class="j_e">
                             <div>
                                 <label>우편번호 : </label>
-                                <input type="text" id="sample6_postcode" placeholder="우편번호" value="emp_postcode">
+                                <input type="text" id="sample6_postcode" placeholder="우편번호" name="emp_postcode">
                                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                             </div>
                             <div>
                                 <label>주소 : </label>
-                                <input type="text" id="sample6_address" placeholder="주소" value="address"><br>                        
+                                <input type="text" id="sample6_address" placeholder="주소" name="address"><br>                        
                             </div>
                             <div>
                                 <label for="sample6_detailAddress">상세주소 : </label>
-                                <input type="text" id="sample6_detailAddress" placeholder="상세주소" value="detail_address">
+                                <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="detail_address">
                           	    <input type="text" id="sample6_extraAddress" placeholder="참고항목" 
                             style="width: 100px;">
                             </div>
@@ -235,7 +237,7 @@
                 </div>
                 <div id="j_btn">
                     <button type="reset" class="btn_yellow">뒤로가기</button>
-                    <button type="submit" class="btn_green">가입</button>
+                    <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
                 </div>
             </div>
             </div>
@@ -245,9 +247,52 @@
             <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
         </footer>
     </div>
+    
+    <!-- 비밀번호 -->
+    <script type="text/javascript">
+    $("#j_enroll_btn").click(function(){
+	    if($("#password").val() == '') {
+			alert("비밀번호를 입력해주십시오");
+			$("#password").focus();
+			return false;
+		}
+	    
+	    if($("#password_chk").val() == '') {
+			alert("비밀번호를 한번 더 입력해주십시오");
+			$("#password_chk").focus();
+			return false;
+		}
+
+
+		//var regExpPassword = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,16}$/; // 영문자, 숫자, 특수문자가 적어도 1개이상, 8~16글자
+		var regExpPassword = /^(?=.*[A-Za-z])(?=.*[0-9]).{8,16}$/; // 영문자, 숫자가 적어도 1개이상, 8~16글자
+		if(!regExpPassword.test(password)){
+			alert("패스워드 입력란에는 영문자, 숫자가 적어도 1개이상, 8~16글자를 입력해주세요.");
+			$("#password").val("");
+			$("#password_chk").val("");
+			$("#password").focus();
+			return false;
+		}
+    });	
+    </script>
+    
+    <!-- 비밀번호 재확인  -->
+    <script type="text/javascript">
+    function checkpwd(){
+    	
+    	var password = $("#password").val().trim();
+    	if(!password || password != $("#password_chk").val().trim()){
+			$("#check_pwd").html('비밀번호가 일치하지 않습니다.');
+			$("#check_pwd").attr('color','red');
+    		return false;
+    	}
+    	
+    };
+    </script>
+    
     <!--아이디 중복체크-->
 	<script type="text/javascript">
-	function checkNum(){
+	function checkNo(){
 			var emp_no = $('#emp_no').val();
 			console.log("emp_no: "+emp_no);
 			
@@ -258,9 +303,9 @@
 // 				contentType:"json",
 				success: function(result){
 					console.log("result"+result);
-					if(result == "false"){
+					if(result == "false" || result == ""){
 						console.log("안녕");
-						$("#check_result").html('이미 등록된 사원번호 입니다.');
+						$("#check_result").html('사원번호를 다시 확인해주세요.');
 						$("#check_result").attr('color','red');
 					}else if(result == "ok"){
 						$("#check_result").html('사원번호가 확인 되었습니다.');
@@ -283,7 +328,7 @@
 			console.log("rrn: "+rrn);
 			
 			$.ajax({
-				url:'<%=request.getContextPath()%>/member/check',
+				url:'<%=request.getContextPath()%>/member/checkrrn',
 				type:"post",
 				data: {"rrn":rrn},
 // 				contentType:"json",
@@ -291,10 +336,10 @@
 					console.log("result"+result);
 					if(result == "false"){
 						console.log("안녕");
-						$("#check_rrn").html('이미 등록된 사원번호 입니다.');
+						$("#check_rrn").html('주민번호를 다시 확인해주십시오.');
 						$("#check_rrn").attr('color','red');
 					}else if(result == "ok"){
-						$("#check_rrn").html('사원번호가 확인 되었습니다.');
+						$("#check_rrn").html('주민번호가 확인 되었습니다.');
 						$("#check_rrn").attr('color','blue');
 					} 
 				},
