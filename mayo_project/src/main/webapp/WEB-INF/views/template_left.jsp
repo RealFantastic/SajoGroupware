@@ -2,40 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<!-- 부트스트랩 -->
-	<link 
-		rel="stylesheet" 
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
-		crossorigin="anonymous">
-	<script 
-		src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
-		crossorigin="anonymous"></script>
-	<script 
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
-		crossorigin="anonymous"></script>
-	<!-- J쿼리 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-		crossorigin="anonymous"></script>
-	
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
-<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
-<!-- JSTree -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
 
-</head>
-<body>
 	<script type="text/javascript">
 // 		현재시간  https://stickode.tistory.com/124 
 		function setClock(){
@@ -175,6 +142,3 @@
 		<!-- 혜리니자리 -->
 		</div>
 	</div>
-	
-</body>
-</html>
