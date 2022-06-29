@@ -98,26 +98,29 @@
                         <input type="text" id="cp_number" name="cp_number" required >
                         <!--TODO : 사업자 번호 조회 방식 추후 수정 -->
                         <button type="button" id="cp_number_btn" onclick = "checkNum()">조회</button>
-                        
+                        <div><font class="feedback" size ="2"></font></div>
                     </div>             
                     <div id="j_name" class="j_e">
                         <label>이름 : </label>
                         <input type="text" id="emp_name" name="emp_name">
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_emp_number" class="j_e">
                         <label>주민 번호 : </label>
                         <input type="text" id="rrn" name="rrn">
                         <button type="button" onclick = "checkRrn()">조회</button>
-                        <br><font id="check_rrn" size ="2"></font>
+                        <div><font id="check_rrn" size ="2"></font></div>
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_dept">
-                        <label>부서 : </label>
+                        <label for="dept_no">부서 : </label>
                         <select id="dept_no" name="dept_no" required="required">
                             <option value="">선택</option>
                             <option value="10">인사팀</option>
                             <option value="20">영업팀</option>
                             <option value="30">총무팀</option>
                         </select>
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_job">
                         <label>직위 : </label>
@@ -133,29 +136,34 @@
                         <input type="text" id="emp_no" name="emp_no">
                         <button type="button" onclick = "checkNo()">조회</button>
                         <br><font id="check_result" size ="2"></font>
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_pwd" class="j_e">
                         <label>비밀번호 : </label>
-                        <input type="password" id="password" name="password">
+                        <input type="password" id="password" name="password" class="j_pwd">
+                        <br><font class="feedback" size ="2"></font>
+                        
                     </div>
                     <div id="j_pwd_chk" class="j_e">
                         <label for="password_chk">비밀번호 재확인 : </label>
-                        <input type="password" id="password_chk" name="password_chk" onkeyup="checkpwd()">
+                        <input type="password" id="password_chk" name="password_chk" class="j_pwd">
                         <br><font id="check_pwd" size ="2"></font>
+                        <br><font class="feedback" size ="2"></font>
                     </div>
 
                     <div class="j_e">
                         <label for="hire_date">입사일 : </label>
                         <input type="date" id="hire_date" name="hire_date" />
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div>
                         <div id="j_email" class="j_e">
                             <label>이메일 : </label>
                             <div>
                             <input type="text" id="email_id" name="email_id" >
-                            <span>@</span>
+                            <span id="middle">@</span>
                             <input type="text" id="domain" name="domain" />
-                            <select id="domain_list">
+                            <select id="domain_list" name="domain_list">
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
@@ -163,13 +171,16 @@
                                 <option value="kakao.com">kakao.com</option>
                                 <option value="direct">직접입력</option>
                               </select>
+                              <input type="hidden" id="totalemail" name="email" value="">
                             </div>
+                            <br><font class="feedback" size ="2"></font>
                         </div>
     
                         <div id="email_check" class="j_e">
                             <label>인증번호 : </label>
                             <input type="text" id="email_check_no">
                             <button type="button" id="email_check_btn">인증</button>
+                            <br><font class="feedback" size ="2"></font>
                         </div>
                     </div>
 
@@ -199,6 +210,7 @@
                             style="width: 100px;">
                             </div>
                         </div>
+                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_emp_phone" class="j_e">
                         <label for="phone">전화번호 : </label>
@@ -251,13 +263,14 @@
     <!-- 비밀번호 -->
     <script type="text/javascript">
     $("#j_enroll_btn").click(function(){
-	    if($("#password").val() == '') {
+    	
+	    if($("#password").val() == " ") {
 			alert("비밀번호를 입력해주십시오");
 			$("#password").focus();
 			return false;
 		}
 	    
-	    if($("#password_chk").val() == '') {
+	    if($("#password_chk").val() == " ") {
 			alert("비밀번호를 한번 더 입력해주십시오");
 			$("#password_chk").focus();
 			return false;
@@ -273,22 +286,45 @@
 			$("#password").focus();
 			return false;
 		}
+		
+    	var frm = $("#emp_enroll");
+		frm.attr("action","<%=request.getContextPath()%>/member/enroll"); 
+		frm.attr("method","post");
+		frm.submit();
     });	
     </script>
     
     <!-- 비밀번호 재확인  -->
     <script type="text/javascript">
-    function checkpwd(){
+    $('.j_pwd').keyup(function() {
+    	let password = $("#password").val().trim();
+    	let password_chk = $("#password_chk").val().trim();
     	
-    	var password = $("#password").val().trim();
-    	if(!password || password != $("#password_chk").val().trim()){
-			$("#check_pwd").html('비밀번호가 일치하지 않습니다.');
-			$("#check_pwd").attr('color','red');
-    		return false;
+    	if(password != " " || password_chk != " "){
+    		if(password == password_chk){
+    			console.log("password :"+password);
+    			console.log("password_chk :"+password_chk);
+    			$("#check_pwd").html('비밀번호가 일치 합니다.');
+    			$("#check_pwd").attr('color','green');
+    		}else {
+
+    			$("#check_pwd").html('비밀번호가 일치하지 않습니다.');
+    			$("#check_pwd").attr('color','red');
+    		}
     	}
-    	
-    };
+    		
+	})
+
     </script>
+    <!--전화번호 하이픈 정규식 DOM  -->
+    <script type="text/javascript">
+    $("#phone").on("input",function() {
+        var target = document.getElementById("phone");
+        target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
+	});
+    
+    </script>
+    
     
     <!--아이디 중복체크-->
 	<script type="text/javascript">
@@ -352,6 +388,26 @@
 		};
 	
 	</script>  
+	<!-- 이메일 합치기 -->
+	<script type="text/javascript">
+		//이메일주소 가져오기
+		$("#email_id").blur(function(){
+			email();	
+		});
+		
+		$("#domain_list").change(function(){
+			email();	
+		});
+	
+		function email() {
+			const email = $("#email_id").val();
+			const middle = $("#middle").text();
+			const address = $("#domain_list").val();
+			if(email != "" && address != "") {
+				$("#totalemail").val(email+middle+address);
+			}
+		};
+	</script>
 
     <!-- 이메일 직접입력 -->
     <script>
