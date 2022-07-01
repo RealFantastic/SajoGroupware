@@ -39,7 +39,7 @@
 }
 
 /* 긴급 아이콘 */
-#eimg{
+#dimg{
 	width:35px;
 }
 
@@ -48,19 +48,55 @@
 	width:25px;
 }
 
-#isemergency {
-	border:0;
-	background-color: white;
-}
+/* #isemergency { */
+/* 	border:0; */
+/* 	background-color: white; */
+/* } */
 
 /* 프로그레스바 */
-#work_progress{
-	width: 30px;
-	margin-left:15px;
-	margin-right: 0;
-	border:0;
+.dprogress {
+	-webkit-appearance: none; /* Override default CSS styles */
+	overflow: hidden;
+	width: 250px;
+	height: 25px;
+	background: #d3d3d3; /* Grey background */
+	margin-left: 10px;
+	border-radius: 10px;
+	outline: none; /* Remove outline */
+	opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	transition: opacity .2s;
+}
+/* Mouse-over effects */
+.dprogress:hover {
+  opacity: 1; /* Fully shown on mouse-over */
 }
 
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.dprogress::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 20px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: rgb(107, 191, 152); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+/* Styles the track of the input*/
+.dprogress::-webkit-slider-runnable-track {
+	height: 25px;
+	-webkit-appearance: none;
+	color: rgb(107, 191, 152);
+/* 	margin-top: -1px; */
+}
+
+/* Styles the thumb of the input*/
+.dprogress::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: rgb(107, 191, 152); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
 /* 업무 글 내용 */
 #content{
 	background-color: white;

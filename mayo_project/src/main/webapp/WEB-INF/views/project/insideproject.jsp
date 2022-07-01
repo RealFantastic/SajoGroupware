@@ -12,6 +12,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/insideproj.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/workDetail.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
@@ -31,7 +32,7 @@
 	<div id="body">
 	
 	<!-- 프로젝트 정보 모달창 -->
-<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -84,7 +85,7 @@
         <div id="worklist">
 		</div>
 		<!--  새 업무 추가 모달창 -->
-<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -126,6 +127,7 @@
 	    <div class="mb-3">
         	<label for="work_progress" class="col-form-label">진행률</label>
 			<input type="range" id="progress" min="0" max="100" step="10">
+			<input type="text" id="percentage" name="work_progress" value="" readonly>%
 		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label>
@@ -167,10 +169,9 @@
 <!--             <input type="submit" value="업로드"> -->
 <!--     </form> -->
 
-
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
-		
+	// form data 전부 넘기기	
 	var proj = $("form[name=mProject]").serialize();
 	
 	$.ajax({
@@ -189,33 +190,29 @@ $("#submitM").click(function(){
 // 프로젝트 삭제 ajax
 $("#deleteProj").click(function(){
 	var proj_no = ${project.proj_no};
-	
-	$.ajax({
- 		type: "POST",
-		url: "<%=request.getContextPath()%>/project/delete",
-		data: { 
- 				proj_no: proj_no
- 				},
- 		success: function(result){
- 			console.log("삭제");
-			alert(result);
-			location.href="<%=request.getContextPath()%>/project/list";
-		}
+	var check = confirm("프로젝트를 삭제하시겠습니까?");
+	// 프로젝트 삭제 여부 확인하기	
+	if(check){
 		
- 	});
+		$.ajax({
+	 		type: "POST",
+			url: "<%=request.getContextPath()%>/project/delete",
+			data: { 
+	 				proj_no: proj_no
+	 				},
+	 		success: function(result){
+	 			console.log("삭제");
+				alert(result);
+				location.href="<%=request.getContextPath()%>/project/list";
+			}
+ 		});
+	} else {
+		return false;
+	}
 });
 
 
-// progress bar 
-
-	
-// 아이콘 클릭하면 긴급 선택되게 하기
-/* $("#isemergency").click(function() {
-    var isemergency = $("#isemergency").data('value');    
-	    $("#isemergency").closest('input').find(".isemergency").val(isemergency);
-}); */
-
-// 버튼 변경 방법 좀 더 찾아보기
+// 버튼 변경 방법 좀 더 찾아보기 - 긴급
 $("#eimg").click(function(){
 	var eimg = $("#eimg").attr("src");
 	
@@ -236,10 +233,17 @@ $(function(){
 		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
 });
 
+// 프로그래스 바 값 가져오기
+var slider = document.getElementById("progress");
+var output = document.getElementById("percentage");
+output.value = slider.value;
+
+slider.oninput = function() {
+  document.getElementById("percentage").value = this.value;
+  
+}
 
 </script>
-		
-		
-		
+
 </body>
 </html>
