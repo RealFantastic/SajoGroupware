@@ -69,12 +69,13 @@
 		<div>
 			<table class="holiday_list_table">
 				<colgroup>
-					<col width="25%">
-					<col width="10%">
-					<col width="10%">
-					<col width="10%">
-					<col width="25%">
 					<col width="20%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="20%">
+					<col width="15%">
+					<col width="15%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -84,6 +85,7 @@
 						<th class="holiday_table_list_th font2">부서명</th>
 						<th class="holiday_table_list_th font2">연락처</th>
 						<th class="holiday_table_list_th font2">잔여연차</th>
+						<th class="holiday_table_list_th font2">연차상세보기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -101,6 +103,7 @@
 							<td class="holiday_table_list_td">${empholiday.dept_nm }</td>
 							<td class="holiday_table_list_td">${empholiday.phone }</td>
 							<td class="holiday_table_list_td">${empholiday.left_count }</td>
+							<td class="holiday_table_list_td"><button class="btn_red">상세보기</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

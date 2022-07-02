@@ -111,106 +111,107 @@
 			
 			<div>
 <!-- 		조회날짜 자리 -->
-				<template>
-					<div class="container">
-						선택한 주 : {{ dateRange.start }} ~ {{ dateRange.end }}
-						<br />
-						<br />
-						<date-picker
-							inline
-							:editable="false"
-							valueType="format"
-							format="YYYYMMDD"
-							:getClasses="getClasses"
-							:lang="datepickerLang"
-							:value="weekTime"
-							:disabled-date="dislabedDate"
-							@pick="calendarPick"
-						/>
-					</div>
-				</template>
-
+		<input value="" type="date" class="form-control" id="commuteCal" name="commuteCal" placeholder="YYYY/MM/DD" required="required">
+			<template>
+				<div class="container">
+					선택한 주 : {{ dateRange.start }} ~ {{ dateRange.end }}
+					<br />
+					<br />
+					<date-picker
+						inline
+						:editable="false"
+						valueType="format"
+						format="YYYYMMDD"
+						:getClasses="getClasses"
+						:lang="datepickerLang"
+						:value="weekTime"
+						:disabled-date="dislabedDate"
+						@pick="calendarPick"
+					/>
+				</div>
+			</template>
+		</div>
+		<div class="my_info">
+			사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
+			 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
+		</div>
+</div>
 <script>
-// import DatePicker from "vue2-datepicker";
-// import "vue2-datepicker/index.css";
-// import moment from "moment";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+import moment from "moment";
 
-// export default {
-// 	components: { DatePicker },
-// 	data() {
-// 		return {
-// 			weekTime: null,
-// 			dateRange: {
-// 			start: null,
-// 			end: null,
-// 			},
-// 			datepickerLang: {
-// 			yearFormat: "YYYY년",
-// 			monthFormat: "M월",
-// 			monthBeforeYear: false,
-// 			},
-// 		};
-// 	},
-// 	methods: {
+export default {
+	components: { DatePicker },
+	data() {
+		return {
+			weekTime: null,
+			dateRange: {
+			start: null,
+			end: null,
+			},
+			datepickerLang: {
+			yearFormat: "YYYY년",
+			monthFormat: "M월",
+			monthBeforeYear: false,
+			},
+		};
+	},
+	methods: {
 
-// 		// 선택한 영역 class set
-// 		getClasses(cellDate, currentDates) {
-// 			if (currentDates.length === 0) return;
+		// 선택한 영역 class set
+		getClasses(cellDate, currentDates) {
+			if (currentDates.length === 0) return;
 	
-// 		//기준 날짜
-// 		const cellDateVal = moment(cellDate).format("YYYYMMDD");
-// 		// 주 시작일 날짜
-// 		const startWeekDay = moment(currentDates[0])
-// 			.startOf("week")
-// 			.format("YYYYMMDD");
-// 		// 주 종료일 날짜
-// 		const endWeekDay = moment(currentDates[0])
-// 			.endOf("week")
-// 			.format("YYYYMMDD");
+		//기준 날짜
+		const cellDateVal = moment(cellDate).format("YYYYMMDD");
+		// 주 시작일 날짜
+		const startWeekDay = moment(currentDates[0])
+			.startOf("week")
+			.format("YYYYMMDD");
+		// 주 종료일 날짜
+		const endWeekDay = moment(currentDates[0])
+			.endOf("week")
+			.format("YYYYMMDD");
 	
-// 		// 주 시작점 & 종료점 class
-// 		if (cellDateVal === startWeekDay || cellDateVal === endWeekDay) {
-// 			return "active";
-// 		}
-// 		// 중간영역 class
-// 		if (
-// 			moment(cellDateVal).isAfter(startWeekDay) &&
-// 			moment(cellDateVal).isBefore(endWeekDay)
-// 			) {
-// 			return "in-range";
-// 			}
-// 		},
+		// 주 시작점 & 종료점 class
+		if (cellDateVal === startWeekDay || cellDateVal === endWeekDay) {
+			return "active";
+		}
+		// 중간영역 class
+		if (
+			moment(cellDateVal).isAfter(startWeekDay) &&
+			moment(cellDateVal).isBefore(endWeekDay)
+			) {
+			return "in-range";
+			}
+		},
 	
-// 		// 캘린더 비활성화 영역 - 당일 주를 포함하여 선택 가능
-// 		dislabedDate(date) {
-// 			return (
-// 			moment(date).format("YYYYMMDD") >=
-// 			moment()
-// 				.add("7", "days")
-// 				.startOf("week")
-// 				.format("YYYYMMDD")
-// 			);
-// 		},
-// 		calendarPick(item) {
-// 		this.weekTime = moment(item).format("YYYYMMDD");
-// 		// 선택한 날짜의 주 첫째일과 마지막일 date set - 첫째일을 일요일로 설정
-// 		this.dateRange.start = moment(item)
-// 			.startOf("week")
-// 			.format("YYYYMMDD");
-// 			this.dateRange.end = moment(item)
-// 				.endOf("week")
-// 				.format("YYYYMMDD");
-// 		},
-// 	},
-// };
+		// 캘린더 비활성화 영역 - 당일 주를 포함하여 선택 가능
+		dislabedDate(date) {
+			return (
+			moment(date).format("YYYYMMDD") >=
+			moment()
+				.add("7", "days")
+				.startOf("week")
+				.format("YYYYMMDD")
+			);
+		},
+		calendarPick(item) {
+		this.weekTime = moment(item).format("YYYYMMDD");
+		// 선택한 날짜의 주 첫째일과 마지막일 date set - 첫째일을 일요일로 설정
+		this.dateRange.start = moment(item)
+			.startOf("week")
+			.format("YYYYMMDD");
+			this.dateRange.end = moment(item)
+				.endOf("week")
+				.format("YYYYMMDD");
+		},
+	},
+};
 </script>
 
-			</div>
-			<div class="my_info">
-				사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
-				 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
-			</div>
-		</div>
+			
 
 
 
@@ -236,12 +237,24 @@
 				</thead>
 	
 				<tbody>
-				
+					<c:if test="${fn:length(commuteMystatus) == 0}">
+						<tr class="no_list">
+							<!-- 	보여질 내역이 없을 경우 -->
+							<td colspan='6'> 조회된 내용이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach var="commute" items="${commuteMystatus}">
+						<tr>
+							<td class="commute_table_list_td">${commute.wokr_day }</td>
+							<td class="commute_table_list_td">${commute.start_time }</td>
+							<td class="commute_table_list_td">${commute.end_time }</td>
+							<td class="commute_table_list_td">${commute.oneday_work }</td>
+							<td class="commute_table_list_td">${commute.week_work }</td>
+							<td class="commute_table_list_td">${commute.week_work_mod }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
-		
-		
-		
 		
 		</div>
 	</div>

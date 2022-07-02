@@ -67,6 +67,10 @@
 	background-color :rgb(235, 255, 246);
 }
 
+.commute_table_list_td{
+	border: 1px solid;
+	padding: 5px;
+}
 
 
 

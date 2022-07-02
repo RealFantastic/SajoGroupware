@@ -8,12 +8,36 @@ public class CommuteEmployee {
 	private String dept_nm;
 	private String job_nm;
 	
+//	검색기능
+	private String search_type; //검색타입 - 직원번호,이름,부서
+	private String search_keyword; //검색어 입력
 	
+	
+
 	@Override
 	public String toString() {
 		return "CommuteEmployee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", phone=" + phone + ", dept_nm="
-				+ dept_nm + ", job_nm=" + job_nm + "]";
+				+ dept_nm + ", job_nm=" + job_nm + ", search_type=" + search_type + ", search_keyword=" + search_keyword
+				+ "]";
 	}
+	
+	
+	public String getSearch_type() {
+		return search_type;
+	}
+	public void setSearch_type(String search_type) {
+		this.search_type = search_type;
+	}
+
+
+	public String getSearch_keyword() {
+		return search_keyword;
+	}
+	public void setSearch_keyword(String search_keyword) {
+		this.search_keyword = search_keyword;
+	}
+
+
 	public String getEmp_no() {
 		return emp_no;
 	}

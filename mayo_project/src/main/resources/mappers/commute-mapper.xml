@@ -3,7 +3,8 @@
 
 <mapper namespace="CommuteRecord">
 
-<!-- 	출근시간,퇴근시간 확인 -->
+<!-- //	template_left -->
+	<!-- 	출근시간,퇴근시간 확인 -->
 	<select id="toDayCommuteStatus" resultType="CommuteRecord" parameterType="String">
 		SELECT 
 			TO_CHAR(START_TIME, 'HH24:MI:SS') today_start_time
@@ -13,43 +14,31 @@
 			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
 	</select>
 
-<!-- 출근시간 등록 -->
+	<!-- 출근시간 등록 -->
 	<insert id="statusAtt">
 		insert into COMMUTE_RECORD (RECORD_NO,EMP_NO,START_TIME,END_TIME)
 		values(
 		(select nvl(max(RECORD_NO),0)+1 from COMMUTE_RECORD)
-		,'202230001'
+		,#{id} 
 		,to_date( to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
 		,null)
-		
 	</insert>
-	
-	
-<!-- 퇴근시간 등록 -->
+
+	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
+	SELECT 
+		TO_CHAR(START_TIME, 'HH24:MI:SS') today_start_time
+	FROM commute_record
+	WHERE emp_no =#{id} 
+		AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
+	</select>
+
+	<!-- 퇴근시간 등록 -->
 	<update id="statusLeave">
 		UPDATE commute_record set end_time=SYSTIMESTAMP 
-		where emp_no='202230001'
+		where emp_no=#{id} 
 		and to_char(start_Time, 'YYYYMMDD') = to_char(sysdate, 'YYYYMMDD')
 	</update>
 
-<!-- 	나의 정보 -->
-	<select id="commuteMyInfo" resultType="CommuteEmployee">
-		SELECT EMP_NO
-			, EMP_NAME
-			, PHONE
-			, (SELECT dept_name FROM department b WHERE b.dept_no = a.dept_no ) DEPT_NM
-			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
-		FROM employee a where emp_no='202230001'
-	</select>
-
-	<select id="selectStatusAtt" parameterType="string" resultType="CommuteRecord">
-		SELECT 
-			TO_CHAR(START_TIME, 'HH24:MI:SS') today_start_time
-		FROM commute_record
-		WHERE emp_no =#{id} 
-			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
-	</select>
-	
 	<select id="selectStatusLeave" parameterType="string" resultType="CommuteRecord">
 		SELECT 
 		TO_CHAR(END_TIME, 'HH24:MI:SS') today_end_time
@@ -58,6 +47,52 @@
 			AND TO_CHAR(start_Time, 'YYYYMMDD') = TO_CHAR(sysdate, 'YYYYMMDD') 
 	</select>
 
+
+
+
+<!-- //	개인근태페이지 -->
+	<!-- 	나의 정보 -->
+	<select id="commuteMyInfo" resultType="CommuteEmployee" parameterType="string" >
+		SELECT EMP_NO
+			, EMP_NAME
+			, PHONE
+			, (SELECT dept_name FROM department b WHERE b.dept_no = a.dept_no ) DEPT_NM
+			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
+		FROM employee a where emp_no=#{id} 
+	</select>
+
+	<select id="commuteMystatus" parameterType="string" resultType="CommuteRecord" >
+		select 
+			t.wokr_day
+			,t.start_time
+			,t.end_time
+			,t.oneday_work
+			,  trunc(( t.week_work ) * 24 ) ||'시'||' ' ||
+			    LPad( round(trunc(  Mod( ( t.week_work ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+			    LPad( round(Mod( (t.week_work)* 24 * 60 * 60 , 60 )),2,0)||'초'  week_work
+			,   trunc((1.875 - (t.week_work) ) * 24 ) ||'시'||' ' ||
+			    LPad( round(trunc(  Mod( ( 1.875 - (t.week_work) ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+			    LPad( round(Mod( (1.875 - (t.week_work))* 24 * 60 * 60 , 60 )),2,0)||'초'  week_work_mod
+		from (
+		select
+			    to_char(start_time, 'YYYY-MM-DD' ) wokr_day, --근무일
+			    to_char(start_time, 'HH24 : MI : SS' ) start_time, --출근시간
+			    to_char(end_time, 'HH24 : MI : SS' ) end_time, --퇴근시간
+			    trunc(( end_time - start_time ) * 24 ) ||'시'||' ' ||
+			    LPad( round(trunc(  Mod( ( end_time - start_time ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+			    LPad( round(Mod( (end_time-start_time)* 24 * 60 * 60 , 60 )),2,0)||'초' AS oneday_work -- 하루 근무 시간 
+			    ,sum(end_time - start_time) OVER(ORDER BY start_time) week_work
+		from commute_record where start_time between '20220627' and '20220701'
+			) t
+	</select>
+
+
+
+
+
+<!-- //	인사팀 - 직원근태내역 리스트 -->
+
+	<!-- 	직원 전체 띄움 -->
 	<select id="empCommuteList" resultType="CommuteEmployee">
 		SELECT EMP_NO
 			, EMP_NAME
@@ -66,9 +101,37 @@
 			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
 		FROM employee a order by EMP_NO
 	</select>
+
+	<!-- 	직원검색 -->
+	<select id="commuteEmpSearch" parameterType="CommuteEmployee" resultType="CommuteEmployee">
 	
+		
+		SELECT EMP_NO
+			, EMP_NAME
+			, PHONE
+			,b.dept_name DEPT_NM
+			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
+		FROM employee a ,department b 
+        WHERE a.dept_no =b.dept_no
+		
+		<choose>
+			<when test="search_type !=null and search_type.equals('search_no')">
+				and a.EMP_NO like '%'||#{search_keyword}||'%'
+			</when>
+			<when test="search_type !=null and search_type.equals('search_name')">
+				and a.EMP_NAME like '%'||#{search_keyword}||'%'
+			</when>
+			<when test="search_type !=null and search_type.equals('search_dept')">
+				and b.dept_name like '%'||#{search_keyword}||'%'
+			</when>
+		</choose>
 	
-	
+	</select>
+
+
+
+
+<!-- //	인사팀 - 직원근태 상세 - 수정 -->
 	<select id="empCommuteChange" resultType="CommuteRecord">
 	
 	</select>

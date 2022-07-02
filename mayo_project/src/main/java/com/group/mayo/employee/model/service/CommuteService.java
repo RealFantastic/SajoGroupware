@@ -8,12 +8,12 @@ import com.group.mayo.employee.domain.CommuteRecord;
 
 public interface CommuteService {
 
+//template_left
 	/**
-	 * @return 리턴할 값 입력해주기 /TODO 로그인한 사원 오늘 출근시간 , 퇴근시간
+	 * @return 리턴할 값 : 로그인한 사원 오늘 출근시간, 퇴근시간
 	 * @author hong
 	 */
 	public CommuteRecord myCommuteStatus(String id ) ;
-
 
 	/**
 	 * @return 출근시간
@@ -27,26 +27,53 @@ public interface CommuteService {
 	 */
 	public CommuteRecord statusLeave(String id);
 
+
+
+
+//	개인근태페이지
+	//	개인정보
 	/**
 	 * @return 사원번호, 사원명, 직함, 부서명, 연락처
 	 * @author hong 
 	 */
-	public CommuteEmployee commuteMyInfo();
+	public CommuteEmployee commuteMyInfo(String id);
+
+	//	개인근태내역
+	/**
+	 * @param id
+	 * @return 근무일, 출근시간, 퇴근시간, 일근무시간, 주근무시간, 주남은근무시간
+	 * @author hong
+	 */
+	public List<CommuteRecord> commuteMystatus(String id);
 	
-	
-	
+
+
+
+
+//	인사팀 - 직원근태내역 리스트
 	/**
 	 * @return 사원번호, 사원명, 직함, 부서명, 연락처
 	 * @author hong
 	 */
 	public List<CommuteEmployee>empCommuteList();
 
+	/**
+	 * @return 검색결과 : 사원번호, 사원명, 직함, 부서명, 연락처
+	 * @author hong
+	 */
+	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception;
 
+
+
+
+//	인사팀 - 직원근태 상세 - 수정
 	/**
 	 * @return 근무일, 출근시간, 퇴근시간
 	 * @author hong
 	 */
 	public List<CommuteRecord>empCommuteChange();
+
+
 
 
 
