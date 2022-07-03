@@ -104,13 +104,13 @@
 									<span id="select_time_radio">
 										<label for="start_am">시작일</label>
 										(
-										<input type="radio" name="startHalf" id="start_am" value="오전" disabled><label for="am">오전</label>
-										<input type="radio" name="startHalf" id="start_pm" value="오후" disabled><label for="pm">오후</label>
+										<input type="radio" name="startHalf" id="start_am" value="오전" disabled><span for="am">오전</span>
+										<input type="radio" name="startHalf" id="start_pm" value="오후" disabled><span for="pm">오후</span>
 										)
 										<label for="end_am">종료일</label>
 										(
-										<input type="radio" name="endHalf" id="end_am" value="오전" disabled><label for="am">오전</label>
-										<input type="radio" name="endHalf" id="end_pm" value="오후" disabled><label for="pm">오후</label>
+										<input type="radio" name="endHalf" id="end_am" value="오전" disabled><span for="am">오전</span>
+										<input type="radio" name="endHalf" id="end_pm" value="오후" disabled><span for="pm">오후</span>
 										)
 									</span>
 								</td>
@@ -139,39 +139,88 @@
 				$(function(){
 						
 					
-						$('#end_date').change(function(){
-							/* 사용자 입력값 변수 생성 */
-							var start = $('#start_date').val().split('-');
-							var end = $('#end_date').val().split('-');
-// 							console.log("start = " + start);
-// 							console.log("startType = " + typeof start);
-// 							console.log("end = " + end);
-// 							console.log("endType = " + typeof end);
-							/* 입력값(String) => Date로 변경 */
-							var hd_start = new Date(start[0],start[1],start[2]);
-							var hd_end = new Date(end[0],end[1],end[2]);
-// 							console.log(hd_start);
-// 							console.log(hd_end);
-							/* 두 날짜 차이 계산 */
-							let hd_countDate = hd_end - hd_start;
-							let currDay = 24*60*60*1000; //시 * 분 * 초 * 밀리세컨
+						$('input[type=date]').change(function(e){
+							console.log(e.target.value);
+							/* 오늘 날짜 */
+							var today = new Date();
+							/* 선택한 날짜 */
+							var targetVal = e.target.value;
+							var target = new Date(targetVal);
+							/* 선택 날짜의 시간과 현재 시간 동일하게 변경 (정확한 비교를 위해서) */
+							target.setHours(today.getHours());
+							target.setMinutes(today.getMinutes());
+							target.setSeconds(today.getSeconds());
+							target.setMilliseconds(today.getMilliseconds());
 							
-							/* 날짜 차이 일수로 변경 */
-							hd_count = parseInt(hd_countDate/currDay);
-// 							if(hd_count ==0){
-// 								hd_count = 1;	
-// 							}
-// 							console.log("두 날짜 일수 차이 : " + hd_count);
-							if(hd_count > $('#left_count').val()){
-								$('.overAlert').text("사용일수 초과");
+							console.log(today);
+							console.log(target);
+							
+							if(target < today){
+								/* 선택된 날짜가 오늘 이전인 경우 선택 X */
+								alert("오늘 이후부터 선택 가능합니다");
+								e.target.value = null;
+								return;
+							}else if(target.getDay() == 0 || target.getDay() == 6){
+								/* 선택된 날짜가 주말일 경우 선택 X */
+								alert("주말은 휴가가 불가합니다.");
+								e.target.value = null;
+								return;
 							}
-							$('#hd_count').val(hd_count); //사용 일수 표시
-							$('#used_count').val(hd_count); //신청 연차 표시
+							
+							/* 사용자 입력값 변수 생성 */
+							var startValue = $('#start_date').val();
+							var endValue = $('#end_date').val();
+							/* 휴가일수 초기값=0 */
+							var holiday = 0;
+							
+							if(startValue != "" && endValue !=""){
+								console.log('둘다 값 들어있더라');
+								 holiday = calcHoliday();
+							}
+							
+							$('#hd_count').val(holiday); //사용 일수 표시
+							$('#used_count').val(holiday); //신청 연차 표시
 							
 						});
-						/* TODO : 반차체크된 경우 신청 연차가 0이면 0.5씩 계산,
-						체크가 해제되면 다시 1씩 계산되어 값이 바뀌도록 해야함 */
+						
+						function calcHoliday(){
+							var start = $('#start_date').val().split('-');
+							var end = $('#end_date').val().split('-');
+							/* 사용자 선택 날짜 Date 타입 변수 생성 */
+							hd_start = new Date(start[0],start[1]-1,start[2]);
+							hd_end = new Date(end[0],end[1]-1,end[2]);
+							
+							console.log(hd_start);
+							console.log(hd_end);
+							
+							/* 휴가일수 초기값 */
+							var count = 0;
+							
+							while(true){
+								var tmp_date = hd_start;
+								var diffDate = hd_end.getTime() - tmp_date.getTime();
+								if(tmp_date.getTime() > hd_end.getTime()){ //루프 종료 조건 2
+									console.log("count : " + count);
+									return count;									
+								}else{
+									var tmp = tmp_date.getDay();
+									if(tmp == 0 || tmp == 6){
+										/* 0:일요일, 6:토요일 일경우 주말이므로 카운트 X */
+										console.log("주말");
+									}else{
+										/* 나머지 평일 */
+										console.log("평일");
+										count++;
+									}
+									/* tmp_date를 1씩 올려가면서 반복 */
+									tmp_date.setDate(hd_start.getDate() + 1);
+								}
+							}
+						}
 						$("#is_half").click(function(){
+							/* 신청된 연차 개수 변수 생성 */
+							var hd_count = $("#hd_count").val();
+							
 							if($(this).prop("checked")){
 								if($('#start_date').val() =="" || $('#end_date').val()==""){
 									alert('날짜를 먼저 설정하세요');
@@ -179,20 +228,54 @@
 									return;
 								}
 								console.log("체크상태");
-								if(hd_count == 0){
+								
+								if(hd_count == 1){
 									$('input[name=startHalf]').removeAttr("disabled");
-								}else{
-									$('input[name=startHalf]').removeAttr("disabled");
-									$('input[name=endHalf]').removeAttr("disabled");
+								}else if(hd_count > 1){
+									$('input[name=startHalf]').eq(1).removeAttr("disabled");
+									$('input[name=endHalf]').eq(0).removeAttr("disabled");
 								}
 							}else{
 								console.log("언체크상태");
+								var holiday = calcHoliday();
+								$('input[name=startHalf]').prop('checked',false);
+								$('input[name=endHalf]').prop('checked',false);
 								$('input[name=startHalf]').attr("disabled","disabled");
 								$('input[name=endHalf]').attr("disabled","disabled");
-								$('#hd_count').val(hd_count); //사용 일수 표시
-								$('#used_count').val(hd_count); //신청 연차 표시
+								$('#hd_count').val(holiday); //사용 일수 표시
+								$('#used_count').val(holiday); //신청 연차 표시
 							}
 						});
+						$('input[type=radio]').click(function(event){
+							event.stopPropagation();
+							console.log(event.target);
+							console.log(event);
+							const checkCount = $('input[type=radio]:checked').length;
+							const eventCntStart = 0;
+							const eventCntEnd = 0;
+							var holidayCount = $("#hd_count").val();
+							
+							
+							holidayCount = holidayCount - 0.5;
+							//TODO 한번 클릭한 name에는 두번 발동하지 않게 수정.
+							
+							
+							$('#hd_count').val(holidayCount); //사용 일수 표시
+							$('#used_count').val(holidayCount); //신청 연차 표시
+						});
+						
+						
+							
+				
+						
+							
+							
+							
+
+							
+							
+						
+						
 						
 						/* SummerNote Library */
 						 $('#summernote').summernote({

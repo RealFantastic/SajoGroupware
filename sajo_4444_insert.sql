@@ -737,12 +737,11 @@ DESC EA_FORM;
 
 COMMIT;
 
+SELECT SYSDATE -(TO_NUMBER(TO_CHAR(TO_DATE('22/02/22','YY/MM/DD'),'D'))) FROM DUAL;
 
+SELECT TO_NUMBER(TO_CHAR( TO_DATE('22/02/22','YY/MM/DD'),'D'))-1 FROM DUAL;
 
-
-
-
-
+select *from commute_record;
 
 
 
