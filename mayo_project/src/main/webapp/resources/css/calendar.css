@@ -1,6 +1,18 @@
 @charset "UTF-8";
 
+.content{
+	margin:30px 50px 50px 280px;		
+}
+
 #calendar{
- 	width:75vw;
- 	margin: 30px 5vw 50px 20vw;
+ 	width: 75vw;
+}
+
+.newSked {
+	margin-left: 30px;
+	width: 100px;
+	height: 40px;
+	font-size: 0.8 rem;
+	width: fit-content;
+	min-width: fit-content;
 }
