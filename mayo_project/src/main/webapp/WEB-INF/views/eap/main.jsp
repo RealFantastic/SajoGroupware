@@ -14,10 +14,11 @@
 <link href="<%=request.getContextPath() %>/resources/css/all_form.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/elec_approval_main.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">

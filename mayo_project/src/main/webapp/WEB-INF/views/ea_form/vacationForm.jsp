@@ -4,7 +4,8 @@
 		<div class="toolBar">
 			<button type="button" class="btn_tool draft btn_green">결재 요청</button>
 			<button type="button" class="btn_tool cancel btn_red">취소</button>
-			<button type="button" class="btn_tool cancel btn_yellow">결재선 지정</button>
+			<button type="button" class="btn_tool app_line btn_yellow" 
+			data-bs-toggle="modal" data-bs-target="#approval_list_modal">결재선 지정</button>
 		</div>
 	</div>
 	<div class="form_container">
@@ -135,163 +136,185 @@
 				
 				</div>
 			</div>
-			<script>
-				$(function(){
-						
+		</section>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="approval_list_modal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="org_title">조직도</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="org_chart_container">
+					<div id="org_chart">
+						<input type="text" id="org_chart_search">
+						<div id="jstree_org_chart">
+						</div>
+					</div>
+					<div id="approval_line_container">
+						<div id="approval_line">
+							<table class="table table-striped">
+								<tr>
+									<th scope="col">결재순서</th>
+									<th scope="col">결재자</th>
+									<th scope="col">부서</th>
+									<th scope="col">직위</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
 					
-						$('input[type=date]').change(function(e){
-							console.log(e.target.value);
-							/* 오늘 날짜 */
-							var today = new Date();
-							/* 선택한 날짜 */
-							var targetVal = e.target.value;
-							var target = new Date(targetVal);
-							/* 선택 날짜의 시간과 현재 시간 동일하게 변경 (정확한 비교를 위해서) */
-							target.setHours(today.getHours());
-							target.setMinutes(today.getMinutes());
-							target.setSeconds(today.getSeconds());
-							target.setMilliseconds(today.getMilliseconds());
-							
-							console.log(today);
-							console.log(target);
-							
-							if(target < today){
-								/* 선택된 날짜가 오늘 이전인 경우 선택 X */
-								alert("오늘 이후부터 선택 가능합니다");
-								e.target.value = null;
-								return;
-							}else if(target.getDay() == 0 || target.getDay() == 6){
-								/* 선택된 날짜가 주말일 경우 선택 X */
-								alert("주말은 휴가가 불가합니다.");
-								e.target.value = null;
-								return;
-							}
-							
-							/* 사용자 입력값 변수 생성 */
-							var startValue = $('#start_date').val();
-							var endValue = $('#end_date').val();
-							/* 휴가일수 초기값=0 */
-							var holiday = 0;
-							
-							if(startValue != "" && endValue !=""){
-								console.log('둘다 값 들어있더라');
-								 holiday = calcHoliday();
-							}
-							
-							$('#hd_count').val(holiday); //사용 일수 표시
-							$('#used_count').val(holiday); //신청 연차 표시
-							
-						});
-						
-						function calcHoliday(){
-							var start = $('#start_date').val().split('-');
-							var end = $('#end_date').val().split('-');
-							/* 사용자 선택 날짜 Date 타입 변수 생성 */
-							hd_start = new Date(start[0],start[1]-1,start[2]);
-							hd_end = new Date(end[0],end[1]-1,end[2]);
-							
-							console.log(hd_start);
-							console.log(hd_end);
-							
-							/* 휴가일수 초기값 */
-							var count = 0;
-							
-							while(true){
-								var tmp_date = hd_start;
-								var diffDate = hd_end.getTime() - tmp_date.getTime();
-								if(tmp_date.getTime() > hd_end.getTime()){ //루프 종료 조건 2
-									console.log("count : " + count);
-									return count;									
-								}else{
-									var tmp = tmp_date.getDay();
-									if(tmp == 0 || tmp == 6){
-										/* 0:일요일, 6:토요일 일경우 주말이므로 카운트 X */
-										console.log("주말");
-									}else{
-										/* 나머지 평일 */
-										console.log("평일");
-										count++;
-									}
-									/* tmp_date를 1씩 올려가면서 반복 */
-									tmp_date.setDate(hd_start.getDate() + 1);
-								}
-							}
-						}
-						$("#is_half").click(function(){
-							/* 신청된 연차 개수 변수 생성 */
-							var hd_count = $("#hd_count").val();
-							
-							if($(this).prop("checked")){
-								if($('#start_date').val() =="" || $('#end_date').val()==""){
-									alert('날짜를 먼저 설정하세요');
-									$(this).prop("checked",false);
-									return;
-								}
-								console.log("체크상태");
-								
-								if(hd_count == 1){
-									$('input[name=startHalf]').removeAttr("disabled");
-								}else if(hd_count > 1){
-									$('input[name=startHalf]').eq(1).removeAttr("disabled");
-									$('input[name=endHalf]').eq(0).removeAttr("disabled");
-								}
-							}else{
-								console.log("언체크상태");
-								var holiday = calcHoliday();
-								$('input[name=startHalf]').prop('checked',false);
-								$('input[name=endHalf]').prop('checked',false);
-								$('input[name=startHalf]').attr("disabled","disabled");
-								$('input[name=endHalf]').attr("disabled","disabled");
-								$('#hd_count').val(holiday); //사용 일수 표시
-								$('#used_count').val(holiday); //신청 연차 표시
-							}
-						});
-						$('input[type=radio]').click(function(event){
-							event.stopPropagation();
-							console.log(event.target);
-							console.log(event);
-							const checkCount = $('input[type=radio]:checked').length;
-							const eventCntStart = 0;
-							const eventCntEnd = 0;
-							var holidayCount = $("#hd_count").val();
-							
-							
-							holidayCount = holidayCount - 0.5;
-							//TODO 한번 클릭한 name에는 두번 발동하지 않게 수정.
-							
-							
-							$('#hd_count').val(holidayCount); //사용 일수 표시
-							$('#used_count').val(holidayCount); //신청 연차 표시
-						});
-						
-						
-							
-				
-						
-							
-							
-							
-
-							
-							
-						
-						
-						
-						/* SummerNote Library */
-						 $('#summernote').summernote({
-								toolbar: [
-									['style',['bold','italic','underline','clear']],
-									['font',['strikethrough','superscript','subscript']],
-									['fontsize',['fontsize']],
-									['color',['color']],
-									['para',['ul','ol','paragraph']],
-									['height',['height']]
-								]
-						});
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+				$('input[type=date]').change(function(e){
+					console.log(e.target.value);
+					/* 오늘 날짜 */
+					var today = new Date();
+					/* 선택한 날짜 */
+					var targetVal = e.target.value;
+					var target = new Date(targetVal);
+					/* 선택 날짜의 시간과 현재 시간 동일하게 변경 (정확한 비교를 위해서) */
+					target.setHours(today.getHours());
+					target.setMinutes(today.getMinutes());
+					target.setSeconds(today.getSeconds());
+					target.setMilliseconds(today.getMilliseconds());
+					
+					console.log(today);
+					console.log(target);
+					
+					if(target < today){
+						/* 선택된 날짜가 오늘 이전인 경우 선택 X */
+						alert("오늘 이후부터 선택 가능합니다");
+						e.target.value = null;
+						return;
+					}else if(target.getDay() == 0 || target.getDay() == 6){
+						/* 선택된 날짜가 주말일 경우 선택 X */
+						alert("주말은 휴가가 불가합니다.");
+						e.target.value = null;
+						return;
+					}
+					
+					/* 사용자 입력값 변수 생성 */
+					var startValue = $('#start_date').val();
+					var endValue = $('#end_date').val();
+					/* 휴가일수 초기값=0 */
+					var holiday = 0;
+					
+					if(startValue != "" && endValue !=""){
+						console.log('둘다 값 들어있더라');
+						 holiday = calcHoliday();
+					}
+					
+					$('#hd_count').val(holiday); //사용 일수 표시
+					$('#used_count').val(holiday); //신청 연차 표시
 					
 				});
 				
+				function calcHoliday(){
+					var start = $('#start_date').val().split('-');
+					var end = $('#end_date').val().split('-');
+					/* 사용자 선택 날짜 Date 타입 변수 생성 */
+					hd_start = new Date(start[0],start[1]-1,start[2]);
+					hd_end = new Date(end[0],end[1]-1,end[2]);
+					
+					console.log(hd_start);
+					console.log(hd_end);
+					
+					/* 휴가일수 초기값 */
+					var count = 0;
+					
+					while(true){
+						var tmp_date = hd_start;
+						var diffDate = hd_end.getTime() - tmp_date.getTime();
+						if(tmp_date.getTime() > hd_end.getTime()){ //루프 종료 조건 2
+							console.log("count : " + count);
+							return count;									
+						}else{
+							var tmp = tmp_date.getDay();
+							if(tmp == 0 || tmp == 6){
+								/* 0:일요일, 6:토요일 일경우 주말이므로 카운트 X */
+								console.log("주말");
+							}else{
+								/* 나머지 평일 */
+								console.log("평일");
+								count++;
+							}
+							/* tmp_date를 1씩 올려가면서 반복 */
+							tmp_date.setDate(hd_start.getDate() + 1);
+						}
+					}
+				}
+				$("#is_half").click(function(){
+					/* 신청된 연차 개수 변수 생성 */
+					var hd_count = $("#hd_count").val();
+					
+					if($(this).prop("checked")){
+						if($('#start_date').val() =="" || $('#end_date').val()==""){
+							alert('날짜를 먼저 설정하세요');
+							$(this).prop("checked",false);
+							return;
+						}
+						console.log("체크상태");
+						
+						if(hd_count == 1){
+							$('input[name=startHalf]').removeAttr("disabled");
+						}else if(hd_count > 1){
+							$('input[name=startHalf]').eq(1).removeAttr("disabled");
+							$('input[name=endHalf]').eq(0).removeAttr("disabled");
+						}
+					}else{
+						console.log("언체크상태");
+						var holiday = calcHoliday();
+						$('input[name=startHalf]').prop('checked',false);
+						$('input[name=endHalf]').prop('checked',false);
+						$('input[name=startHalf]').attr("disabled","disabled");
+						$('input[name=endHalf]').attr("disabled","disabled");
+						$('#hd_count').val(holiday); //사용 일수 표시
+						$('#used_count').val(holiday); //신청 연차 표시
+					}
+				});
+				$('input[type=radio]').click(function(event){
+					event.stopPropagation();
+					console.log(event.target);
+					console.log(event);
+					const checkCount = $('input[type=radio]:checked').length;
+					const eventCntStart = 0;
+					const eventCntEnd = 0;
+					var holidayCount = $("#hd_count").val();
+					
+					
+					holidayCount = holidayCount - 0.5;
+					//TODO 한번 클릭한 name에는 두번 발동하지 않게 수정.
+					
+					
+					$('#hd_count').val(holidayCount); //사용 일수 표시
+					$('#used_count').val(holidayCount); //신청 연차 표시
+				});
 				
-			</script>
-		</section>
-	</div>
+				/* SummerNote Library */
+				 $('#summernote').summernote({
+						toolbar: [
+							['style',['bold','italic','underline','clear']],
+							['font',['strikethrough','superscript','subscript']],
+							['fontsize',['fontsize']],
+							['color',['color']],
+							['para',['ul','ol','paragraph']],
+							['height',['height']]
+						]
+				});
+							
+				orgChart($('#jstree_org_chart'));
+				$('#org_chart_search').keyup(function(event){
+				    var target = $(event.target);
+				    searchJstree(target);
+				});
+		});
+	</script>

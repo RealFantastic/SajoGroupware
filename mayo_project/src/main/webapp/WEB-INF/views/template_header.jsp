@@ -106,63 +106,17 @@
 			</div>
 		</div>
 		<script>
+		console.log("0");
+		sessionStorage.setItem("contextPath","${pageContext.request.contextPath}");
+		console.log("1");
 		$(function () {
-			$.ajax({
-				type:'post',
-				url:"<%=request.getContextPath()%>/member/empchart",
-				success:function(result){
-// 					console.log(result);
-					createJSTree(result);
-				}
+			orgChart($('#jstree_empchart'));
+			var to = false;
+			$('#empchart_search').keyup(function(event){
+			  	var target = $(event.target);
+				searchJstree(target);
 			});
-		
-			function createJSTree(jsonData){
-// 				console.log('aa'+jsonData);
-				console.log(typeof jsonData);
-				//JSON String => JSON Object로 형변환
-				//이유 : JSTree에서 String 형태의 JSON을 파싱하지 못함.
-				var objData = JSON.parse(jsonData);
-				//JSON.stringify
-				console.log(typeof objData);
-// 				console.log('bb'+objData);
-/*
-				'data' : [
-				      { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-				      { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-				      { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-				      { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
-				    ],
-				    
-				'data' : [
-					{"parent":"#","id":"ajson1","text":"Simple root node"},
-					{"parent":"#","id":"ajson2","text":"Root node 2"}
-					],
-*/ 
-				$("#jstree_empchart").jstree({
-					  'core' : {
-						  	'check_callback' : true,
-						  	'themes' : {"stripes" : true},
-						  	'data' : objData,
-						    "plugins" : ["search"],
-						    "search" : {
-						    	"show_only_matches" : true,
-						    	"show_only_matches_children" : true,
-						    }
-						  },
-				    "plugins" : [ "search" ]
-				  });
-				$("#jstree_empchart").jstree("open_all");
-			}
-			  var to = false;
-			  $('#empchart_search').keyup(function () {
-			    if(to) { clearTimeout(to); }
-			    to = setTimeout(function () {
-			      var v = $('#empchart_search').val();
-			      let result= $('#jstree_empchart').jstree(true).search(v);
-			      $('#jstree_empchart').jstree('open_node',result);
-			    },250);
-			  });
-			});
+		});
 		$("#jstree_empchart").bind('select_node.jstree',function(event,data){
 			var emp_no = data.instance.get_node(data.selected).id;
 			console.log(emp_no);
@@ -188,10 +142,8 @@
 				},
 				error:function(){
 					alert("동작실패");
-				}
-				
+				}		
 			})
-			
 		});
 		</script>
 		<script>
