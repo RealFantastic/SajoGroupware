@@ -109,7 +109,12 @@ public class CommuteController {
 
 //	인사팀 - 직원별 근태내역 리스트
 	@RequestMapping(value = "/empCommuteList", method = RequestMethod.GET)
-	public ModelAndView commuteEmpList(ModelAndView mv) {
+	public ModelAndView commuteEmpList(ModelAndView mv, HttpSession session) {
+		
+		Employee emp=(Employee) session.getAttribute("loginSsInfo");
+		String id=emp.getEmp_no();
+		
+		//직원전체근태 리스트
 		List<CommuteEmployee> commuteEmpList = service.empCommuteList();
 		mv.addObject("empCommuteList",commuteEmpList);
 		mv.setViewName("commute/empCommuteList");
