@@ -171,6 +171,7 @@
                                 <option value="kakao.com">kakao.com</option>
                                 <option value="direct">직접입력</option>
                               </select>
+                              <button id="emailChk_send_btn" name="emailChk_send_btn">인증번호 보내기</button>
                               <input type="hidden" id="totalemail" name="email" value="">
                             </div>
                             <br><font class="feedback" size ="2"></font>
@@ -178,8 +179,10 @@
     
                         <div id="email_check" class="j_e">
                             <label>인증번호 : </label>
-                            <input type="text" id="email_check_no">
-                            <button type="button" id="email_check_btn">인증</button>
+                            <input type="text" id="email_check_no" disabled required>
+                            <button type="button" id="email_check_btn" class="doubleChk">인증</button>
+							<span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
+							<input type="hidden" id="emailDoubleChk"/>
                             <br><font class="feedback" size ="2"></font>
                         </div>
                     </div>
@@ -428,6 +431,33 @@
         });
    
     </script>
+    <!-- 이메일 인증 -->
+    <script>
+	var code = "";
+	$("#emailChk_send_btn").click(function(){
+		var email = $("#totalemail").val();
+		$.ajax({
+	        type:"GET",
+	        url:"mailCheck?email=" + email,
+	        cache : false,
+	        success:function(data){
+	        	if(data == "error"){
+	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
+					$("#totalemail").attr("autofocus",true);
+					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
+					$(".successEmailChk").css("color","red");
+	        	}else{	        		
+					alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
+	        		$("#email_check_no").attr("disabled",false);
+	        		$("#email_check_btn").css("display","inline-block");
+	        		$(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
+	        		$(".successEmailChk").css("color","green");
+	        		code = data;
+	        	}
+	        }
+	    });
+	});
+	</script>
     <!-- 약관 모두 동의 -->
     <script>
         $(document).ready( function() {

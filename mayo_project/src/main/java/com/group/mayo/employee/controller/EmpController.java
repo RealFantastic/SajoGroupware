@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +48,9 @@ public class EmpController {
 	@Autowired
 	private SignFileUpload commonFile;
 
+
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -176,7 +183,7 @@ public class EmpController {
 		int result = service.insertEmployee(employee);
 		if(result < 1) {
 			//rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
-			mv.setViewName("redirect:/employee/enroll");
+			mv.setViewName("redirect:/member/enroll");
 			return mv;
 		}
 		// 첨부파일있다면 첨부파일 저장
@@ -253,5 +260,32 @@ public class EmpController {
 		 	}
 		 	
 		 	return ro;
+	 }
+	 @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	 @ResponseBody
+	 public String mailCheck(@RequestParam("totalemail") String totalemail) throws Exception{
+	     int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
+	     
+	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
+	     String to = totalemail;
+	     String title = "회원가입시 필요한 인증번호 입니다.";
+	     String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
+	     String num = "";
+	     try {
+	     	 MimeMessage mail = mailSender.createMimeMessage();
+	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+	         
+	         mailHelper.setFrom(from);
+	         mailHelper.setTo(to);
+	         mailHelper.setSubject(title);
+	         mailHelper.setText(content, true);       
+	         
+	         mailSender.send(mail);
+	         num = Integer.toString(serti);
+	         
+	     } catch(Exception e) {
+	         num = "error";
+	     }
+	     return num;
 	 }
 }
