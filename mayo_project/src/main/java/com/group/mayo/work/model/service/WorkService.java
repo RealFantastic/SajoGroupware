@@ -13,6 +13,16 @@ public interface WorkService {
 	public List<Work> selectAllWork();
 	
 	/**
+	 * @return 전체 업무 글 개수 
+	 */
+	public int selectTotalCnt();
+
+	/**
+	 * @param proj_no 프로젝트 번호
+	 * @return 해당 프로젝트 업무 글 개수
+	 */
+	public int selectCnt(String proj_no);
+	/**
 	 * @param proj_no 프로젝트 번호
 	 * @return 해당 프로젝트 업무들
 	 */

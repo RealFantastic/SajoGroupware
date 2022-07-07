@@ -45,6 +45,16 @@ public class WorkServiceImpl implements WorkService{
 	public int deleteWork(String work_no) {
 		return dao.deleteWork(work_no);
 	}
+
+	@Override
+	public int selectTotalCnt() {
+		return dao.selectTotalCnt();
+	}
+
+	@Override
+	public int selectCnt(String proj_no) {
+		return dao.selectCnt(proj_no);
+	}
 	
 	
 }

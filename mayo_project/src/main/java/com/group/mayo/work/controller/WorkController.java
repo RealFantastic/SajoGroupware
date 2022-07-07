@@ -2,6 +2,8 @@ package com.group.mayo.work.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,23 +43,20 @@ public class WorkController {
 		return mv;
 	}
 	
-//	@GetMapping("/select") // 해당 프로젝트의 전체 업무 - Ajax 사용할 예정
-//	@ResponseBody
-//	public String selectWork(@RequestParam("proj_no") String proj_no) { // String으로 받아도 됨
-//		System.out.println("컨트롤러 온 프로젝트 번호 : " + proj_no);
-//		
-//		List<Work> work = service.selectWork(proj_no);
-//		
-//		Gson gobj = new GsonBuilder().setPrettyPrinting().create();
-//
-//        String result = gobj.toJson(work);
-//        System.out.println("프로젝트 업무들"+result);
-//        
-//		return result;
-//	}
-	
 	@PostMapping("/insert") // 새 업무 글 등록
-	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr) {
+	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr
+			, @RequestParam(name="uploadfile", required = false) MultipartFile uploadfile
+			, HttpServletRequest req) {
+
+//		// 첨부파일있다면 첨부파일 저장
+//		if(uploadfile !=null) {
+//			String rename_filename = commonFile.saveFile(uploadfile, req);
+//			if(rename_filename != null) {
+//				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+//				work.setProj_original_filename(uploadfile.getOriginalFilename());
+//				work.setProj_filename(rename_filename);
+//			}
+//		}
 		
 		int result = service.insertWork(work);
 		
@@ -93,6 +94,7 @@ public class WorkController {
 	@ResponseBody
 	public String deleteWork(@RequestParam(name="work_no", required=false) String work_no) {
 		 
+		System.out.println("work delete로 들어왔냐" + work_no);
 		int result = service.deleteWork(work_no);
 		
 		String msg="";

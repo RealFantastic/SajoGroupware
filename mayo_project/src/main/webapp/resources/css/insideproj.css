@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#side{
+#side {
 	width:250px;
 	min-width:250px;
 	height:100%;
@@ -8,26 +8,37 @@
 	position:absolute;
 }
 
-#side-content{
+#side-content {
+	display:flex;
+	flex-direction: column;
 	top: 30px;
 	position: relative;
-	flex-direction: column;
-}
-
-#body{
-	margin: 30px 300px;
+	/* 중앙 정렬 */
+	align-items: center;
+        
 }
 
 /* 업무 추가 모달 내부 전체 */
-.insidebody{
+.insidebody {
 	padding:40px 40px 0 40px !important;
 }
 
-.btn_detail{
+.btn_detail {
 	font-size:0.8rem;
 }
 
-#eimg{
+/* 사이드 버튼 디테일 */
+.sidebtn {
+	width: fit-content;
+	margin: 10px;
+}
+
+#body {
+	margin: 30px 300px;
+}
+
+
+#eimg {
 	width:35px;
 }
 
@@ -37,19 +48,19 @@
 }
 
 /* 업무 추가 제목 부분 border 설정 */
-#title{
+#title {
 	border:none;
 }
 
 /* 진행도 */
-#percentage{
+#percentage {
 	margin-left:10px;
 	width:30px;
 	border:none;
 }
 
 /* 프로그래스바 */
-#progress{
+#progress {
 	-webkit-appearance: none;  /* Override default CSS styles */
 	 overflow: hidden;
 	width:250px;

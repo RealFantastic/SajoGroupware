@@ -23,10 +23,12 @@
 
 	<aside id="side">
 		<div id="side-content">
-			<button class="btn_yellow" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
-			<button id="insertWork" class="btn_green" data-bs-toggle="modal" data-bs-target="#newWork">업무 추가</button>
-			<button id="insertSch" class="btn_yellow">일정 추가</button>
-		</div>
+			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
+			<div class="insert">
+				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
+				<button id="insertSch" class="btn_green sidebtn">새 일정</button>
+			</div>
+		 </div>
 	</aside>
 
 	<div id="body">
@@ -75,24 +77,21 @@
 		<!-- 프로젝트 정보 -->
 		<div class="font4 proj">
 			<div>${project.proj_name } </div>
-<!-- 			<div>  수정 삭제 버튼--> 
-<!-- 				<button class="btn_gray btn_detail">수정</button> -->
-<!-- 				<button class="btn_red btn_detail">삭제</button> -->
-<!-- 			</div> -->
 		</div>
 		
-		<!-- 프로젝트 업무들 -->		
+		<!-- 프로젝트 업무들 load 통해서 불러올 것-->		
         <div id="worklist">
 		</div>
+		
 		<!--  새 업무 추가 모달창 -->
-<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font3" id="exampleModalLabel" style="font-weight:bold;">새 업무</h5>
+        <h5 class="modal-title font3" id="exampleModalLabel1" style="font-weight:bold;">새 업무</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST">
+        <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
       <div class="modal-body insidebody">
       <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
         <div style="display:flex;">
@@ -146,28 +145,17 @@
     </div>
   </div>
 </div>
+
 </div>
 
 <script>
 //다중 파일 업로드 예제
-<!-- //     var cnt = 1; -->
-<!-- //     function fn_addFile(){ -->
-<!-- //         $("#d_file").append("<br>" + "<input type='file' name='file" + cnt + "' />"); -->
-<!-- //         cnt++; -->
-<!-- //     } -->
-
- 
-
-<!--     <form method="post"  -->
-<!--           action=${pageContext.request.contextPath}/upload enctype="multipart/form-data"> -->
-<!--         <label>아이디 : </label> -->
-<!--             <input type="text" name="id"><br> -->
-<!--         <label>이름 : </label> -->
-<!--             <input type="text" name="name"><br> -->
-<!--             <input type="button" value="파일 추가" onClick="fn_addFile()"><br> -->
-            
-<!--             <input type="submit" value="업로드"> -->
-<!--     </form> -->
+	var fileCnt = 1;
+	$("#addFile").click(function(){
+		fileCnt++;
+		var html= '<input type="file" name="uploadfile"><br>';
+		$("#files").append(html);
+	});
 
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
@@ -212,7 +200,7 @@ $("#deleteProj").click(function(){
 });
 
 
-// 버튼 변경 방법 좀 더 찾아보기 - 긴급
+// 긴급 버튼
 $("#eimg").click(function(){
 	var eimg = $("#eimg").attr("src");
 	
@@ -234,12 +222,12 @@ $(function(){
 });
 
 // 프로그래스 바 값 가져오기
-var slider = document.getElementById("progress");
-var output = document.getElementById("percentage");
+var slider = document.getElementsByClass("progress");
+var output = document.getElementsByClass("percentage");
 output.value = slider.value;
 
 slider.oninput = function() {
-  document.getElementById("percentage").value = this.value;
+  document.getElementsByClass("percentage").value = this.value;
   
 }
 

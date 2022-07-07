@@ -18,6 +18,14 @@ public class WorkDao {
 		return sqlSession.selectList("Work.selectAllWork");
 	}
 	
+	public int selectTotalCnt() {
+		return sqlSession.selectOne("Work.selectTotalCnt");
+	}
+	
+	public int selectCnt(String proj_no) {
+		return sqlSession.selectOne("Work.selectCnt", proj_no);
+	}
+	
 	public List<Work> selectWork(String proj_no) {
 		return sqlSession.selectList("Work.selectWork", proj_no);
 	}
