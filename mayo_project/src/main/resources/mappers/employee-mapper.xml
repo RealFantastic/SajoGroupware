@@ -56,9 +56,13 @@
 	<!--로그인 - 승희  -->
 	<select id="selectLogin" parameterType="Employee" resultType="Employee">
 	SELECT EMP_NO,EMP_NAME,PASSWORD,EMAIL,PHONE,ADDRESS,HIRE_DATE
-		,PIC_PATH,PIC_NAME,IS_LEAVE,DEPT_NO,JOB_NO,CP_NUMBER
+		,PIC_PATH,PIC_NAME,IS_LEAVE,e.DEPT_NO,d.DEPT_NAME,j.JOB_NO,j.JOB_NAME,CP_NUMBER
 		,SIGN_PATH,SIGN_FILE_NAME  
-		FROM EMPLOYEE 
+		FROM EMPLOYEE e 
+        JOIN DEPARTMENT d
+        ON e.DEPT_NO = d.DEPT_NO
+        JOIN JOB j
+        ON e.JOB_NO = j.JOB_NO
 		WHERE EMP_NO=#{emp_no} AND PASSWORD=#{password}
 	</select>
 	
