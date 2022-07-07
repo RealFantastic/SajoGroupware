@@ -27,4 +27,27 @@
 	
 	<aop:aspectj-autoproxy/>
 	
+	
+	<!-- navermail설정 -->
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.naver.com"/> <!-- 메이서버 호스트 -->
+		<beans:property name="port" value="587"/> <!-- 메이서버 포트번호 -->
+		<beans:property name="username" value="xeonsnee"/> <!-- 자신의 이메일 아이디 -->
+		<beans:property name="password" value="36zhdendb!!"/> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 SSL과 관련된 설정 -->
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.smtps.checkserveridentity">true</beans:prop>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtps.ssl.trust">*</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+				<beans:prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	
+
 </beans:beans>

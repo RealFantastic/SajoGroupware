@@ -26,12 +26,16 @@
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 	<!-- 주달력 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
-	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-weekpicker@1.0.4/src/jquery.weekpicker.min.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 	<!-- 하이차트 -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- 	<script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	
 	
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
@@ -57,105 +61,153 @@
 		<div>
 			<div>
 <!-- 		그래프자리 -->
-			<script>
-			Highcharts.chart('container', {
-			    chart: {
-			        plotBackgroundColor: null,
-			        plotBorderWidth: 0,
-			        plotShadow: false
-			    },
-			    title: {
-			        text: 'Browser<br>shares<br>2017',
-			        align: 'center',
-			        verticalAlign: 'middle',
-			        y: 60
-			    },
-			    tooltip: {
-			        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			    },
-			    accessibility: {
-			        point: {
-			            valueSuffix: '%'
-			        }
-			    },
-			    plotOptions: {
-			        pie: {
-			            dataLabels: {
-			                enabled: true,
-			                distance: -50,
-			                style: {
-			                    fontWeight: 'bold',
-			                    color: 'white'
-			                }
-			            },
-			            startAngle: -90,
-			            endAngle: 90,
-			            center: ['50%', '75%'],
-			            size: '110%'
-			        }
-			    },
-			    series: [{
-			        type: 'pie',
-			        name: 'Browser share',
-			        innerSize: '50%',
-			        data: [
-			            ['Chrome', 58.9],
-			            ['Firefox', 13.29],
-			            ['Internet Explorer', 13],
-			            ['Edge', 3.78],
-			            ['Safari', 3.42],
-			            {
-			                name: 'Other',
-			                y: 7.61,
-			                dataLabels: {
-			                    enabled: false
-			                }
-			            }
-			        ]
-			    }]
-			});
-			</script>
-			</div>
-			
-			<div>
-				<!-- 		조회날짜 자리 -->
-				<input type="text" id="weekPicker">
-			
+				<div>
+					<figure class="highcharts-figure">
+						<div id="container"></div>
+					</figure>
+				</div>
 				<script>
-				$("#weekPicker" ).weekpicker();
-				$("#weekPicker").weekpicker({
-			
-					// set start day of the week
-				// 	  firstDay: 1,
-					firstDay: 0,
-			
-					// custom date format
-				// 	  dateFormat: "dd/m/yy",
-					dateFormat: "yyyy/mm/dd",
-			
-					// shows other months
-					showOtherMonths: true,
-			
-					// allows to select other months
-					selectOtherMonths: true,
-			
-					// shows the current week number
-					showWeek: true,
-			
-					// supported keywords:
-					//  w  = week number, eg. 3
-					//  ww = zero-padded week number, e.g. 03
-					//  o  = short (week) year number, e.g. 18
-					//  oo = long (week) year number, e.g. 2018
-					weekFormat: "w/oo"
+				Highcharts.chart('container', {
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: 0,
+						plotShadow: false
+					},
+					credits: {
+						//하단URL삭제
+						enabled: false
+					},
+					title: {
+						text: '주간<br>그래프<br>',
+						align: 'center',
+						verticalAlign: 'middle',
+						y: 70
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+					},
+					accessibility: {
+						point: {
+							valueSuffix: '%'
+						}
+					},
+					plotOptions: {
+						pie: {
+							dataLabels: {
+								enabled: true,
+								distance: -50,
+								style: {
+									fontWeight: 'bold',
+									color: 'white'
+								}
+							},
+							startAngle: -90,
+							endAngle: 90,
+							center: ['50%', '75%'],
+							size: '110%'
+						}
+					},
+					series: [{
+						type: 'pie',
+						name: 'Browser share',
+						innerSize: '40%',
+						data: [
+							['주 누적 근무시간', 50],
+							['주 남은 근무시간', 35],
+							{
+								name: 'Other',
+								y: 0,
+								dataLabels: {
+									enabled: false
+								}
+							}
+						]
+					}]
+				});
+				</script>
+			</div>
+
+
+
+
+			<div>
+			<!-- 주간달력자리 -->
+				<div class="container">
+<!-- 					<div class="jumbotron"> -->
+						<div class="row week-selector">
+							<div class="col-md-8">
+								<div class="form-group clearfix">
+									<label class="control-label pull-left" for="weekpicker">근태 주간날짜 조회</label>
+									<div class="col-sm-8">
+										<span class="icon-block ">
+											<input type="text" class="form-control" id="weekpicker">
+											<span class="icon-date"></span>
+										</span>
+										<div class="week-controls">
+											<button id="prevWeek" class="prev-week">이전 주</button>
+											<button id="nextWeek" class="next-week">다음 주</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+<!-- 					</div> -->
+				</div>
+				<script type="text/javascript">
+					var startDate,
+					endDate;
 					
+					$('#weekpicker').datepicker({
+						autoclose: true,
+						format :'mm/dd/yyyy',
+						forceParse :false
+					}).on("changeDate", function(e) {
+					//console.log(e.date);
+					var date = e.date;
+					startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+					endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+6);
+					//$('#weekpicker').datepicker("setDate", startDate);
+					$('#weekpicker').datepicker('update', startDate);
+					$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
+											endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
+					});
+					
+					//new
+					$('#prevWeek').click(function(e){
+						var date = $('#weekpicker').datepicker('getDate');
+						//dateFormat = "mm/dd/yy"; //$.datepicker._defaults.dateFormat;
+						startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()- 7);
+						endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() - 1);
+						$('#weekpicker').datepicker("setDate", new Date(startDate));
+						$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
+												endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
+					
+						return false;
+					});
+					
+					$('#nextWeek').click(function(){
+						var date = $('#weekpicker').datepicker('getDate');
+						//dateFormat = "mm/dd/yy"; // $.datepicker._defaults.dateFormat;
+						startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+ 7);
+						endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 13);
+						$('#weekpicker').datepicker("setDate", new Date(startDate));
+						$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
+												endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
+					
+						return false;
 					});
 				</script>
 			</div>
+
+
 	
 		<div class="my_info">
 			사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
 			 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
+		</div>
+	
+		<div>
+		인사팀버튼
 		</div>
 </div>
 

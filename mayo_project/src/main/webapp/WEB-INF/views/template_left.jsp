@@ -58,7 +58,7 @@ window.onload=function(){
 			$("#leftAttInfo").html(html);
 		},
 		error:function(){
-			alert("ajax 제대로 동작 못했다. 아 짜증나");
+			alert("ajax 제대로 동작 못했다. 왜죠왜죠??");
 		}
 	});
 	

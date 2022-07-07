@@ -53,10 +53,10 @@
 			<div>
 				조회날짜 자리
 			</div>
-			<div>
-				사원번호 :  사원명 :  직함 :  <br>
-				부서명 :  연락처 :  
-			</div>
+		<div class="my_info">
+			사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
+			 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
+		</div>
 		</div>
 
 	

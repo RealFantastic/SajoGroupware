@@ -70,12 +70,13 @@
 				,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
 				,data:$("form[name=search_form]").serialize()
 				,success:function(result){
+// 					debugger
 					//테이블 초기화
 					$('.commute_list_table > tbody').empty();
 					result=JSON.parse(result);
 					if(result.length>=1){
 						result.forEach(function(item){
-							str='<tr>'
+							str="<tr>"
 							str += "<td class='commute_table_list_td'>"+item.emp_no+"</td>";
 							str += "<td class='commute_table_list_td'>"+item.emp_name+"</td>";
 							str += "<td class='commute_table_list_td'>"+item.job_nm+"</td>";
@@ -83,13 +84,15 @@
 							str += "<td class='commute_table_list_td'>"+item.phone+"</td>";
 							str += "<td class='commute_table_list_td'><button class='btn_red'>수정하기</button></td>";
 							str += "</tr>";
+							$('.commute_list_table').append(str);
 						})
 					}else{
-						str='<tr>'
+						str="<tr>"
 						str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
 						str += "</tr>";
+						$('.commute_list_table').append(str);
 					}
-					$('.commute_list_table').append(str);
+					console.log(result.length);
 				}
 				,error:function(){
 					alert("ajax 제대로 동작 못했다. 문제를 찾아라");
