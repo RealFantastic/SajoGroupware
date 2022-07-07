@@ -11,4 +11,37 @@
 <!-- SKED_CATEGORY            VARCHAR2(50)    -->
 <!-- SKED_EMP_ID              VARCHAR2(50)    -->
 
+<!-- 특정 프로젝트 일정 글 수 -->
+<select id="selectSkedCnt" resultType="_int">
+	select count(*) where sked_category=#{sked_category}
+</select>
+
+<!-- 새 일정 등록 -->
+<insert id="insertSked" parameterType="Schedule">
+	insert into schedule values ((select nvl(max(work_no),0)+1 from work_board), #{sked_name}, default, #{sked_content},
+	#{sked_start_date}, #{sked_end_date}, #{sked_location}, #{sked_category}, 202220123)
+</insert>
+
+<!-- 일정 상세 보기 -->
+<select id="selectSked" resultType="Schedule">
+	select * from schedule where sked_no=#{sked_no}
+</select>
+
+<!-- 일정 수정 -->
+<update id="updateSked" parameterType="Schedule">
+	update schedule set sked_name=#{sked_name}, sked_content=#{sked_content},
+	sked_start_date=#{sked_start_date}, sked_end_date=#{sked_end_date}, sked_location=#{sked_location},
+	sked_category=#{sked_category} where sked_no=#{sked_no}
+</update>
+
+<!-- 일정 삭제 -->
+<delete id="deleteSked">
+	delete from schedule where sked_no=#{sked_no}
+</delete>
+
+<!-- 일정 종류 선택 -->
+<select id="selectSkedCate" resultType="Schedule">
+	select * from schedule where sked_category=#{sked_category}
+</select>
+
 </mapper>

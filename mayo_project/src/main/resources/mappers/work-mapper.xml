@@ -67,6 +67,16 @@
 	select * from work_board where work_no=#{work_no}
 </select>
 
+<!-- 전체 업무 글 수 -->
+<select id="selectTotalCnt" resultType="_int">
+	select count(*) from work_board
+</select>
+
+<!-- 특정 프로젝트 전체 업무 글 수 -->
+<select id="selectCnt" resultType="_int">
+	select count(*) from work_board where proj_no=#{proj_no}
+</select>
+
 <!-- 수정예정 -->
 <select id="selectWorkNo" parameterType="Work">
 	select nvl(max(work_no),0)+1 from dual)
