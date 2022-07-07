@@ -232,7 +232,7 @@
 					// list 조회
 					function selectCommuteList() {
 						
-						debugger
+// 						debugger
 						$.ajax({
 							type:"post"
 							,url:"<%=request.getContextPath()%>/commute/selectCommuteList"

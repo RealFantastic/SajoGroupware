@@ -102,7 +102,7 @@ window.onload=function(){
 			,url:"<%=request.getContextPath()%>/commute/statusLeave"
 			,dateType:"json"
 			,success:function(resultLeave){
-				debugger
+// 				debugger
 				console.log(resultLeave);
 				if(resultLeave=="fail"){
 					alert("퇴근처리 실패했습니다. 다시 시도하세요");
