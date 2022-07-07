@@ -263,12 +263,12 @@ public class EmpController {
 	 }
 	 @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	 @ResponseBody
-	 public String mailCheck(@RequestParam("totalemail") String totalemail) throws Exception{
+	 public String mailCheck(@RequestParam("email") String totalemail) throws Exception{
 	     int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = totalemail;
-	     String title = "회원가입시 필요한 인증번호 입니다.";
+	     String title = "[MAYO 그룹웨어] 회원가입시 필요한 인증번호 입니다.";
 	     String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
 	     String num = "";
 	     try {

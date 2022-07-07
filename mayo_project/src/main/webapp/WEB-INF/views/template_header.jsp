@@ -25,15 +25,30 @@
                     </form>
                 </div>
             </div>
+			<!-- 로그인 여부에 따른 버튼 변화 -->
+
             <div id="profile">
+                <% if (session.getAttribute("emp_no") != null) { %>
                 <a href="#" class="dropdown_toggle">
                     <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
-                    <strong>박박이</strong>
+                    <strong><%= session.getAttribute("emp_name") %></strong>
                 </a>
                 <ul class="dropdown_menu hide">
                     <li><a href="#">내 정보</a></li>
                     <li><a href="#">로그아웃</a></li>
+ 				</ul>                    
+				<%} else {%>
+				<%} %>
+				<% if (session.getAttribute("emp_no") == null) { %>
+	                <a href="#" class="dropdown_toggle">
+                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
+                    <strong>Login or Join us!</strong>
+                </a>
+				 <ul class="dropdown_menu hide">
+					<li><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+					<li><a href="<%=request.getContextPath()%>/company/enroll">회원가입</a></li>
                 </ul>
+                <% } %>
             </div>
         </div>
         <!-- Modal -->
