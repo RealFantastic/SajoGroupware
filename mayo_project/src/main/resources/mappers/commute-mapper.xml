@@ -61,7 +61,7 @@
 		FROM employee a where emp_no=#{id} 
 	</select>
 
-	<select id="commuteMystatus" parameterType="string" resultType="CommuteRecord" >
+	<select id="commuteMystatus" parameterType="hashmap" resultType="CommuteRecord" >
 		select 
 			t.wokr_day
 			,t.start_time
@@ -73,17 +73,16 @@
 			,   trunc((1.875 - (t.week_work) ) * 24 ) ||'시'||' ' ||
 			    LPad( round(trunc(  Mod( ( 1.875 - (t.week_work) ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
 			    LPad( round(Mod( (1.875 - (t.week_work))* 24 * 60 * 60 , 60 )),2,0)||'초'  week_work_mod
-		from (
-		select
-			    to_char(start_time, 'YYYY-MM-DD' ) wokr_day, --근무일
-			    to_char(start_time, 'HH24 : MI : SS' ) start_time, --출근시간
-			    to_char(end_time, 'HH24 : MI : SS' ) end_time, --퇴근시간
-			    trunc(( end_time - start_time ) * 24 ) ||'시'||' ' ||
-			    LPad( round(trunc(  Mod( ( end_time - start_time ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
-			    LPad( round(Mod( (end_time-start_time)* 24 * 60 * 60 , 60 )),2,0)||'초' AS oneday_work -- 하루 근무 시간 
-			    ,sum(end_time - start_time) OVER(ORDER BY start_time) week_work
-		from commute_record where start_time between '20220627' and '20220701'
-			) t
+		from (	select
+					    to_char(start_time, 'YYYY-MM-DD' ) wokr_day, --근무일
+					    to_char(start_time, 'HH24 : MI : SS' ) start_time, --출근시간
+					    to_char(end_time, 'HH24 : MI : SS' ) end_time, --퇴근시간
+					    trunc(( end_time - start_time ) * 24 ) ||'시'||' ' ||
+					    LPad( round(trunc(  Mod( ( end_time - start_time ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+					    LPad( round(Mod( (end_time-start_time)* 24 * 60 * 60 , 60 )),2,0)||'초' AS oneday_work -- 하루 근무 시간 
+					    ,sum(end_time - start_time) OVER(ORDER BY start_time) week_work
+				from commute_record where start_time between #{startDt} and #{endDt} 
+			) t 
 	</select>
 
 

@@ -2,6 +2,7 @@ package com.group.mayo.employee.model.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
 import com.group.mayo.employee.domain.CommuteRecord;
@@ -40,11 +41,11 @@ public interface CommuteService {
 
 	//	개인근태내역
 	/**
-	 * @param id
+	 * @param paramMap
 	 * @return 근무일, 출근시간, 퇴근시간, 일근무시간, 주근무시간, 주남은근무시간
 	 * @author hong
 	 */
-	public List<CommuteRecord> commuteMystatus(String id);
+	public List<CommuteRecord> commuteMystatus(Map<String, String> paramMap);
 	
 
 

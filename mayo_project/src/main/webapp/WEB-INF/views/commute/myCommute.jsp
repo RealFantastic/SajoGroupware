@@ -25,26 +25,31 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
 	<!-- 주달력 -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"></script>
+<!-- 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></script> -->
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"></script> -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script> <!-- 	날짜 보기 편한 CDN : moment -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 	
 	<!-- 하이차트 -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
-<!-- 	<script src="https://code.highcharts.com/modules/exporting.js"></script> -->
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	
 	
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
 <link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
+
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>  <!-- 정환조직도js -->
+
+
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 
 </head>
 
@@ -58,10 +63,10 @@
 	
 		<div class="commute_title font4">나의 근태현황</div>
 		
-		<div>
+		<div class="chart_week">
 			<div>
 <!-- 		그래프자리 -->
-				<div>
+				<div class="chart_chart">
 					<figure class="highcharts-figure">
 						<div id="container"></div>
 					</figure>
@@ -70,8 +75,11 @@
 				Highcharts.chart('container', {
 					chart: {
 						plotBackgroundColor: null,
-						plotBorderWidth: 0,
-						plotShadow: false
+						plotBorderWidth: 0,// 백그라운드 선
+						plotShadow: false,
+// 						width:500 
+						margin: 0,
+				
 					},
 					credits: {
 						//하단URL삭제
@@ -104,7 +112,7 @@
 							startAngle: -90,
 							endAngle: 90,
 							center: ['50%', '75%'],
-							size: '110%'
+							size: '80%'
 						}
 					},
 					series: [{
@@ -112,8 +120,8 @@
 						name: 'Browser share',
 						innerSize: '40%',
 						data: [
-							['주 누적 근무시간', 50],
-							['주 남은 근무시간', 35],
+							['▶ 주 누적 근무시간', 10],
+							['▶ 주 남은 근무시간', 85],
 							{
 								name: 'Other',
 								y: 0,
@@ -127,25 +135,28 @@
 				</script>
 			</div>
 
-
-
-
-			<div>
+			<div class="week_box">
 			<!-- 주간달력자리 -->
 				<div class="container">
 <!-- 					<div class="jumbotron"> -->
 						<div class="row week-selector">
 							<div class="col-md-8">
 								<div class="form-group clearfix">
-									<label class="control-label pull-left" for="weekpicker">근태 주간날짜 조회</label>
+									<div class="week_title font3">
+										<label class="control-label pull-left" for="weekpicker">
+											근태 주간날짜 조회
+										</label>
+									</div>
 									<div class="col-sm-8">
 										<span class="icon-block ">
 											<input type="text" class="form-control" id="weekpicker">
 											<span class="icon-date"></span>
 										</span>
+										<input type="hidden" id="start_dt">
+										<input type="hidden" id="end_dt">	
 										<div class="week-controls">
-											<button id="prevWeek" class="prev-week">이전 주</button>
-											<button id="nextWeek" class="next-week">다음 주</button>
+											<button id="prevWeek" class="prev-week btn_gray">이전 주</button>
+											<button id="nextWeek" class="next-week btn_gray">다음 주</button>
 										</div>
 									</div>
 								</div>
@@ -154,22 +165,29 @@
 <!-- 					</div> -->
 				</div>
 				<script type="text/javascript">
-					var startDate,
-					endDate;
+					var startDate;
+					var endDate;
 					
 					$('#weekpicker').datepicker({
 						autoclose: true,
 						format :'mm/dd/yyyy',
-						forceParse :false
+						forceParse :false,
+						
+						
 					}).on("changeDate", function(e) {
-					//console.log(e.date);
-					var date = e.date;
-					startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-					endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+6);
-					//$('#weekpicker').datepicker("setDate", startDate);
-					$('#weekpicker').datepicker('update', startDate);
-					$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
-											endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
+						//console.log(e.date);
+						var date = e.date;
+						startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+						endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+6);
+						//$('#weekpicker').datepicker("setDate", startDate);
+						$('#weekpicker').datepicker('update', startDate);
+						$('#weekpicker').val(moment(startDate).format('YYYY/MM/DD') +' - ' + moment(endDate).format('YYYY/MM/DD'));// moment로 변경함
+						
+						$("#start_dt").val(moment(startDate).format('YYYYMMDD') );
+						$("#end_dt").val(moment(endDate).format('YYYYMMDD') );
+
+						// list 조회 함수 호출 
+						selectCommuteList();
 					});
 					
 					//new
@@ -179,9 +197,12 @@
 						startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()- 7);
 						endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() - 1);
 						$('#weekpicker').datepicker("setDate", new Date(startDate));
-						$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
-												endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
-					
+						$('#weekpicker').val(moment(startDate).format('YYYY/MM/DD') +' - ' + moment(endDate).format('YYYY/MM/DD'));// moment로 변경함
+						
+						$("#start_dt").val(moment(startDate).format('YYYYMMDD') );
+						$("#end_dt").val(moment(endDate).format('YYYYMMDD') );
+						// list 조회 함수 호출 
+						
 						return false;
 					});
 					
@@ -191,26 +212,81 @@
 						startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+ 7);
 						endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 13);
 						$('#weekpicker').datepicker("setDate", new Date(startDate));
-						$('#weekpicker').val(startDate.getFullYear() + ' / ' + (startDate.getMonth() + 1) + ' / ' + startDate.getDate() +  ' - ' + 
-												endDate.getFullYear() + ' / ' + (endDate.getMonth() + 1) + ' / ' + endDate.getDate());
-					
+						$('#weekpicker').val(moment(startDate).format('YYYY/MM/DD') +' - ' + moment(endDate).format('YYYY/MM/DD'));// moment로 변경함
+						
+						$("#start_dt").val(moment(startDate).format('YYYYMMDD') );
+						$("#end_dt").val(moment(endDate).format('YYYYMMDD') );
+						// list 조회 함수 호
 						return false;
 					});
+					
+					
+					var date =new Date();
+					startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+					endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay()+6);
+					$('#weekpicker').val(moment(startDate).format('YYYY/MM/DD') +' - ' + moment(endDate).format('YYYY/MM/DD'));// moment로 변경함
+					$("#start_dt").val(moment(startDate).format('YYYYMMDD') );
+					$("#end_dt").val(moment(endDate).format('YYYYMMDD') );
+					selectCommuteList();
+					
+					// list 조회
+					function selectCommuteList() {
+						
+						debugger
+						$.ajax({
+							type:"post"
+							,url:"<%=request.getContextPath()%>/commute/selectCommuteList"
+							,data:{
+								start_dt : $("#start_dt").val()
+								, end_dt : $("#end_dt").val()
+							}
+							,dataType:"json"
+							,success:function(result){
+//			 					debugger
+								//테이블 초기화
+								$('.commute_table > tbody').empty();
+// 								result=JSON.parse(result);
+								if(result.length>=1){
+									var str = ""; 
+									result.forEach(function(item){
+										str +="<tr>"
+										str += "<td class='commute_table_list_td'>"+item.wokr_day+"</td>";
+										str += "<td class='commute_table_list_td'>"+item.start_time+"</td>";
+										str += "<td class='commute_table_list_td'>"+item.end_time+"</td>";
+										str += "<td class='commute_table_list_td'>"+item.oneday_work+"</td>";
+										str += "<td class='commute_table_list_td'>"+item.week_work+"</td>";
+										str += "<td class='commute_table_list_td'>"+item.week_work_mod+"</td>";
+										str += "</tr>";
+										
+									})
+								}else{
+									str +="<tr>"
+									str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
+									str += "</tr>";
+								}
+								$('.commute_table > tbody').append(str);
+								console.log(result.length);
+							}
+							,error:function(){
+								alert("ajax 제대로 동작 못했다. 문제를 찾아라");
+							}
+						});
+					}
 				</script>
 			</div>
-
-
-	
-		<div class="my_info">
-			사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
-			 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
 		</div>
+		
+		<div class="my_pe">
+			<div class="my_info">
+				사원번호 : ${commuteMyInfo.emp_no} / 사원명 : ${commuteMyInfo.emp_name } / 직함 : ${commuteMyInfo.job_nm }
+				 / 부서명 : ${commuteMyInfo.dept_nm } / 연락처 : ${commuteMyInfo.phone } 
+			</div>
 	
-		<div>
-		인사팀버튼
-		</div>
-</div>
-
+			<div class="personnel_button">
+			<!-- 인사팀만 보여지는 버튼 -->
+				<button type="button" onclick="" class="btn btn-secondary btn_red" id="personnel">직원근태 리스트</button>
+			</div>
+		</div>	
 
 
 		<div class="table_all">

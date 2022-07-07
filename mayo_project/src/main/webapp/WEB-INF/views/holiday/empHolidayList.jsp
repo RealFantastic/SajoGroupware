@@ -79,7 +79,7 @@
 							str += "<td class='holiday_table_list_td'>"+item.dept_nm+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.phone+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.left_count+"</td>";
-							str += "<td class='holiday_table_list_td'><button class='btn_red'>상세보기</button></td>";
+							str += "<td class='holiday_table_list_td'><button class='btn_yellow'>상세보기</button></td>";
 							str += "</tr>";
 							$('.holiday_list_table').append(str);
 						})
@@ -136,7 +136,7 @@
 							<td class="holiday_table_list_td">${empholiday.dept_nm }</td>
 							<td class="holiday_table_list_td">${empholiday.phone }</td>
 							<td class="holiday_table_list_td">${empholiday.left_count }</td>
-							<td class="holiday_table_list_td"><button class="btn_red">상세보기</button></td>
+							<td class="holiday_table_list_td"><button class="btn_yellow">상세보기</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

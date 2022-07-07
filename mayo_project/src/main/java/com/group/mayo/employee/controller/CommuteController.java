@@ -1,6 +1,8 @@
 package com.group.mayo.employee.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -92,8 +94,10 @@ public class CommuteController {
 		String id= emp.getEmp_no();
 		
 		// 2. 출퇴근 리스트 불러오기 
-		List<CommuteRecord> commuteMystatus = service.commuteMystatus(id);
-		mv.addObject("commuteMystatus", commuteMystatus);
+		/*
+		 * List<CommuteRecord> commuteMystatus = service.commuteMystatus(id);
+		 * mv.addObject("commuteMystatus", commuteMystatus);
+		 */
 		//3.사원번호 ,사원명 ,직함 , 부서명, 연락처 
 		CommuteEmployee commuteMyInfo=service.commuteMyInfo(id);
 		mv.addObject("commuteMyInfo",commuteMyInfo);
@@ -103,6 +107,28 @@ public class CommuteController {
 		//mv.addObject("StatusList",commuteMystatus);
 		
 	}
+	
+	@RequestMapping(value ="/selectCommuteList", produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String selectCommuteList(
+			@RequestParam("start_dt") String startDt,
+			@RequestParam("end_dt") String endDt,
+			ModelAndView mv, HttpSession session) throws Exception{
+		
+		Employee emp= (Employee) session.getAttribute("loginSsInfo");
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("startDt", startDt);
+		paramMap.put("endDt", endDt);
+		paramMap.put("id", emp.getEmp_no()); 
+		
+		List<CommuteRecord> commuteList = service.commuteMystatus(paramMap);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String result = gson.toJson(commuteList);
+		return result;
+	}
+	
+	
 
 
 

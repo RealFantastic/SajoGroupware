@@ -44,12 +44,41 @@
 .commute_title{
 	font-weight: bolder;
 }
+
+
+/* 그래프 */
+.chart_week{
+	display : flex;
+}
+/* .highcharts-background{ */
+/* 	!important */
+/* } */
+.chart_chart{
+	width:600px;
+}
+#container{
+	width:500px;
+}
+
+/* 나의정보, 인사팀버튼 */
+.my_pe{
+	display: block;
+	margin-bottom: 50px;
+}
+
 /* 왼쪽메뉴바를 제외한 나의정보 */
 .my_info{
 	background-color :rgb(235, 255, 246);
-	width: 100%;
+	float: left;
+	width: fit-content;
 	font-weight: bolder;
+	margin-top: 8px;
 }
+/* 왼쪽메뉴바를 제외한 인사팀버튼 */
+.personnel_button{
+	float: right;
+}
+
 /* 왼쪽메뉴바를 제외한 테이블 */
 .table_all{
 	width: 100%;
@@ -58,7 +87,7 @@
 .commute_table{
 	text-align: center;
 	width: 100%;
-	
+	ma
 }
 
 .commute_table_th{
@@ -105,3 +134,24 @@
 	background: #e5e2e3;
 	border-radius: 0;
 } 
+.week-controls{
+	float: right;
+	magin: 20px 0 20px 0;
+}
+.week_box{
+	width: 810px;
+}
+.week_title{
+	margin: 20px 0 20px 0;
+}
+
+.col-sm-8{
+	padding: 0;
+}
+
+#prevWeek{
+	margin: 20px 5px 20px 20px;
+}
+#nextWeek{
+	margin: 20px 0px 20px 5px;
+}

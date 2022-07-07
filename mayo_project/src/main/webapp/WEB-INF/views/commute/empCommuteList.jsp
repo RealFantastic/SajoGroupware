@@ -82,7 +82,7 @@
 							str += "<td class='commute_table_list_td'>"+item.job_nm+"</td>";
 							str += "<td class='commute_table_list_td'>"+item.dept_nm+"</td>";
 							str += "<td class='commute_table_list_td'>"+item.phone+"</td>";
-							str += "<td class='commute_table_list_td'><button class='btn_red'>수정하기</button></td>";
+							str += "<td class='commute_table_list_td'><button class='btn_yellow'>수정하기</button></td>";
 							str += "</tr>";
 							$('.commute_list_table').append(str);
 						})
@@ -142,7 +142,7 @@
 							<td class="commute_table_list_td">${emp.job_nm }</td>
 							<td class="commute_table_list_td">${emp.dept_nm }</td>
 							<td class="commute_table_list_td">${emp.phone }</td>
-							<td class="commute_table_list_td"><button class="btn_red">수정하기</button></td>
+							<td class="commute_table_list_td"><button class="btn_yellow">수정하기</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

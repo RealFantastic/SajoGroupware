@@ -1,6 +1,7 @@
 package com.group.mayo.employee.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,8 +58,8 @@ public class CommuteServiceImpl implements CommuteService{
 }
 	//	개인근태내역
 	@Override
-	public List<CommuteRecord> commuteMystatus(String id) {
-		return dao.commuteMystatus(id);
+	public List<CommuteRecord> commuteMystatus(Map<String, String> paramMap) {
+		return dao.commuteMystatus(paramMap);
 	}
 	
 	

@@ -2,6 +2,7 @@ package com.group.mayo.employee.model.dao;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,8 @@ public class CommuteDao {
 	}
 	
 	//	개인근태내역
-	public List<CommuteRecord> commuteMystatus(String id) {
-		return sqlSession.selectList("CommuteRecord.commuteMystatus", id);
+	public List<CommuteRecord> commuteMystatus(Map<String, String> paramMap) {
+		return sqlSession.selectList("CommuteRecord.commuteMystatus", paramMap);
 	}
 
 
