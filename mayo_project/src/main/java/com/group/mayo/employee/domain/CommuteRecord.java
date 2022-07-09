@@ -26,12 +26,17 @@ public class CommuteRecord {
 	private String week_work;
 	private String week_work_mod;
 	
+	private String week_rate;
+	private String mod_rate;
+	
+
+
 	@Override
 	public String toString() {
 		return "CommuteRecord [record_no=" + record_no + ", emp_no=" + emp_no + ", today_start_time=" + today_start_time
 				+ ", today_end_time=" + today_end_time + ", start_time=" + start_time + ", end_time=" + end_time
 				+ ", wokr_day=" + wokr_day + ", oneday_work=" + oneday_work + ", week_work=" + week_work
-				+ ", week_work_mod=" + week_work_mod + "]";
+				+ ", week_work_mod=" + week_work_mod + ", week_rate=" + week_rate + ", mod_rate=" + mod_rate + "]";
 	}
 
 	public int getRecord_no() {
@@ -112,6 +117,22 @@ public class CommuteRecord {
 
 	public void setWeek_work_mod(String week_work_mod) {
 		this.week_work_mod = week_work_mod;
+	}
+
+	public String getWeek_rate() {
+		return week_rate;
+	}
+
+	public void setWeek_rate(String week_rate) {
+		this.week_rate = week_rate;
+	}
+
+	public String getMod_rate() {
+		return mod_rate;
+	}
+
+	public void setMod_rate(String mod_rate) {
+		this.mod_rate = mod_rate;
 	}
 	
 	

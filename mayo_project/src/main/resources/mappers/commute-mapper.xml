@@ -51,6 +51,32 @@
 
 
 <!-- //	개인근태페이지 -->
+	<!-- 그래프 -->
+	<select id="chartData" resultType="CommuteRecord" parameterType="hashmap">
+		select * from(
+			select 
+				trunc(( t.week_work ) * 24 ) ||'시'||' ' ||
+				LPad( round(trunc(  Mod( ( t.week_work ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+				LPad( round(Mod( (t.week_work)* 24 * 60 * 60 , 60 )),2,0)||'초'  week_work
+				,trunc((1.875 - (t.week_work) ) * 24 ) ||'시'||' ' ||
+				LPad( round(trunc(  Mod( ( 1.875 - (t.week_work) ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+				LPad( round(Mod( (1.875 - (t.week_work))* 24 * 60 * 60 , 60 )),2,0)||'초'  week_work_mod
+				, round (t.week_work/1.875  *100 , 0)  week_rate
+				, round ( (1.875 - (t.week_work) )/1.875 *100, 0) mod_rate
+			from (
+				select
+					trunc(( end_time - start_time ) * 24 ) ||'시'||' ' ||
+					LPad( round(trunc(  Mod( ( end_time - start_time ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
+					LPad( round(Mod( (end_time-start_time)* 24 * 60 * 60 , 60 )),2,0)||'초' AS oneday_work -- 하루 근무 시간 
+					,sum(end_time - start_time) OVER(ORDER BY start_time) week_work
+				from commute_record 
+				where start_time between #{startDt} and #{endDt} and emp_no=#{id}
+				) t ORDER BY week_work_mod)  where rownum=1
+	</select>
+
+
+
+
 	<!-- 	나의 정보 -->
 	<select id="commuteMyInfo" resultType="CommuteEmployee" parameterType="string" >
 		SELECT EMP_NO
@@ -60,7 +86,7 @@
 			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
 		FROM employee a where emp_no=#{id} 
 	</select>
-
+	<!-- 근태 테이블 리스트 -->
 	<select id="commuteMystatus" parameterType="hashmap" resultType="CommuteRecord" >
 		select 
 			t.wokr_day
@@ -81,7 +107,7 @@
 					    LPad( round(trunc(  Mod( ( end_time - start_time ) * 24 * 60 , 60) ) ) ,2,0)||'분' || ' ' ||
 					    LPad( round(Mod( (end_time-start_time)* 24 * 60 * 60 , 60 )),2,0)||'초' AS oneday_work -- 하루 근무 시간 
 					    ,sum(end_time - start_time) OVER(ORDER BY start_time) week_work
-				from commute_record where start_time between #{startDt} and #{endDt} 
+				from commute_record where start_time between #{startDt} and #{endDt} and emp_no=#{id}
 			) t 
 	</select>
 

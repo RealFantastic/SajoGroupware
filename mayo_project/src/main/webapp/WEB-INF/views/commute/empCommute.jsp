@@ -147,7 +147,7 @@
 <!-- 		인사팀전용 -->
 		<div class="commute_bottom_btn">
 			<a href="<%=request.getContextPath() %>/commute/empCommuteList">
-			<button class="btn_green btn_commute_list">직원별 근태목록</button>
+			<button class="btn_green btn_commute_list">직원별 근태 리스트</button>
 			</a>
 <!-- 			<button class="btn_yellow btn_commute_change">수정완료</button> -->
 		</div>

@@ -50,7 +50,12 @@ public class CommuteServiceImpl implements CommuteService{
 
 
 //	개인근태페이지
-
+	//그래프
+	@Override
+	public CommuteRecord chartData(Map<String, String> paramMap) {
+		 return dao.chartData(paramMap);
+	}
+	
 	//	개인정보
 	@Override
 	public CommuteEmployee commuteMyInfo(String id) {

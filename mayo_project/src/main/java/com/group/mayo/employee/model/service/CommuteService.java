@@ -32,6 +32,15 @@ public interface CommuteService {
 
 
 //	개인근태페이지
+	//	그래프
+	/**
+	 *@param paramMap
+	 *@return 주근무시간, 주남은근무시간
+	 *@author hong
+	 */
+	public CommuteRecord chartData(Map<String, String> paramMap);
+	
+	
 	//	개인정보
 	/**
 	 * @return 사원번호, 사원명, 직함, 부서명, 연락처

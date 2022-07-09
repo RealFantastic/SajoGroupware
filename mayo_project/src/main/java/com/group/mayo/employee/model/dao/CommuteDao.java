@@ -44,6 +44,10 @@ public class CommuteDao {
 
 
 //	개인근태페이지
+	//	그래프
+	public CommuteRecord chartData(Map<String, String> paramMap) {
+		return sqlSession.selectOne("CommuteRecord.chartData",paramMap);
+	}
 
 	//	개인정보
 	public CommuteEmployee commuteMyInfo(String id) {

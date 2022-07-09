@@ -121,10 +121,15 @@ public class CommuteController {
 		paramMap.put("startDt", startDt);
 		paramMap.put("endDt", endDt);
 		paramMap.put("id", emp.getEmp_no()); 
+		Map <String, Object> resultMap = new HashMap<String , Object>();
 		
 		List<CommuteRecord> commuteList = service.commuteMystatus(paramMap);
+		CommuteRecord chartData = service.chartData(paramMap);
+		resultMap.put("commuteList", commuteList);
+		resultMap.put("chartData", chartData);
+		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String result = gson.toJson(commuteList);
+		String result = gson.toJson(resultMap);
 		return result;
 	}
 	
