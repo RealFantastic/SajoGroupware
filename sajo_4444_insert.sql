@@ -743,10 +743,13 @@ SELECT TO_NUMBER(TO_CHAR( TO_DATE('22/02/22','YY/MM/DD'),'D'))-1 FROM DUAL;
 
 select *from commute_record;
 
+select emp_no,emp_name,dept_name,job_name from employee
+join department using(dept_no)
+join job using(job_no)
+where emp_no = '202210001';
 
 
-
-
+select * from department left outer join (select dept_no, emp_no,concat(concat(emp_name,' '),job_name) as emp_name from employee join job using(job_no)) using (dept_no);
 
 
 

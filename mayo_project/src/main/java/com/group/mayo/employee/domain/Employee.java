@@ -68,12 +68,15 @@ public class Employee {
 				+ cp_number + ", sign_path=" + sign_path + ", sign_file_name=" + sign_file_name + ", wt_code=" + wt_code
 				+ ", dept_name=" + dept_name + ", job_name=" + job_name + "]";
 	}
-	public String getDeptP_name() {
+
+	public String getDept_name() {
 		return dept_name;
 	}
-	public void setDeptP_name(String deptP_name) {
-		this.dept_name = deptP_name;
+
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
 	}
+
 	public String getJob_name() {
 		return job_name;
 	}

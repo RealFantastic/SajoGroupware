@@ -176,7 +176,19 @@
 .bpTitle{
 	letter-spacing: 10px;
 }
-
+#org_chart_container{
+	display:flex;
+	justify-content:space-around;
+}
+#approval_line{
+	min-width: 400px;
+}
+.btn_delete_act_all{
+	cursor: pointer;
+}
+.btn_delete_act{
+	cursor: pointer;
+}
 
 
 

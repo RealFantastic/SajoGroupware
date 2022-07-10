@@ -30,7 +30,7 @@ function createJSTree($elem,jsonData){
                     "show_only_matches_children" : true,
                 }
               },
-        "plugins" : [ "search" ]
+        "plugins" : [ "search","dnd" ]
       });
     $elem.jstree("open_all");
 }

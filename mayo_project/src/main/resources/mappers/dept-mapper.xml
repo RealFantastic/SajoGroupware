@@ -11,6 +11,9 @@
 	<result column="EMP_NAME" property="text"/>
 </resultMap>
   <select id="selectDeptList" resultMap="DeptResultMap">
-  	select * from department left outer join employee using (dept_no)
+  	select * from department left outer join 
+  		(select dept_no, emp_no,concat(concat(emp_name,' '),job_name) as emp_name
+  		 from employee join job using(job_no))
+  	using (dept_no)
   </select>
 </mapper>

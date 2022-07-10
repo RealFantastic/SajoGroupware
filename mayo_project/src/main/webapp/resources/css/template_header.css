@@ -128,7 +128,7 @@
 }
 #emp_info{
 	display:flex;
-/* 	justify-content:space-around; */
+	justify-content:space-around;
 }
 #emp_detail_container{
 	margin-left:50px;

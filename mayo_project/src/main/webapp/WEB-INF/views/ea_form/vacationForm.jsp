@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="now" value="<%= new java.util.Date() %>"/>
+<c:set var="today"><fmt:formatDate value="${now }" pattern="yyyy-MM-dd"/></c:set>
+<c:set var="year"><fmt:formatDate value="${now }" pattern="yyyy"/></c:set>
 	<div class="toolBar_container">
 		<div class="toolBar">
 			<button type="button" class="btn_tool draft btn_green">결재 요청</button>
@@ -16,26 +21,30 @@
 						<table class="ar_table">
 							<tbody>
 								<tr>
-									<td colspan="2">연차신청서</td>
+									<td colspan="2">
+										<input type="hidden" value="연차신청서" name="ea_title">
+										연차신청서
+										<input type="hidden" value="AR" name="form_code">
+									</td>
 								</tr>
 								<tr>
 									<td>
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td>박정환</td>
+												<td><input type="hidden" value="${loginSsInfo.emp_name }" name="drafter_id">${loginSsInfo.emp_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>
-												<td>인사팀</td>
+												<td>${loginSsInfo.dept_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안일</td>
-												<td>2022-06-22</td>
+												<td><c:out value="${today }"/></td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">문서번호</td>
-												<td>---------</td>
+												<td>-------</td>
 											</tr>
 										</table>
 									</td>
@@ -49,23 +58,11 @@
 											<span class="sign_member_wrapper">
 												<span class="sign_member">
 													<span class="sign_rank">
-														<span class="rank">사원</span>
+														<span class="rank">${loginSsInfo.job_name }</span>
 													</span>
 													<span class="sign_wrapper">
-														<span class="sign_name">박정환</span>
-													</span>
-													<span class="sign_date_wrapper">
-														<span class="sign_date"></span>
-													</span>
-												</span>
-											</span>
-											<span class="sign_member_wrapper">
-												<span class="sign_member">
-													<span class="sign_rank">
-														<span class="rank">사원</span>
-													</span>
-													<span class="sign_wrapper">
-														<span class="sign_name">박정환</span>
+														<span class="sign_name">${loginSsInfo.emp_name }</span>
+														<input type="hidden" name="drafter" value="${loginSsInfo.emp_name }">
 													</span>
 													<span class="sign_date_wrapper">
 														<span class="sign_date"></span>
@@ -127,7 +124,7 @@
 							</tr>
 							<tr>
 								<td class="td_color_gray">휴가 사유</td>
-								<td><textarea id="summernote" name="summernote" class="summernote"></textarea></td>
+								<td><textarea id="summernote" name="ea_content" class="summernote"></textarea></td>
 							</tr>
 						</table>
 					</form>
@@ -139,12 +136,12 @@
 		</section>
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="approval_list_modal" tabindex="-1"
+	<div class="modal fade approval_list" id="approval_list_modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="org_title">조직도</h5>
+					<h5 class="modal-title" id="org_title">결재선 지정</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" id="org_chart_container">
@@ -155,19 +152,29 @@
 					</div>
 					<div id="approval_line_container">
 						<div id="approval_line">
-							<table class="table table-striped">
+							<table class="table table-striped list_approval">
 								<tr>
 									<th scope="col">결재순서</th>
+									<th scope="col">사번</th>									
 									<th scope="col">결재자</th>
 									<th scope="col">부서</th>
 									<th scope="col">직위</th>
+									<th scope="col"><span class="btn_delete_act_all"><i class="fa-solid fa-trash-can"></i></span></th>
+								</tr>
+								<tr>
+									<td class="app_order">1</td>
+									<td class="emp_no">${loginSsInfo.emp_no }</td>
+									<td class="approver">${loginSsInfo.emp_name }</td>
+									<td class="dept_name">${loginSsInfo.dept_name }</td>
+									<td class="job_name">${loginSsInfo.job_name }</td>
+									<td><input type="hidden" name="emp_no" class="empNo"/></td>
 								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					
+					<button type="button" class="btn btn-primary add_appr">적용</button>
 				</div>
 			</div>
 		</div>
@@ -300,7 +307,7 @@
 				});
 				
 				/* SummerNote Library */
-				 $('#summernote').summernote({
+				$('#summernote').summernote({
 						toolbar: [
 							['style',['bold','italic','underline','clear']],
 							['font',['strikethrough','superscript','subscript']],
@@ -308,13 +315,119 @@
 							['color',['color']],
 							['para',['ul','ol','paragraph']],
 							['height',['height']]
-						]
+						],
+						height: 300,
+						minHeight: 300,
+						codeviewFilter: false,
+						codeviewIframeFilter:true
 				});
-							
+				
 				orgChart($('#jstree_org_chart'));
 				$('#org_chart_search').keyup(function(event){
 				    var target = $(event.target);
 				    searchJstree(target);
+				});
+				
+				$('#jstree_org_chart').bind('select_node.jstree',function(event,data){
+					var emp_no = data.instance.get_node(data.selected).id;
+					console.log(emp_no);
+					var currOrder = $('.list_approval tr:last-child').find('td:eq(0)').text();
+					console.log(currOrder);
+					if(emp_no.length<=2){
+						return;
+					}else if(currOrder >= 4){
+						alert("결재선 최대 초과");
+						return;
+					}
+					$.ajax({
+						url:'<%=request.getContextPath()%>/member/detail',
+						type:'post',
+						data:{emp_no : emp_no},
+						dataType:'json',
+						success:function(data){
+							var html ='';
+							let empNo = null;
+							for(var i = 0; i < $('.emp_no').length;i++){
+								empNo = $('.emp_no').eq(i).text();
+								if(emp_no === empNo){ 
+									alert("이미 등록된 결재자입니다.");
+									return ;
+								}
+							}
+							html += '<tr class="tmp">';
+							html +='<td class="app_order">' + (parseInt(currOrder) + 1) + '</td>';
+							html +='<td class="emp_no">' + data.emp_no + '</td>';
+							html +='<td class="approver">' + data.emp_name + '</td>';
+							html +='<td class="dept_name">' + data.dept_name + '</td>';
+							html +='<td class="job_name">' + data.job_name + '</td>';
+							html += '<td><span class="btn_delete_act"><i class="fa-solid fa-trash-can"></i></span></td>';
+							html +='</tr>';
+							$('.list_approval tbody').append(html);
+						}
+					});
+				});
+				$('.btn_delete_act_all').click(function(event){
+					console.log($(event.target));
+					var target = $(event.target);
+					/* 삭제버튼 누르면 1차 결재자 제외 모든 노드 삭제 */
+					target.parents('tr').next().nextAll().remove();
+					
+				});
+				$('.list_approval').on('click','[class=btn_delete_act]',function(event){
+					console.log($(event.target));
+					var target = $(event.target);
+						target.parents('tr').remove();
+					var downNode = $(target.parents('tr').nextAll());
+					console.log(downNode);
+					for(var i = 0; i < downNode.length; i++){
+						console.log(i + "번째 순서값 = " + downNode.eq(i).children().eq(0).text());
+						console.log(parseInt(downNode.eq(i).children().eq(0).text())-1);
+						
+					}
+				});
+				$('.add_appr').on('click',function(){
+					let line_no = $('.list_approval tr:first-child').nextAll().length;
+					
+					var _html = '';
+					for(var i = 1; i<line_no; i++){
+						_html += "<span class='sign_member_wrapper'>";
+						_html += "	<span class='sign_member'>";	
+						_html += "		<span class='sign_rank'>";		
+						_html += "			<span class='rank'>"+$('.job_name').eq(i).text()+"</span>";		
+						_html += "			<input type='hidden' name='apprvoer_job_name' value='"+ $('.job_name').eq(i).text() +"'/>";		
+						_html += "		</span>";
+						_html += "		<span class='sign_wrapper'>";
+						_html += "			<span class='sign_name'>" + $('.approver').eq(i).text() + "</span>";
+						_html += "			<input type='hidden' name='approver_emp_no' value='"+ $('.emp_no').eq(i).text() +"'/>";
+						_html += "		</span>";		
+						_html += "		<span class='sign_date_wrapper'>";
+						_html += "			<span class='sign_date'></span>";
+						_html += "		</span>";
+						_html += "	</span>";
+						_html += "</span>";
+					}
+					$('.sign_member_wrapper').nextAll().remove();
+					$('.sign_member_wrapper').after(_html);
+					$('.approval_list').modal('hide');
+				});
+				$('.draft').click(function(){
+					let formData = $('#doc_content').serialize();
+					formData = decodeURIComponent(formData);
+// 					var form= JSON.parse(formData);
+// 					console.log(form);
+					$.ajax({
+						type:'POST',
+						url:'<%=request.getContextPath()%>/eap/insert',
+						data:formData,
+						success:function(result){
+							alert("다녀옴");
+						},
+						error:function(xhr,status,error){
+							alert("에러났다");
+						}
+						
+					});
+				
 				});
 		});
 	</script>
