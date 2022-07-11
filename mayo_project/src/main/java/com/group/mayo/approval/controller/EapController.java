@@ -1,9 +1,6 @@
 package com.group.mayo.approval.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,13 +45,20 @@ public class EapController {
 	}
 	@ResponseBody
 	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8")
-	public String insertEap(HttpServletRequest req, EapDomain eap) {
-		String fmt = new SimpleDateFormat("yyyy").format(new Date());
+	public String insertEap(EapDomain eap) {
+//		String fmt = new SimpleDateFormat("yyyy").format(new Date());
+//		
+//		eap.setEa_no(fmt + "-" + eap.getForm_code() + "-");
 		
-		eap.setEa_no(fmt + "-" + eap.getForm_code() + "-");
-		//TODO : 문서번호 생성해야함.
-		
+		int result = service.insertEap(eap);
+		String msg = "而⑦듃濡ㅻ윭";
+//		if(result != 0) {
+//			msg = "complete";
+//			
+//		}else {
+//			msg = "fail"; 
+//		}
 		System.out.println(eap.toString());
-		return null;
+		return msg;
 	}
 }

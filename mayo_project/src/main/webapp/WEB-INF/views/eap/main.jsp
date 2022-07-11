@@ -88,7 +88,7 @@
 	    </div>
 	  </div>
 	</div>
-    <div id="bodyContent">
+    <div class="bodyContent">
     	<div class="content_top">
 			<h1> 전자결재 홈 </h1>
 		</div>
