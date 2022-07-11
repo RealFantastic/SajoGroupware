@@ -22,6 +22,20 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	<!-- interceptor 빈 생성 -->
+	<beans:bean id="LoginInterceptor" class="com.group.mayo.common.LoginInterceptor"/>
+	
+	<!-- interceptor 등록/설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/*"/>
+			<exclude-mapping path="/member/login/**"/>
+			<exclude-mapping path="/member/enroll/**"/>
+			<exclude-mapping path="/company/enroll/**"/>
+			<exclude-mapping path="/"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<context:component-scan base-package="com.group.mayo" />
 	

@@ -222,7 +222,6 @@ public class EmpController {
 		if(result == null) {
 			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
 			mv.setViewName("redirect:/member/login");
-			return mv;
 		} else {
 		session.setAttribute("loginSsInfo", result);
 		rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");

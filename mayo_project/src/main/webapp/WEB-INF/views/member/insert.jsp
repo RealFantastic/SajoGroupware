@@ -287,14 +287,12 @@
 			$("#password").val("");
 			$("#password_chk").val("");
 			$("#password").focus();
-			return ;
-		}else{
-		
+			return false;
+		}
     	var frm = $("#emp_enroll");
 		frm.attr("action","<%=request.getContextPath()%>/member/enroll"); 
 		frm.attr("method","post");
 		frm.submit();
-		}
     });	
     </script>
     
@@ -459,6 +457,14 @@
 	    });
 	});
 	</script>
+    <!--사업자 번호 하이픈 정규식 DOM  -->
+    <script>
+    $("#cp_number").on("input",
+            function() {
+                var target = document.getElementById("cp_number");
+                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,2})(\d{0,5})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
+    }); 
+    </script>
     <!-- 약관 모두 동의 -->
     <script>
         $(document).ready( function() {
