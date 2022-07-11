@@ -3,7 +3,11 @@
 <mapper namespace="Eap">
 	<insert id="insertEap" parameterType="Eap">
 		insert into elec_approval 
-		(EA_NO, EA_TITLE, EA_CONTENT, DRAFTER_ID, DRAFT_DATE,FIRST_APPROVER,) 
-		values ();
+		(EA_NO, EA_TITLE, EA_CONTENT, DRAFTER_ID, DRAFT_DATE,FIRST_APPROVER,SECOND_APPROVER,THIRD_APPROVER
+		, FINAL_APPROVER,STATUS_CODE,RESULT_CODE, FORM_CODE, ISEMERGENCY) 
+		values
+		(
+		
+		);
 	</insert>
 </mapper>

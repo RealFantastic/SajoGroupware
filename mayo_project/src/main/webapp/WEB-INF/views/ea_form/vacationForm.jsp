@@ -32,7 +32,7 @@
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td><input type="hidden" value="${loginSsInfo.emp_name }" name="drafter_id">${loginSsInfo.emp_name }</td>
+												<td><input type="hidden" value="${loginSsInfo.emp_no }" name="draft_id">${loginSsInfo.emp_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>
@@ -62,7 +62,7 @@
 													</span>
 													<span class="sign_wrapper">
 														<span class="sign_name">${loginSsInfo.emp_name }</span>
-														<input type="hidden" name="drafter" value="${loginSsInfo.emp_name }">
+														<input type="hidden" name="first_approver" value="${loginSsInfo.emp_no}">
 													</span>
 													<span class="sign_date_wrapper">
 														<span class="sign_date"></span>
@@ -102,13 +102,13 @@
 									<span id="select_time_radio">
 										<label for="start_am">시작일</label>
 										(
-										<input type="radio" name="startHalf" id="start_am" value="오전" disabled><span for="am">오전</span>
-										<input type="radio" name="startHalf" id="start_pm" value="오후" disabled><span for="pm">오후</span>
+										<input type="radio" name="startHalf" id="start_am" value="오전" disabled><span>오전</span>
+										<input type="radio" name="startHalf" id="start_pm" value="오후" disabled><span>오후</span>
 										)
 										<label for="end_am">종료일</label>
 										(
-										<input type="radio" name="endHalf" id="end_am" value="오전" disabled><span for="am">오전</span>
-										<input type="radio" name="endHalf" id="end_pm" value="오후" disabled><span for="pm">오후</span>
+										<input type="radio" name="endHalf" id="end_am" value="오전" disabled><span>오전</span>
+										<input type="radio" name="endHalf" id="end_pm" value="오후" disabled><span>오후</span>
 										)
 									</span>
 								</td>
@@ -167,7 +167,7 @@
 									<td class="approver">${loginSsInfo.emp_name }</td>
 									<td class="dept_name">${loginSsInfo.dept_name }</td>
 									<td class="job_name">${loginSsInfo.job_name }</td>
-									<td><input type="hidden" name="emp_no" class="empNo"/></td>
+									<td><input type="hidden" name="emp_no"/></td>
 								</tr>
 							</table>
 						</div>
@@ -385,6 +385,7 @@
 						
 					}
 				});
+				
 				$('.add_appr').on('click',function(){
 					let line_no = $('.list_approval tr:first-child').nextAll().length;
 					
@@ -413,8 +414,7 @@
 				$('.draft').click(function(){
 					let formData = $('#doc_content').serialize();
 					formData = decodeURIComponent(formData);
-// 					var form= JSON.parse(formData);
-// 					console.log(form);
+					console.log(formData);
 					$.ajax({
 						type:'POST',
 						url:'<%=request.getContextPath()%>/eap/insert',
@@ -427,7 +427,7 @@
 						}
 						
 					});
-				
 				});
 		});
+		
 	</script>

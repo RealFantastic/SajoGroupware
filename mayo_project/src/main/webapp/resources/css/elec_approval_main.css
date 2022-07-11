@@ -47,7 +47,7 @@
     margin-right: 15px;
 }
 /* 메인페이지 content css 시작 */
-#bodyContent{
+.bodyContent{
 	margin-left: 250px;
 	min-height:600px;
 }
