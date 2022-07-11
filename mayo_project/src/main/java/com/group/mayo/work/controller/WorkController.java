@@ -1,5 +1,6 @@
 package com.group.mayo.work.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.group.mayo.common.FileUpload;
 import com.group.mayo.project.model.service.ProjectService;
+import com.group.mayo.work.domain.ProjFile;
 import com.group.mayo.work.domain.Work;
 import com.group.mayo.work.model.service.WorkService;
 
@@ -49,22 +51,27 @@ public class WorkController {
 	
 	@PostMapping("/insert") // 새 업무 글 등록
 	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr
-			, @RequestParam(name="uploadfile", required = false) MultipartFile uploadfile
+			, @RequestParam(name="uploadfile", required = false) List<MultipartFile> uploadfiles
 			, HttpServletRequest req) {
 
-		int result = service.insertWork(work);
-		
 		// 첨부파일있다면 첨부파일 저장
-		if(uploadfile !=null) {
-			String rename_filename = commonFile.saveFile(uploadfile, req);
-			if(rename_filename != null) {
-				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
-				work.setProj_original_filename(uploadfile.getOriginalFilename());
-				work.setProj_filename(rename_filename);
+		List<ProjFile> projfilelist = new ArrayList<ProjFile>();
+		for(int i=0; i< uploadfiles.size(); i++) {
+			if(uploadfiles.get(i) !=null) {
+				ProjFile pfile = new ProjFile();
+				String rename_filename = commonFile.saveFile(uploadfiles.get(i), req);
+				if(rename_filename != null) {
+					//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+					pfile.setProj_original_filename(uploadfiles.get(i).getOriginalFilename());
+					pfile.setProj_file_path(rename_filename);
+					projfilelist.add(pfile);
+				}
 			}
-			
 		}
+		work.setProjfilelist(projfilelist);
 		
+		int result = service.insertWork(work);
+		//
 		if(result <= 0) {
 			System.out.println("업무 등록 실패 ㅠㅠ");
 		} else {

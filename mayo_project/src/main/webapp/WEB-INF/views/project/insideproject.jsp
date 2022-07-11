@@ -106,7 +106,7 @@
 			</select>
         </div>
           <div>
-			 <input class="isemergency" name="isemergency" type="hidden">
+			 <input class="isemergency" name="isemergency" value="N" type="hidden">
             <button type="button" id="isemergency"><img id="eimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
         </div>
           </div>
@@ -131,7 +131,9 @@
 		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label>
-        	<input type="file" name="uploadfile" multiple="multiple">
+        	<input type="file" name="uploadfile">
+        	<button type="button" id="addFile">추가</button>
+        	<div id="files"></div>
         </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
@@ -154,7 +156,7 @@
 	var fileCnt = 1;
 	$("#addFile").click(function(){
 		fileCnt++;
-		var html= '<input type="file" name="uploadfile"><br>';
+		var html= "<input type='file' name='uploadfile'><br>";
 		$("#files").append(html);
 	});
 
@@ -231,17 +233,17 @@ slider.oninput = function() {
   document.getElementById("percentage").value = this.value;
 }
 
-//progress bar 색상 채우기
-$('input[type="range"]').on("change mousemove", function () {
-    var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
+// //progress bar 색상 채우기
+// $('input[type="range"]').on("change mousemove", function () {
+//     var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
 
-    $(this).css('background-image',
-                '-webkit-gradient(linear, left top, right top, '
-                + 'color-stop(' + val + ', rgb(107, 191, 152)), '
-                + 'color-stop(' + val + ', #d3d3db)'
-                + ')'
-                );
-});
+//     $(this).css('background-image',
+//                 '-webkit-gradient(linear, left top, right top, '
+//                 + 'color-stop(' + val + ', rgb(107, 191, 152)), '
+//                 + 'color-stop(' + val + ', #d3d3db)'
+//                 + ')'
+//                 );
+// });
 </script>
 
 </body>

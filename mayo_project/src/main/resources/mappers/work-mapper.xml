@@ -20,6 +20,7 @@
 <!-- 	private String proj_filename; -->
 <!-- 	private String proj_original_filename; -->
 <!-- 	private int work_no; -->
+
 <resultMap type="Project" id="Project">
 	<result column="PROJ_NAME" property="proj_name"/>
 </resultMap>
@@ -28,7 +29,7 @@
 	<result column="EMP_NAME" property="emp_name"/>
 </resultMap>
 
-<resultMap type="WorkFile" id="WorkFile">
+<resultMap type="ProjFile" id="ProjFile">
 	<result column="FILE_NO" property="file_no"/>
 	<result column="PROJ_FILE_PATH" property="proj_file_path"/>
 	<result column="PROJ_FILENAME" property="proj_filename"/>
@@ -48,7 +49,7 @@
 	<result column="WORK_STATUS" property="work_status"/>
 	<result column="WORK_DATE" property="work_date"/>
 	<collection property="Project" resultMap="Project"/>
-	<collection property="WorkFile" resultMap="WorkFile"/>
+	<collection property="ProjFile" resultMap="ProjFile"/>
 	<collection property="Employee" resultMap="Employee"/>
 </resultMap>
 
@@ -80,9 +81,21 @@
 <!-- 새 업무 글 작성 -->
 <insert id="insertWork" parameterType="Work"> 
 <!-- 작성자 수정, -->
-	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
+<!--
+ 	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
 	#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
 	#{work_progress}, #{isemergency}, #{work_status}, default)
+ -->
+ 	insert all
+ 	into work_board 
+ 		values (work_no, #{proj_no},
+				#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
+				#{work_progress}, #{isemergency}, #{work_status}, default)
+	<foreach collection="projfilelist" item="projfile" index="idx">
+	into project_file
+		values (file_no+#{idx}, #{projfile.proj_file_path}, default, #{projfile.proj_original_filename}, work_no)
+	</foreach>
+	select (select nvl(max(work_no),0)+1 from work_board) work_no, (select nvl(max(file_no),0)+1 from project_file) file_no from dual
 </insert>
 
 <!-- 첨부파일 -->
@@ -106,7 +119,7 @@
 
 <!-- 업무 글 삭제 -->
 <delete id="deleteWork">
-	delete from work_board where work_no = #{work_no}
+	delete from work_board where work_no=#{work_no}
 </delete>
 
 </mapper>

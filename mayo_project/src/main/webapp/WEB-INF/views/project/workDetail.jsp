@@ -62,9 +62,9 @@
 							id="clip"
 							src="<%=request.getContextPath()%>/resources/images/clip.png"
 							alt="첨부파일"></label>  
-						<c:forEach var="file" items="${article.fileInfos}">                                            
-<%-- 								<li>${file.originFile}<a href="#" class="filedown" sfolder="${file.saveFolder}" sfile="${file.saveFile}" ofile="${file.originFile}">[다운로드]</a> <img src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                         --%>
-						</c:forEach>
+<%--  						<c:forEach var="file" items="${article.fileInfos}">                                              --%>
+<%-- 							<li>${file.originFile}<a href="#" class="filedown" sfolder="${file.saveFolder}" sfile="${file.saveFile}" ofile="${file.originFile}">[다운로드]</a> <img src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                         --%>
+<%-- 					</c:forEach> --%>
 					</div>
 					<div class="mb-3">
 						<textarea class="form-control" id="content"
@@ -77,7 +77,7 @@
 </c:if>
 
 
-<!-- 		<!--  업무 수정 모달창 --> -->
+		<!--  업무 수정 모달창 -->
 <!-- <div class="modal fade modal-lg" id="updateWork" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static"> -->
 <!--   <div class="modal-dialog"> -->
 <!--     <div class="modal-content"> -->
@@ -141,13 +141,13 @@
 <!-- </div> -->
 <script>
 
-   //file download    
-$('.filedown').click(function() {        
-	alert("원본 :  " + $(this).attr('ofile') + "      실제 :  " + $(this).attr('sfile'));        
-	$(document).find('[name="sfolder"]').val($(this).attr('sfolder'));        
-	$(document).find('[name="ofile"]').val($(this).attr('ofile'));        
-	$(document).find('[name="sfile"]').val($(this).attr('sfile'));        
-	$('#downform').attr('action', '${root}/article/download').attr('method', 'get').submit();    });
+//    //file download    
+// $('.filedown').click(function() {        
+// 	alert("원본 :  " + $(this).attr('ofile') + "      실제 :  " + $(this).attr('sfile'));        
+// 	$(document).find('[name="sfolder"]').val($(this).attr('sfolder'));        
+// 	$(document).find('[name="ofile"]').val($(this).attr('ofile'));        
+// 	$(document).find('[name="sfile"]').val($(this).attr('sfile'));        
+// 	$('#downform').attr('action', '${root}/article/download').attr('method', 'get').submit();    });
 
 // progress bar 색상 채우기
 	$('input[type="range"]').on("change mousemove", function () {
@@ -212,7 +212,6 @@ $('.filedown').click(function() {        
 
 	// 진행률 변경하기
 	$(".dprogress").click(function() {
-		console.log("ㅎㅇ");
 		console.log($(this).val());
 		var slider = $(this).val();
 		var outputOrigin = $(this).next().val();

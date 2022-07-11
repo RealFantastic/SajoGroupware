@@ -2,6 +2,7 @@ package com.group.mayo.work.domain;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -32,10 +33,8 @@ public class Work {
 	private int work_status;
 	private Timestamp work_date;
 	private String proj_name;
-	private int file_no;
-	private String proj_file_path;
- 	private String proj_filename;
- 	private String proj_original_filename;
+	
+	private List<ProjFile> projfilelist;
  	
  	
  	@Override
@@ -43,42 +42,17 @@ public class Work {
 		return "Work [work_no=" + work_no + ", proj_no=" + proj_no + ", work_title=" + work_title + ", work_content="
 				+ work_content + ", work_mgr=" + work_mgr + ", work_start_date=" + work_start_date + ", work_deadline="
 				+ work_deadline + ", work_progress=" + work_progress + ", isemergency=" + isemergency + ", work_status="
-				+ work_status + ", work_date=" + work_date + ", proj_name=" + proj_name + ", file_no=" + file_no
-				+ ", proj_file_path=" + proj_file_path + ", proj_filename=" + proj_filename
-				+ ", proj_original_filename=" + proj_original_filename + "]";
+				+ work_status + ", work_date=" + work_date + ", proj_name=" + proj_name + ", projfilelist="
+				+ projfilelist + "]";
 	}
 
-	public int getFile_no() {
-		return file_no;
-	}
-
-	public String getProj_file_path() {
-		return proj_file_path;
-	}
-
-	public String getProj_filename() {
-		return proj_filename;
-	}
-
-	public String getProj_original_filename() {
-		return proj_original_filename;
-	}
-
-	public void setFile_no(int file_no) {
-		this.file_no = file_no;
-	}
-
-	public void setProj_file_path(String proj_file_path) {
-		this.proj_file_path = proj_file_path;
-	}
-
-	public void setProj_filename(String proj_filename) {
-		this.proj_filename = proj_filename;
-	}
-
-	public void setProj_original_filename(String proj_original_filename) {
-		this.proj_original_filename = proj_original_filename;
-	}
+	public List<ProjFile> getProjfilelist() {
+ 		return projfilelist;
+ 	}
+ 	
+ 	public void setProjfilelist(List<ProjFile> projfilelist) {
+ 		this.projfilelist = projfilelist;
+ 	}
 	
 	public String getProj_name() {
 		return proj_name;

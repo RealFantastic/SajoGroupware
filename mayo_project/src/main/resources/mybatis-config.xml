@@ -16,7 +16,7 @@
 	<typeAlias type="com.group.mayo.employee.domain.HolidayEmployee" alias="HolidayEmployee"/>
 	<typeAlias type="com.group.mayo.approval.domain.EapDomain" alias="Eap"/>
 	<typeAlias type="com.group.mayo.job.domain.Job" alias="Job"/>
-	<typeAlias type="com.group.mayo.work.domain.WorkFile" alias="WorkFile"/>
+	<typeAlias type="com.group.mayo.work.domain.ProjFile" alias="ProjFile"/>
 	<typeAlias type="com.group.mayo.eaform.domain.EaForm" alias="EaForm"/>
 	<typeAlias type="com.group.mayo.schedule.domain.Schedule" alias="Schedule"/>
 </typeAliases>

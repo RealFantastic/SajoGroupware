@@ -29,7 +29,7 @@ public class AdviceLog {
 		logger.info("▶▶▶[" + pjp.getThis() + " : " + pjp.getSignature().getName() + "]");
 		Object[] args = pjp.getArgs();
 		for(int i = 0; i < args.length; i++) {
-			logger.debug("\t▶▶args["+i+"]" + args[i]);
+			logger.info("\t▶▶args["+i+"]" + args[i]);
 		}
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
@@ -52,7 +52,7 @@ public class AdviceLog {
 		
 		Object[] args = pjp.getArgs();
 		for(int i = 0; i < args.length; i++) {
-			logger.debug("\t▶▶args["+i+"]" + args[i]);
+			logger.info("\t▶▶args["+i+"]" + args[i]);
 		}
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
@@ -73,7 +73,7 @@ public class AdviceLog {
 		
 		Object[] args = pjp.getArgs();
 		for(int i = 0; i < args.length; i++) {
-			logger.debug("\t▶▶args["+i+"]" + args[i]);
+			logger.info("\t▶▶args["+i+"]" + args[i]);
 		}
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
