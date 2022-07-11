@@ -88,11 +88,12 @@
             	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
           	</div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3" id="loca">
           	위치
           	<button id="location" class="btn_yellow">추가</button>
 <!--           	<input type="text" id="keyword"> -->
 <!--           	<button type="button" id="searchL" class="btn_yellow">검색</button> -->
+<!--           		<div class="result"> 결과 </div> -->
           	<div class="map_wrap" style="display:hidden;">
 			    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 			
@@ -125,24 +126,26 @@
 	</div>
 <script>
 	// 카카오 장소 검색
-// 	$("#searchL").click(function(){
+	$("#searchL").click(function(){
 		
-// 	var keyword = $("#keyword").val();
-// 	console.log(keyword);
+	var keyword = $("#keyword").val();
+	console.log(keyword);
 	
-// 	$.ajax({
-// 		type:"GET",
-// 		url:"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=10&sort=accuracy&query="+keyword,
-// 		headers:{'Authorization': 'KakaoAK a097dfbe0416b9a6084371be6b22c6c1'},
-// 		success: function(data){
-// 			console.log(data);
-// 		},
-// 		error: function(e){
-// 			console.log(e);
-// 		}
-// 	});
+	$.ajax({
+		type:"GET",
+		url:"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=10&sort=accuracy&query="+keyword,
+		headers:{'Authorization': 'KakaoAK a097dfbe0416b9a6084371be6b22c6c1'},
+		success: function(data){
+			console.log(data);
+			var html="<span>"+data+"<span>";
+			$(".result").append(html);
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
 
-// 	});
+	});
 	
 	
 	// 카카오 지도
@@ -154,7 +157,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
-
+    
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
@@ -164,18 +167,30 @@ var ps = new kakao.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-// 키워드로 장소를 검색합니다
-searchPlaces();
+// 클릭 이벤트
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+    var latlng = mouseEvent.latLng; // 지도 좌표
+    alert('click! ' + latlng.toString());
+});
 
+//마커 객체에 사용자 이벤트를 등록한다
+kakao.maps.event.addListener(marker, 'custom_action', function(data){ // 지도, 이벤트 이름, 이벤트를 처리할 함수
+	console.log(data + '가 발생했습니다.');
+});
+
+// 마커 객체에 등록한 사용자 이벤트를 발생시킨다
+kakao.maps.event.trigger(marker, 'custom_action', '사용자 이벤트'); // 사용자 이벤트가 발생했습니다.
+	
+// 키워드로 장소를 검색합니다
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
     var keyword = document.getElementById('keyword').value;
 
-//     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-//         alert('키워드를 입력해주세요!');
-//         return false;
-//     }
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( keyword, placesSearchCB); 
@@ -187,7 +202,7 @@ function placesSearchCB(data, status, pagination) {
 
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
-        displayPlaces(data);
+        displayPlaces(data); 
 
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
@@ -234,12 +249,12 @@ function displayPlaces(places) {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', function() {
+        (function(marker, title, ad) {
+            kakao.maps.event.addListener(marker, 'mouseover', function() { // 마우스 커서 올렸을 때 
                 displayInfowindow(marker, title);
             });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
+            kakao.maps.event.addListener(marker, 'mouseout', function() { // 마우스 커서가 마커에서 벗어날을 때
                 infowindow.close();
             });
 
@@ -268,7 +283,7 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+                '<div class="info info_'+(index+1)+'" onclick="selectInfo()">' +
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
@@ -283,8 +298,16 @@ function getListItem(index, places) {
 
     el.innerHTML = itemStr;
     el.className = 'item';
-
+	
+    console.log(el);
     return el;
+}
+
+// 정보 영역 클릭하면 장소 선택되어짐
+function selectInfo(palces){	
+	var info = $(".info_1").text();
+	console.log(info);
+	$("#loca").append("<div>"+info+"</div>");
 }
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다

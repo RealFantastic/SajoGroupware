@@ -1,9 +1,12 @@
 package com.group.mayo.work.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.group.mayo.common.FileUpload;
+import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.work.domain.ProjFile;
 import com.group.mayo.work.domain.Work;
@@ -52,8 +56,19 @@ public class WorkController {
 	@PostMapping("/insert") // 새 업무 글 등록
 	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr
 			, @RequestParam(name="uploadfile", required = false) List<MultipartFile> uploadfiles
+			, @RequestParam(name="work_pic", required=false) String work_pic
+			, HttpSession session
 			, HttpServletRequest req) {
 
+		// 로그인 세션 불러오기
+		Employee employee = (Employee)session.getAttribute("loginSsInfo");
+		if (employee == null) {
+			mv.setViewName("redirect:/member/login");
+			return mv;
+		}
+		// 로그인 아이디 저장 
+		work.setWork_mgr(employee.getEmp_no());
+		
 		// 첨부파일있다면 첨부파일 저장
 		List<ProjFile> projfilelist = new ArrayList<ProjFile>();
 		for(int i=0; i< uploadfiles.size(); i++) {
@@ -69,6 +84,9 @@ public class WorkController {
 			}
 		}
 		work.setProjfilelist(projfilelist);
+		
+		// 담당자가 있으면 담당자 추가
+		
 		
 		int result = service.insertWork(work);
 		//

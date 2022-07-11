@@ -41,12 +41,6 @@ public interface WorkService {
 	public int insertWork(Work work);
 	
 	/**
-	 * @param work 첨부파일
-	 * @return 
-	 */
-	public int insertFile(Work work);
-	
-	/**
 	 * @param work 업무 글 수정 내용
 	 * @return 수정된 업무 글 개수
 	 */

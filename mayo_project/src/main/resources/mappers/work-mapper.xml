@@ -42,6 +42,7 @@
 	<result column="PROJ_NO" property="proj_no"/>
 	<result column="WORK_TITLE" property="work_title"/>
 	<result column="WORK_CONTENT" property="work_content"/>
+	<result column="WORK_MGR" property="work_mgr"/>
 	<result column="WORK_START_DATE" property="work_start_date"/>
 	<result column="WORK_DEADLINE" property="work_deadline"/>
 	<result column="WORK_PROGRESS" property="work_progress"/>
@@ -80,30 +81,12 @@
 
 <!-- 새 업무 글 작성 -->
 <insert id="insertWork" parameterType="Work"> 
-<!-- 작성자 수정, -->
-<!--
- 	insert into work_board values ((select nvl(max(work_no),0)+1 from work_board), #{proj_no},
-	#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
-	#{work_progress}, #{isemergency}, #{work_status}, default)
- -->
- 	insert all
- 	into work_board 
- 		values (work_no, #{proj_no},
-				#{work_title}, #{work_content}, 202220123, #{work_start_date}, #{work_deadline},
-				#{work_progress}, #{isemergency}, #{work_status}, default)
-	<foreach collection="projfilelist" item="projfile" index="idx">
-	into project_file
-		values (file_no+#{idx}, #{projfile.proj_file_path}, default, #{projfile.proj_original_filename}, work_no)
-	</foreach>
-	select (select nvl(max(work_no),0)+1 from work_board) work_no, (select nvl(max(file_no),0)+1 from project_file) file_no from dual
-</insert>
-
-<!-- 첨부파일 -->
-<insert id="insertFile" parameterType="Work">
-	<selectKey resultType="_int" keyProperty="work_no" order="BEFORE">
-		select nvl(max(work_no),0)+1 from work_board
-	</selectKey>
-	insert into project_file values ((select nvl(max(file_no),0)+1) from project_file), default, #{proj_filename},#{proj_original_filename},#{work_no})
+    insert all
+    into work_board values (max_work_no, #{proj_no}, #{work_title}, #{work_content}, #{work_mgr} , #{work_start_date}, #{work_deadline}, #{work_progress}, #{isemergency}, #{work_status}, default)
+   <foreach collection="projfilelist" item="projfile" index="idx">
+   into project_file values (max_file_no+#{idx}, #{projfile.proj_file_path}, #{projfile.proj_original_filename}, max_work_no)
+   </foreach>
+   select (select nvl(max(work_no),0)+1 from work_board ) as max_work_no, (select nvl(max(file_no),0)+1 from project_file) as max_file_no from dual
 </insert>
 
 <!-- 업무 상태 수정 -->

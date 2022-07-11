@@ -33,6 +33,7 @@ public class Work {
 	private int work_status;
 	private Timestamp work_date;
 	private String proj_name;
+	private String work_pic;
 	
 	private List<ProjFile> projfilelist;
  	
