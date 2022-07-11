@@ -37,6 +37,11 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
+	public int insertFile(Work work) {
+		return dao.insertFile(work);
+	}
+	
+	@Override
 	public int updateWork(Work work) {
 		return dao.updateWork(work);
 	}
@@ -55,6 +60,6 @@ public class WorkServiceImpl implements WorkService{
 	public int selectCnt(String proj_no) {
 		return dao.selectCnt(proj_no);
 	}
-	
+
 	
 }

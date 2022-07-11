@@ -17,6 +17,7 @@
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -222,15 +223,25 @@ $(function(){
 });
 
 // 프로그래스 바 값 가져오기
-var slider = document.getElementsByClass("progress");
-var output = document.getElementsByClass("percentage");
+var slider = document.getElementById("progress");
+var output = document.getElementById("percentage");
 output.value = slider.value;
 
 slider.oninput = function() {
-  document.getElementsByClass("percentage").value = this.value;
-  
+  document.getElementById("percentage").value = this.value;
 }
 
+//progress bar 색상 채우기
+$('input[type="range"]').on("change mousemove", function () {
+    var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
+
+    $(this).css('background-image',
+                '-webkit-gradient(linear, left top, right top, '
+                + 'color-stop(' + val + ', rgb(107, 191, 152)), '
+                + 'color-stop(' + val + ', #d3d3db)'
+                + ')'
+                );
+});
 </script>
 
 </body>

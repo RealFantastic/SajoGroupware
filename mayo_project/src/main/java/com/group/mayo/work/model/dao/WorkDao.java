@@ -38,6 +38,10 @@ public class WorkDao {
 		return sqlSession.insert("Work.insertWork", work);
 	}
 	
+	public int insertFile(Work work) {
+		return sqlSession.insert("Work.insertFile", work);
+	}
+	
 	public int updateWork(Work work) {
 		return sqlSession.update("Work.updateWork", work);
 	}

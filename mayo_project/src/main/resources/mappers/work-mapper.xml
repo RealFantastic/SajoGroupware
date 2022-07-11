@@ -77,11 +77,6 @@
 	select count(*) from work_board where proj_no=#{proj_no}
 </select>
 
-<!-- 수정예정 -->
-<select id="selectWorkNo" parameterType="Work">
-	select nvl(max(work_no),0)+1 from dual)
-</select>
-
 <!-- 새 업무 글 작성 -->
 <insert id="insertWork" parameterType="Work"> 
 <!-- 작성자 수정, -->
@@ -90,8 +85,12 @@
 	#{work_progress}, #{isemergency}, #{work_status}, default)
 </insert>
 
+<!-- 첨부파일 -->
 <insert id="insertFile" parameterType="Work">
-	insert into project_file values ()
+	<selectKey resultType="_int" keyProperty="work_no" order="BEFORE">
+		select nvl(max(work_no),0)+1 from work_board
+	</selectKey>
+	insert into project_file values ((select nvl(max(file_no),0)+1) from project_file), default, #{proj_filename},#{proj_original_filename},#{work_no})
 </insert>
 
 <!-- 업무 상태 수정 -->

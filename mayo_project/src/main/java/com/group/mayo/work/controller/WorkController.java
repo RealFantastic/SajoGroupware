@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.group.mayo.common.FileUpload;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.work.domain.Work;
 import com.group.mayo.work.model.service.WorkService;
@@ -30,6 +31,9 @@ public class WorkController {
 	private ProjectService projService;
 	@Autowired
 	private WorkService service;
+	
+	@Autowired
+	private FileUpload commonFile;
 	
 	@PostMapping("/detail") // 업무 리스트 불러오기
 	public ModelAndView detailWork(ModelAndView mv, @RequestParam("proj_no") String proj_no){
@@ -48,17 +52,18 @@ public class WorkController {
 			, @RequestParam(name="uploadfile", required = false) MultipartFile uploadfile
 			, HttpServletRequest req) {
 
-//		// 첨부파일있다면 첨부파일 저장
-//		if(uploadfile !=null) {
-//			String rename_filename = commonFile.saveFile(uploadfile, req);
-//			if(rename_filename != null) {
-//				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
-//				work.setProj_original_filename(uploadfile.getOriginalFilename());
-//				work.setProj_filename(rename_filename);
-//			}
-//		}
-		
 		int result = service.insertWork(work);
+		
+		// 첨부파일있다면 첨부파일 저장
+		if(uploadfile !=null) {
+			String rename_filename = commonFile.saveFile(uploadfile, req);
+			if(rename_filename != null) {
+				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+				work.setProj_original_filename(uploadfile.getOriginalFilename());
+				work.setProj_filename(rename_filename);
+			}
+			
+		}
 		
 		if(result <= 0) {
 			System.out.println("업무 등록 실패 ㅠㅠ");
