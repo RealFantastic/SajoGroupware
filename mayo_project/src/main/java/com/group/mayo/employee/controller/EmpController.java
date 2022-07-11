@@ -215,16 +215,29 @@ public class EmpController {
 		
 //		암호화 employee.setPasswd(pwdEncoding.encode(employee.getPasswd()));
 		Employee result = service.selectLogin(employee);
+		if(session.getAttribute("emp_no") != null) {
+			session.removeAttribute("emp_no");
+		}
+		
 		if(result == null) {
 			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
 			mv.setViewName("redirect:/member/login");
 			return mv;
-		} 
-	
+		} else {
 		session.setAttribute("loginSsInfo", result);
 		rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
 		//TODO 메인페이지 연결
 		mv.setViewName("redirect:/");
+		}
+		return mv;
+	}
+	
+	//로그아웃
+	@RequestMapping("/logout")
+	public ModelAndView logout(ModelAndView mv,
+			HttpSession session){
+		session.removeAttribute("loginSsInfo");
+		mv.setViewName("redirect:/member/login");
 		return mv;
 	}
 	//아이디 중복 체크

@@ -14,7 +14,7 @@
     background-color: white;
     padding: 25px;
     width: 1000px;
-    height: 690px;
+    height: 800px;
 
     /* 가운데 정렬 */
     margin: 0 auto;
@@ -98,6 +98,9 @@
 	display: block;
 	float: left;	
 }
+#j_emp_phone{
+	width: 100%
+}
 
 /*  div 간격 */
 #j_dept,#j_job{
@@ -142,4 +145,16 @@
 }
 #email_check_no{
     width: 25%;
+}
+#sample6_postcode{
+	width: 35%;
+}
+#sample6_address{
+	width:75%;
+}
+#sample6_detailAddress{
+	width: 40%;
+}
+#phone{
+	width: 65%;
 }

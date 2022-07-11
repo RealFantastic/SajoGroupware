@@ -181,7 +181,7 @@
                             <label>인증번호 : </label>
                             <input type="text" id="email_check_no" disabled required>
                             <button type="button" id="email_check_btn" class="doubleChk">인증</button>
-							<span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span>
+<!-- 							<span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span> -->
 							<input type="hidden" id="emailDoubleChk"/>
                             <br><font class="feedback" size ="2"></font>
                         </div>
@@ -196,17 +196,17 @@
                         <div class="j_e">
                             <label style="font-size: larger;">주소</label>
                         </div>
-                        <div class="j_e">
-                            <div>
+                        <div >
+                            <div class="j_e">
                                 <label>우편번호 : </label>
                                 <input type="text" id="sample6_postcode" placeholder="우편번호" name="emp_postcode">
                                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                             </div>
-                            <div>
+                            <div class="j_e" style=" width: 100%;">
                                 <label>주소 : </label>
                                 <input type="text" id="sample6_address" placeholder="주소" name="address"><br>                        
                             </div>
-                            <div>
+                            <div class="j_e">
                                 <label for="sample6_detailAddress">상세주소 : </label>
                                 <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="detail_address">
                           	    <input type="text" id="sample6_extraAddress" placeholder="참고항목" 
@@ -287,13 +287,14 @@
 			$("#password").val("");
 			$("#password_chk").val("");
 			$("#password").focus();
-			return false;
-		}
+			return ;
+		}else{
 		
     	var frm = $("#emp_enroll");
 		frm.attr("action","<%=request.getContextPath()%>/member/enroll"); 
 		frm.attr("method","post");
 		frm.submit();
+		}
     });	
     </script>
     
