@@ -787,6 +787,12 @@ ALTER TABLE PROJECT_PIC ADD CONSTRAINT PROJ_PIC_PK PRIMARY KEY ( EMP_NO, PROJ_NO
 
 ALTER TABLE WORK_PIC ADD CONSTRAINT WORK_PIC_PK PRIMARY KEY ( WORK_NO, WORK_PIC_ID);
 
+alter table project_file drop column PROJ_FILENAME;
+
+alter table project_file drop constraint FK_WORK_BOARD_TO_PROJ_FILE;
+
+alter table project_file add constraint FK_WORK_BOARD_TO_PROJ_FILE foreign key (work_no)
+    references work_board (work_no) on delete cascade;
 
 
 
