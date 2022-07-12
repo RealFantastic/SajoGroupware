@@ -794,18 +794,27 @@ alter table project_file drop constraint FK_WORK_BOARD_TO_PROJ_FILE;
 alter table project_file add constraint FK_WORK_BOARD_TO_PROJ_FILE foreign key (work_no)
     references work_board (work_no) on delete cascade;
 
+alter table Attendees drop constraint FK_EMP_TO_ATTENDEES;
+alter table Attendees add constraint FK_EMP_TO_ATTENDEES foreign key (emp_no)
+    references employee (emp_no) on delete cascade;
 
+alter table Attendees drop constraint FK_SCHEDULE_TO_ATTENDEES;
+alter table Attendees add constraint FK_SCHEDULE_TO_ATTENDEES foreign key (schedule_no)
+    references schedule (sked_no) on delete cascade;
 
+alter table project_pic drop constraint FK_EMP_TO_PROJ_PIC;
+alter table project_pic add constraint FK_EMP_TO_PROJ_PIC foreign key (emp_no)
+    references employee (emp_no) on delete cascade;
 
+alter table project_pic drop constraint FK_PROJ_TO_PROJ_PIC;
+alter table project_pic add constraint FK_PROJ_TO_PROJ_PIC foreign key (proj_no)
+    references proj (proj_no) on delete cascade;
 
+alter table work_pic drop constraint FK_WORK_BOARD_TO_WORK_PIC;
+alter table work_pic add constraint FK_WORK_BOARD_TO_WORK_PIC foreign key (work_no)
+    references work_board (work_no) on delete cascade;
 
-
-
-
-
-
-
-
+commit;
 
 
 
