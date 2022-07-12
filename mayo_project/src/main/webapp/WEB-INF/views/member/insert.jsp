@@ -76,11 +76,6 @@
         }
     </script>
     
-    <script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
-	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
-	<!-- JSTree -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 		    
 </head>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -171,7 +166,7 @@
                                 <option value="kakao.com">kakao.com</option>
                                 <option value="direct">직접입력</option>
                               </select>
-                              <button id="emailChk_send_btn" name="emailChk_send_btn">인증번호 보내기</button>
+                              <button type="button" id="emailChk_send_btn" name="emailChk_send_btn">인증번호 보내기</button>
                               <input type="hidden" id="totalemail" name="email" value="">
                             </div>
                             <br><font class="feedback" size ="2"></font>
@@ -181,7 +176,7 @@
                             <label>인증번호 : </label>
                             <input type="text" id="email_check_no" disabled required>
                             <button type="button" id="email_check_btn" class="doubleChk">인증</button>
-<!-- 							<span class="point successEmailChk">이메일 입력후 인증번호 보내기를 해주십시오.</span> -->
+ 							<p class="point successEmailChk">이메일 입력후 인증번호 인증 해주십시오.</p>
 							<input type="hidden" id="emailDoubleChk"/>
                             <br><font class="feedback" size ="2"></font>
                         </div>
@@ -455,6 +450,22 @@
 	        	}
 	        }
 	    });
+	});
+	</script>
+	<!-- 이메일 인증번호 대조  -->
+	<script type="text/javascript">
+		$("#email_check_btn").click(function(){
+		if($("#email_check_no").val() == code){
+			$(".successEmailChk").text("인증번호가 일치합니다.");
+			$(".successEmailChk").css("color","green");
+			$("#emailDoubleChk").val("true");
+			$("#email_check_no").attr("disabled",true);
+		}else{
+			$(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
+			$(".successEmailChk").css("color","red");
+			$("#emailDoubleChk").val("false");
+			$("#email_check_no").attr("autofocus",true);
+		}
 	});
 	</script>
     <!--사업자 번호 하이픈 정규식 DOM  -->

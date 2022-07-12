@@ -171,8 +171,6 @@ public class EmpController {
 	}
 	@PostMapping("/enroll")
 	public ModelAndView insert(ModelAndView mv
-//			, @RequestParam(name="title", defaultValue = "aaa") String t1
-//			, @RequestParam(name="title", required = false) String t1
 			, RedirectAttributes rttr
 			, Employee employee
 			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
@@ -300,4 +298,47 @@ public class EmpController {
 	     }
 	     return num;
 	 }
+	 @RequestMapping(value = "/inviteMail", method = RequestMethod.GET)
+	 @ResponseBody
+	 public String mailCheck(
+			 @RequestParam("email") String totalemail
+			 ,@RequestParam("cp_number") int cp_number
+			 ) throws Exception{
+	     
+	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
+	     String to = totalemail;
+	     String title = "[MAYO 그룹웨어] 회원가입을 해주세요! ";
+	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요.";
+	     String domain = "";
+	     try {
+	     	 MimeMessage mail = mailSender.createMimeMessage();
+	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+	         
+	         mailHelper.setFrom(from);
+	         mailHelper.setTo(to);
+	         mailHelper.setSubject(title);
+	         mailHelper.setText(content, true);       
+	         
+	         mailSender.send(mail);
+	         domain = Integer.toString(cp_number);
+	         
+	     } catch(Exception e) {
+	    	 domain = "error";
+	     }
+	     return domain;
+	 }
+		@RequestMapping(value = "invite", method = RequestMethod.GET)
+		public ModelAndView pageinvite(ModelAndView mv) {
+			mv.setViewName("member/invite");
+			return mv;
+		}
+		@PostMapping("/invite")
+		public ModelAndView inviteMail(ModelAndView mv
+				, Employee employee
+				, RedirectAttributes rttr
+				, HttpSession session
+				) {
+			
+			return mv;
+		}
 }
