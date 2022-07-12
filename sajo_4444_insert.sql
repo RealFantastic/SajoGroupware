@@ -733,14 +733,6 @@ VALUES
 ('2022-AR-001','인사팀 박정환 휴가신청서','인사팀 박정환 휴가신청서','202210001',DEFAULT
 ,'202210001',DEFAULT,DEFAULT,'AR','N');
 
-DESC EA_FORM;
-
-COMMIT;
-
-SELECT SYSDATE -(TO_NUMBER(TO_CHAR(TO_DATE('22/02/22','YY/MM/DD'),'D'))) FROM DUAL;
-
-SELECT TO_NUMBER(TO_CHAR( TO_DATE('22/02/22','YY/MM/DD'),'D'))-1 FROM DUAL;
-
 select *from commute_record;
 
 select emp_no,emp_name,dept_name,job_name from employee
@@ -748,21 +740,29 @@ join department using(dept_no)
 join job using(job_no)
 where emp_no = '202210001';
 
-
 select * from department left outer join (select dept_no, emp_no,concat(concat(emp_name,' '),job_name) as emp_name from employee join job using(job_no)) using (dept_no);
 
+select 
+    lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) 
+from elec_approval
+where substr(ea_no,6,2) = 'BP';
 
+SELECT 
+TO_CHAR(EXTRACT (YEAR FROM SYSDATE))||'-'||'BP'||'-'||(select lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) from elec_approval where substr(ea_no,6,2) = 'BP')
+FROM ELEC_APPROVAL;
 
+ALTER TABLE ELEC_APPROVAL MODIFY RESULT_CODE DEFAULT 0;
 
+INSERT INTO DEPARTMENT VALUES (40, '기획팀');
+INSERT INTO DEPARTMENT VALUES (50, '회계팀');
+INSERT INTO DEPARTMENT VALUES (60, '개발팀');
+INSERT INTO DEPARTMENT VALUES (70, '마케팅팀');
+INSERT INTO DEPARTMENT VALUES (80, '연구개발팀');
 
-
-
-
-
-
-
-
-
+INSERT INTO JOB VALUES (4, '차장');
+INSERT INTO JOB VALUES (5, '부장');
+INSERT INTO JOB VALUES (6, '이사');
+INSERT INTO JOB VALUES (7, '대표');
 
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------
 
