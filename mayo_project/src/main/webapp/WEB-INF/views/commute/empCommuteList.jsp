@@ -100,9 +100,6 @@
 
 
 
-
-
-
 		<div>
 			<table class="commute_list_table">
 				<colgroup>
@@ -138,7 +135,7 @@
 							<td class="commute_table_list_td">${emp.dept_nm }</td>
 							<td class="commute_table_list_td">${emp.phone }</td>
 							<td class="commute_table_list_td">
-								<button class="btn_yellow" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteSelect'" >
+								<button class="btn_yellow" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteSelect?empNo='+${emp.emp_no}">
 									수정하기
 								</button>
 							</td>

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,85 +9,106 @@
 <meta charset="UTF-8">
 <title>직원근태내역 수정</title>
 
-	<!-- 부트스트랩 -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-	<script 
-		src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
-		crossorigin="anonymous"></script>
-	
-	<!-- J쿼리 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-		crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
-	
-	<!-- 주달력 -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script> <!-- 	날짜 보기 편한 CDN : moment -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
-	
-	<!-- 하이차트 -->
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-	
-	<!-- CSS적용 -->
-	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
-	<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
+<!-- 부트스트랩 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
 
-	<!-- JSTree -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>  <!-- 정환 조직도js -->
+<!-- J쿼리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js"
+	crossorigin="anonymous"></script>
+<!-- 돋보기 -->
+
+<!-- 주달력 -->
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<!-- 	날짜 보기 편한 CDN : moment -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+
+<!-- 하이차트 -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<!-- CSS적용 -->
+<link href="<%=request.getContextPath()%>/resources/css/reset.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/resources/css/template_header.css"
+	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/commute.css"
+	rel="stylesheet">
+
+<!-- JSTree -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
+<!-- 정환 조직도js -->
 
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
-<jsp:include page="/WEB-INF/views/template_left.jsp"/>
+	<jsp:include page="/WEB-INF/views/template_header.jsp" />
+	<jsp:include page="/WEB-INF/views/template_left.jsp" />
 
 
 	<div class="left_bar_exception">
-	
+
 		<div class="commute_title font4">직원근태내역 수정</div>
-		
+
 		<div class="my_pe">
 			<div class="my_info font1">
-				　<br>
-					<div class="font2">　＜인적사항＞<br><br></div>
-				
-				　사원번호 : ${commuteMyInfo.emp_no}　<br><br>
-				　사원명 : ${commuteMyInfo.emp_name }　<br><br>
-				　직함 : ${commuteMyInfo.job_nm }　<br><br>
-				　부서명 : ${commuteMyInfo.dept_nm }　<br>
+				<br>
+				<div class="font2">
+					＜인적사항＞<br>
+					<br>
+				</div>
+
+				사원번호 : ${commuteStaffInfo.emp_no} <br>
+				<br> 사원명 : ${commuteStaffInfo.emp_name } <br>
+				<br> 직함 : ${commuteStaffInfo.job_nm } <br>
+				<br> 부서명 : ${commuteStaffInfo.dept_nm } <br>
 				<!-- 인사팀만 보여지는 버튼 -->
 				<c:if test="${sessionScope.loginSsInfo.dept_no eq 10}">
 					<div class="personnel_button">
-						<button type="button" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteList'" class="btn btn-secondary btn_red" id="personnel">
-							직원별 근태 리스트 보기
-						</button>
+						<button type="button"
+							onclick="location.href='<%=request.getContextPath()%>/commute/empCommuteList'"
+							class="btn btn-secondary btn_red" id="personnel">직원별 근태
+							리스트 보기</button>
 					</div>
-				</c:if><br>
-				　☎ : ${commuteMyInfo.phone }<br>
-				　
-			</div>
-	
+				</c:if>
+				<br> ☎ : ${commuteStaffInfo.phone }<br>
 
-		</div>	
-		
-		
+			</div>
+
+
+		</div>
+
+
 		<div class="chart_week">
 			<div>
-<!-- 		그래프자리 -->
+				<!-- 		그래프자리 -->
 				<div class="chart_chart">
 					<figure class="highcharts-figure">
 						<div id="container"></div>
 					</figure>
-					
+
 					<div id="chart_nodata" style="display: none;">조회된 데이터가 없습니다.</div>
 				</div>
 				<script>
@@ -165,33 +187,32 @@
 			</div>
 
 			<div class="week_box">
-			<!-- 주간달력자리 -->
+				<!-- 주간달력자리 -->
 				<div class="container">
-<!-- 					<div class="jumbotron"> -->
-						<div class="row week-selector">
-							<div class="col-md-8">
-								<div class="form-group clearfix">
-									<div class="week_title font3">
-										<label class="control-label pull-left" for="weekpicker">
-											근태 주간날짜 조회
-										</label>
-									</div>
-									<div class="col-sm-8">
-										<span class="icon-block ">
-											<input type="text" class="form-control" id="weekpicker">
-											<span class="icon-date"></span>
-										</span>
-										<input type="hidden" id="start_dt">
-										<input type="hidden" id="end_dt">	
-										<div class="week-controls">
-											<button id="prevWeek" class="prev-week btn_gray">이전 주</button>
-											<button id="nextWeek" class="next-week btn_gray">다음 주</button>
-										</div>
+					<!-- 					<div class="jumbotron"> -->
+					<div class="row week-selector">
+						<div class="col-md-8">
+							<div class="form-group clearfix">
+								<div class="week_title font3">
+									<label class="control-label pull-left" for="weekpicker">
+										근태 주간날짜 조회 </label>
+								</div>
+								<div class="col-sm-8">
+									<span class="icon-block "> <input type="text"
+										class="form-control" id="weekpicker"> <span
+										class="icon-date"></span>
+									</span> <input type="hidden" id="start_dt"> <input
+										type="hidden" id="end_dt"> <input type="hidden"
+										id="empNo" value="${empNo}">
+									<div class="week-controls">
+										<button id="prevWeek" class="prev-week btn_gray">이전 주</button>
+										<button id="nextWeek" class="next-week btn_gray">다음 주</button>
 									</div>
 								</div>
 							</div>
 						</div>
-<!-- 					</div> -->
+					</div>
+					<!-- 					</div> -->
 				</div>
 				<script type="text/javascript">
 					var startDate;
@@ -262,68 +283,99 @@
 					function selectCommuteList() {
 						$.ajax({
 							type:"post"
-							,url:"<%=request.getContextPath()%>/commute/selectCommuteList"
-							,data:{
-								start_dt : $("#start_dt").val()
-								, end_dt : $("#end_dt").val()
-							}
-							,dataType:"json"
-							,success:function(result){
-			 					
-								//테이블 초기화
-								$('.commute_table > tbody').empty();
-// 								result=JSON.parse(result);
-								var list = result.commuteList;
+							,url:"<%=request.getContextPath()%>/commute/selectEmpCommuteList",
+									data : {
+										start_dt : $("#start_dt").val(),
+										end_dt : $("#end_dt").val(),
+										empNo : $("#empNo").val()
+									},
+									dataType : "json",
+									success : function(result) {
 
-								if(list.length > 0){
-									var str = ""; 
-									list.forEach(function(item){
-										str +="<tr>"
-										str += "<td class='commute_table_list_td'>"+item.wokr_day+"</td>";
-										str += "<td class='commute_table_list_td'>"+item.start_time+"</td>";
-										str += "<td class='commute_table_list_td'>"+item.end_time+"</td>";
-										str += "<td class='commute_table_list_td'>"+item.oneday_work+"</td>";
-										str += "<td class='commute_table_list_td'>"+item.week_work+"</td>";
-										str += "<td class='commute_table_list_td'>"+item.week_work_mod+"</td>";
-										str += "</tr>";
-										
-									})
-									
-								}else{
-									str +="<tr>"
-									str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
-									str += "</tr>";
-								}
-								$('.commute_table > tbody').append(str);
-								console.log(list.length);
-								if(result.chartData != null && result.chartData != ""){
-									$("#chart_nodata").hide();
-									var chatData = result.chartData;
-									var chart = $('#container').highcharts();
-									if(chart){
-										chart.destroy();
+										//테이블 초기화
+										$('.commute_table > tbody').empty();
+										// 								result=JSON.parse(result);
+										var list = result.commuteList;
+
+										if (list.length > 0) {
+											var str = "";
+											list
+													.forEach(function(item) {
+														str += "<tr class='commute_table_tr' onclick='showModal();'>"
+														str += "<td class='commute_table_list_td'>"
+																+ item.wokr_day
+																+ "</td>";
+														str += "<td class='commute_table_list_td'>"
+																+ item.start_time
+																+ "</td>";
+														str += "<td class='commute_table_list_td'>"
+																+ item.end_time
+																+ "</td>";
+														str += "<td class='commute_table_list_td'>"
+																+ item.oneday_work
+																+ "</td>";
+														str += "<td class='commute_table_list_td'>"
+																+ item.week_work
+																+ "</td>";
+														str += "<td class='commute_table_list_td'>"
+																+ item.week_work_mod
+																+ "</td>";
+														str += "</tr>";
+
+													})
+
+										} else {
+											str += "<tr>"
+											str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
+											str += "</tr>";
+										}
+										$('.commute_table > tbody').append(str);
+										console.log(list.length);
+										if (result.chartData != null
+												&& result.chartData != "") {
+											$("#chart_nodata").hide();
+											var chatData = result.chartData;
+											var chart = $('#container')
+													.highcharts();
+											if (chart) {
+												chart.destroy();
+											}
+											createChart(chatData.week_rate,
+													chatData.mod_rate,
+													chatData.week_work,
+													chatData.week_work_mod)
+										} else {
+											var chart = $('#container')
+													.highcharts();
+											if (chart) {
+												chart.destroy();
+											}
+
+											$("#chart_nodata").show();
+										}
+
+									},
+									error : function() {
+										alert("ajax 제대로 동작 못했다. 문제를 찾아라");
 									}
-									createChart(chatData.week_rate, chatData.mod_rate, chatData.week_work, chatData.week_work_mod)
-								}else{
-									var chart = $('#container').highcharts();
-									if(chart){
-										chart.destroy();
-									}
-									
-									$("#chart_nodata").show();
-								}
-								
-								
-							}
-							,error:function(){
-								alert("ajax 제대로 동작 못했다. 문제를 찾아라");
-							}
-						});
+								});
 					}
+		
+		
+		
+					// 	근태리스트 클릭시 모달창 보여짐
+					function showModal(){
+						$('#Modal').modal('show');
+						
+					}
+					// 	모달 취소버튼 클릭 시 
+					$(".modalclose").on("click", function() {
+						$('#Modal').modal('hide');
+					});
 				</script>
 			</div>
 		</div>
-		
+
 
 
 
@@ -339,20 +391,20 @@
 				</colgroup>
 				<thead>
 					<tr class="commute_table_tr">
-						<th class="commute_table_th font2" >근무일</th>
-						<th class="commute_table_th font2" >출근 시간</th>
-						<th class="commute_table_th font2" >퇴근 시간</th>
-						<th class="commute_table_th font2" >일 근무 시간</th>
-						<th class="commute_table_th font2" >주 누적 근무시간</th>
-						<th class="commute_table_th font2" >주 남은 근무시간</th>
+						<th class="commute_table_th font2">근무일</th>
+						<th class="commute_table_th font2">출근 시간</th>
+						<th class="commute_table_th font2">퇴근 시간</th>
+						<th class="commute_table_th font2">일 근무 시간</th>
+						<th class="commute_table_th font2">주 누적 근무시간</th>
+						<th class="commute_table_th font2">주 남은 근무시간</th>
 					</tr>
 				</thead>
-	
+
 				<tbody>
 					<c:if test="${fn:length(commuteMystatus) == 0}">
 						<tr class="no_list">
 							<!-- 	보여질 내역이 없을 경우 -->
-							<td colspan='6'> 조회된 내용이 없습니다.</td>
+							<td colspan='6'>조회된 내용이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="commute" items="${commuteMystatus}">
@@ -367,48 +419,40 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			<script type="text/javascript">
-// 			근태리스트 클릭시 모달창 보여짐
-				$(document).on("clikc", ".commute_table_tr",function(e){
-					$('#Modal').modal('show');
-				})
-// 				모달창취소
-				// 	모달 취소버튼 클릭 시
-				$(".modalclose").on("click", function(){
-					$('#Modal').modal('hide');
-				});
-				
-				$(".delmodalclose").on("click", function(){
-					$('#delcalendarModal').modal('hide');
-				});
-			</script>
-<!-- 			모달창 -->
-					<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">근태수정</h5>
-								</div>
-<%-- 								<form id="aaa" action="<%=request.getContextPath()%>/" method="post"> --%>
-									<div class="modal-body">
-<!-- 										<div class="form-group"> -->
-<!-- 											<label for="taskId" class="col-form-label">일정 내용</label>  -->
-<!-- 											<input type="text" class="form-control" id="calendar_content" name="calendar_content">  -->
-<!-- 											<label for="taskId" class="col-form-label">시작 날짜</label>  -->
-<!-- 											<input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">  -->
-<!-- 											<label for="taskId" class="col-form-label">종료 날짜</label>  -->
-<!-- 											<input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date"> -->
-<!-- 										</div> -->
-									</div>
-								<div class="modal-footer">
-<!-- 									<button type="submit" class="btn btn-warning" id="addCalendar">완료</button> -->
-<!-- 									<button type="button" class="btn btn-secondary modalclose" data-dismiss="modal" id="sprintSettingModalClose">취소</button> -->
-								</div>
-<!-- 									</form> -->
-							</div>
+
+
+			<!-- 모달창 -->
+			<div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">근태수정</h5>
 						</div>
+						<form id="aaa" action="<%=request.getContextPath()%>/"
+							method="post">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="taskId" class="col-form-label">일정 내용</label> <input
+										type="text" class="form-control" id="calendar_content"
+										name="calendar_content"> <label for="taskId"
+										class="col-form-label">시작 날짜</label> <input type="date"
+										class="form-control" id="calendar_start_date"
+										name="calendar_start_date"> <label for="taskId"
+										class="col-form-label">종료 날짜</label> <input type="date"
+										class="form-control" id="calendar_end_date"
+										name="calendar_end_date">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-warning" id="addCalendar">완료</button>
+								<button type="button" class="btn btn-secondary modalclose"
+									data-dismiss="modal" id="sprintSettingModalClose">취소</button>
+							</div>
+						</form>
 					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

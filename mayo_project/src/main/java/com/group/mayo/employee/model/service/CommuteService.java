@@ -67,6 +67,9 @@ public interface CommuteService {
 	 */
 	public List<CommuteEmployee>empCommuteList();
 
+
+
+//	인사팀 - 직원개인정보
 	/**
 	 * @return 검색결과 : 사원번호, 사원명, 직함, 부서명, 연락처
 	 * @author hong
@@ -82,6 +85,7 @@ public interface CommuteService {
 	 * @author hong
 	 */
 	public List<CommuteRecord>empCommuteChange();
+
 
 
 

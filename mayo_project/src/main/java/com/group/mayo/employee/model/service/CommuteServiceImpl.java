@@ -85,8 +85,11 @@ public class CommuteServiceImpl implements CommuteService{
 
 
 
-
-//	인사팀 - 직원근태 상세 - 수정
+//	인사팀 - 직원근태 상세
+	//	직원 개인정보
+	
+	
+	//	출퇴근 수정
 	@Override
 	public List<CommuteRecord> empCommuteChange() {
 		return dao.empCommuteChange();
