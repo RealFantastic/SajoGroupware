@@ -764,9 +764,32 @@ INSERT INTO JOB VALUES (5, '부장');
 INSERT INTO JOB VALUES (6, '이사');
 INSERT INTO JOB VALUES (7, '대표');
 
+-- 내가 상신한 문서
+SELECT * FROM ELEC_APPROVAL WHERE DRAFTER_ID = '202210001' AND RESULT_CODE=0 ORDER BY DRAFT_DATE DESC;
+-- 내가 결재 차례가 된 문서
+SELECT * FROM ELEC_APPROVAL;
+-- 결재 순서 상관없이 결재자에 내가 있는 문서
+
+-- 
+SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
+(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0)
+from
+( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%AR%' )
+)
+from dual
+;
+SELECT min(ea_title) FROM ELEC_APPROVAL
+;
+--SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) from elec_approval where substr(ea_no,6,2) = 'AR') FROM ELEC_APPROVAL;
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------
-
-
+--
+-- Preparing: insert into elec_approval 
+-- (EA_NO, EA_TITLE, EA_CONTENT, DRAFTER_ID, DRAFT_DATE,FIRST_APPROVER,SECOND_APPROVER,THIRD_APPROVER , FINAL_APPROVER,STATUS_CODE,RESULT_CODE, FORM_CODE, ISEMERGENCY)
+-- values 
+-- ( (SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '''%'||?||'%''' ) ) from dual) ,
+-- ?,?, ?, DEFAULT,?, ? , ? , ? , 15 , DEFAULT, ?,default )
+--DEBUG: Eap.insertEap - ==> Parameters: AR(String), 연차신청서(String), <p>아아 테스트입니다.</p>(String), 202210001(String), 202210001(String), 202210005(String), 202230001(String), 202210004(String), AR(String)
+--DEBUG: org.mybatis.spring.S
 
 -------------------------------------------------------  김혜린  시작(732 ~ )  ---------------------------------------------------------------------------------------
 
