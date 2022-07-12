@@ -8,27 +8,23 @@
 <meta charset="UTF-8">
 <title>전체 직원 근태내역 리스트</title>
 	<!-- 부트스트랩 -->
-	<link 
-		rel="stylesheet" 
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
-		crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 	<script 
 		src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
 		crossorigin="anonymous"></script>
-	<script 
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
-		crossorigin="anonymous"></script>
+
 	<!-- J쿼리 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
-	
+
+	<!-- CSS적용 -->
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/commute_list.css" rel="stylesheet">
+
 	<!-- JSTree -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -62,7 +58,6 @@
 				</div>
 			</form>
 		</div>
-		
 		<script type="text/javascript">
 		function commuteEmpSearch() {
 			$.ajax({
@@ -142,7 +137,11 @@
 							<td class="commute_table_list_td">${emp.job_nm }</td>
 							<td class="commute_table_list_td">${emp.dept_nm }</td>
 							<td class="commute_table_list_td">${emp.phone }</td>
-							<td class="commute_table_list_td"><button class="btn_yellow">수정하기</button></td>
+							<td class="commute_table_list_td">
+								<button class="btn_yellow" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteSelect'" >
+									수정하기
+								</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
