@@ -23,58 +23,61 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 	
 </head>
-<body>
+<body id="j_background">
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
-    <div>
-        <form id="invite" name="invite" action="" method="post">
-            <div>
-                <div>
-                    <p id="j_title">직원 초대</p>
-                </div>
-                <div>
-                    <p>초대받을 직원의 메일주소를 입력해주세요.</p>
-                </div>
-                <div>
-                    <div>
-                    	<input type="hidden" value="cp_number">
-                        <input type="text" name="email" value="이메일 주소">
-                        
-                    </div>
-                    <div>
-                    	<div class='addInput'>
-                    	
-                    	</div>
-                        <button type="button" id="add_btn"> 추가 </button>
-                    </div>
-                    <div>
-                    	<button type="submit">초대하기</button>
-                    </div>
-                </div>
-                <div>
-                    <img alt="마요로고" 
-                    src="https://cdn.discordapp.com/attachments/976717450655694879/996260321780047914/unknown.png" 
-                    style="width: 50px;">
-                </div>
-            </div>
-        </form>
-        <footer>
-            <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
-        </footer>
-    </div>
+ 	<div id="j_container">
+	    <div id="j_container1">
+	        <form id="invite" name="invite" action="" method="post">
+	            <div>
+	                <div>
+	                    <p id="j_title">직원 초대</p>
+	                </div>
+	                <div>
+	                    <p>초대받을 직원의 메일주소를 입력해주세요.</p>
+	                </div>
+	                <div>
+	                    <div>
+	                    	<input type="hidden" value="cp_number">
+	                        <input type="text" name="email" value="이메일 주소" id="email" class="email">
+	                        
+	                    </div>
+	                    <div>
+	                    	<div class='addInput'>
+	                    	
+	                    	</div>
+	                        <button type="button" id="add_btn" class="btn_yellow">+</button>
+	                    </div>
+	                    <div>
+	                    	<button type="submit" class="btn_green" id="invite_btn">초대하기</button>
+	                    </div>
+	                </div>
+	                <div id="j_logo_black">
+	                    <img alt="마요로고" 
+	                    src="https://cdn.discordapp.com/attachments/976717450655694879/996260321780047914/unknown.png" 
+	                    id="j_logo_img">
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	    <div>
+	        <footer>
+	            <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
+	        </footer>
+		</div>
+	</div>        
     
     <!-- 추가버튼 -->
     <script type="text/javascript">
     	$(invite).ready (function (){
     		$('#add_btn').click(function(){
     			$('.addInput').append (
-    				'<input type="type" name="test" value="이메일 주소">\
+    				'<input type="type" name="email" value="이메일 주소" class="email">\
     				<button type="button" class="btnRemove">삭제</button><br>'
     			); //input taf 추가
     			$('.btnRemove').on('click',function(){
     				$(this).prev().remove();
     				$(this).next().remove(); //br삭제
     				$(this).remove();
-    				
     			});
     		});
     	});

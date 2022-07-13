@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class EmpController {
 	private SignFileUpload commonFile;
 
 
-	@Autowired
+	@Inject
 	private JavaMailSender mailSender;
 	
 	@GetMapping("/list")

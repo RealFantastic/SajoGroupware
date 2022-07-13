@@ -5,3 +5,72 @@
 	font-size: xx-large;
     font-weight: bolder;
 }
+ /* body  */
+#j_background{
+    /* 배경색상 */
+    background-color: rgb(235, 255, 246);
+    /* 가운데 정렬 */
+    margin: 0 auto;
+
+}
+#j_container{
+	box-sizing: border-box;
+	
+}
+#j_container1{
+    box-sizing: border-box;
+    background-color: white;
+    padding: 25px;
+    width: 700px;
+
+    /* 가운데 정렬 */
+    margin: 0 auto;
+
+    border-radius: 15px;
+    
+    margin-top: 5%;
+}
+#j_footer{
+	width: 400px;
+    margin: 0 auto;
+}
+
+.email{
+	width: 85%;
+    padding: 6px;
+    margin: 5px;
+}
+#add_btn{
+    margin: 0 auto;
+    display: block;
+}
+#j_logo_black{
+    position: relative;
+    top: 20px;
+    left: 275px;
+    box-sizing: border-box;
+    width: 100px;
+}
+#j_logo_img{
+	    width: 100px;
+}
+/* 초대하기 버튼 */
+#invite_btn{
+	float: right;
+}
+/* 삭제 버튼 */
+
+.btnRemove{
+    border-radius: 6px;
+    border: 0px;
+    padding: 7px 15px 7px 15px ;
+    color: white;
+    background-color: rgb(242, 89, 75);
+}
+.btnRemove:hover{
+    background-color: rgb(208,61,47);
+}
+
+
+
+
