@@ -32,7 +32,7 @@
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td><input type="hidden" value="${loginSsInfo.emp_no }" name="draft_id">${loginSsInfo.emp_name }</td>
+												<td>${loginSsInfo.emp_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>
@@ -62,7 +62,6 @@
 													</span>
 													<span class="sign_wrapper">
 														<span class="sign_name">${loginSsInfo.emp_name }</span>
-														<input type="hidden" name="first_approver" value="${loginSsInfo.emp_no}">
 													</span>
 													<span class="sign_date_wrapper">
 														<span class="sign_date"></span>
@@ -420,7 +419,13 @@
 						url:'<%=request.getContextPath()%>/eap/insert',
 						data:formData,
 						success:function(result){
-							alert("다녀옴");
+							if(result ="complete"){
+								alert("상신했습니다.");
+							}else{
+								alert("상신에 실패했습니다.");
+							}
+							location.replace="<%=request.getContextPath()%>/eap/main";
+							
 						},
 						error:function(xhr,status,error){
 							alert("에러났다");

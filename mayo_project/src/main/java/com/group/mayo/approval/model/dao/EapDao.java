@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.eaform.domain.EaForm;
+import com.group.mayo.employee.domain.Employee;
 
 @Repository
 public class EapDao {
@@ -24,5 +25,8 @@ public class EapDao {
 	
 	public EaForm selectForm(String form_code) {
 		return sqlSession.selectOne("EaForm.selectForm",form_code);
+	}
+	public List<EapDomain> selectMyList(Employee employee) {
+		return sqlSession.selectList("Eap.selectMyList", employee);
 	}
 }

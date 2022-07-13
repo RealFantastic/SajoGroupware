@@ -1,4 +1,5 @@
-/* #side_bar_container{
+@charset "UTF-8";
+#side_bar_container{
     width: 250px;
     height: 100vh;
     background-color:rgb(235, 255, 246);
@@ -45,47 +46,4 @@
 }
 .fa-caret-right{
     margin-right: 15px;
-} */
-/* 메인페이지 content css 시작 */
-.bodyContent{
-	margin-left: 250px;
-	min-height:600px;
 }
-.content_top{
-	padding:18px 24px;
-}
-/* 메인페이지 content css 종료 */
-/* 기안 진행문서 css시작 */
-#home_my_draftedlist{
-	position:relative;
-	margin-bottom:20px;
-}
-#home_my_draftedlist>h1{
-	font-size:22px;
-	font-family:'GmarketSansMedium';
-	padding:24px;
-}
-table#list_app{
-	width:100%;
-	border:1px solid #ddd;
-}
-table#list_app th{
-	padding: 0 16px;
-	height:30px;
-}
-table#list_app th:first-child{
-	padding-left:24px;
-	padding-right:0;
-}
-/* 기안 진행문서 css 종료 */
-
-/* 휴가신청서 display:none  */
-#vacationForm{
-	display:none;
-}
-/* 업무기안 display:none  */
-#bpForm{
-	display:none;
-}
-
-

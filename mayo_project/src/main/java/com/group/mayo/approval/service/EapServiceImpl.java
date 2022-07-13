@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.model.dao.EapDao;
 import com.group.mayo.eaform.domain.EaForm;
+import com.group.mayo.employee.domain.Employee;
 
 @Service
 @Transactional
@@ -34,6 +35,13 @@ public class EapServiceImpl implements EapService {
 	@Override
 	public EaForm selectForm(String form_code) {
 		return dao.selectForm(form_code);
+	}
+
+
+	@Override
+	public List<EapDomain> selectMyList(Employee employee) {
+		
+		return dao.selectMyList(employee);
 	}
 	
 	

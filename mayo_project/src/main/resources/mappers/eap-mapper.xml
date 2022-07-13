@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Eap">
+	<!-- 결재문서 상신 -->
 	<insert id="insertEap" parameterType="Eap">
 		insert into elec_approval 
 		(EA_NO, EA_TITLE, EA_CONTENT, DRAFTER_ID, DRAFT_DATE,FIRST_APPROVER,SECOND_APPROVER,THIRD_APPROVER
 		, FINAL_APPROVER,STATUS_CODE,RESULT_CODE, FORM_CODE, ISEMERGENCY) 
 		values
 		(
-		
-		);
+		(SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
+			(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0)
+			from
+			( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' )
+			)
+			from dual)
+			,#{ea_title},#{ea_content}, #{drafter_id}, DEFAULT
+			,#{first_approver},#{second_approver},#{third_approver}
+			,#{final_approver},#{status_code}
+			, DEFAULT, #{form_code},default
+		)
 	</insert>
+	
+	<select id="selectMyList" parameterType="Employee" resultType="Eap">
+		SELECT * 
+    	FROM ELEC_APPROVAL EAP
+    	JOIN EMPLOYEE EMP ON EAP.DRAFTER_ID = EMP.EMP_NO
+    	WHERE DRAFTER_ID = #{emp_no}
+	</select>
+	
 </mapper>
