@@ -17,7 +17,8 @@ public class ScheduleController {
 	@Autowired
 	private ScheduleService service;
 	
-	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8") // 새 일정 등록
+	// 새 일정 등록
+	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8") 
 	public String insertSked(Schedule sked) {
 		
 		int result = service.insertSked(sked);

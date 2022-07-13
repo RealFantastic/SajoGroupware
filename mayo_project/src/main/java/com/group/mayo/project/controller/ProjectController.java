@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.work.domain.Work;
@@ -26,7 +27,8 @@ public class ProjectController {
 	@Autowired
 	private WorkService workService;
 	
-	@GetMapping("/list") // 전체 프로젝트, 업무 목록
+	// 전체 프로젝트, 업무 목록
+	@GetMapping("/list") 
 	public ModelAndView selectAllProj(ModelAndView mv){
 		
 		List<Project> proj = service.selectAllProj();
@@ -40,7 +42,8 @@ public class ProjectController {
 		return mv;
 	}
 	
-	@PostMapping("/insert") // 새 프로젝트 만들기
+	// 새 프로젝트 만들기
+	@PostMapping("/insert") 
 	public ModelAndView insertProj(ModelAndView mv, Project proj, RedirectAttributes rttr) {
 		
 		int result = service.insertProj(proj);
@@ -56,7 +59,8 @@ public class ProjectController {
 		return mv;
 	}
 	
-	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") // 프로젝트 수정
+	// 프로젝트 수정
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
 	public String updateProj(Project proj) {
 		System.out.println("수정된 프로젝트!! "+proj);
@@ -73,7 +77,8 @@ public class ProjectController {
 		
 	}
 	
-	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") // 프로젝트 삭제
+	// 프로젝트 삭제
+	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
 	public String deleteProj(@RequestParam(name="proj_no", required=false) int proj_no) {
 		int result = service.deleteProj(proj_no);
@@ -89,9 +94,44 @@ public class ProjectController {
 		
 	}
 	
+	 // 프로젝트 담당 직원 추가
+	@PostMapping(value="/insertPic", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertPic(Employee emp) {
+		
+		int result = service.insertPic(emp);
+		String msg="";
+		
+		if(result <= 0) {
+			System.out.println("직원 추가 성공!!");
+			msg="직원 추가에 실패했습니다";
+		} else {
+			msg="직원이 추가되었습니다";
+		}
+		
+		return msg;
+	}
 	
+	// 프로젝트 담당 직원 삭제
+	@PostMapping(value="/deletePic", produces="text/plain;charset=UTF-8") 
+	@ResponseBody
+	public String deletePic(int emp_no) {
+		
+		int result = service.deletePic(emp_no);
+		String msg="";
+		
+		if(result <= 0) {
+			System.out.println("직원 추가 성공!!");
+			msg="직원 삭제에 실패했습니다";
+		} else {
+			msg="직원이 삭제되었습니다";
+		}
+		
+		return msg;
+	}
 	
-	@GetMapping("/select") // 특정 프로젝트 선택 - 프로젝트 내부로 이동
+	 // 특정 프로젝트 선택 - 프로젝트 내부로 이동
+	@GetMapping("/select")
 	public ModelAndView selectProj(ModelAndView mv, @RequestParam(name="proj_no", required=false) int proj_no) {
 		
 		System.out.println(proj_no);

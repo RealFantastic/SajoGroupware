@@ -18,7 +18,7 @@
 
 <!-- 새 일정 등록 -->
 <insert id="insertSked" parameterType="Schedule">
-	insert into schedule values ((select nvl(max(work_no),0)+1 from work_board), #{sked_name}, default, #{sked_content},
+	insert into schedule values ((select nvl(max(sked_no),0)+1 from schedule), #{sked_name}, default, #{sked_content},
 	#{sked_start_date}, #{sked_end_date}, #{sked_location}, #{sked_category}, #{sked_emp_id})
 </insert>
 
