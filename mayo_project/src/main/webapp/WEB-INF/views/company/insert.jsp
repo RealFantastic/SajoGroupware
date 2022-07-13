@@ -82,7 +82,7 @@
         <form id="cp_enroll" name="cp_enroll" action="<%=request.getContextPath()%>/company/enroll" method="post">
             <section>
             <div id="j_container">
-            <p id="j_title"><h1><strong>회사등록</strong></h1></p>
+            <p id="j_title">회사등록</p>
              <div id="j_container1">
                     <div id="j_cp_name" class="j_c">
                         <label for="cp_name" >회사명 : </label>

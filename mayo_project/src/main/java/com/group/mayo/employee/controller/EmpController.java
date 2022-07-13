@@ -9,9 +9,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -27,13 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.group.mayo.company.domain.Company;
-import com.group.mayo.department.domain.Dept;
 import com.group.mayo.department.service.DeptService;
-import com.group.mayo.department.service.DeptServiceImpl;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.service.EmpService;
-import com.group.mayo.employee.model.service.EmpServiceImpl;
 
 
 @Controller

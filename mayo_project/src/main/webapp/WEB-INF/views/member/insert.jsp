@@ -86,7 +86,7 @@
 			 method="post" enctype="multipart/form-data">
             <section>
             <div id="j_container">
-            <p id="j_title"><h1><strong>회원가입</strong></h1></p>
+            <p id="j_title">회원가입</p>
              <div id="j_container1">
                     <div id="j_cp_number" class="j_e">
                         <label>사업자 번호 : </label>

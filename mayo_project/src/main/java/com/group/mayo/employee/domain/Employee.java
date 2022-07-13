@@ -4,8 +4,6 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
-import com.group.mayo.department.domain.Dept;
-import com.group.mayo.job.domain.Job;
 
 @Component
 public class Employee {

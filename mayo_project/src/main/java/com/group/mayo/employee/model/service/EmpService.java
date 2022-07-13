@@ -2,7 +2,6 @@ package com.group.mayo.employee.model.service;
 
 import java.util.List;
 
-import com.group.mayo.company.domain.Company;
 import com.group.mayo.employee.domain.Employee;
 
 public interface EmpService {

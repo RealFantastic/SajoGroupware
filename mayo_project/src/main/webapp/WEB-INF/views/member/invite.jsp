@@ -29,7 +29,7 @@
         <form id="invite" name="invite" action="" method="post">
             <div>
                 <div>
-                    <p><h1>직원 초대</h1></p>
+                    <p id="j_title">직원 초대</p>
                 </div>
                 <div>
                     <p>초대받을 직원의 메일주소를 입력해주세요.</p>
