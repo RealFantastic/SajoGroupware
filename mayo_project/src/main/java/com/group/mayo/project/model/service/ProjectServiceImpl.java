@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.model.dao.ProjectDao;
 
@@ -39,6 +40,16 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public Project selectProj(int proj_no) {
 		return dao.selectProj(proj_no);
+	}
+
+	@Override
+	public int insertPic(Employee emp) {
+		return dao.insertPic(emp);
+	}
+
+	@Override
+	public int deletePic(int emp_no) {
+		return dao.deletePic(emp_no);
 	}
 
 	

@@ -36,15 +36,15 @@ public class Work {
 	private String work_pic;
 	
 	private List<ProjFile> projfilelist;
+
  	
- 	
- 	@Override
+	@Override
 	public String toString() {
 		return "Work [work_no=" + work_no + ", proj_no=" + proj_no + ", work_title=" + work_title + ", work_content="
 				+ work_content + ", work_mgr=" + work_mgr + ", work_start_date=" + work_start_date + ", work_deadline="
 				+ work_deadline + ", work_progress=" + work_progress + ", isemergency=" + isemergency + ", work_status="
-				+ work_status + ", work_date=" + work_date + ", proj_name=" + proj_name + ", projfilelist="
-				+ projfilelist + "]";
+				+ work_status + ", work_date=" + work_date + ", proj_name=" + proj_name + ", work_pic=" + work_pic
+				+ ", projfilelist=" + projfilelist + "]";
 	}
 
 	public List<ProjFile> getProjfilelist() {
@@ -81,6 +81,14 @@ public class Work {
 	public Date getWork_start_date() {
 		return work_start_date;
 	}
+	public String getWork_pic() {
+		return work_pic;
+	}
+
+	public void setWork_pic(String work_pic) {
+		this.work_pic = work_pic;
+	}
+
 	public Date getWork_deadline() {
 		return work_deadline;
 	}

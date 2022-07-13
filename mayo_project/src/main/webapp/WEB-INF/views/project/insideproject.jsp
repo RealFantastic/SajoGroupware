@@ -29,6 +29,7 @@
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
 				<button id="insertSch" class="btn_green sidebtn">새 일정</button>
 			</div>
+				<button id="insertPic" class="btn_yellow sidebtn">직원 추가</button>
 		 </div>
 	</aside>
 
@@ -132,8 +133,8 @@
 		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label>
-        	<input type="file" name="uploadfile">
-        	<button type="button" id="addFile">추가</button>
+        	<input type="file" name="uploadfile" class="file">
+        	<button type="button" id="addFile" class="btn_yellow">추가</button>
         	<div id="files"></div>
         </div>
           <div class="mb-3">

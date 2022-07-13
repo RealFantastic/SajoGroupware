@@ -62,8 +62,8 @@
 							id="clip"
 							src="<%=request.getContextPath()%>/resources/images/clip.png"
 							alt="첨부파일"></label>  
-<%--  						<c:forEach var="file" items="${article.fileInfos}">                                              --%>
-<%-- 							<li>${file.originFile}<a href="#" class="filedown" sfolder="${file.saveFolder}" sfile="${file.saveFile}" ofile="${file.originFile}">[다운로드]</a> <img src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                         --%>
+<%--  						<c:forEach var="file" items="${work.projfilelist }">                                              --%>
+<%-- 							<li>${file.original_filename}<a href="#" class="filedown" sfolder="${file.saveFolder}" sfile="${file.saveFile}" ofile="${file.original_filename}">[다운로드]</a> <img src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                         --%>
 <%-- 					</c:forEach> --%>
 					</div>
 					<div class="mb-3">
@@ -202,7 +202,8 @@
 				}, // 업무 번호 들고가기
 				success : function(result) {
 					alert(result);
-					$("#reloadBody").load(location.href + " #reloadBody"); // 영역 reload
+// 					$("#reloadBody").load(location.href + " #reloadBody"); // 영역 reload
+					location.reload();
 				}
 			});
 		} else {

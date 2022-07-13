@@ -41,7 +41,8 @@ public class WorkController {
 	@Autowired
 	private FileUpload commonFile;
 	
-	@PostMapping("/detail") // 업무 리스트 불러오기
+	// 업무 리스트 불러오기
+	@PostMapping("/detail") 
 	public ModelAndView detailWork(ModelAndView mv, @RequestParam("proj_no") String proj_no){
 		
 		System.out.println("detail 들어온 result" + proj_no);
@@ -53,7 +54,8 @@ public class WorkController {
 		return mv;
 	}
 	
-	@PostMapping("/insert") // 새 업무 글 등록
+	// 새 업무 글 등록
+	@PostMapping("/insert") 
 	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr
 			, @RequestParam(name="uploadfile", required = false) List<MultipartFile> uploadfiles
 			, @RequestParam(name="work_pic", required=false) String work_pic
@@ -101,8 +103,8 @@ public class WorkController {
 		return mv;
 	}
 	
-
-	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") // 업무 글 수정
+	// 업무 글 수정
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
 	public String updateWork(Work work) {
 		
@@ -120,7 +122,8 @@ public class WorkController {
 		return msg;
 	}
 	
-	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") // 업무 글 삭제
+	// 업무 글 삭제
+	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
 	public String deleteWork(@RequestParam(name="work_no", required=false) String work_no) {
 		 

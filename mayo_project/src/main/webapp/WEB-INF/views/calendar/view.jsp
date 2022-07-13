@@ -36,7 +36,26 @@
           firstDay: 1,
           // Bootstrap 5 사용
           themeSystem: 'bootstrap5',
-        });
+          
+			
+          // DB에서 data 끌어오기
+          events: [ // 달력에 data 띄우기
+        	  <c:forEach var="work" items="${work}">
+	    		{
+			      title: '${work.work_title}',
+			      start: '${work.work_start_date}', 
+			      end: '${work.work_deadline}' // a property! ** see important note below about 'end' **
+			    },
+		     </c:forEach>
+		  ],
+		  
+		  // data 클릭 event
+		  eventClick: function(info) {
+			  	
+			    alert('Event: ' + info.event.title);
+		  }
+		  
+        });// 함수 끝
         calendar.render();
       });
 
@@ -66,17 +85,17 @@
 	   		<div>
 	        	<select name="proj_category" class="form-select" aria-label="Default select example">
 				  <option selected>종류</option>
-				  <option value="전사">전사</option>
-				  <option value="개인">개인</option>
+				  <option value="A">전사</option>
+				  <option value="P">개인</option>
 				  <c:forEach var="project" items="${project }">
-				  <option value="${project.proj_name }">${project.proj_name }</option>
+				  <option value="${project.proj_no }">${project.proj_name }</option>
 				  </c:forEach>
 				</select>
 	        </div>
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">일정명</label>
-            <input type="text" class="form-control" id="title" name="sked_name" required="required">
+            <input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
           </div>
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
@@ -90,19 +109,21 @@
           </div>
           <div class="mb-3" id="loca">
           	위치
-          	<button id="location" class="btn_yellow">추가</button>
-<!--           	<input type="text" id="keyword"> -->
-<!--           	<button type="button" id="searchL" class="btn_yellow">검색</button> -->
-<!--           		<div class="result"> 결과 </div> -->
-          	<div class="map_wrap" style="display:hidden;">
+          	<button id="location" class="btn_yellow">
+          		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+ 				 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+				</svg>
+			</button>
+          	<div class="selectedLoca"></div>
+          	<input name="sked_location" value="">
+          	<div class="map_wrap" style="display:none;">
 			    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-			
 			    <div id="menu_wrap" class="bg_white">
 			        <div class="option">
 			            <div>
-			                <form onsubmit="searchPlaces(); return false;">
-			                    키워드 : <input type="text" value="" id="keyword" size="15"> 
-			                    <button type="submit">검색하기</button> 
+			                <form style="display:flex;" onsubmit="searchPlaces(); return false;">
+			                    <input type="text" class="form-control" value="" id="keyword" size="15"> 
+			                    <button type="submit" class="btn_green">검색하기</button> 
 			                </form>
 			            </div>
 			        </div>
@@ -124,30 +145,34 @@
       </div>
 	</div>
 	</div>
+	
 <script>
-	// 카카오 장소 검색
-	$("#searchL").click(function(){
-		
-	var keyword = $("#keyword").val();
-	console.log(keyword);
-	
-	$.ajax({
-		type:"GET",
-		url:"https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=10&sort=accuracy&query="+keyword,
-		headers:{'Authorization': 'KakaoAK a097dfbe0416b9a6084371be6b22c6c1'},
-		success: function(data){
-			console.log(data);
-			var html="<span>"+data+"<span>";
-			$(".result").append(html);
-		},
-		error: function(e){
-			console.log(e);
-		}
-	});
+<!-- SKED_NAME       NOT NULL VARCHAR2(50)    -->
+<!-- SKED_DATE       NOT NULL TIMESTAMP(6)    -->
+<!-- SKED_CONTENT             VARCHAR2(1500)  -->
+<!-- SKED_START_DATE          DATE            -->
+<!-- SKED_END_DATE            DATE            -->
+<!-- SKED_LOCATION            VARCHAR2(500)   -->
+<!-- SKED_CATEGORY            VARCHAR2(50)    -->
+<!-- SKED_EMP_ID              VARCHAR2(50)    -->
+// 일정 추가하기 
 
-	});
+// $.ajax({
+// 	type: "POST",
+// 	url:,
+// 	data: { 
+		
+// 	},
+// 	success: function(result){
+// 		alert(result);
+// 	}
 	
-	
+// });
+
+// 위치 선택 버튼 누르면 지도 나타내기 toggle
+$("#location").click(function(){
+	$(".map_wrap").toggle();
+});	
 	// 카카오 지도
 // 마커를 담을 배열입니다
 var markers = [];
@@ -155,7 +180,7 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };  
     
 // 지도를 생성합니다    
@@ -164,23 +189,12 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
 
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-// 클릭 이벤트
-kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-    var latlng = mouseEvent.latLng; // 지도 좌표
-    alert('click! ' + latlng.toString());
-});
-
-//마커 객체에 사용자 이벤트를 등록한다
-kakao.maps.event.addListener(marker, 'custom_action', function(data){ // 지도, 이벤트 이름, 이벤트를 처리할 함수
-	console.log(data + '가 발생했습니다.');
-});
-
-// 마커 객체에 등록한 사용자 이벤트를 발생시킨다
-kakao.maps.event.trigger(marker, 'custom_action', '사용자 이벤트'); // 사용자 이벤트가 발생했습니다.
-	
 // 키워드로 장소를 검색합니다
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -283,14 +297,14 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info info_'+(index+1)+'" onclick="selectInfo()">' +
-                '   <h5>' + places.place_name + '</h5>';
+                '<div class="info" onclick="selectInfo(this)">' +
+                '   <h5 class="infoName">' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        itemStr += '    <span class="infoRoad">' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray infoAddr">' +  places.address_name  + '</span>';
     } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+        itemStr += '    <span class=infoAddr>' +  places.address_name  + '</span>'; 
     }
                  
       itemStr += '  <span class="tel">' + places.phone  + '</span>' +
@@ -304,11 +318,53 @@ function getListItem(index, places) {
 }
 
 // 정보 영역 클릭하면 장소 선택되어짐
-function selectInfo(palces){	
-	var info = $(".info_1").text();
-	console.log(info);
-	$("#loca").append("<div>"+info+"</div>");
+function selectInfo(thisEle){	
+	console.log(thisEle);
+	console.log($(thisEle));
+	
+	// 장소명
+	var name = $(thisEle).children(".infoName").text();
+	// 장소 도로명 주소
+	var road = $(thisEle).children(".infoRoad").text();
+	// 장소 지번 주소
+	var jibun = $(thisEle).children(".infoAddr").text();
+	
+	var html = "<div style='font-weight:bold;'>"+name+"</div>";
+	html += "<div>"+road+"</div>";
+	html += "<div style='color:#8a8a8a;'>"+jibun+"</div>";
+	
+	$(".selectedLoca").append(html);
+	// 검색창 숨기기
+	$("#menu_wrap").hide();
+	
+//주소로 좌표를 검색합니다
+geocoder.addressSearch(road, function(result, status) {
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        removeMarker();
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+$(thisEle).children(".infoName").text()+'</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+
 }
+
+
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
