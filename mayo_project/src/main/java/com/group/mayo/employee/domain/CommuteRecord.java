@@ -1,6 +1,5 @@
 package com.group.mayo.employee.domain;
 
-import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 

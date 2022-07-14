@@ -296,12 +296,12 @@ public class EmpController {
 	 @RequestMapping(value = "/inviteMail", method = RequestMethod.GET)
 	 @ResponseBody
 	 public String mailCheck(
-			 @RequestParam("email") String totalemail
+			 @RequestParam("email") String email
 			 ,@RequestParam("cp_number") int cp_number
 			 ) throws Exception{
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
-	     String to = totalemail;
+	     String to = email;
 	     String title = "[MAYO 그룹웨어] 회원가입을 해주세요! ";
 	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요.";
 	     String domain = "";

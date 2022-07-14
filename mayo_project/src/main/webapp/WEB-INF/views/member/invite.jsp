@@ -33,7 +33,7 @@
 	                    <p id="j_title">직원 초대</p>
 	                </div>
 	                <div>
-	                    <p>초대받을 직원의 메일주소를 입력해주세요.</p>
+	                    <p class="point successEmailChk">초대받을 직원의 메일주소를 입력해주세요.</p>
 	                </div>
 	                <div>
 	                    <div>
@@ -82,5 +82,31 @@
     		});
     	});
     </script>
+    <!-- 초대하기 버튼 -->
+    <script>
+	var code = "";
+	$("#invite_btn").click(function(){
+		var email = $(".email").val();
+		$.ajax({
+	        type:"GET",
+	        url:"inviteMail?email=" + email,
+	        cache : false,
+	        success:function(data){
+	        	if(data == "error"){
+	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
+					$(".email").attr("autofocus",true);
+					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
+					$(".successEmailChk").css("color","red");
+	        	}else{	        		
+					alert("직원 초대 이메일 발송이 완료 되었습니다.");
+	        		$("#email_check_no").attr("disabled",false);
+	        		$("#email_check_btn").css("display","inline-block");
+
+	        		code = data;
+	        	}
+	        }
+	    });
+	});
+	</script>
 </body>
 </html>

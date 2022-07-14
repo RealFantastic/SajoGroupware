@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.group.mayo.employee.domain.CommuteEmployee;
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.domain.Holiday;
 import com.group.mayo.employee.domain.HolidayEmployee;
 import com.group.mayo.employee.model.service.HolidayService;
 

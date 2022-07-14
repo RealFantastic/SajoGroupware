@@ -3,7 +3,6 @@ package com.group.mayo.employee.model.service;
 import java.util.List;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
-import com.group.mayo.employee.domain.Holiday;
 import com.group.mayo.employee.domain.HolidayEmployee;
 
 public interface HolidayService {

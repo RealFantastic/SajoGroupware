@@ -3,7 +3,6 @@ package com.group.mayo.department.service;
 import java.util.List;
 import java.util.Map;
 
-import com.group.mayo.department.domain.Dept;
 
 public interface DeptService {
 	/**

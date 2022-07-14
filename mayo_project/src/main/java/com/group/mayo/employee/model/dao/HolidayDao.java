@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
-import com.group.mayo.employee.domain.Holiday;
 import com.group.mayo.employee.domain.HolidayEmployee;
 
 @Repository
