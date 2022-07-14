@@ -41,4 +41,12 @@ public class EmpDao {
 		
 		return result;
 	}
+	//사업자 번호 중복 확인
+	public int checkCpNumber(String cp_number) {
+		int result = sqlSession.selectOne("Employee.checkCpNumber",cp_number);
+		System.out.println("살려주세여!!");
+		
+		return result;
+	}
+
 }

@@ -96,7 +96,7 @@
                         <div><font class="feedback" size ="2"></font></div>
                     </div>             
                     <div id="j_name" class="j_e">
-                        <label>이름 : </label>
+                        <label>성함 : </label>
                         <input type="text" id="emp_name" name="emp_name">
                         <br><font class="feedback" size ="2"></font>
                     </div>
@@ -114,16 +114,18 @@
                             <option value="10">인사팀</option>
                             <option value="20">영업팀</option>
                             <option value="30">총무팀</option>
+                            <!-- TODO -->
                         </select>
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_job">
                         <label>직위 : </label>
-	                    <select>
+	                    <select name="job_no">
 	                    	<option value="">선택</option>
 	                    	<option value="1">사원</option>
 	                    	<option value="2">대리</option>
 	                    	<option value="3">과장</option>
+	                    	<!-- TODO -->
 	                    </select>
                     </div>
                     <div id="j_emp_no" class="j_e">
@@ -261,7 +263,7 @@
     <!-- 비밀번호 -->
     <script type="text/javascript">
     $("#j_enroll_btn").click(function(){
-    	
+    	var password = $('input[name=password]').val();
 	    if($("#password").val() == " ") {
 			alert("비밀번호를 입력해주십시오");
 			$("#password").focus();
@@ -273,10 +275,8 @@
 			$("#password_chk").focus();
 			return false;
 		}
-
-
 		//var regExpPassword = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,16}$/; // 영문자, 숫자, 특수문자가 적어도 1개이상, 8~16글자
-		var regExpPassword = /^(?=.*[A-Za-z])(?=.*[0-9]).{8,16}$/; // 영문자, 숫자가 적어도 1개이상, 8~16글자
+		var regExpPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/; // 영문자, 숫자가 적어도 1개이상, 8~16글자
 		if(!regExpPassword.test(password)){
 			alert("패스워드 입력란에는 영문자, 숫자가 적어도 1개이상, 8~16글자를 입력해주세요.");
 			$("#password").val("");
@@ -291,6 +291,7 @@
     });	
     </script>
     
+    
     <!-- 비밀번호 재확인  -->
     <script type="text/javascript">
     $('.j_pwd').keyup(function() {
@@ -304,7 +305,6 @@
     			$("#check_pwd").html('비밀번호가 일치 합니다.');
     			$("#check_pwd").attr('color','green');
     		}else {
-
     			$("#check_pwd").html('비밀번호가 일치하지 않습니다.');
     			$("#check_pwd").attr('color','red');
     		}
@@ -484,5 +484,36 @@
           } );
         } );
       </script>
+   <!--사업자 번호 중복체크  -->
+	<script type="text/javascript">
+	function checkNum(){
+			var cp_number = $('#cp_number').val();
+			console.log("cp_number: "+cp_number);
+			
+			$.ajax({
+				url:'<%=request.getContextPath()%>/member/checkcpnum',
+				type:"post",
+				data: {"cp_number":cp_number},
+// 				contentType:"json",
+				success: function(result){
+					console.log("result"+result);
+					if(result == "false"){
+						console.log("안녕");
+						$("#check_result").html('등록되지 않은 사업자번호 입니다.');
+						$("#check_result").attr('color','red');
+					}else if(result == "ok"){
+						$("#check_result").html('사업자번호가 확인 되었습니다.');
+						$("#check_result").attr('color','blue');
+					} 
+				},
+				error : function(){
+					alert("서버요청실패");
+				}
+			
+			});
+			
+		};
+	
+	</script>  
 </body>
 </html>

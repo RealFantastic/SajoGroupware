@@ -43,4 +43,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public int checkRrn(String rrn);
+	/**
+	 * 
+	 * @return 사업자 번호 중복확인
+	 * @author XeonSnee
+	 */
+	public int checkCpNumber(String cp_number);
 }

@@ -46,5 +46,11 @@ public class EmpServiceImpl implements EmpService{
 		int result = dao.checkRrn(rrn);
 		return result;
 	}
+	//사업자 번호 중복 확인
+	@Override
+	public int checkCpNumber(String cp_number) {
+		int result = dao.checkCpNumber(cp_number);
+		return result;
+	}
 	
 }

@@ -20,8 +20,6 @@ public class CompanyDao {
 		int result = sqlSession.selectOne("Company.checkCpNumber",cp_number);
 		System.out.println("안녕1!!");
 		
-		
-		
 		return result;
 	}
 

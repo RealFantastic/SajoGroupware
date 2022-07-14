@@ -95,7 +95,7 @@
                         <br><font id="check_result" size ="2"></font>
                     </div>
                     <div id="j_name" class="j_c">
-                        <label>관리자 이름 : </label>
+                        <label>대표자 성함 : </label>
                         <input type="text" id="cp_king" name="cp_king" required>
                     </div>
                     <div id="j_cp_tel" class="j_c">
@@ -222,7 +222,7 @@
 		} 
 		
 		/*사업자 번호 형식 체크*/
-	 		var cp_number = $("#cp_number").val().trim();
+ 		var cp_number = $("#cp_number").val().trim();
 		var regExpCp_number = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/; // 숫자3-숫자3,4-숫자4
 		if(!regExpCp_number.test(cp_number)){
 			alert("사업자번호 입력란에는 000-00-00000 형식으로 입력해주세요.");
@@ -350,7 +350,7 @@
         } );
       </script>
       
-          <!--사업자 번호 중복체크  -->
+    <!--사업자 번호 중복체크  -->
 	<script type="text/javascript">
 	function checkNum(){
 			var cp_number = $('#cp_number').val();

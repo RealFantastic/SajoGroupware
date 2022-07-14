@@ -266,6 +266,24 @@ public class EmpController {
 		 	
 		 	return ro;
 	 }
+	//사업자번호 중복 체크
+	 @PostMapping(value="/checkcpnum",produces="text/plain;charset=UTF-8")
+	 @ResponseBody
+	 public String chkcpNum(
+			 @RequestParam("cp_number") String cp_number
+			 ) {
+		 	
+		 	int result=service.checkCpNumber(cp_number);  
+		 	String ro = null;
+		 	if(result == 1) {
+		 		ro= "false";
+		 	}else {
+		 		ro ="ok";
+		 	}
+		 	
+		 	return ro;
+	 }
+	 
 	 @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	 @ResponseBody
 	 public String mailCheck(@RequestParam("email") String totalemail) throws Exception{
@@ -293,6 +311,20 @@ public class EmpController {
 	     }
 	     return num;
 	 }
+		@RequestMapping(value = "invite", method = RequestMethod.GET)
+		public ModelAndView pageinvite(ModelAndView mv) {
+			mv.setViewName("member/invite");
+			return mv;
+		}
+		@PostMapping("/invite")
+		public ModelAndView inviteMail(ModelAndView mv
+				, Employee employee
+				, RedirectAttributes rttr
+				, HttpSession session
+				) {
+			
+			return mv;
+		}
 	 @RequestMapping(value = "/inviteMail", method = RequestMethod.GET)
 	 @ResponseBody
 	 public String mailCheck(
@@ -322,18 +354,5 @@ public class EmpController {
 	     }
 	     return domain;
 	 }
-		@RequestMapping(value = "invite", method = RequestMethod.GET)
-		public ModelAndView pageinvite(ModelAndView mv) {
-			mv.setViewName("member/invite");
-			return mv;
-		}
-		@PostMapping("/invite")
-		public ModelAndView inviteMail(ModelAndView mv
-				, Employee employee
-				, RedirectAttributes rttr
-				, HttpSession session
-				) {
-			
-			return mv;
-		}
+
 }

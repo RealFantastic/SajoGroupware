@@ -27,7 +27,7 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
  	<div id="j_container">
 	    <div id="j_container1">
-	        <form id="invite" name="invite" action="" method="post">
+	        <form id="invite" name="invite" action="<%=request.getContextPath()%>/member/invite" method="post">
 	            <div>
 	                <div>
 	                    <p id="j_title">직원 초대</p>
@@ -101,6 +101,8 @@
 					alert("직원 초대 이메일 발송이 완료 되었습니다.");
 	        		$("#email_check_no").attr("disabled",false);
 	        		$("#email_check_btn").css("display","inline-block");
+// 					$(".successEmailChk").text("직원 초대 이메일 발송이 완료 되었습니다.");
+// 					$(".successEmailChk").css("color","green");
 
 	        		code = data;
 	        	}
