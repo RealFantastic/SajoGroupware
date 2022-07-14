@@ -12,9 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 <link href="<%=request.getContextPath() %>/resources/css/all_form.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/elec_approval_main.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/eap_sidebar.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/elec_approval_main.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
@@ -61,7 +61,6 @@
 			<div id="bpForm">
 				<jsp:include page="/WEB-INF/views/ea_form/bpForm.jsp"></jsp:include>
 			</div>
-			
 		</div>
     </div> 
 

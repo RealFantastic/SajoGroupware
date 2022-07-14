@@ -38,6 +38,8 @@ public class EapDomain {
 	private String form_code;	//NN
 	private String return_reson;
 	private String update_date;
+	private String isemergency;
+	
 	@Override
 	public String toString() {
 		return "EapDomain [ea_no=" + ea_no + ", ea_title=" + ea_title + ", ea_content=" + ea_content + ", drafter_id="
@@ -45,8 +47,9 @@ public class EapDomain {
 				+ ", second_approver=" + second_approver + ", third_approver=" + third_approver + ", final_approver="
 				+ final_approver + ", approver_emp_no=" + approver_emp_no + ", status_code=" + status_code
 				+ ", result_code=" + result_code + ", form_code=" + form_code + ", return_reson=" + return_reson
-				+ ", update_date=" + update_date + "]";
+				+ ", update_date=" + update_date + ", isemergency=" + isemergency + "]";
 	}
+	
 	public String getEa_no() {
 		return ea_no;
 	}
@@ -136,6 +139,14 @@ public class EapDomain {
 	}
 	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
+	}
+
+	public String getIsemergency() {
+		return isemergency;
+	}
+
+	public void setIsemergency(String isemergency) {
+		this.isemergency = isemergency;
 	}
 	
 

@@ -87,5 +87,12 @@ table#list_app th:first-child{
 #bpForm{
 	display:none;
 }
-
+/* 기안 문서함 css 시작 */
+#my_doc_list_container{
+	margin: 0 30px;
+}
+.mylist{
+	width:1200px;
+	text-align: center;
+}
 
