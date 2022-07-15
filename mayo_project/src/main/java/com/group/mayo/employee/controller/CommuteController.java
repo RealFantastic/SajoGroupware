@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -155,10 +156,7 @@ public class CommuteController {
 		return result;
 	}
 
-	private String RequestParam(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	// 인사팀 - 직원근태상세보기
 	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.GET)
@@ -171,12 +169,13 @@ public class CommuteController {
 		mv.setViewName("commute/empCommute");
 		return mv;
 	}
+
+	// 인사팀 - 직원근태상세보기
+	
 	@RequestMapping(value = "/selectEmpCommuteList", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String selectEmpCommuteList(@RequestParam("start_dt") String startDt, @RequestParam("end_dt") String endDt,
 			ModelAndView mv, @RequestParam("empNo") String empNo) throws Exception {
-
-		
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("startDt", startDt);

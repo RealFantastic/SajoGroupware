@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>전체 직원 근태내역 리스트</title>
+
 	<!-- 부트스트랩 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
@@ -29,6 +30,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
+	<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>  <!-- 정환 조직도js -->
 	
 </head>
 
@@ -78,10 +80,11 @@
 							str += "<td class='commute_table_list_td'>"+item.dept_nm+"</td>";
 							str += "<td class='commute_table_list_td'>"+item.phone+"</td>";
 							str += "<td class='commute_table_list_td'><button class='btn_yellow'>수정하기</button></td>";
+<%-- 							str += "<td class='commute_table_list_td'><button class='btn_yellow'onclick='location.href=\"<%= request.getContextPath()%>/commute/empCommuteSelect?empNo=${emp.emp_no}\"'>수정하기</button></td>"; --%>
 							str += "</tr>";
 							$('.commute_list_table').append(str);
 						})
-					}else{
+					}else{j
 						str="<tr>"
 						str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
 						str += "</tr>";

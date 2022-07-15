@@ -58,26 +58,16 @@
 		<div class="my_pe">
 			<div class="my_info font1">
 				　<br>
-					<div class="font2">　＜인적사항＞<br><br></div>
+					<div class="font2">　＜나의 인적사항＞<br><br></div>
 				
 				　사원번호 : ${commuteMyInfo.emp_no}　<br><br>
 				　사원명 : ${commuteMyInfo.emp_name }　<br><br>
 				　직함 : ${commuteMyInfo.job_nm }　<br><br>
-				　부서명 : ${commuteMyInfo.dept_nm }　<br>
-				<!-- 인사팀만 보여지는 버튼 -->
-				<c:if test="${sessionScope.loginSsInfo.dept_no eq 10}">
-					<div class="personnel_button">
-						<button type="button" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteList'" class="btn btn-secondary btn_red" id="personnel">
-							직원별 근태 리스트 보기
-						</button>
-					</div>
-				</c:if><br>
+				　부서명 : ${commuteMyInfo.dept_nm }　<br><br>
 				　☎ : ${commuteMyInfo.phone }<br>
 				　
 			</div>
-	
-
-		</div>	
+		</div>
 		
 		
 		<div class="chart_week">
@@ -325,7 +315,15 @@
 			</div>
 		</div>
 		
-
+		
+<!-- 인사팀만 보여지는 버튼 -->
+				<c:if test="${sessionScope.loginSsInfo.dept_no eq 10}">
+					<div class="personnel_button">
+						<button type="button" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteList'" class="btn btn-secondary btn_red" id="personnel">
+							직원별 근태 리스트 보기
+						</button>
+					</div>
+				</c:if><br>
 
 
 		<div class="table_all">

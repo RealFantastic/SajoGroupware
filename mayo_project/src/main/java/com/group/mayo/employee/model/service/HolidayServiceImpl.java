@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
+import com.group.mayo.employee.domain.Holiday;
 import com.group.mayo.employee.domain.HolidayEmployee;
 import com.group.mayo.employee.model.dao.HolidayDao;
 

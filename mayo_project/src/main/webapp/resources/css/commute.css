@@ -86,7 +86,8 @@
 }
 /* 왼쪽메뉴바를 제외한 인사팀버튼 */
 .personnel_button{
-	
+	FLOAT: right;
+	margin-top: -55px;
 }
 
 /* 왼쪽메뉴바를 제외한 테이블 */
@@ -148,6 +149,7 @@
 
 .week_box{
 	width: 810px;
+	    height: 200px;
 }
 .week-controls{
 	float: right;

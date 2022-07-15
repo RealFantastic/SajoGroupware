@@ -10,11 +10,8 @@
 <title>직원근태내역 수정</title>
 
 <!-- 부트스트랩 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script>
@@ -23,43 +20,29 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/ef09f998fc.js"
-	crossorigin="anonymous"></script>
-<!-- 돋보기 -->
+<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script><!-- 돋보기 -->
 
 <!-- 주달력 -->
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script	src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <!-- 	날짜 보기 편한 CDN : moment -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
 <!-- 하이차트 -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <!-- CSS적용 -->
-<link href="<%=request.getContextPath()%>/resources/css/reset.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/resources/css/template_header.css"
-	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/commute.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
 
 <!-- JSTree -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
-<!-- 정환 조직도js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script><!-- 정환 조직도js -->
 
 </head>
 <body>
@@ -74,30 +57,15 @@
 
 		<div class="my_pe">
 			<div class="my_info font1">
-				<br>
-				<div class="font2">
-					＜인적사항＞<br>
-					<br>
-				</div>
+				　<br>
+					<div class="font2">　＜직원 인적사항＞<br><br></div>
 
-				사원번호 : ${commuteStaffInfo.emp_no} <br>
-				<br> 사원명 : ${commuteStaffInfo.emp_name } <br>
-				<br> 직함 : ${commuteStaffInfo.job_nm } <br>
-				<br> 부서명 : ${commuteStaffInfo.dept_nm } <br>
-				<!-- 인사팀만 보여지는 버튼 -->
-				<c:if test="${sessionScope.loginSsInfo.dept_no eq 10}">
-					<div class="personnel_button">
-						<button type="button"
-							onclick="location.href='<%=request.getContextPath()%>/commute/empCommuteList'"
-							class="btn btn-secondary btn_red" id="personnel">직원별 근태
-							리스트 보기</button>
-					</div>
-				</c:if>
-				<br> ☎ : ${commuteStaffInfo.phone }<br>
-
+				　사원번호 : ${commuteStaffInfo.emp_no}　<br><br>
+				　사원명 : ${commuteStaffInfo.emp_name }　<br><br>
+				　직함 : ${commuteStaffInfo.job_nm }　<br><br> 
+				　부서명 : ${commuteStaffInfo.dept_nm }　<br><br> 
+				　☎ : ${commuteStaffInfo.phone }　<br><br>
 			</div>
-
-
 		</div>
 
 
@@ -367,16 +335,26 @@
 					function showModal(){
 						$('#Modal').modal('show');
 						
-					}
-					// 	모달 취소버튼 클릭 시 
-					$(".modalclose").on("click", function() {
-						$('#Modal').modal('hide');
-					});
+						// 	모달 취소버튼 클릭 시 
+						$(".modalclose").on("click", function() {
+							$('#Modal').modal('hide');
+						});
+						
+						}
 				</script>
 			</div>
 		</div>
 
 
+<!-- 인사팀만 보여지는 버튼 -->
+				<c:if test="${sessionScope.loginSsInfo.dept_no eq 10}">
+					<div class="personnel_button">
+						<button type="button"
+							onclick="location.href='<%=request.getContextPath()%>/commute/empCommuteList'"
+							class="btn btn-secondary btn_red" id="personnel">직원별 근태
+							리스트 보기</button>
+					</div>
+				</c:if>
 
 
 		<div class="table_all">
@@ -427,27 +405,24 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">근태수정</h5>
+							<h5 class="modal-title" id="exampleModalLabel">직원 근태 수정하기 </h5>
 						</div>
-						<form id="aaa" action="<%=request.getContextPath()%>/"
-							method="post">
+						<form id="changemodal" action="<%=request.getContextPath()%>/" method="post">
 							<div class="modal-body">
 								<div class="form-group">
-									<label for="taskId" class="col-form-label">일정 내용</label> <input
-										type="text" class="form-control" id="calendar_content"
-										name="calendar_content"> <label for="taskId"
-										class="col-form-label">시작 날짜</label> <input type="date"
-										class="form-control" id="calendar_start_date"
-										name="calendar_start_date"> <label for="taskId"
-										class="col-form-label">종료 날짜</label> <input type="date"
-										class="form-control" id="calendar_end_date"
-										name="calendar_end_date">
+									<label for="taskId" class="col-form-label">선택한 근무일자</label>
+									<input type="text" class="form-control" id="modal_day" name="modal_day">
+									
+									<label for="taskId" class="col-form-label">출근 시간</label>
+									<input type="time" class="form-control" id="modal_start_time" name="modal_start_time">
+									
+									<label for="taskId" class="col-form-label">퇴근 시간</label>
+									<input type="time" class="form-control" id="modal_end_time" name="modal_end_time">
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-warning" id="addCalendar">완료</button>
-								<button type="button" class="btn btn-secondary modalclose"
-									data-dismiss="modal" id="sprintSettingModalClose">취소</button>
+								<button type="submit" class="btn btn-warning btn_yellow" id="changemodal">수정하기</button>
+								<button type="button" class="btn btn-secondary btn_gray modalclose" data-dismiss="modal" id="sprintSettingModalClose">취소하기</button>
 							</div>
 						</form>
 					</div>
