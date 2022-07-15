@@ -109,29 +109,25 @@
           </div>
           <div class="mb-3" id="loca">
           	위치
-          	<button id="location" class="btn_yellow">
-          		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
- 				 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-				</svg>
-			</button>
+			<button type="button" id="location" class="btn_yellow">추가</button>
           	<div class="selectedLoca"></div>
-          	<input name="sked_location" value="">
-          	<div class="map_wrap" style="display:none;">
-			    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-			    <div id="menu_wrap" class="bg_white">
-			        <div class="option">
-			            <div>
-			                <form style="display:flex;" onsubmit="searchPlaces(); return false;">
-			                    <input type="text" class="form-control" value="" id="keyword" size="15"> 
-			                    <button type="submit" class="btn_green">검색하기</button> 
-			                </form>
-			            </div>
-			        </div>
-			        <hr>
-			        <ul id="placesList"></ul>
-			        <div id="pagination"></div>
-			    </div>
-			</div>
+          	<input id="sked_location" name="sked_location" value="" type="hidden">
+			        <div class="map_wrap" style="display:none;">
+					    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+					    <div id="menu_wrap" class="bg_white">
+					        <div class="option">
+					            <div>
+					                <form style="display:flex;" onsubmit="searchPlaces(); return false;">
+					                    <input type="text" class="form-control" value="" id="keyword" size="15"> 
+					                    <button type="submit" class="btn_green">검색하기</button> 
+					                </form>
+					            </div>
+					        </div>
+					        <hr>
+					        <ul id="placesList"></ul>
+					        <div id="pagination"></div>
+					    </div>
+					</div>
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
@@ -169,10 +165,6 @@
 	
 // });
 
-// 위치 선택 버튼 누르면 지도 나타내기 toggle
-$("#location").click(function(){
-	$(".map_wrap").toggle();
-});	
 	// 카카오 지도
 // 마커를 담을 배열입니다
 var markers = [];
@@ -180,11 +172,17 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 2 // 지도의 확대 레벨
+        level: 3 // 지도의 확대 레벨
     };  
     
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 위치 선택 버튼 누르면 지도 나타내기 toggle
+$("#location").click(function(){
+	$(".map_wrap").toggle();
+	map.relayout(); // 지도 레이아웃 재설정
+});	
 
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
@@ -198,7 +196,6 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-
     var keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
@@ -333,7 +330,14 @@ function selectInfo(thisEle){
 	html += "<div>"+road+"</div>";
 	html += "<div style='color:#8a8a8a;'>"+jibun+"</div>";
 	
+	// 주소 보내기
 	$(".selectedLoca").append(html);
+	if(road==null){
+		$("#sked_location").val(jibun);		
+	} else {
+		$("#sked_location").val(road);
+	}
+	
 	// 검색창 숨기기
 	$("#menu_wrap").hide();
 	
@@ -343,8 +347,8 @@ geocoder.addressSearch(road, function(result, status) {
      if (status === kakao.maps.services.Status.OK) {
 
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
         removeMarker();
+        
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
             map: map,
@@ -357,8 +361,12 @@ geocoder.addressSearch(road, function(result, status) {
         });
         infowindow.open(map, marker);
 
+        // 지도 크기 조정
+        $("#map").css("height","300px");
+        
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
+        
     } 
 });    
 

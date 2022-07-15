@@ -34,17 +34,18 @@ public class Work {
 	private Timestamp work_date;
 	private String proj_name;
 	private String work_pic;
-	
+	private String emp_name;
+
 	private List<ProjFile> projfilelist;
 
- 	
+	
 	@Override
 	public String toString() {
 		return "Work [work_no=" + work_no + ", proj_no=" + proj_no + ", work_title=" + work_title + ", work_content="
 				+ work_content + ", work_mgr=" + work_mgr + ", work_start_date=" + work_start_date + ", work_deadline="
 				+ work_deadline + ", work_progress=" + work_progress + ", isemergency=" + isemergency + ", work_status="
 				+ work_status + ", work_date=" + work_date + ", proj_name=" + proj_name + ", work_pic=" + work_pic
-				+ ", projfilelist=" + projfilelist + "]";
+				+ ", emp_name=" + emp_name + ", projfilelist=" + projfilelist + "]";
 	}
 
 	public List<ProjFile> getProjfilelist() {
@@ -103,6 +104,14 @@ public class Work {
 	}
 	public Timestamp getWork_date() {
 		return work_date;
+	}
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	public void setWork_no(int work_no) {
 		this.work_no = work_no;

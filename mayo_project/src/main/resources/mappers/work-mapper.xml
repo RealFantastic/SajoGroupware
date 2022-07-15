@@ -66,7 +66,7 @@
 
 <!-- 특정 프로젝트의 특정 업무 글 보기 -->
 <select id="viewWork" resultType="Work">
-	select * from work_board where work_no=#{work_no}
+	select * from work_board w join employee e on w.work_mgr = e.emp_no where work_no=#{work_no}
 </select>
 
 <!-- 전체 업무 글 수 -->

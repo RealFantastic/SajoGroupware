@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.work.domain.Work;
@@ -26,6 +27,8 @@ public class ProjectController {
 	private ProjectService service;
 	@Autowired
 	private WorkService workService;
+	@Autowired
+	private EmpService empService;
 	
 	// 전체 프로젝트, 업무 목록
 	@GetMapping("/list") 

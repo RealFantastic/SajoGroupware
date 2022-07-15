@@ -27,8 +27,8 @@
 			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
 			<div class="insert">
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
-				<button id="insertSch" class="btn_green sidebtn">새 일정</button>
 			</div>
+				<button id="insertSch" class="btn_green sidebtn">새 일정</button>
 				<button id="insertPic" class="btn_yellow sidebtn">직원 추가</button>
 		 </div>
 	</aside>

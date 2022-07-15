@@ -23,6 +23,7 @@
 
 /* 업무 상세글 몸통 */
 #workBody{
+	max-width: 1000px;
 	min-width: 600px;
 	box-shadow: 5px 2px 2px rgb(235, 255, 246);
 	border:1.7px solid rgb(107, 191, 152);
@@ -40,18 +41,33 @@
 
 /* 긴급 아이콘 */
 #dimg{
-	width:35px;
+	width: 38px;
 }
+
+/* 상태 표시 */
+.statusD {
+	width: fit-content;
+	min-width: fit-content;
+	margin: 0 10px 0 0;
+	padding: 5px 7px 5px 7px;
+}
+
+/* 안내문 */
+.nothing {
+	padding: 30px;
+}
+
 
 /* 첨부파일 아이콘 */
 #clip{
 	width:25px;
 }
 
-/* #isemergency { */
-/* 	border:0; */
-/* 	background-color: white; */
-/* } */
+#dpercentage {
+	width: 35px;
+	border: none;
+}
+
 
 /* 프로그레스바 */
 .dprogress {
