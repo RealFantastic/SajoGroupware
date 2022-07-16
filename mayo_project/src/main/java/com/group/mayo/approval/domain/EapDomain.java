@@ -40,6 +40,13 @@ public class EapDomain {
 	private String update_date;
 	private String isemergency;
 	
+	private String form_title;
+	
+	private List<ApprovalFile> approvalFiles;
+	
+	
+
+	
 	@Override
 	public String toString() {
 		return "EapDomain [ea_no=" + ea_no + ", ea_title=" + ea_title + ", ea_content=" + ea_content + ", drafter_id="
@@ -47,7 +54,8 @@ public class EapDomain {
 				+ ", second_approver=" + second_approver + ", third_approver=" + third_approver + ", final_approver="
 				+ final_approver + ", approver_emp_no=" + approver_emp_no + ", status_code=" + status_code
 				+ ", result_code=" + result_code + ", form_code=" + form_code + ", return_reson=" + return_reson
-				+ ", update_date=" + update_date + ", isemergency=" + isemergency + "]";
+				+ ", update_date=" + update_date + ", isemergency=" + isemergency + ", form_title=" + form_title
+				+ ", approvalFiles=" + approvalFiles + "]";
 	}
 	
 	public String getEa_no() {
@@ -148,6 +156,22 @@ public class EapDomain {
 	public void setIsemergency(String isemergency) {
 		this.isemergency = isemergency;
 	}
+	public String getForm_title() {
+		return form_title;
+	}
+	public void setForm_title(String form_title) {
+		this.form_title = form_title;
+	}
+
+	public List<ApprovalFile> getApprovalFiles() {
+		return approvalFiles;
+	}
+
+	public void setApprovalFiles(List<ApprovalFile> approvalFiles) {
+		this.approvalFiles = approvalFiles;
+	}
+
+
 	
 
 

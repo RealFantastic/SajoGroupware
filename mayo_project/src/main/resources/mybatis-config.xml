@@ -19,6 +19,7 @@
 	<typeAlias type="com.group.mayo.work.domain.ProjFile" alias="ProjFile"/>
 	<typeAlias type="com.group.mayo.eaform.domain.EaForm" alias="EaForm"/>
 	<typeAlias type="com.group.mayo.schedule.domain.Schedule" alias="Schedule"/>
+	<typeAlias type="com.group.mayo.approval.domain.ApprovalFile" alias="ApFile"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>

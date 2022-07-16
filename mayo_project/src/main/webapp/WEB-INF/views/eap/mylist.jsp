@@ -53,20 +53,10 @@
 					  	</c:when>
 					  	<c:otherwise>
 					  		<c:forEach var="list" items="${mylist }">
-					  			<tr>
+					  			<tr class="my_doc_list" data-eano="${list.ea_no }">
 							      <th scope="row">${list.ea_no }</th>
 							      <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.draft_date }"/></td>
-							      <c:choose>
-							      	<c:when test="${list.form_code eq 'AR'}">
-							      		<td>휴가신청서</td>
-							      	</c:when>
-							      	<c:when test="${list.form_code eq 'BP'}">
-							      		<td>업무기안</td>
-							      	</c:when>
-							      	<c:when test="${list.form_code eq 'SR'}">
-							      		<td>지출결의서</td>
-							      	</c:when>
-							      </c:choose>
+							      <td>${list.form_title }</td>
 							      <c:choose>
 							      	<c:when test="${list.isemergency eq 'N' }">
 										<td><img src="<%=request.getContextPath()%>/resources/images/blackalert.png" style="width:22.2px;"></td>
@@ -76,8 +66,35 @@
 							      	</c:otherwise>
 							      </c:choose>
 							      <td>${list.ea_title }</td>
-							      <td>${list.ea_no }</td>
-							      <td>${list.status_code }</td>
+							      <c:choose>
+							      	<c:when test="${not empty list.approvalFiles }">
+							      		<td><i class="fa-solid fa-paperclip"></i></td>
+							      	</c:when>
+							      	<c:otherwise>
+							      		<td>${list.approvalFiles.f_no }</td>
+							      	</c:otherwise>
+							      </c:choose>
+							      <c:choose>
+							      	<c:when test="${list.result_code gt 0 }">
+							      		<c:choose>
+							      			<c:when test="${list.result_code eq 1 }">
+							      				<td><div class="btn_gray">회수</div></td>
+							      			</c:when>
+							      			<c:when test="${list.result_code eq 2 }">
+							      				<td><div class="btn_yellow">진행</div></td>
+							      			</c:when>
+							      			<c:when test="${list.result_code eq 3 }">
+							      				<td><div class="btn_red">반려</div></td>
+							      			</c:when>
+							      			<c:otherwise>
+							      				<td><div class="btn_gray">완료</div></td>
+							      			</c:otherwise>
+							      		</c:choose>
+							      	</c:when>
+							      	<c:otherwise>
+							      		<td><div class="btn_green">접수</div></td>
+							      	</c:otherwise>
+							      </c:choose>
 							    </tr>
 					  		</c:forEach>
 					  	</c:otherwise>
@@ -87,5 +104,11 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).on('click','.my_doc_list',function(e){
+			var ea_no = $(this).data('eano');
+			location.href="<%=request.getContextPath()%>/eap/list/mylist/detail?ea_no=" + ea_no;
+		});
+	</script>
 </body>
 </html>

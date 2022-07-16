@@ -94,5 +94,6 @@ table#list_app th:first-child{
 .mylist{
 	width:1200px;
 	text-align: center;
+	vertical-align: middle;
 }
 

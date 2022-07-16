@@ -43,6 +43,12 @@ public class EapServiceImpl implements EapService {
 		
 		return dao.selectMyList(employee);
 	}
+
+
+	@Override
+	public EapDomain selectDraft(EapDomain eap) {
+		return dao.selectDraft(eap);
+	}
 	
 	
 

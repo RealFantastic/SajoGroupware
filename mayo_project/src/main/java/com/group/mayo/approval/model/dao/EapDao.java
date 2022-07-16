@@ -29,4 +29,7 @@ public class EapDao {
 	public List<EapDomain> selectMyList(Employee employee) {
 		return sqlSession.selectList("Eap.selectMyList", employee);
 	}
+	public EapDomain selectDraft(EapDomain eap) {
+		return sqlSession.selectOne("Eap.selectMyDraft",eap);
+	}
 }

@@ -100,7 +100,7 @@ public class EapController {
 		return msg;
 	}
 	
-	//기안 문서함(내가 기안한 문서함)
+	//기안 문서함(내가 기안한 문서함) 리스트
 	@GetMapping("/list/mylist")
 	public ModelAndView selectMylist(ModelAndView mv
 			, HttpSession session
@@ -114,6 +114,20 @@ public class EapController {
 			mv.addObject("mylist", mylist);
 			mv.setViewName("eap/mylist");
 		}
+		
+		return mv;
+	}
+	@GetMapping("/list/mylist/detail")
+	public ModelAndView selectDraft(ModelAndView mv
+			, HttpSession session
+			, @RequestParam(name="ea_no", required=false) String ea_no
+			, EapDomain eap) {
+		//세션 로그인 정보 가져옴.
+		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
+		eap.setDrafter_id(curUser.getEmp_no());
+		
+		mv.addObject("myDraft",service.selectDraft(eap));
+		mv.setViewName("eap/mydraft");
 		
 		return mv;
 	}

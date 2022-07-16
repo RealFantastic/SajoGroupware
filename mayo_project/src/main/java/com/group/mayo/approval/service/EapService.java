@@ -17,7 +17,7 @@ public interface EapService {
 	
 	/**
 	 * @return 결재양식 목록 
-	 * @auther JHPark
+	 * @author JHPark
 	 */
 	public List<EaForm> selectListEaForm();
 	
@@ -25,13 +25,22 @@ public interface EapService {
 	 * 
 	 * @param form_code : 양식코드
 	 * @return 결재양식명, 양식내용 
-	 * @auther JHPark
+	 * @author JHPark
 	 */
 	public EaForm selectForm(String form_code);
 	/**
 	 * 
 	 * @param employee : 사용자
 	 * @return 본인이 작성한 기안문 목록
+	 * @author JHPark
 	 */
 	public List<EapDomain> selectMyList(Employee employee);
+	
+	/**
+	 * 
+	 * @param eap
+	 * @return 선택한 결재문서 상세
+	 * @author JHPark
+	 */
+	public EapDomain selectDraft(EapDomain eap);
 }
