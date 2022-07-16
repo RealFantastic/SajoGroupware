@@ -16,7 +16,8 @@ public class Holiday {
 //HD_END            DATE          
 //HD_CODE           VARCHAR2(1)   
 //HD_COUNT          NUMBER        
-//HD_RESON          VARCHAR2(100) 
+//HD_RESON          VARCHAR2(100)
+//EA_NO				VARCHAR2(50)
 
 	private int hd_no;
 	private String emp_no;
@@ -26,16 +27,16 @@ public class Holiday {
 	private	String hd_code;
 	private	int hd_count;
 	private	String hd_reson;
+	private String ea_no;
 	
 	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
 				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reson=" + hd_reson
-				+ "]";
+				+ ", ea_no=" + ea_no + "]";
 	}
-
-
+	
 	public int getHd_no() {
 		return hd_no;
 	}
@@ -97,6 +98,14 @@ public class Holiday {
 	}
 	public void setHd_reson(String hd_reson) {
 		this.hd_reson = hd_reson;
+	}
+
+	public String getEa_no() {
+		return ea_no;
+	}
+
+	public void setEa_no(String ea_no) {
+		this.ea_no = ea_no;
 	}
 	
 	
