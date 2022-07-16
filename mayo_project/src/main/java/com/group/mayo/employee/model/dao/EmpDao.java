@@ -48,5 +48,9 @@ public class EmpDao {
 		
 		return result;
 	}
-
+	
+	//아이디(사원번호) 찾기
+	public Employee findId(Employee employee) {
+		return sqlSession.selectOne("Employee.findId", employee);
+	}
 }

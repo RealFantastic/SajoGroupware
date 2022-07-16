@@ -49,4 +49,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public int checkCpNumber(String cp_number);
+	/**
+	 * 
+	 * @return 아이디 찾기시 정보가 일치하는 직원 수 
+	 * @author XeonSnee
+	 */
+	public Employee findId(Employee employee);
 }

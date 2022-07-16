@@ -334,9 +334,9 @@ public class EmpController {
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = email;
-	     String title = "[MAYO 그룹웨어] 회원가입을 해주세요! ";
+	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
 	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요.";
-	     String domain = "";
+	     String cp_num = "";
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
 	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
@@ -347,12 +347,36 @@ public class EmpController {
 	         mailHelper.setText(content, true);       
 	         
 	         mailSender.send(mail);
-	         domain = Integer.toString(cp_number);
+	         cp_num = Integer.toString(cp_number);
 	         
 	     } catch(Exception e) {
-	    	 domain = "error";
+	    	 cp_num = "error";
 	     }
-	     return domain;
+	     return cp_num;
 	 }
-
+	 
+	    // 아이디 찾기 페이지 이동
+		@RequestMapping(value="/findId")
+		public ModelAndView findIdView(ModelAndView mv) {
+			mv.setViewName("member/find_id");
+			return mv;
+		}
+	    // 아이디 찾기 실행
+		@RequestMapping(value="findId", method=RequestMethod.POST)
+		@ResponseBody
+		public ModelAndView findId(Employee employee
+								, ModelAndView mv) {
+			Employee findId = service.findId(employee);
+			
+			if(findId == null) { 
+				mv.addObject("check", 1);
+			} else { 
+				mv.addObject("check", 0);
+				mv.addObject("findId", findId);
+			}
+			mv.setViewName("member/findId");
+			return mv;
+		}
+		
+		//비밀번호 찾기
 }

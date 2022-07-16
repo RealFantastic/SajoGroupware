@@ -52,5 +52,12 @@ public class EmpServiceImpl implements EmpService{
 		int result = dao.checkCpNumber(cp_number);
 		return result;
 	}
+	// 아이디 찾기
+		@Override
+		public Employee findId(Employee employee) {
+	
+			
+			return dao.findId(employee) ;
+		}
 	
 }
