@@ -53,4 +53,8 @@ public class EmpDao {
 	public Employee findId(Employee employee) {
 		return sqlSession.selectOne("Employee.findId", employee);
 	}
+	//비밀번호 찾기
+	public Employee findPwd(Employee employee) {
+		return sqlSession.selectOne("Employee.findPwd", employee);
+	}
 }

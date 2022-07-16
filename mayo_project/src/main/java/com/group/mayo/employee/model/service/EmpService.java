@@ -55,4 +55,10 @@ public interface EmpService {
 	 * @author XeonSnee
 	 */
 	public Employee findId(Employee employee);
+	/**
+	 * 
+	 * @return 비밀번호 찾기시 정보가 일치하는 직원 수 
+	 * @author XeonSnee
+	 */
+	public Employee findPwd(Employee employee);
 }

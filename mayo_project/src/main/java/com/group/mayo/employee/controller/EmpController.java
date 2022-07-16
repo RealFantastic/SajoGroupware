@@ -378,5 +378,25 @@ public class EmpController {
 			return mv;
 		}
 		
-		//비밀번호 찾기
+	    // 비밀번호 찾기 페이지로 이동
+		@RequestMapping(value="/findPwd")
+		public ModelAndView findPwdView(ModelAndView mv) {
+			mv.setViewName("member/find_pwd");
+			return mv;
+		}
+	    // 비밀번호 찾기 실행
+		@RequestMapping(value="findPwd", method=RequestMethod.POST)
+		@ResponseBody
+		public String findPwd(Employee employee, ModelAndView mv) {
+			Employee findPwd = service.findPwd(employee);
+			
+			if(findPwd == null) { 
+				mv.addObject("check", 1);
+			} else { 
+				mv.addObject("check", 0);
+				mv.addObject("findPwd", findPwd);
+			}
+			
+			return "member/findPwd";
+		}
 }
