@@ -11,5 +11,13 @@
 			,(SELECT left_count FROM employee_holiday b WHERE b.emp_no=a.emp_no) LEFT_COUNT
 		FROM employee a order by EMP_NO
 	</select>
-	
+	<insert id="insertHoliday" parameterType="Holiday">
+		INSERT INTO HOLIDAY_HISTORY 
+		VALUES
+		(
+		(SELECT NVL(MAX(HD_NO),0)+1) FROM HOLIDAY_HISTORY)
+		, #{emp_no}, default, #{hd_start}, #{hd_end}, #{hd_code}
+		, #{hd_count}, #{hd_reason}, #{ea_no}
+		)
+	</insert>
 </mapper>

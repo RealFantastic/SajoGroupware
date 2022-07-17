@@ -18,6 +18,8 @@ import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.service.EapService;
 import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.employee.domain.Holiday;
+import com.group.mayo.employee.model.service.HolidayService;
 
 @Controller
 @RequestMapping("eap")
@@ -25,6 +27,9 @@ public class EapController {
 	
 	@Autowired
 	private EapService service;
+	
+	@Autowired
+	private HolidayService hservice;
 	
 	@GetMapping("/main")
 	public ModelAndView mainPage(ModelAndView mv) {
@@ -47,16 +52,24 @@ public class EapController {
 		return mv;
 	}
 	@ResponseBody
-	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8")
-	public String insertEap(EapDomain eap,HttpSession session) {
+	@PostMapping(value="/insert/ar", produces="text/plain;charset=UTF-8")
+	public String insertEap(EapDomain eap,HttpSession session,Holiday holiday) {
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
-		
+		String msg = "컨트롤러";
 		//기안자, 1차결재자 지정
 		if(curUser != null) {
 			eap.setDrafter_id(curUser.getEmp_no());
 			eap.setFirst_approver(curUser.getEmp_no());
 		}
-		
+		//문서번호 생성에 실패했다면 메소드 종료 후 리턴
+		String eaNo = service.selectNewEaNo(eap);
+		if(eaNo != null) {
+			eap.setEa_no(eaNo);
+			holiday.setEa_no(eaNo);
+		}else {
+			msg = "fail";
+			return msg;
+		}
 		//결재상태 코드 초기화
 		int statusCode = 1;
 		//기안자 제외 총 결재자 컬럼 3개만큼 반복문
@@ -88,15 +101,28 @@ public class EapController {
 		}
 		//결재선 개수에 따라 증가한 상태코드를 대입
 		eap.setStatus_code(statusCode);
-		
+//		//TODO 트랜잭션 생각하면 Service에서 동작하게 해야하는데....
+		int isComplete = 0;
 		int result = service.insertEap(eap);
-		String msg = "컨트롤러";
 		if(result != 0) {
-			msg = "complete";
-			
-		}else {
-			msg = "fail"; 
+			switch(eap.getForm_code()) {
+			case "AR":
+				//TODO 여기선 content의 태그문자 제거해야함.
+				holiday.setHd_reason(eap.getEa_content());
+				int insertAR = hservice.insertHoliday(holiday);
+				isComplete = insertAR;
+				break;
+			case "BP":
+				//TODO - 업무기안 구현시 다시 적어야함.
+				break;
+			}
 		}
+		if(isComplete != 0) {
+			msg="complete";
+		}else {
+			msg="fail";
+		}
+		
 		return msg;
 	}
 	
@@ -126,9 +152,16 @@ public class EapController {
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		eap.setDrafter_id(curUser.getEmp_no());
 		
-		mv.addObject("myDraft",service.selectDraft(eap));
-		mv.setViewName("eap/mydraft");
+		EapDomain selectEap = service.selectDraft(eap);
 		
+		mv.addObject("myDraft",selectEap);
+		
+		switch(selectEap.getForm_code()) {
+		case "AR":
+			mv.setViewName("eap/selectVacation");
+		case "BP":
+			mv.setViewName("eap/selectBP");
+		}
 		return mv;
 	}
 }

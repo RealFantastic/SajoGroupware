@@ -5,6 +5,7 @@ import java.util.List;
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.employee.domain.Holiday;
 
 public interface EapService {
 	/**
@@ -43,4 +44,10 @@ public interface EapService {
 	 * @author JHPark
 	 */
 	public EapDomain selectDraft(EapDomain eap);
+	/**
+	 * 
+	 * @param eap
+	 * @return 새 문서번호 생
+	 */
+	public String selectNewEaNo(EapDomain eap);
 }

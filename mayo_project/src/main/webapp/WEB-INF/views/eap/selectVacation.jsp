@@ -7,7 +7,7 @@
 <c:set var="year"><fmt:formatDate value="${now }" pattern="yyyy"/></c:set>
 	<div class="toolBar_container">
 		<div class="toolBar">
-			<button type="button" class="btn_tool draftAR btn_green">결재 요청</button>
+			<button type="button" class="btn_tool draft btn_green">결재 요청</button>
 			<button type="button" class="btn_tool cancel btn_red">취소</button>
 			<button type="button" class="btn_tool app_line btn_yellow" 
 			data-bs-toggle="modal" data-bs-target="#approval_list_modal">결재선 지정</button>
@@ -87,7 +87,7 @@
 							<tr>
 								<td class="td_color_gray">기간 및 일시</td>
 								<td style="border-bottom:1px solid black;">
-									<input type="date" required id="start_date" name="hd_start"> ~ <input type="date" required id="end_date" name="hd_end">
+									<input type="date" id="start_date" name="hd_start"> ~ <input type="date" id="end_date" name="hd_end">
 									<label for="hd_count">사용 일자 : </label>
 									<input type="text" readonly name="hd_count" id="hd_count">
 									<span class="overAlert">사용일수 초과</span>
@@ -98,7 +98,6 @@
 								<td style="border-bottom:1px solid black;">
 									<input type="checkbox" id="is_half" name="is_half">
 									<label for="is_half">반차사용</label>
-									<input type="hidden" name="hd_code" value="F">
 									<span id="select_time_radio">
 										<label for="start_am">시작일</label>
 										(
@@ -124,7 +123,7 @@
 							</tr>
 							<tr>
 								<td class="td_color_gray">휴가 사유</td>
-								<td><textarea id="summernote" name="ea_content" required class="summernote"></textarea></td>
+								<td><textarea id="summernote" name="ea_content" class="summernote"></textarea></td>
 							</tr>
 						</table>
 					</form>
@@ -259,9 +258,7 @@
 						}
 					}
 				}
-				/* 반차사용 클릭  */
 				$("#is_half").click(function(){
-					$('input[name=hd_code]').val('H');
 					/* 신청된 연차 개수 변수 생성 */
 					var hd_count = $("#hd_count").val();
 					
@@ -281,7 +278,6 @@
 						}
 					}else{
 						console.log("언체크상태");
-						$('input[name=hd_code]').val('F');
 						var holiday = calcHoliday();
 						$('input[name=startHalf]').prop('checked',false);
 						$('input[name=endHalf]').prop('checked',false);
@@ -369,7 +365,6 @@
 						}
 					});
 				});
-				
 				$('.btn_delete_act_all').click(function(event){
 					console.log($(event.target));
 					var target = $(event.target);
@@ -415,13 +410,13 @@
 					$('.sign_member_wrapper').after(_html);
 					$('.approval_list').modal('hide');
 				});
-				$('.draftAR').click(function(){
+				$('.draft').click(function(){
 					let formData = $('#doc_content').serialize();
 					formData = decodeURIComponent(formData);
 					console.log(formData);
 					$.ajax({
 						type:'POST',
-						url:'<%=request.getContextPath()%>/eap/insert/ar',
+						url:'<%=request.getContextPath()%>/eap/insert',
 						data:formData,
 						success:function(result){
 							if(result ="complete"){

@@ -31,4 +31,11 @@ public class HolidayServiceImpl implements HolidayService{
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception {
 		return dao.commuteEmpSearch(empCommuteSearch);
 	}
+
+	@Override
+	public int insertHoliday(Holiday holiday) {
+		return dao.insertHoliday(holiday);
+	}
+	
+	
 }

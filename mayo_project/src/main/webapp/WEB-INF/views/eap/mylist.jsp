@@ -107,6 +107,7 @@
 	<script>
 		$(document).on('click','.my_doc_list',function(e){
 			var ea_no = $(this).data('eano');
+			var form_code = $(this).data('form_code');
 			location.href="<%=request.getContextPath()%>/eap/list/mylist/detail?ea_no=" + ea_no;
 		});
 	</script>

@@ -15,6 +15,10 @@ public class EapDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public String selectNewEaNo(EapDomain eap) {
+		return sqlSession.selectOne("Eap.selectNewEaNo",eap);
+	}
+	
 	public int insertEap(EapDomain eap) {
 		return sqlSession.insert("Eap.insertEap", eap);
 	}
@@ -31,5 +35,8 @@ public class EapDao {
 	}
 	public EapDomain selectDraft(EapDomain eap) {
 		return sqlSession.selectOne("Eap.selectMyDraft",eap);
+	}
+	public EapDomain selectResult(EapDomain eap) {
+		return sqlSession.selectOne("Eap.selectResult",eap);
 	}
 }

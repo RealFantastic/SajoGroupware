@@ -41,9 +41,8 @@ public class EapDomain {
 	private String isemergency;
 	
 	private String form_title;
-	
+	//ÆÄÀÏ
 	private List<ApprovalFile> approvalFiles;
-	
 	
 
 	

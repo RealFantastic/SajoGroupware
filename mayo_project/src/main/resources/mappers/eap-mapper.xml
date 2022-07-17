@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Eap">
-
+	<!-- 결재문서 번호 생성 -->
+	<select id="selectNewEaNo" parameterType="Eap" resultType="string">
+	(SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
+		(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) 
+			from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' )
+	FROM DUAL)
+	</select>
 	<!-- 결재문서 상신 -->
 	<insert id="insertEap" parameterType="Eap">
 		insert into elec_approval 
@@ -9,18 +15,24 @@
 		, FINAL_APPROVER,STATUS_CODE,RESULT_CODE, FORM_CODE, ISEMERGENCY) 
 		values
 		(
-		(SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
-			(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0)
-			from
-			( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' )
-			)
-			from dual)
+			#{ea_no}
 			,#{ea_title},#{ea_content}, #{drafter_id}, DEFAULT
 			,#{first_approver},#{second_approver},#{third_approver}
 			,#{final_approver},#{status_code}
 			, DEFAULT, #{form_code},default
 		)
 	</insert>
+	<!-- 방금 인서트한 결과물 select -->
+	<select id="selectResult" parameterType="Eap" resultType="Eap">
+		SELECT *
+		FROM (SELECT * 
+				FROM ELEC_APPROVAL 
+				WHERE FORM_CODE = #{form_code}
+				ORDER BY DRAFT_DATE DESC)
+		WHERE ROWNUM = 1 AND DRAFTER_ID = #{drafter_id}
+	</select>
+	
+	
 	<!-- 기안문서함 리스트   -->
 	<select id="selectMyList" parameterType="Employee" resultType="Eap">
 		SELECT EAP.*,FORM.FORM_TITLE,AF.*
@@ -28,6 +40,7 @@
     	JOIN EA_FORM FORM ON EAP.FORM_CODE = FORM.FORM_CODE
     	LEFT OUTER JOIN APPROVAL_FILE AF ON EAP.EA_NO = AF.DOC_NO
     	WHERE DRAFTER_ID = #{emp_no}
+    	ORDER BY DRAFT_DATE DESC
 	</select>
 	
 	<!-- 기안문서함 상세보기 -->

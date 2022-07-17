@@ -10,6 +10,7 @@ import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.model.dao.EapDao;
 import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.employee.domain.Holiday;
 
 @Service
 @Transactional
@@ -18,6 +19,13 @@ public class EapServiceImpl implements EapService {
 	private EapDao dao;
 	
 	
+	
+	@Override
+	public String selectNewEaNo(EapDomain eap) {
+		return dao.selectNewEaNo(eap);
+	}
+
+
 	@Override
 	public int insertEap(EapDomain eap) {
 		

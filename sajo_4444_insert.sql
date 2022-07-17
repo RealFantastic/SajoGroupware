@@ -786,6 +786,28 @@ JOIN EA_FORM FORM ON A.FORM_CODE = FORM.FORM_CODE
 LEFT OUTER JOIN APPROVAL_FILE AF ON A.EA_NO = AF.DOC_NO
 WHERE A.EA_NO = '2022-AR-003';
 
+--방금 인서트한 쿼리를 select해오는 쿼리
+SELECT *
+FROM (SELECT * FROM ELEC_APPROVAL WHERE FORM_CODE = 'AR' ORDER BY DRAFT_DATE DESC)
+WHERE ROWNUM = 1 AND DRAFTER_ID = '202210004';
+
+select nvl(max(hd_no),0)+1 from holiday_history;
+
+
+SELECT EMP_NO,EMP_NAME,DEPT_NAME,JOB_NAME 
+FROM EMPLOYEE
+JOIN DEPARTMENT USING(DEPT_NO)
+JOIN JOB USING (JOB_NO)
+JOIN ELEC_APPROVAL ON (SECOND_APPROVER = EMP_NO)
+where EA_NO = '2022-AR-008';
+
+insert into holiday_history
+values
+(
+(select nvl(max(hd_no),0)+1 from holiday_history),
+'202210001',default,'2022-07-18','2022-07-19','F',1,'제발','2022-AR-014'
+);
+
 
 --기안 문서함 리스트
 SELECT EAP.*,FORM.FORM_TITLE, AF.*
@@ -810,7 +832,6 @@ from dual
 ;
 SELECT min(ea_title) FROM ELEC_APPROVAL
 ;
-
 
 
 --SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) from elec_approval where substr(ea_no,6,2) = 'AR') FROM ELEC_APPROVAL;

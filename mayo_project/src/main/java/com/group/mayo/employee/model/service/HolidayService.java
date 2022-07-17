@@ -32,4 +32,12 @@ public interface HolidayService {
 	 * @author hong
 	 */
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception;
+	
+	/**
+	 * 
+	 * @param holiday
+	 * @return 0 or 1
+	 * @author JHPark
+	 */
+	public int insertHoliday(Holiday holiday);
 }

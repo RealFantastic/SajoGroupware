@@ -30,4 +30,8 @@ public class HolidayDao {
 	public List<CommuteEmployee>commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception{
 		return sqlSession.selectList("CommuteRecord.commuteEmpSearch", empCommuteSearch);
 	}
+	
+	public int insertHoliday(Holiday holiday) {
+		return sqlSession.insert("Holiday.insertHoliday", holiday);
+	}
 }

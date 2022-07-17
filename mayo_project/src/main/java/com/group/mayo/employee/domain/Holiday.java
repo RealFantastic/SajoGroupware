@@ -26,14 +26,13 @@ public class Holiday {
 	private	Date hd_end;
 	private	String hd_code;
 	private	int hd_count;
-	private	String hd_reson;
+	private	String hd_reason;
 	private String ea_no;
-	
 	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
-				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reson=" + hd_reson
+				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reason=" + hd_reason
 				+ ", ea_no=" + ea_no + "]";
 	}
 	
@@ -92,18 +91,17 @@ public class Holiday {
 		this.hd_count = hd_count;
 	}
 
-
-	public String getHd_reson() {
-		return hd_reson;
+	
+	public String getHd_reason() {
+		return hd_reason;
 	}
-	public void setHd_reson(String hd_reson) {
-		this.hd_reson = hd_reson;
+	public void setHd_reason(String hd_reason) {
+		this.hd_reason = hd_reason;
 	}
 
 	public String getEa_no() {
 		return ea_no;
 	}
-
 	public void setEa_no(String ea_no) {
 		this.ea_no = ea_no;
 	}
