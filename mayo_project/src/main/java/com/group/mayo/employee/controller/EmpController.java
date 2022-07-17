@@ -409,8 +409,8 @@ public class EmpController {
 			service.updatePwd(employee);
 			
 			 // 비밀번호 바꾸기할 경우 성공 페이지 이동
-			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
-			if(loginEmp == null) {
+			Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
+			if(loginSsInfo == null) {
 				mv.setViewName("redirect:/member/login");
 			} else {
 				mv.setViewName("redirect:/member/updatePwd");
