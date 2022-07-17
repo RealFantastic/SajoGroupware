@@ -44,7 +44,6 @@
 	<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>  <!-- 정환 조직도js -->
 
 </head>
-
 <body>
 
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -58,13 +57,13 @@
 		<div class="my_pe">
 			<div class="my_info font1">
 				　<br>
-					<div class="font2">　＜나의 인적사항＞<br><br></div>
+					<div class="font2">　 ＜나의 인적사항＞　<br><br></div>
 				
-				　사원번호 : ${commuteMyInfo.emp_no}　<br><br>
-				　사원명 : ${commuteMyInfo.emp_name }　<br><br>
-				　직함 : ${commuteMyInfo.job_nm }　<br><br>
-				　부서명 : ${commuteMyInfo.dept_nm }　<br><br>
-				　☎ : ${commuteMyInfo.phone }<br>
+				　　사원번호 : ${commuteMyInfo.emp_no}　　<br><br>
+				　　사원명 : ${commuteMyInfo.emp_name }　　<br><br>
+				　　직함 : ${commuteMyInfo.job_nm }　　<br><br>
+				　　부서명 : ${commuteMyInfo.dept_nm }　　<br><br>
+				　　☎ : ${commuteMyInfo.phone }<br>
 				　
 			</div>
 		</div>
@@ -78,7 +77,7 @@
 						<div id="container"></div>
 					</figure>
 					
-					<div id="chart_nodata" style="display: none;">조회된 데이터가 없습니다.</div>
+					<div id="chart_nodata" style="display: none;">조회된 데이터가 없습니다.　　　　　　　</div>
 				</div>
 				<script>
 				
@@ -90,7 +89,7 @@
 // 							plotBackgroundColor: null,
 // 							plotBorderWidth: 0,// 백그라운드 선
 // 							plotShadow: false,
-// 							width:50%, 
+// 							width:10%, 
 // 							margin: 0,
 					
 						},
@@ -102,8 +101,8 @@
 							text: '주간 그래프',
 							align: 'center',
 							verticalAlign: 'middle',
-							x: 0,// 가로
-							y: 70
+							x: 0,// 가로 
+							y: 70// 세로 
 						},
 						tooltip: {
 							pointFormat: '<b>{point.custom.extraInformation}</b>'
@@ -126,7 +125,7 @@
 								},
 								startAngle: -90,
 								endAngle: 90,
-								center: ['50%', '70%'],// 그래프사이즈 중요
+								center: ['50%', '70%'],// 그래프사이즈 중요 : 좌측 가려지는%,위에 보여지는%
 								size: '130%'
 							}
 						},
@@ -148,10 +147,11 @@
 								name : '▶주 남은 근무시간',
 								color :'#6bbf98'
 							},
-							]
+							],
 						}]
 					});
 				}
+
 				</script>
 			</div>
 
@@ -282,7 +282,7 @@
 									
 								}else{
 									str +="<tr>"
-									str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
+									str += "<td colspan='6' class='commute_table_list_td'>조회된 근태내용이 없습니다.</td>";
 									str += "</tr>";
 								}
 								$('.commute_table > tbody').append(str);
@@ -351,7 +351,7 @@
 					<c:if test="${fn:length(commuteMystatus) == 0}">
 						<tr class="no_list">
 							<!-- 	보여질 내역이 없을 경우 -->
-							<td colspan='6'> 조회된 내용이 없습니다.</td>
+							<td colspan='6'> 조회된 근태내용이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="commute" items="${commuteMystatus}">

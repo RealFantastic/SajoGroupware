@@ -35,19 +35,21 @@ public class HolidayController {
 		Employee emp=(Employee) session.getAttribute("loginSsInfo");
 		String id=emp.getEmp_no();
 		
-		//사원번호, 사원명, 직함, 부서명, 연락처
+		//본인의 사원번호, 사원명, 직함, 부서명, 연락처
 		CommuteEmployee commuteMyInfo=service.commuteMyInfo(id);
 		mv.addObject("commuteMyInfo",commuteMyInfo);
 		mv.setViewName("holiday/myHoliday");
 		return mv;
 	}
-	
-//	인사팀-직원연차상세보기
-	
-	
+
+
 //	인사팀 - 직원별 연차내역 리스트
 	@RequestMapping(value = "/empHolidayList", method = RequestMethod.GET)
-	public ModelAndView holidayEmpList(ModelAndView mv) {
+	public ModelAndView holidayEmpList(ModelAndView mv, HttpSession session) {
+		Employee emp=(Employee)session.getAttribute("loginSsInfo");
+		String id=emp.getEmp_no();
+		
+		//직원전체 연차리스트
 		List<HolidayEmployee>holidayEmpList=service.holidayEmpList();
 		mv.addObject("holidayEmpList",holidayEmpList);
 		mv.setViewName("holiday/empHolidayList");
@@ -71,6 +73,7 @@ public class HolidayController {
 	
 	
 	
+//	인사팀-직원연차상세보기
 	
 	
 	

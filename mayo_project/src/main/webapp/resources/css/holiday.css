@@ -41,6 +41,37 @@
 	padding: 20px;
 	margin: 0 0 0 250px;	
 }
+/* 왼쪽메뉴바를 제외한 나의정보*/
+.my_pe{
+	margin-top: 20px;
+}
+
+/* 왼쪽메뉴바를 제외한 날짜박스 */
+.select_box{
+	 float: left;
+    width: 330px;
+        margin-right: 20px;
+    margin-left: 20px;
+
+}
+.year_select{
+        margin-left: 250px;
+	
+}
+.year_title{
+	    padding: 20px;
+}
+
+.occur_title{
+	    padding: 8px;
+    float: left;
+    background-color: #ebfff6;
+}
+/* 왼쪽메뉴바를 제외한 인사팀버튼 */
+.personnel_button{
+	    margin-top: 213px;
+    margin-bottom: 17px;
+}
 .holiday_list{
 	font-weight: bolder;
 }

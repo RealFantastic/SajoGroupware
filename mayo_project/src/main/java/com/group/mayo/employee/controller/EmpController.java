@@ -334,9 +334,9 @@ public class EmpController {
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = email;
-	     String title = "[MAYO 그룹웨어] 회원가입을 해주세요! ";
+	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
 	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요.";
-	     String domain = "";
+	     String cp_num = "";
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
 	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
@@ -347,12 +347,86 @@ public class EmpController {
 	         mailHelper.setText(content, true);       
 	         
 	         mailSender.send(mail);
-	         domain = Integer.toString(cp_number);
+	         cp_num = Integer.toString(cp_number);
 	         
 	     } catch(Exception e) {
-	    	 domain = "error";
+	    	 cp_num = "error";
 	     }
-	     return domain;
+	     return cp_num;
 	 }
-
+	 
+	    // 아이디 찾기 페이지 이동
+		@RequestMapping(value="/findId")
+		public ModelAndView findIdView(ModelAndView mv) {
+			mv.setViewName("member/find_id");
+			return mv;
+		}
+	    // 아이디 찾기 실행
+		@RequestMapping(value="findId", method=RequestMethod.POST)
+		@ResponseBody
+		public ModelAndView findId(Employee employee
+								, ModelAndView mv) {
+			Employee findId = service.findId(employee);
+			
+			if(findId == null) { 
+				mv.addObject("check", 1);
+			} else { 
+				mv.addObject("check", 0);
+				mv.addObject("findId", findId);
+			}
+			mv.setViewName("redirect:/member/findId");
+			return mv;
+		}
+		
+	    // 비밀번호 찾기 페이지로 이동
+		@RequestMapping(value="/findPwd")
+		public ModelAndView findPwdView(ModelAndView mv) {
+			mv.setViewName("member/find_pwd");
+			return mv;
+		}
+	    // 비밀번호 찾기 실행
+		@RequestMapping(value="findPwd", method=RequestMethod.POST)
+		@ResponseBody
+		public ModelAndView findPwd(Employee employee, ModelAndView mv) {
+			Employee findPwd = service.findPwd(employee);
+			
+			if(findPwd == null) { 
+				mv.addObject("check", 1);
+			} else { 
+				mv.addObject("check", 0);
+				mv.addObject("findPwd", findPwd);
+			}
+			mv.setViewName("redirect:/member/findPwd");
+			return mv;
+		}
+	    // 비밀번호 바꾸기 실행
+		@RequestMapping(value="updatePwd", method=RequestMethod.POST)
+		public ModelAndView updatePwd(@RequestParam(value="updateid", defaultValue="", required=false) String emp_no,
+				Employee employee
+				,ModelAndView mv
+				,HttpSession session) {
+			employee.setEmp_no(emp_no);
+			service.updatePwd(employee);
+			
+			 // 비밀번호 바꾸기할 경우 성공 페이지 이동
+			Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
+			if(loginSsInfo == null) {
+				mv.setViewName("redirect:/member/login");
+			} else {
+				mv.setViewName("redirect:/member/updatePwd");
+			}
+			return mv;
+		}
+	    // 비밀번호 바꾸기할 경우 성공 페이지 이동
+//		@RequestMapping(value="modifyPwd")
+//		public ModelAndView modifyPwd(HttpSession session, ModelAndView mv) {
+//			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+//			
+//			if(loginEmp == null) {
+//				mv.setViewName("redirect:/member/login");
+//			} else {
+//				mv.setViewName("redirect:/member/modifyPwd");
+//			}
+//			return mv;
+//		}
 }

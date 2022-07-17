@@ -49,17 +49,23 @@
 
 /* 그래프 */
 #chart_nodata{
-	line-height:300px;
+
 	text-align: center;
 	    width: 40vw;
-	height: 400px;
+margin-top: -200px;
+    margin-bottom: 176px;
+        margin-right: -90px;
 }
 
 .chart_week{
 	display : flex;
 }
+.highcharts-figure{
+	height: 330px;
+}
+
 .highcharts-background{
-	height: 20px;
+	height: auto;
 /* 	!important */
 }
 .chart_chart{
@@ -67,9 +73,9 @@
 
 
 }
-#container{
-	width: 40vw;
-}
+/* #container{ */
+/* 	width: 40vw; */
+/* } */
 
 /* 나의정보, 인사팀버튼 */
 .my_pe{

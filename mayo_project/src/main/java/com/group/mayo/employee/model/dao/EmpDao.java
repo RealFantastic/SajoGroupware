@@ -48,5 +48,17 @@ public class EmpDao {
 		
 		return result;
 	}
-
+	
+	//아이디(사원번호) 찾기
+	public Employee findId(Employee employee) {
+		return sqlSession.selectOne("Employee.findId", employee);
+	}
+	//비밀번호 찾기
+	public Employee findPwd(Employee employee) {
+		return sqlSession.selectOne("Employee.findPwd", employee);
+	}
+	//비밀번호 재설정
+	public Employee updatePwd(Employee employee) {
+		return sqlSession.selectOne("Employee.updatePwd", employee);
+	}
 }

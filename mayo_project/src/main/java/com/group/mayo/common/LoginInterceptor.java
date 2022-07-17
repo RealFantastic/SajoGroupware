@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group.mayo.employee.domain.Employee;
+
 public class LoginInterceptor implements HandlerInterceptor{
 
 	//preHandle
@@ -19,12 +21,13 @@ public class LoginInterceptor implements HandlerInterceptor{
 							,Object handler
 							)throws Exception {
 		HttpSession session = req.getSession();
-		String emp_no = (String)session.getAttribute("emp_no");
+//		String emp_no = (String)session.getAttribute("emp_no");
+		Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
 		
-		System.out.println("[preHandle]"+emp_no);
+		System.out.println("[preHandle]"+loginSsInfo);
 		
 		//로그인하지 않은경우 로그인 페이지로 redirect.
-		if(emp_no == null) {
+		if(loginSsInfo == null) {
 			String urlPrior = req.getRequestURL().toString() + "?" +req.getQueryString();
 			req.getSession().setAttribute("urlPrior", urlPrior); //직전 url를 session에 저장.
 			
