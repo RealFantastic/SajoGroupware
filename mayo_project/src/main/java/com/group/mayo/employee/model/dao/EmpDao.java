@@ -57,4 +57,8 @@ public class EmpDao {
 	public Employee findPwd(Employee employee) {
 		return sqlSession.selectOne("Employee.findPwd", employee);
 	}
+	//비밀번호 재설정
+	public Employee updatePwd(Employee employee) {
+		return sqlSession.selectOne("Employee.updatePwd", employee);
+	}
 }

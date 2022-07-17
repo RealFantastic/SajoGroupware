@@ -85,7 +85,7 @@
 		SELECT * FROM EMPLOYEE WHERE EMP_NO = #{emp_no} and EMP_NAME = #{emp_name} and RRN = #{rrn}
 	</select>
 	<!-- 비밀번호 재설정  -->
-	<update id="updatePassword">
+	<update id="updatePwd">
 		update EMPLOYEE set PASSWORD=#{password} WHERE EMP_NO = #{emp_no}
 	</update>
 </mapper>
