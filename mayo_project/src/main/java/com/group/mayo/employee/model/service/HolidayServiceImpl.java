@@ -34,7 +34,9 @@ public class HolidayServiceImpl implements HolidayService{
 
 	@Override
 	public int insertHoliday(Holiday holiday) {
-		return dao.insertHoliday(holiday);
+		int result= dao.insertHoliday(holiday);
+
+		return result;
 	}
 	
 	

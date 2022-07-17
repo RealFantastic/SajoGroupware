@@ -15,7 +15,7 @@
 		INSERT INTO HOLIDAY_HISTORY 
 		VALUES
 		(
-		(SELECT NVL(MAX(HD_NO),0)+1) FROM HOLIDAY_HISTORY)
+		(SELECT NVL(MAX(HD_NO),0)+1 FROM HOLIDAY_HISTORY)
 		, #{emp_no}, default, #{hd_start}, #{hd_end}, #{hd_code}
 		, #{hd_count}, #{hd_reason}, #{ea_no}
 		)

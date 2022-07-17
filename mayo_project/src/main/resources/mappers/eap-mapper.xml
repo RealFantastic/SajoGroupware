@@ -3,10 +3,9 @@
 <mapper namespace="Eap">
 	<!-- 결재문서 번호 생성 -->
 	<select id="selectNewEaNo" parameterType="Eap" resultType="string">
-	(SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
-		(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) 
-			from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' )
-	FROM DUAL)
+	SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
+(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' ))
+FROM DUAL
 	</select>
 	<!-- 결재문서 상신 -->
 	<insert id="insertEap" parameterType="Eap">

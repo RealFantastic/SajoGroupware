@@ -824,15 +824,16 @@ SELECT * FROM ELEC_APPROVAL WHERE DRAFTER_ID = '202210001' AND RESULT_CODE=0 ORD
 
 -- 
 SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
-(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0)
-from
-( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%AR%' )
-)
+(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%AR%' ))
 from dual
 ;
 SELECT min(ea_title) FROM ELEC_APPROVAL
 ;
+SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
+(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%AR%' ))
+FROM DUAL;
 
+SELECT NVL(MAX(HD_NO),0)+1 FROM HOLIDAY_HISTORY;
 
 --SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) from elec_approval where substr(ea_no,6,2) = 'AR') FROM ELEC_APPROVAL;
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------

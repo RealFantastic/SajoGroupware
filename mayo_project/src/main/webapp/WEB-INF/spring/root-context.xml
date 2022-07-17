@@ -35,6 +35,15 @@
 	</bean>
 	<!-- Transaction 어노테이션 사용방법(@Transactional) -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- Transaction 대상 설정 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" rollback-for="Exception"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			<tx:method name="update*" rollback-for="Exception"/>
+			<tx:method name="delete*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
 	
 	<!--파일업로드 설정(multiparts)  -->
 	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

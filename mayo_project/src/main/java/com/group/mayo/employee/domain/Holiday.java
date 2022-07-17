@@ -25,7 +25,7 @@ public class Holiday {
 	private	Date hd_start;
 	private	Date hd_end;
 	private	String hd_code;
-	private	int hd_count;
+	private	double hd_count; //반차 사용시 .5 일 수 있으므로 double형
 	private	String hd_reason;
 	private String ea_no;
 	
@@ -84,10 +84,10 @@ public class Holiday {
 	}
 
 
-	public int getHd_count() {
+	public double getHd_count() {
 		return hd_count;
 	}
-	public void setHd_count(int hd_count) {
+	public void setHd_count(double hd_count) {
 		this.hd_count = hd_count;
 	}
 

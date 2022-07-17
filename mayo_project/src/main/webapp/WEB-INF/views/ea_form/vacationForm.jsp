@@ -32,7 +32,7 @@
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td>${loginSsInfo.emp_name }</td>
+												<td>${loginSsInfo.emp_name }<input type="hidden" name="emp_no" value="${loginSsInfo.emp_no }"></td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>

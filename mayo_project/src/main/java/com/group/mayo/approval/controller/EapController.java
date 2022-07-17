@@ -53,7 +53,10 @@ public class EapController {
 	}
 	@ResponseBody
 	@PostMapping(value="/insert/ar", produces="text/plain;charset=UTF-8")
-	public String insertEap(EapDomain eap,HttpSession session,Holiday holiday) {
+	public String insertEap(EapDomain eap
+			,HttpSession session
+			,Holiday holiday
+			,@RequestParam(name="hd_count", required=false) String hd_count) {
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		String msg = "컨트롤러";
 		//기안자, 1차결재자 지정
@@ -108,6 +111,8 @@ public class EapController {
 			switch(eap.getForm_code()) {
 			case "AR":
 				//TODO 여기선 content의 태그문자 제거해야함.
+				//화면에서 넘어오는 소숫점 숫자 .5는 String형태로 넘어옴. 그러므로 parse해준다.
+				holiday.setHd_count(Double.parseDouble(hd_count));
 				holiday.setHd_reason(eap.getEa_content());
 				int insertAR = hservice.insertHoliday(holiday);
 				isComplete = insertAR;
