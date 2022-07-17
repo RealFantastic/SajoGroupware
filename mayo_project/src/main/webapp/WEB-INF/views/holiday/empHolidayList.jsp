@@ -117,7 +117,7 @@
 						<th class="holiday_table_list_th font2">직함</th>
 						<th class="holiday_table_list_th font2">부서명</th>
 						<th class="holiday_table_list_th font2">연락처</th>
-						<th class="holiday_table_list_th font2">잔여연차</th>
+						<th class="holiday_table_list_th font2">잔여 연차</th>
 						<th class="holiday_table_list_th font2">연차상세보기</th>
 					</tr>
 				</thead>

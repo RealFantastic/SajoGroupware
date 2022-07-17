@@ -32,7 +32,7 @@ public class CommuteController {
 
 //	좌측메뉴 - 출퇴근 확인
 	@RequestMapping(value = "leftAttInfo", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	@ResponseBody
+	@ResponseBody// produces 꼭 써줘야함. 한글깨짐있음(반환자료형 String임)
 	public String leftAttInfo(HttpSession session) {
 		Employee emp = (Employee) session.getAttribute("loginSsInfo");
 		String id = emp.getEmp_no();
@@ -43,7 +43,7 @@ public class CommuteController {
 	}
 
 //	개인근태상세보기 - 출근버튼 클릭시
-	@RequestMapping(value = "/statusAtt", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/statusAtt", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	@ResponseBody // produces 꼭 써줘야함. 한글깨짐있음(반환자료형 String임)
 	public String statusAtt(HttpSession session) {
 
@@ -64,7 +64,7 @@ public class CommuteController {
 	}
 
 //	개인근태상세보기 - 퇴근버튼 클릭시
-	@RequestMapping(value = "/statusLeave", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/statusLeave", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String statusLeave(HttpSession session) {
 
@@ -76,7 +76,6 @@ public class CommuteController {
 		if (statusLeave != null) {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			resultLeave = gson.toJson(statusLeave);
-
 		} else {
 			resultLeave = "fail";
 		}
@@ -90,18 +89,11 @@ public class CommuteController {
 		Employee emp = (Employee) session.getAttribute("loginSsInfo");
 		String id = emp.getEmp_no();
 
-		// 2. 출퇴근 리스트 불러오기
-		/*
-		 * List<CommuteRecord> commuteMystatus = service.commuteMystatus(id);
-		 * mv.addObject("commuteMystatus", commuteMystatus);
-		 */
-		// 3.사원번호 ,사원명 ,직함 , 부서명, 연락처
+		// 본인의 사원번호 ,사원명 ,직함 , 부서명, 연락처
 		CommuteEmployee commuteMyInfo = service.commuteMyInfo(id);
 		mv.addObject("commuteMyInfo", commuteMyInfo);
 		mv.setViewName("commute/myCommute");
 		return mv;
-
-		// mv.addObject("StatusList",commuteMystatus);
 
 	}
 
