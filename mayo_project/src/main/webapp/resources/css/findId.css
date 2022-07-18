@@ -1,8 +1,8 @@
 @charset "UTF-8";
 #j_body{
- /* ¹è°æ»ö»ó */
+ /* ë°°ê²½ìƒ‰ìƒ */
  background-color: rgb(235, 255, 246);
- /* °¡¿îµ¥ Á¤·Ä */
+ /* ê°€ìš´ë° ì •ë ¬ */
  margin: 0 auto;
 }
 #j_container{
@@ -17,7 +17,7 @@
 	 width: 500px;
 	 height: 400px;
 	
-	 /* °¡¿îµ¥ Á¤·Ä */
+	 /* ê°€ìš´ë° ì •ë ¬ */
 	 margin: 0 auto;
 	
 	 border-radius: 15px;
@@ -25,7 +25,7 @@
  #j_container3{
  	padding-left: 10%;
  }
- /* Å¸ÀÌÆ² ·Î°í */
+ /* íƒ€ì´í‹€ ë¡œê³  */
  #j_logo_green{
  	width: 350px;
  	margin: 0 auto;
@@ -33,7 +33,7 @@
  #logo_green{
  	width: 350px;
  }
- /* ÇªÅÍ ·Î°í */
+ /* í‘¸í„° ë¡œê³  */
  #j_logo_black{
   	width: 100px;
  	margin: 0 auto;
@@ -41,7 +41,7 @@
  #logo_black{
 	 width: 100px;
  }
- /* ÀÌ¸§  */
+ /* ì´ë¦„  */
 #j_emp_name{
 	width: 400px;
 	margin-left: 10%;
@@ -52,7 +52,7 @@
 	border-color:rgb(107, 191, 152);
 	height: 35px;
 }
-/* ÁÖ¹Î¹øÈ£ */
+/* ì£¼ë¯¼ë²ˆí˜¸ */
 #j_rrn{
 	width: 400px;
 	margin: 0 auto;
@@ -63,26 +63,26 @@
 	border-color:rgb(107, 191, 152);
 	height: 35px;
 }
-/* Çà°£°İ */
+/* í–‰ê°„ê²© */
 .j_div{
 	padding-bottom: 10px;
 }
-/* inputÃ¢ Å×µÎ¸® */
+/* inputì°½ í…Œë‘ë¦¬ */
 #emp_name:focus, #rrn:focus{
     outline:none;
 }
-/* ÆùÆ®  */
+/* í°íŠ¸  */
 .font3{
     color: rgb(107, 191, 152);
     font-weight: bolder;
 }
-/* ¹öÆ° */
+/* ë²„íŠ¼ */
 #find_id_btn, #j_back_btn{
     display: block;
     width: 350px;
     margin: 0 auto;
 }
-/* ÇªÅÍ */
+/* í‘¸í„° */
 #j_footer{
 	margin: 0 auto;
     width: 400px;
