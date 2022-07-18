@@ -13,9 +13,9 @@ public interface HolidayService {
 	 * @author hong
 	 */
 	public List<HolidayEmployee>holidayEmpList();
-	
-	
-	
+
+
+
 	/**
 	 * 
 	 * @param id
@@ -23,10 +23,16 @@ public interface HolidayService {
 	 * @author hong
 	 */
 	public CommuteEmployee commuteMyInfo(String id);
+
+	/**
+	 * @param
+	 * @return 신청일, 연차시작, 연차종료, 사용연차, 잔여연차, 비고
+	 * @author hong
+	 */
+	public List<Holiday> holidayMystatus();
 	
-	
-	
-	
+
+
 	/**
 	 * @return 검색결과 : 사원번호, 사원명, 직함, 부서명, 연락처
 	 * @author hong

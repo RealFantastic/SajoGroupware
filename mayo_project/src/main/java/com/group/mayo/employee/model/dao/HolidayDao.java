@@ -16,6 +16,7 @@ public class HolidayDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+//	페이지 띄우기
 	public List<HolidayEmployee> holidayEmpList() {
 		return sqlSession.selectList("Holiday.holidayEmpList");
 	}
@@ -27,6 +28,11 @@ public class HolidayDao {
 	
 	
 	//	직원 검색하기
+
+	public List<Holiday> holidayMystatus;
+
+
+	//	인사팀 - 직원 검색하기
 	public List<CommuteEmployee>commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception{
 		return sqlSession.selectList("CommuteRecord.commuteEmpSearch", empCommuteSearch);
 	}

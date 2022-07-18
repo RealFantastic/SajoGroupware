@@ -16,27 +16,30 @@ public class HolidayServiceImpl implements HolidayService{
 	@Autowired
 	private HolidayDao dao;
 	
+//	페이지 띄우기
 	@Override
 	public List<HolidayEmployee> holidayEmpList(){
 		return dao.holidayEmpList();
 	}
 	
+//	개인정보
 	@Override
 	public CommuteEmployee commuteMyInfo(String id) {
 		return dao.commuteMyInfo(id);
 	}
 
+//	개인 연차내역 리스트
+	@Override
+	public List<Holiday> holidayMystatus() {
+		return dao.holidayMystatus;
+	}
+
+
 	
+//	인사팀 직원조회
 	@Override
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception {
 		return dao.commuteEmpSearch(empCommuteSearch);
-	}
-
-	@Override
-	public int insertHoliday(Holiday holiday) {
-		int result= dao.insertHoliday(holiday);
-
-		return result;
 	}
 	
 	

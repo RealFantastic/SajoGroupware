@@ -156,7 +156,7 @@
 
 
 
-<!-- //	인사팀 - 직원근태 상세 - 수정 -->
+<!-- //	인사팀 - 직원근태 상세 - 모달창 수정 -->
 	<select id="empCommuteChange" resultType="CommuteRecord">
 	
 	</select>

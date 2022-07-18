@@ -26,12 +26,12 @@
 	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/holiday.css" rel="stylesheet">
+
 	<!-- JSTree -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 	<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script> <!-- 돋보기 -->
 	<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>  <!-- 정환 조직도js -->
-
 
 </head>
 <body>
@@ -67,7 +67,7 @@
 					<option value="">년도를 선택해주세요.▼</option>
 					<option value="2020y">2020년도 연차내역 </option>
 					<option value="2021y">2021년도 연차내역 </option>
-					<option value="2022y">2022년도 연차내역 </option>
+					<option value="2022y" selected >2022년도 연차내역 </option>
 					<option value="2023y">2023년도 연차내역 </option>
 					<option value="2024y">2024년도 연차내역 </option>
 					<option value="2025y">2025년도 연차내역 </option>
@@ -78,6 +78,50 @@
 					<option value="2030y">2030년도 연차내역 </option>
 				</select>
 			</div>
+
+
+<script type="text/javascript">
+	function selectHolidayList(){
+		$.ajax({
+			type:"post"
+			,url:"<%=request.getContextPath()%>/holiday/selectHolidayList"
+			,data:{
+// 				select option value
+			}
+			,dataType:"json"
+			,success:funtion(result){
+				//데이블 초기화
+				$('.holiday_table > tbody').empty();
+				var list = result.holidayList;
+			
+				if(list.length > 0){
+					var str = "";
+					list.forEach(function(item){
+						str +="<tr>"
+						str +="<td class='holiday_table_list_td'>"+${holiday.REQ_DATE }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_START }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_END }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_COUNT }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_mod }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_RESON }+"</td>";
+						str +="</tr>";
+					})
+				}else{
+					str +="<tr>"
+					str += "<td colspan='6' class='holiday_table_list_td'>조회된 연차내용이 없습니다.</td>";
+					str +="</tr>";
+				}
+			}
+			,error:function(){
+				alert("연차ajax 제대로 동작했슈 ........ㅠㅠ");
+			}
+		});
+	}
+</script>
+
+
+
+
 
 			<div class="occur_title alert alert-success font2" role="alert">
 				해당연도 발생연차 :　 0 일 
@@ -119,20 +163,21 @@
 						<th class="holiday_table_list_th font2">비고</th>
 					</tr>
 				</thead>
+				<tbody>
 					<c:if test="${fn:length(holidayMyList) == 0}">
 						<tr class="no_list">
 							<!-- 	보여질 내역이 없을 경우 -->
 							<td colspan='6'> 조회된 연차내용이 없습니다.</td>
 						</tr>
 					</c:if>
-					<c:forEach var="commute" items="${holidayMyList}">
+					<c:forEach var="holiday" items="${holidayMyList}">
 						<tr>
-							<td class="commute_table_list_td">${commute.wokr_day }</td>
-							<td class="commute_table_list_td">${commute.start_time }</td>
-							<td class="commute_table_list_td">${commute.end_time }</td>
-							<td class="commute_table_list_td">${commute.oneday_work }</td>
-							<td class="commute_table_list_td">${commute.week_work }</td>
-							<td class="commute_table_list_td">${commute.week_work_mod }</td>
+							<td class="holiday_table_list_td">${holiday.REQ_DATE }</td>
+							<td class="holiday_table_list_td">${holiday.HD_START }</td>
+							<td class="holiday_table_list_td">${holiday.HD_END }</td>
+							<td class="holiday_table_list_td">${holiday.HD_COUNT }</td>
+							<td class="holiday_table_list_td">${holiday.HD_mod }</td>
+							<td class="holiday_table_list_td">${holiday.HD_RESON }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

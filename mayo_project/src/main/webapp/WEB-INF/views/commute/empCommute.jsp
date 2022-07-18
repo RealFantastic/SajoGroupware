@@ -269,7 +269,7 @@
 											var str = "";
 											list
 													.forEach(function(item) {
-														str += "<tr class='commute_table_tr' onclick='showModal();'>"
+														str += "<tr class='commute_table_tr' onclick=\"showModal(\'"+item.wokr_day+"\',\'"+item.start_time+"\',\'"+item.end_time+"\')\">"
 														str += "<td class='commute_table_list_td'>"
 																+ item.wokr_day
 																+ "</td>";
@@ -332,8 +332,15 @@
 		
 		
 					// 	근태리스트 클릭시 모달창 보여짐
-					function showModal(){
+					function showModal(day, start, end){
+						$('#modal_day').val(day)
+						$('#modal_start_time').val(start.replaceAll(" ", "").substr(0, 5))
+						$('#modal_end_time').val(end.replaceAll(" ", "").substr(0, 5))
+						
 						$('#Modal').modal('show');
+						
+						
+						// 모달 수정버튼 클릭 시 TODO
 						
 						// 	모달 취소버튼 클릭 시 
 						$(".modalclose").on("click", function() {
