@@ -32,5 +32,6 @@
 	<mapper resource="mappers/eap-mapper.xml"/>
 	<mapper resource="mappers/eaForm-mapper.xml"/>
 	<mapper resource="mappers/schedule-mapper.xml"/>
+	<mapper resource="mappers/empholiday-mapper.xml"/>
 </mappers>
 </configuration>

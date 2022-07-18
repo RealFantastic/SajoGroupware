@@ -151,6 +151,7 @@
                     <div class="j_e">
                         <label for="hire_date">입사일 : </label>
                         <input type="date" id="hire_date" name="hire_date" />
+                        <input type="hidden" name="total" value=""> 
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div>
@@ -421,7 +422,29 @@
             }  else {
                 $("#domain").hide();
             }
-            }) 
+        }); 
+           
+        /* holiday */
+        $("#hire_date").change(function(e){
+   			var hire_date = $(e.target).val().split('-');
+        	var hd = new Date(hire_date[0],hire_date[1],hire_date[2]);
+        	var td = new Date(); //오늘날짜
+
+        	var hy = hd.getFullYear(); 
+        	var dy = td.getFullYear();
+ 
+        	var holiday = Math.abs(dy-hy);
+        	var totalHoliday = 0;
+        	if(holiday > 0 && holiday < 3){
+//        		totalHoliday
+        		totalHoliday = 15;
+        	} else if(holiday >= 3){
+        		totalHoliday = 16;
+        	}
+        	$("input[name=total]").val(totalHoliday);
+        	
+        });
+		            
         });
    
     </script>

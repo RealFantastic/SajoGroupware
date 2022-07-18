@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.group.mayo.department.service.DeptService;
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.employee.domain.HolidayEmployee;
 import com.group.mayo.employee.model.service.EmpService;
 
 
@@ -168,28 +169,30 @@ public class EmpController {
 	public ModelAndView insert(ModelAndView mv
 			, RedirectAttributes rttr
 			, Employee employee
+			, HolidayEmployee hemployee
 			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
 			, HttpServletRequest req
 			) {
 //		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
 	
 		int result = service.insertEmployee(employee);
+		
+		
 		if(result < 1) {
 			//rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
 			mv.setViewName("redirect:/member/enroll");
 			return mv;
 		}
-		// 첨부파일있다면 첨부파일 저장
-		if(sign_file !=null) {
-			String rename_filename = commonFile.saveFile(sign_file, req);
-			if(rename_filename != null) {
-				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
-				employee.setSign_path(sign_file.getOriginalFilename());
-				employee.setSign_file_name(rename_filename);
-//				board.setBoard_original_filename(uploadfile.getOriginalFilename());
-//				board.setBoard_rename_filename(rename_filename);
+			// 첨부파일있다면 첨부파일 저장
+			if(sign_file !=null) {
+				String rename_filename = commonFile.saveFile(sign_file, req);
+				if(rename_filename != null) {
+					//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+					employee.setSign_path(sign_file.getOriginalFilename());
+					employee.setSign_file_name(rename_filename);
+				}
 			}
-		}
+		
 		mv.setViewName("redirect:/");
 		return mv;
 	}		
@@ -384,7 +387,7 @@ public class EmpController {
 			return mv;
 		}
 	    // 비밀번호 찾기 실행
-		@RequestMapping(value="findPwd", method=RequestMethod.POST)
+		@RequestMapping(value="findPwd", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 		@ResponseBody
 		public ModelAndView findPwd(Employee employee, ModelAndView mv) {
 			Employee findPwd = service.findPwd(employee);

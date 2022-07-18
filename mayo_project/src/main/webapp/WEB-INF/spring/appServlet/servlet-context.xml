@@ -30,6 +30,9 @@
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/resources/**"/>
+			<exclude-mapping path="/member/checkrrn/**"/>
+			<exclude-mapping path="/member/checkno/**"/>
+			<exclude-mapping path="/member/checkcpnum/**"/>
 			<exclude-mapping path="/member/login/**"/>
 			<exclude-mapping path="/member/enroll/**"/>
 			<exclude-mapping path="/member/findId/**"/>
