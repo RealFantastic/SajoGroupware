@@ -15,7 +15,7 @@
 	 background-color: white;
 	 padding: 30px;
 	 width: 500px;
-	 height: 450px;
+	 height: 460px;
 	
 	 /* 가운데 정렬 */
 	 margin: 0 auto;
@@ -26,7 +26,7 @@
  	padding-left: 10%;
  }
  /* 타이틀 로고 */
- #j_logo_green{
+ #j_logo_green,#j_container2{
  	width: 350px;
  	margin: 0 auto;
  }
@@ -44,9 +44,19 @@
  /* 이름  */
 #j_emp_name{
 	width: 400px;
-	margin-left: 10%;
+	margin-left: 12%;
 }
 #emp_name{
+	width: 60%;
+	border-radius: 5px;
+	border-color:rgb(107, 191, 152);
+	height: 35px;
+}
+/* 사원번호(ID) */
+#j_emp_no{
+	width: 400px;
+}
+#emp_no{
 	width: 60%;
 	border-radius: 5px;
 	border-color:rgb(107, 191, 152);
@@ -68,7 +78,7 @@
 	padding-bottom: 10px;
 }
 /* input창 테두리 */
-#emp_name:focus, #rrn:focus{
+#emp_name:focus,#emp_no:focus, #rrn:focus{
     outline:none;
 }
 /* 폰트  */
@@ -77,7 +87,7 @@
     font-weight: bolder;
 }
 /* 버튼 */
-#find_id_btn, #j_back_btn, #find_pwd_btn{
+#j_back_btn, #find_pwd_btn{
     display: block;
     width: 350px;
     margin: 0 auto;

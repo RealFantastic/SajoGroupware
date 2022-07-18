@@ -26,9 +26,8 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <%-- <jsp:include page="/WEB-INF/views/modal/findId_modal.jsp"/> --%>
 <form action="findId" method="post" name="findId">
-	<div id="j_container" class="w3-content w3-container w3-margin-top" >
-		<div  id="j_container1" class="w3-container w3-card-4">
-				
+	<div id="j_container" >
+		<div id="j_container1">
 				<div id="j_container2"  >
 					<div id="j_logo_green">
 						<img id="logo_green" 
@@ -38,20 +37,22 @@
 					<div id="j_container3">
 					<div id="j_emp_name" class="j_div">
 						<label for="emp_name" class="font3">이름 : </label>
-						<input class="w3-input" type="text" id="emp_name" name="emp_name" placeholder="성함을 입력해주세요." required>
+						<input type="text" id="emp_name" name="emp_name" placeholder="이름을 입력해주세요." required>
 					</div>
-					
 					<div id="j_rrn" class="j_div">
 						<label for="rrn" class="font3">주민번호:</label>
-						<input class="w3-input" type="text" id="rrn" name="rrn" placeholder="주민번호를 입력해주세요." required>
+						<input type="text" id="rrn" name="rrn" placeholder="주민번호를 입력해주세요." required>
 					</div>
 					</div>
-					
 					<div id="j_btn" >
 						<div class="j_div">
 							<button type="button" id='find_id_btn' onclick="findId_click()" 
-							class="btn_green">ID찾기</button>
+							class="btn_green">ID 찾기</button>
 						</div>
+<!-- 						<div class="j_div"> -->
+<!-- 							<button type="button" id='find_pwd_btn' class="btn_yellow" -->
+<%-- 							onclick="location.href='<%=request.getContextPath()%>/member/findPwd'">PW 찾기</button> --%>
+<!-- 						</div> -->
 						<div class="j_div">
 						<button id="j_back_btn" type="button" onclick="history.go(-1);" 
 						class="btn_gray">뒤로가기</button>
