@@ -31,7 +31,7 @@ public class CalendarController {
 	// 캘린더로 넘어가기~!
 	@GetMapping("/view")
 	public ModelAndView viewCal(ModelAndView mv, HttpSession session) { 
-		
+
 		List<Work> work = workservice.selectAllWork();
 		List<Project> proj = projservice.selectAllProj();
 		

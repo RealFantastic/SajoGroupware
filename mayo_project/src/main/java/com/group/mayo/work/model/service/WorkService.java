@@ -24,6 +24,7 @@ public interface WorkService {
 	 * @author HyerinK
 	 */
 	public int selectCnt(String proj_no);
+	
 	/**
 	 * @param proj_no 프로젝트 번호
 	 * @return 해당 프로젝트 업무들
@@ -36,7 +37,7 @@ public interface WorkService {
 	 * @return 업무 글 상세
 	 * @author HyerinK
 	 */
-	public Work viewWork(int work_no);
+	public Work viewWork(String work_no);
 	
 	/**
 	 * @param work 업무 글 내용들

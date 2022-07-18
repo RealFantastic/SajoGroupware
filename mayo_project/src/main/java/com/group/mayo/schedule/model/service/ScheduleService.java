@@ -1,5 +1,7 @@
 package com.group.mayo.schedule.model.service;
 
+import java.util.List;
+
 import com.group.mayo.schedule.domain.Schedule;
 
 public interface ScheduleService {
@@ -10,4 +12,28 @@ public interface ScheduleService {
 	 * @author HyerinK
 	 */
 	public int insertSked(Schedule sked);
+	
+	/**
+	 * 
+	 * @return 전체 일정들
+	 * @author HyerinK
+	 */
+	public List<Schedule> selectAllSked();
+
+	/**
+	 * 
+	 * @param proj_no
+	 * @return 특정 프로젝트 전체 일정들
+	 * @author HyerinK
+	 */
+	public List<Schedule> selectSked(int proj_no);
+
+	/**
+	 * 
+	 * @param sked_no
+	 * @return 특정 일정 글
+	 * @author HyerinK
+	 */
+	public Schedule viewSked(int sked_no);
+	
 }

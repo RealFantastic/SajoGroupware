@@ -27,7 +27,7 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public Work viewWork(int work_no) {
+	public Work viewWork(String work_no) {
 		return dao.viewWork(work_no);
 	}
 
@@ -35,7 +35,7 @@ public class WorkServiceImpl implements WorkService{
 	public int insertWork(Work work) {
 		return dao.insertWork(work);
 	}
-
+	
 	@Override
 	public int updateWork(Work work) {
 		return dao.updateWork(work);

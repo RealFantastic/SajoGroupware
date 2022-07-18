@@ -132,9 +132,11 @@
 			<input type="text" id="percentage" name="work_progress" value="" readonly>%
 		</div>
         <div class="mb-3">
-        	<label for="work_file" class="col-form-label">첨부파일</label>
-        	<input type="file" name="uploadfile" class="file">
-        	<button type="button" id="addFile" class="btn_yellow">추가</button>
+        	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
+        	<div style="display:flex;">
+        		<input type="file" name="uploadfile" class="file">
+        		<i class="fa-solid fa-trash-can"></i>
+        	</div>
         	<div id="files"></div>
         </div>
           <div class="mb-3">
@@ -158,7 +160,7 @@
 	var fileCnt = 1;
 	$("#addFile").click(function(){
 		fileCnt++;
-		var html= "<input type='file' name='uploadfile'><br>";
+		var html= "<div style='display:flex;'><input type='file' name='uploadfile'><i class='fa-solid fa-trash-can'></i><div>";
 		$("#files").append(html);
 	});
 

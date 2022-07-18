@@ -105,9 +105,21 @@ public class WorkController {
 	}
 	
 	// 업무 글 수정
+	@PostMapping("/toUpdate") 
+	public ModelAndView updateWorkPage(ModelAndView mv, String work_no) {
+
+			System.out.println("업데이트 들어왔니");
+			Work work = service.viewWork(work_no);
+			
+			mv.addObject("work", work);
+			mv.setViewName("project/updateWork");
+			
+			return mv;
+		}
+	
 	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
-	public String updateWork(Work work) {
+	public String toUpdate(Work work) {
 		
 		int result= service.updateWork(work);
 		

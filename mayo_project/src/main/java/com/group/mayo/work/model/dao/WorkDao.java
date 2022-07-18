@@ -30,7 +30,7 @@ public class WorkDao {
 		return sqlSession.selectList("Work.selectWork", proj_no);
 	}
 	
-	public Work viewWork(int work_no) {
+	public Work viewWork(String work_no) {
 		return sqlSession.selectOne("Work.viewWork", work_no);
 	}
 	

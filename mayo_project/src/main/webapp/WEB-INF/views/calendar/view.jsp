@@ -117,11 +117,9 @@
 					    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 					    <div id="menu_wrap" class="bg_white">
 					        <div class="option">
-					            <div>
-<!-- 					                <form style="display:flex;" onsubmit="searchPlaces(); return false;"> -->
-					                    <input type="text" class="form-control" value="" id="keyword" size="15"> 
-					                    <button type="submit" class="btn_green" onclick="searchPlaces(); return false;">검색하기</button> 
-<!-- 					                </form> -->
+					            <div style="display:flex;">
+					                <input type="text" class="form-control" value="" id="keyword" size="15"> 
+					                <button type="submit" class="btn_green" onclick="searchPlaces(); return false;">검색하기</button> 
 					            </div>
 					        </div>
 					        <hr>
@@ -156,33 +154,13 @@
 
 // 일정 추가하기 
 	$("#submitS").click(function(){
-// 		var sked_name = $("#sked_name").val();
-// 		var sked_date = $("#sked_date").val();
-// 		var sked_content = $("#sked_content").val();
-// 		var sked_start_date = $("#sked_start_date").val();
-// 		var sked_end_date = $("#sked_end_date").val();
-// 		var sked_location = $("#sked_location").val();
-// 		var sked_category = $("select[name=sked_category]").val();
 		
 		var sked = $("form[name=newSked]").serialize();
-		
-// 		cosole.log(sked_name);
-// 		var sked = {
-// 				"sked_name":sked_name,
-// 				"sked_date":sked_date,
-// 				"sked_content":sked_content,
-// 				"sked_start_date":sked_start_date,
-// 				"sked_end_date":sked_end_date,
-// 				"sked_location":sked_location,
-// 				"sked_category":sked_category
-// 		};
 		
 		$.ajax({
 			type: "POST",
 			url:"<%=request.getContextPath()%>/schedule/insert",
-// 			data: JSON.stringify(sked),
 			data: sked,
-// 			dataType : 'json', 
 			success: function(result){
 				alert(result);
 			}
@@ -190,7 +168,8 @@
 		});
 	});
 
-	// 카카오 지도
+
+// 카카오 지도
 // 마커를 담을 배열입니다
 var markers = [];
 

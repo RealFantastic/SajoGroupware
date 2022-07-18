@@ -13,14 +13,15 @@
 					<div class='modal-content'>
 						<div class='modal-header'>
 							<div style="display: block;">
-								<input id="work_no" type="hidden" value="${work.work_no }">
 								<div>${work.work_no }</div>
 								<h5 class='modal-title font3 work_title'
 									style='font-weight: bold;'>${work.work_title }</h5>
 							</div>
 								<div>
-									<button type='button' id="wUpdate" class='btn_gray btn-modify'
-										data-bs-toggle="modal" data-bs-target="#updateWork">수정</button>
+									<form action="<%=request.getContextPath() %>/work/toUpdate" method="POST">
+										<input id="work_no" type="hidden" value="${work.work_no }">
+										<button type='submit' id="wUpdate" class='btn_gray btn-modify'>수정</button>
+									</form>
 									<button type='button' id="wDelete" class='btn_red btn-delete'>삭제</button>
 								</div>
 						</div>
@@ -100,69 +101,6 @@
 	</c:otherwise>
 </c:choose>
 
-
-	<!-- 업무 수정 모달창 -->
-<div class="modal fade modal-lg" id="updateWork" tabindex="-1" aria-labelledby="updateWorkModal" aria-hidden="true" data-bs-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title font3" id="updateWorkModal" style="font-weight:bold;">업무 수정</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <form name="updateWork" action="<%=request.getContextPath()%>/work/update" method="POST" enctype="multipart/form-data">
-      <div class="modal-body insidebody">
-      <input type="hidden" class="form-control" name="proj_no" value="${project.proj_no }">
-        <div style="display:flex;">
-        <div style="margin-right: 15px;">
-        	<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-			  <option selected>선택</option>
-			  <option value="0">요청</option>
-			  <option value="1">진행</option>
-			  <option value="2">완료</option>
-			  <option value="3">반려</option>
-			</select>
-        </div>
-          <div>
-			 <input class="isemergency" name="isemergency" value="" type="hidden">
-            <button type="button" id="uisemergency"><img id="ueimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
-        </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label font2">제목</label>
-            <input type="text" class="form-control" name="work_title" placeholder="제목을 입력해주세요" required="required">
-          </div>
-          <div class="date" style="display:flex;">
-          	<div class="mb-3" style="margin-right:13px;">
-            	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" name="work_start_date">
-          	</div>
-          	<div class="mb-3">
-            	<label for="recipient-name" class="col-form-label" style="color:red;">마감일</label>
-            	<input type="Date" class="form-control" name="work_deadline">
-          	</div>
-          </div>
-	    <div class="mb-3">
-        	<label for="work_progress" class="col-form-label">진행률</label>
-			<input type="range" class="progress" min="0" max="100" step="10">
-			<input type="text" class="percentage" name="work_progress" value="" readonly>%
-		</div>
-        <div class="mb-3">
-        	<label for="work_file" class="col-form-label">첨부파일</label>
-        	<input type="file" name="uploadfile" multiple="multiple">
-        </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" name="work_content" required="required" style="height:200px;"></textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
-        <button id="submitU" type="submit" class="btn_green">수정</button>
-      </div>
-        </form>
-    </div>
-  </div>
-</div>
 <script>
 
    //file download    
@@ -184,30 +122,7 @@ $('.filedown').click(function() {        
 	                + ')'
 	                );
 	});
-	
- 		// 업무 글 수정하기
-		$("#submitU").click(function(){
-			
-			
-			if(check){
-				// ajax로 컨트롤러 이동 - update
-				$.ajax({
-					type: "POST",
-					url: "<%=request.getContextPath()%>/work/update",
-					data:{
-						work_no:$("#work_no").val(),
-						
-						},
-					success: function(result){
-						// 업무 수정 여부 확인하기
-						var check = confirm("업무를 수정하시겠습니까?");
-					}
-				});
-		  } else {
-			  return false;
-		  }
-			
-		});
+
 		
  		// 업무 글 삭제하기
 		$("#wDelete").click(function(){

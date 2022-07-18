@@ -22,8 +22,18 @@
 	#{sked_start_date}, #{sked_end_date}, #{sked_location}, #{sked_category}, #{sked_emp_id})
 </insert>
 
-<!-- 일정 상세 보기 -->
+<!-- 전체 일정 보기 -->
+<select id="selectAllSked" resultType="Schedule">
+	select * from schedule 
+</select>
+
+<!-- 특정 프로젝트의 전체 일정 보기 -->
 <select id="selectSked" resultType="Schedule">
+	select * from schedule where where proj_no=#{proj_no}
+</select>
+
+<!-- 일정 상세 보기 -->
+<select id="viewSked" resultType="Schedule">
 	select * from schedule where sked_no=#{sked_no}
 </select>
 
