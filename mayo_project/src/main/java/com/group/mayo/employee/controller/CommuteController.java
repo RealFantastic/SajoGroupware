@@ -135,7 +135,7 @@ public class CommuteController {
 	}
 
 //	인사팀 - 직원별 근태내역 리스트 - 검색하기
-	@RequestMapping(value = "/empCommuteSearch", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value = "/empCommuteSearch", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String commuteEmpSearch(@RequestParam("search_type") String search_type,
 			@RequestParam("search_keyword") String search_keyword, ModelAndView mv) throws Exception {
@@ -149,9 +149,8 @@ public class CommuteController {
 	}
 
 
-
 	// 인사팀 - 직원근태상세보기
-	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.GET)
+	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.POST)
 	public ModelAndView commuteEmpSelect(ModelAndView mv, HttpServletRequest request) {
 		String empNo = request.getParameter("empNo");
 		// 3.사원번호 ,사원명 ,직함 , 부서명, 연락처

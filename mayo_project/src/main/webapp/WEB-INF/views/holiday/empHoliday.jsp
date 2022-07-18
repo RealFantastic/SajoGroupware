@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 연차현황</title>
+<title>직원연차내역 보기</title>
 
 	<!-- 부트스트랩 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,6 @@
 
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <jsp:include page="/WEB-INF/views/template_left.jsp"/>
-
 
 	<div class="left_bar_exception">
 	
@@ -98,12 +97,12 @@
 					var str = "";
 					list.forEach(function(item){
 						str +="<tr>"
-						str +="<td class='holiday_table_list_td'>"+item.req_date+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_start+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_end+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_count+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_mod+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_reason+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.REQ_DATE }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_START }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_END }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_COUNT }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_mod }+"</td>";
+						str +="<td class='holiday_table_list_td'>"+${holiday.HD_RESON }+"</td>";
 						str +="</tr>";
 					})
 				}else{
@@ -113,7 +112,7 @@
 				}
 			}
 			,error:function(){
-				alert("연차ajax 제대로 동작못했슈 ........ㅠㅠ");
+				alert("연차ajax 제대로 동작했슈 ........ㅠㅠ");
 			}
 		});
 	}
@@ -184,5 +183,7 @@
 			</table>
 		</div>
 	</div>
+
+
 </body>
 </html>

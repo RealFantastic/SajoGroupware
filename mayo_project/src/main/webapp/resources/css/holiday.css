@@ -44,8 +44,11 @@
 /* 왼쪽메뉴바를 제외한 나의정보*/
 .my_pe{
 	margin-top: 20px;
+	
 }
-
+.my_info{
+	    margin-bottom: 14px;
+}
 /* 왼쪽메뉴바를 제외한 날짜박스 */
 .select_box{
 	float: left;

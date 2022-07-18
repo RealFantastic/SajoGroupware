@@ -61,42 +61,49 @@
 			</form>
 		</div>
 		<script type="text/javascript">
-		function commuteEmpSearch() {
-			$.ajax({
-				type:"get"
-				,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
-				,data:$("form[name=search_form]").serialize()
-				,success:function(result){
-// 					debugger
-					//테이블 초기화
-					$('.commute_list_table > tbody').empty();
-					result=JSON.parse(result);
-					if(result.length>=1){
-						result.forEach(function(item){
+			function commuteEmpSearch() {
+				$.ajax({
+					type:"post"
+					,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
+					,data:$("form[name=search_form]").serialize()
+					,success:function(result){
+	// 					debugger
+						//테이블 초기화
+						$('.commute_list_table > tbody').empty();
+						result=JSON.parse(result);
+						if(result.length>=1){
+							result.forEach(function(item){
+								str="<tr>"
+								str += "<td class='commute_table_list_td'>"+item.emp_no+"</td>";
+								str += "<td class='commute_table_list_td'>"+item.emp_name+"</td>";
+								str += "<td class='commute_table_list_td'>"+item.job_nm+"</td>";
+								str += "<td class='commute_table_list_td'>"+item.dept_nm+"</td>";
+								str += "<td class='commute_table_list_td'>"+item.phone+"</td>";
+								//str += "<td class='commute_table_list_td'><button class='btn_yellow modify_btn'>수정하기</button></td>";
+								str += "<td class='commute_table_list_td'>";
+								str += '<form action="<%= request.getContextPath()%>/commute/empCommuteSelect" method="POST">';
+								str += '<input type="hidden" name="empNo" value="'+item.emp_no+'">';
+								str += '<button class="btn_yellow modify_btn" type="submit">수정하기</button></td>';
+								str += '</form>';
+								str += "</tr>";
+								$('.commute_list_table').append(str);
+							})
+							
+						}else{j
 							str="<tr>"
-							str += "<td class='commute_table_list_td'>"+item.emp_no+"</td>";
-							str += "<td class='commute_table_list_td'>"+item.emp_name+"</td>";
-							str += "<td class='commute_table_list_td'>"+item.job_nm+"</td>";
-							str += "<td class='commute_table_list_td'>"+item.dept_nm+"</td>";
-							str += "<td class='commute_table_list_td'>"+item.phone+"</td>";
-							str += "<td class='commute_table_list_td'><button class='btn_yellow'>수정하기</button></td>";
-<%-- 							str += "<td class='commute_table_list_td'><button class='btn_yellow'onclick='location.href=\"<%= request.getContextPath()%>/commute/empCommuteSelect?empNo=${emp.emp_no}\"'>수정하기</button></td>"; --%>
+							str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
 							str += "</tr>";
 							$('.commute_list_table').append(str);
-						})
-					}else{j
-						str="<tr>"
-						str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
-						str += "</tr>";
-						$('.commute_list_table').append(str);
+						}
+						console.log(result.length);
 					}
-					console.log(result.length);
-				}
-				,error:function(){
-					alert("ajax 제대로 동작 못했다. 문제를 찾아라");
-				}
-			});
-		}
+					
+					,error:function(){
+						alert("ajax 제대로 동작 못했다. 문제를 찾아라");
+					}
+				});
+				
+			}
 		</script>
 
 
@@ -138,9 +145,12 @@
 							<td class="commute_table_list_td">${emp.dept_nm }</td>
 							<td class="commute_table_list_td">${emp.phone }</td>
 							<td class="commute_table_list_td">
-								<button class="btn_yellow" onclick="location.href='<%= request.getContextPath()%>/commute/empCommuteSelect?empNo='+${emp.emp_no}">
-									수정하기
-								</button>
+								<form action="<%= request.getContextPath()%>/commute/empCommuteSelect" method="POST">
+									<input type="hidden" name="empNo" value="${emp.emp_no}">
+									<button class="btn_yellow modify_btn" type="submit">
+										수정하기
+									</button>
+								</form>
 							</td>
 						</tr>
 					</c:forEach>

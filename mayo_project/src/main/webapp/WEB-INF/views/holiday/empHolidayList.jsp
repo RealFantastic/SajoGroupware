@@ -61,7 +61,7 @@
 		<script type="text/javascript">
 		function commuteEmpSearch() {
 			$.ajax({
-				type:"get"
+				type:"post"
 				,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
 				,data:$("form[name=search_form]").serialize()
 				,success:function(result){
@@ -77,7 +77,12 @@
 							str += "<td class='holiday_table_list_td'>"+item.dept_nm+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.phone+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.left_count+"</td>";
-							str += "<td class='holiday_table_list_td'><button class='btn_yellow'>상세보기</button></td>";
+							//str += "<td class='holiday_table_list_td'><button class='btn_yellow'>상세보기</button></td>";
+							str += "<td class='holiday_table_list_td'>";
+							str += '<form action="<%= request.getContextPath()%>/holiday/empHolidayDetail" method="POST">';
+							str += '<input type="hidden" name="empNo" value="'+item.emp_no+'">';
+							str += '<button class="btn_yellow detail_btn" type="submit">상세보기</button></td>';
+							str += '</form>';
 							str += "</tr>";
 							$('.holiday_list_table').append(str);
 						})
@@ -135,9 +140,12 @@
 							<td class="holiday_table_list_td">${empholiday.phone }</td>
 							<td class="holiday_table_list_td">${empholiday.left_count }</td>
 							<td class="holiday_table_list_td">
-								<button class="btn_yellow" onclick="location.href='<%=request.getContextPath() %>/holiday/list?empNo='+${empholiday.emp_no}">
-									상세보기
-								</button>
+								<form action="<%=request.getContextPath() %>/holiday/empHolidayDetail" method="post">
+									<input type="hidden" name="empNo" value="${empholiday.emp_no}">
+									<button class="btn_yellow detail_btn" type="submit">
+										상세보기
+									</button>
+								</form>
 							</td>
 						</tr>
 					</c:forEach>

@@ -42,6 +42,25 @@ public class HolidayController {
 		return mv;
 	}
 
+//	나의연차리스트
+	@RequestMapping(value="/selectHolidayList", produces="text/plain;charset=UTF-8", method=RequestMethod.POST)
+	public String selectHolidayList(
+//			연도,
+			HttpSession session) throws Exception {
+		Employee emp=(Employee) session.getAttribute("loginSsInfo");
+//		String 연도
+		
+		List<Holiday> holidayList = service.holidayMystatus();
+		
+		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String result = gson.toJson();
+		
+		return result;
+	}
+
+
+
+
 
 //	인사팀 - 직원별 연차내역 리스트
 	@RequestMapping(value = "/empHolidayList", method = RequestMethod.GET)
@@ -55,8 +74,11 @@ public class HolidayController {
 		mv.setViewName("holiday/empHolidayList");
 		return mv;
 	}
+
+
+
 //	인사팀 - 직원별 연차내역 리스트 - 검색하기
-	@RequestMapping(value ="/empCommuteSearch", produces="text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@RequestMapping(value ="/empCommuteSearch", produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String commuteEmpSearch(
 			@RequestParam("search_type") String search_type
@@ -74,7 +96,18 @@ public class HolidayController {
 	
 	
 //	인사팀-직원연차상세보기
-	
+	@RequestMapping(value = "/empHolidayDetail", method = RequestMethod.POST)
+	public ModelAndView holidayEmpDetail(ModelAndView mv, HttpSession session) {
+		
+		Employee emp=(Employee) session.getAttribute("loginSsInfo");
+		String id=emp.getEmp_no();
+		
+		//본인의 사원번호, 사원명, 직함, 부서명, 연락처
+		CommuteEmployee commuteMyInfo=service.commuteMyInfo(id);
+		mv.addObject("commuteMyInfo",commuteMyInfo);
+		mv.setViewName("holiday/empHoliday");
+		return mv;
+	}
 	
 	
 	

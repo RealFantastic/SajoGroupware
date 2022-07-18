@@ -333,15 +333,18 @@
 		
 					// 	근태리스트 클릭시 모달창 보여짐
 					function showModal(day, start, end){
+						//	클릭한 리스트 내용(일자, 출,퇴근시간) 보여짐
 						$('#modal_day').val(day)
 						$('#modal_start_time').val(start.replaceAll(" ", "").substr(0, 5))
 						$('#modal_end_time').val(end.replaceAll(" ", "").substr(0, 5))
 						
 						$('#Modal').modal('show');
 						
-						
 						// 모달 수정버튼 클릭 시 TODO
-						
+						$("#changemodal").on("click", function(){
+							
+// 							$('#Modal').modal('hide');
+						});
 						// 	모달 취소버튼 클릭 시 
 						$(".modalclose").on("click", function() {
 							$('#Modal').modal('hide');
@@ -418,7 +421,7 @@
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="taskId" class="col-form-label">선택한 근무일자</label>
-									<input type="text" class="form-control" id="modal_day" name="modal_day">
+									<input type="text" class="form-control" id="modal_day" name="modal_day" readonly>
 									
 									<label for="taskId" class="col-form-label">출근 시간</label>
 									<input type="time" class="form-control" id="modal_start_time" name="modal_start_time">

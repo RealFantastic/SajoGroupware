@@ -16,19 +16,19 @@ public class HolidayServiceImpl implements HolidayService{
 	@Autowired
 	private HolidayDao dao;
 	
-//	ÆäÀÌÁö ¶ç¿ì±â
+//	í˜ì´ì§€ ë„ìš°ê¸°
 	@Override
 	public List<HolidayEmployee> holidayEmpList(){
 		return dao.holidayEmpList();
 	}
 	
-//	°³ÀÎÁ¤º¸
+//	ê°œì¸ì •ë³´
 	@Override
 	public CommuteEmployee commuteMyInfo(String id) {
 		return dao.commuteMyInfo(id);
 	}
 
-//	°³ÀÎ ¿¬Â÷³»¿ª ¸®½ºÆ®
+//	ê°œì¸ ì—°ì°¨ë‚´ì—­ ë¦¬ìŠ¤íŠ¸
 	@Override
 	public List<Holiday> holidayMystatus() {
 		return dao.holidayMystatus;
@@ -36,7 +36,7 @@ public class HolidayServiceImpl implements HolidayService{
 
 
 	
-//	ÀÎ»çÆÀ Á÷¿øÁ¶È¸
+//	ì¸ì‚¬íŒ€ ì§ì›ì¡°íšŒ
 	@Override
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception {
 		return dao.commuteEmpSearch(empCommuteSearch);
