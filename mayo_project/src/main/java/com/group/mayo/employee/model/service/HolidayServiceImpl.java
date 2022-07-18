@@ -53,5 +53,12 @@ public class HolidayServiceImpl implements HolidayService{
 		
 		return dao.selectHoliday(ea_no);
 	}
+
+	@Override
+	public int deleteHoliday(String ea_no) {
+		return dao.deleteHoliday(ea_no);
+	}
+	
+	
 	
 }

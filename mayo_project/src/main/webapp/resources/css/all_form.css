@@ -15,6 +15,10 @@
 .toolBar{
 	margin-left:17px;
 	margin-top:10px;
+	display:flex;
+}
+.toolBar button{
+	margin-left:10px;
 }
 
 /* ToolBar css 종료 */

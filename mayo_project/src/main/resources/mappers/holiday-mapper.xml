@@ -24,4 +24,9 @@
 	<select id="selectHoliday" parameterType="string" resultType="Holiday">
 		SELECT * FROM HOLIDAY_HISTORY WHERE EA_NO=#{ea_no}
 	</select>
+	
+	<!-- 휴가신청기록 삭제 -->
+	<delete id="deleteHoliday" parameterType="string">
+		DELETE FROM HOLIDAY_HISTORY WHERE EA_NO = #{ea_no}
+	</delete>
 </mapper>

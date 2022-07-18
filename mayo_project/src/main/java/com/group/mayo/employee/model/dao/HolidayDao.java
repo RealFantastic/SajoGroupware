@@ -42,4 +42,8 @@ public class HolidayDao {
 	public Holiday selectHoliday(String ea_no) {
 		return sqlSession.selectOne("Holiday.selectHoliday", ea_no);
 	}
+	
+	public int deleteHoliday(String ea_no) {
+		return sqlSession.delete("Holiday.deleteHoliday",ea_no);
+	}
 }

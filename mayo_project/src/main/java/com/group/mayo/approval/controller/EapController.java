@@ -175,4 +175,32 @@ public class EapController {
 		}
 		return mv;
 	}
+	@PostMapping("/delete")
+	public ModelAndView deleteEap(
+			@RequestParam(name="ea_no", required=false) String ea_no
+			,@RequestParam(name="form_code", required=false) String form_code
+			,RedirectAttributes rttr
+			,ModelAndView mv) {
+		
+		int deleteEap = service.deleteEap(ea_no);
+		
+		if(deleteEap ==0) {
+			String msg="회수에 실패했습니다. 다시 시도하세요.";
+			rttr.addFlashAttribute("msg", msg);
+		}
+		switch(form_code) {
+		case "AR":
+			int result= hservice.deleteHoliday(ea_no);
+//			if(result==0) {
+//				String msg="회수에 실패했습니다. 다시 시도하세요.";
+//				rttr.addFlashAttribute("msg", msg);
+//			}
+			break;
+		case "BP":
+			//TODO 업무기안
+		}
+		
+		mv.setViewName("redirect:/eap/list/mylist");
+		return mv;
+	}
 }

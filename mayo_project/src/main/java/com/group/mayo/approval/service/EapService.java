@@ -50,4 +50,12 @@ public interface EapService {
 	 * @return 새 문서번호 생
 	 */
 	public String selectNewEaNo(EapDomain eap);
+	
+	/**
+	 * 
+	 * @param ea_no
+	 * @return 0 or 1
+	 * @author JHPark
+	 */
+	public int deleteEap(String ea_no);
 }

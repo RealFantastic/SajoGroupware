@@ -39,4 +39,7 @@ public class EapDao {
 	public EapDomain selectResult(EapDomain eap) {
 		return sqlSession.selectOne("Eap.selectResult",eap);
 	}
+	public int deleteEap(String ea_no) {
+		return sqlSession.delete("Eap.deleteEap", ea_no);
+	}
 }

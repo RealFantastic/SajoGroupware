@@ -59,4 +59,9 @@ FROM DUAL
 			LEFT OUTER JOIN APPROVAL_FILE AF ON A.EA_NO = AF.DOC_NO
 			WHERE A.EA_NO = #{ea_no}
 	</select>
+	
+	<!-- 내 기안문 회수 -->
+	<delete id="deleteEap" parameterType="string">
+		DELETE FROM ELEC_APPROVAL WHERE EA_NO=#{ea_no}
+	</delete>
 </mapper>

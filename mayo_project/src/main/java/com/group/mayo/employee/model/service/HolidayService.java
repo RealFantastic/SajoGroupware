@@ -51,6 +51,15 @@ public interface HolidayService {
 	 * 
 	 * @param ea_no
 	 * @return 결재문서에 작성된 휴가 신청 내용
+	 * @author JHPark
 	 */
 	public Holiday selectHoliday(String ea_no);
+	
+	/**
+	 * 
+	 * @param ea_no
+	 * @return 0 or 1
+	 * @author JHPark
+	 */
+	public int deleteHoliday(String ea_no);
 }

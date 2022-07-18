@@ -57,6 +57,14 @@ public class EapServiceImpl implements EapService {
 	public EapDomain selectDraft(EapDomain eap) {
 		return dao.selectDraft(eap);
 	}
+
+
+	@Override
+	public int deleteEap(String ea_no) {
+		return dao.deleteEap(ea_no);
+	}
+	
+	
 	
 	
 
