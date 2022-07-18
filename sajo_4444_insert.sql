@@ -786,6 +786,16 @@ JOIN EA_FORM FORM ON A.FORM_CODE = FORM.FORM_CODE
 LEFT OUTER JOIN APPROVAL_FILE AF ON A.EA_NO = AF.DOC_NO
 WHERE A.EA_NO = '2022-AR-003';
 
+--기안문 상세보기
+SELECT *FROM ELEC_APPROVAL WHERE EA_NO = '2022-AR-013'
+UNION
+SELECT EMP_NO,EMP_NAME,JOB_NAME, DEPT_NAME FROM EMPLOYEE
+JOIN DEPARTMENT USING(DEPT_NO)
+JOIN JOB USING(JOB_NO)
+JOIN ELEC_APPROVAL ON FIRST_APPROVER = EMP_NO
+WHERE EA_NO = '2022-AR-013';
+
+select * from holiday_history where ea_no='2022-AR-013';
 --방금 인서트한 쿼리를 select해오는 쿼리
 SELECT *
 FROM (SELECT * FROM ELEC_APPROVAL WHERE FORM_CODE = 'AR' ORDER BY DRAFT_DATE DESC)
@@ -835,16 +845,23 @@ FROM DUAL;
 
 SELECT NVL(MAX(HD_NO),0)+1 FROM HOLIDAY_HISTORY;
 
---SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(max(to_number(substr(ea_no,9,3))),0)+1,3,0) from elec_approval where substr(ea_no,6,2) = 'AR') FROM ELEC_APPROVAL;
+--결재 대기 문서 리스트
+SELECT * FROM ELEC_APPROVAL
+WHERE 
+(FIRST_APPROVER='202210001' AND STATUS_CODE IN(1) AND RESULT_CODE=0) 
+OR 
+(SECOND_APPROVER='202210001' AND STATUS_CODE IN(6,14)) 
+OR 
+(THIRD_APPROVER='202210001' AND STATUS_CODE IN(4,12)) 
+OR 
+(FINAL_APPROVER='20221001' AND STATUS_CODE IN(8))
+;
+
+
+
+
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------
---
--- Preparing: insert into elec_approval 
--- (EA_NO, EA_TITLE, EA_CONTENT, DRAFTER_ID, DRAFT_DATE,FIRST_APPROVER,SECOND_APPROVER,THIRD_APPROVER , FINAL_APPROVER,STATUS_CODE,RESULT_CODE, FORM_CODE, ISEMERGENCY)
--- values 
--- ( (SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| (select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '''%'||?||'%''' ) ) from dual) ,
--- ?,?, ?, DEFAULT,?, ? , ? , ? , 15 , DEFAULT, ?,default )
---DEBUG: Eap.insertEap - ==> Parameters: AR(String), 연차신청서(String), <p>아아 테스트입니다.</p>(String), 202210001(String), 202210001(String), 202210005(String), 202230001(String), 202210004(String), AR(String)
---DEBUG: org.mybatis.spring.S
+
 
 -------------------------------------------------------  김혜린  시작(732 ~ )  ---------------------------------------------------------------------------------------
 

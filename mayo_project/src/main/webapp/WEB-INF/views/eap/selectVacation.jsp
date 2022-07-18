@@ -86,6 +86,7 @@
 													<strong>승인</strong>
 												</span>
 											</span>
+											<!-- TODO : 결재선 ID로 결재자 정보(사원명, 직급) 불러오기 -->
 											<c:if test="${not empty myDraft.first_approver }">
 												<span class="sign_member_wrapper">
 													<span class="sign_member">
@@ -218,6 +219,7 @@
 					<div id="approval_line_container">
 						<div id="approval_line">
 							<table class="table table-striped list_approval">
+							<!-- TODO : 결재선 ID로 결재자 정보(사원명, 직급) 불러오기 -->
 								<tr>
 									<th scope="col">결재순서</th>
 									<th scope="col">사번</th>									
