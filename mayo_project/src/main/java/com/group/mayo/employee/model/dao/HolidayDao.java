@@ -25,10 +25,8 @@ public class HolidayDao {
 	public CommuteEmployee commuteMyInfo(String id) {
 		return sqlSession.selectOne("CommuteRecord.commuteMyInfo", id);
 	}
-	
-	
-	//	직원 검색하기
 
+	//개인 연차내역 리스트
 	public List<Holiday> holidayMystatus;
 
 
