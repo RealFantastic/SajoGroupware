@@ -363,22 +363,18 @@ public class EmpController {
 			return mv;
 		}
 	    // 아이디 찾기 실행
-		@RequestMapping(value="findId", method=RequestMethod.POST)
-		public ModelAndView findId(Employee employee
-								, ModelAndView mv) {
+		@RequestMapping(value="findId", method=RequestMethod.POST, produces="text/plain;charset=UTF-8" )
+		@ResponseBody
+		public String findId(Employee employee) {
 			Employee findId = service.findId(employee);
-			
+			String result = "fail";
 			if(findId == null) { 
 				System.out.println("findId : "+findId);
-				mv.addObject("check", 1);
-			} else { 
-				mv.addObject("check", 0);
-				mv.addObject("findId", findId);
-				System.out.println("findId : "+findId);
+				return result;
+			} else {
+				result = findId.getEmp_no();
 			}
-			mv.setViewName("redirect:/member/findId");
-			System.out.println("findId : "+findId);
-			return mv;
+			return result;
 		}
 		
 	    // 비밀번호 찾기 페이지로 이동

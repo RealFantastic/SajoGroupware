@@ -22,43 +22,53 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 </head>
-<body>
+<body id="j_body">
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <%-- <jsp:include page="/WEB-INF/views/modal/findId_modal.jsp"/> --%>
 <form action="findId" method="post" name="findId">
-	<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
+	<div id="j_container" class="w3-content w3-container w3-margin-top" >
+		<div  id="j_container1" class="w3-container w3-card-4">
 				
-				<div class="w3-center w3-large w3-margin-top">
-					<div>
-						<img alt="mayo로고_초록색" src="">
+				<div id="j_container2"  >
+					<div id="j_logo_green">
+						<img id="logo_green" 
+						alt="mayo로고_초록색" 
+						src="https://cdn.discordapp.com/attachments/976717450655694879/988136708518346832/unknown.png">
 					</div>
-					<div id="j_emp_name">
-						<label for="emp_name">이름 : </label>
+					<div id="j_container3">
+					<div id="j_emp_name" class="j_div">
+						<label for="emp_name" class="font3">이름 : </label>
 						<input class="w3-input" type="text" id="emp_name" name="emp_name" placeholder="성함을 입력해주세요." required>
 					</div>
 					
-					<div id="j_rrn">
-						<label>주민번호:</label>
+					<div id="j_rrn" class="j_div">
+						<label for="rrn" class="font3">주민번호:</label>
 						<input class="w3-input" type="text" id="rrn" name="rrn" placeholder="주민번호를 입력해주세요." required>
 					</div>
-					
-					<div class="w3-center">
-						<button type="button" id='find_id_btn' onclick="findId_click()" 
-							class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">ID찾기</button>
-						<button type="button" onclick="history.go(-1);" 
-						class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">뒤로가기</button>
 					</div>
 					
-					<div>
-						<img alt="마요로고_검정" src="">
+					<div id="j_btn" >
+						<div class="j_div">
+							<button type="button" id='find_id_btn' onclick="findId_click()" 
+							class="btn_green">ID찾기</button>
+						</div>
+						<div class="j_div">
+						<button id="j_back_btn" type="button" onclick="history.go(-1);" 
+						class="btn_gray">뒤로가기</button>
+						</div>
+					</div>
+					
+					<div id="j_logo_black">
+						<img 
+						id="logo_black"
+						alt="마요로고_검정" 
+						src="https://cdn.discordapp.com/attachments/976717450655694879/996260321780047914/unknown.png">
 					</div>
 				</div>
 				<footer>
 					<p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
 				</footer>
 				
-			
 		</div>
 	</div>
 	</form>
@@ -68,19 +78,6 @@
         <div class="modal-window">
             <div class="title">
                 <h2>아이디 조회 결과</h2>
-            </div>
-            <div>
-            <c:choose>
-            	<c:when test="${check == 1 }">
-            		<p>일차하는 회원정보가 존재하지 않습니다.</p>
-            	</c:when>
-            	<c:when test="${check == 0 }">
-            		<p>'${findId}'</p>
-            	</c:when>
-            	<c:otherwise>
-            	
-            	</c:otherwise>
-            </c:choose>
             </div>
             <div class="close-area">X</div>
             <div class="content" id="id_value"></div>
@@ -100,7 +97,7 @@
 					type:"POST",
 					data:{"emp_name":emp_name, "rrn":rrn} ,
 					success:function(data){
-						if(data == 0){
+						if(data == "fail"){
 							$('#id_value').text("회원 정보를 확인해주세요!");
 							$('#emp_name').val('');
 							$('#rrn').val('');

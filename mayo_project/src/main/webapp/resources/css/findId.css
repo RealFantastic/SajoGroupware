@@ -1,1 +1,90 @@
-@charset "UTF-8";bel>
+@charset "UTF-8";
+#j_body{
+ /* 배경색상 */
+ background-color: rgb(235, 255, 246);
+ /* 가운데 정렬 */
+ margin: 0 auto;
+}
+#j_container{
+    margin: 0 auto;
+    padding: 5%;
+}
+
+ #j_container1{
+	 box-sizing: border-box;
+	 background-color: white;
+	 padding: 30px;
+	 width: 500px;
+	 height: 400px;
+	
+	 /* 가운데 정렬 */
+	 margin: 0 auto;
+	
+	 border-radius: 15px;
+ }
+ #j_container3{
+ 	padding-left: 10%;
+ }
+ /* 타이틀 로고 */
+ #j_logo_green{
+ 	width: 350px;
+ 	margin: 0 auto;
+ }
+ #logo_green{
+ 	width: 350px;
+ }
+ /* 푸터 로고 */
+ #j_logo_black{
+  	width: 100px;
+ 	margin: 0 auto;
+ }
+ #logo_black{
+	 width: 100px;
+ }
+ /* 이름  */
+#j_emp_name{
+	width: 400px;
+	margin-left: 10%;
+}
+#emp_name{
+	width: 60%;
+	border-radius: 5px;
+	border-color:rgb(107, 191, 152);
+	height: 35px;
+}
+/* 주민번호 */
+#j_rrn{
+	width: 400px;
+	margin: 0 auto;
+}
+#rrn{
+	width: 60%;
+	border-radius: 5px;
+	border-color:rgb(107, 191, 152);
+	height: 35px;
+}
+/* 행간격 */
+.j_div{
+	padding-bottom: 10px;
+}
+/* input창 테두리 */
+#emp_name:focus, #rrn:focus{
+    outline:none;
+}
+/* 폰트  */
+.font3{
+    color: rgb(107, 191, 152);
+    font-weight: bolder;
+}
+/* 버튼 */
+#find_id_btn, #j_back_btn{
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+}
+/* 푸터 */
+#j_footer{
+	margin: 0 auto;
+    width: 400px;
+    padding-top: 10px;
+}
