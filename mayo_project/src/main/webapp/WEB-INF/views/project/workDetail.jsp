@@ -19,7 +19,7 @@
 							</div>
 								<div>
 									<form action="<%=request.getContextPath() %>/work/toUpdate" method="POST">
-										<input id="work_no" type="hidden" value="${work.work_no }">
+										<input id="work_no" type="hidden" name="work_no" value="${work.work_no }">
 										<button type='submit' id="wUpdate" class='btn_gray btn-modify'>수정</button>
 									</form>
 									<button type='button' id="wDelete" class='btn_red btn-delete'>삭제</button>

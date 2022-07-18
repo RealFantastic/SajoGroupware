@@ -96,7 +96,6 @@
         <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
       <div class="modal-body insidebody">
       <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
-      <input type="hidden" class="form-control" id="work_mgr" name="work_mgr" value="${project.proj_no }">
         <div style="display:flex;">
         <div style="margin-right: 15px;">
         	<select name="work_status" class="form-select" aria-label="Default select example" required="required">

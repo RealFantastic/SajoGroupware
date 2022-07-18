@@ -28,12 +28,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font3" style="font-weight:bold;">업무 수정</h5>
+        <h5 class="font3 ftitle">업무 수정하기</h5>
       </div>
-        <form name="updateWork" action="<%=request.getContextPath()%>/work/update" method="POST" enctype="multipart/form-data">
+        <form name="updateWork" enctype="multipart/form-data">
       <div class="modal-body insidebody">
-      <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
-      <input type="hidden" class="form-control" id="work_mgr" name="work_mgr" value="${project.proj_no }">
+      <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${work.proj_no }">
+      <input type="hidden" class="form-control" id="work_mgr" name="work_mgr" value="${work.work_mgr }">
         <div style="display:flex;">
         <div style="margin-right: 15px;">
         	<select name="work_status" class="form-select" aria-label="Default select example" required="required">
@@ -51,22 +51,22 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label font2">제목</label>
-            <input type="text" class="form-control" id="title" name="work_title" placeholder="${work.work_title }" required="required">
+            <input type="text" class="form-control" id="title" name="work_title" value="${work.work_title }" required="required">
           </div>
           <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
             	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" id="work_start_date" name="work_start_date">
+            	<input type="Date" class="form-control" id="work_start_date" name="work_start_date" value="${work.work_start_date}">
           	</div>
           	<div class="mb-3">
             	<label for="recipient-name" class="col-form-label" style="color:red;">마감일</label>
-            	<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
+            	<input type="Date" class="form-control" id="work_deadline" name="work_deadline" value="${work.work_deadline}">
           	</div>
           </div>
 	    <div class="mb-3">
         	<label for="work_progress" class="col-form-label">진행률</label>
-			<input type="range" id="progress" min="0" max="100" step="10">
-			<input type="text" id="percentage" name="work_progress" value="" readonly>%
+			<input type="range" id="progress" value="${work.work_progress }" min="0" max="100" step="10">
+			<input type="text" id="percentage" name="work_progress" readonly>%
 		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
@@ -77,12 +77,12 @@
         </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" id="content" name="work_content" placeholder="${work.work_content }" required="required" style="height:200px;"></textarea>
+            <textarea class="form-control" id="content" name="work_content" required="required" style="height:200px;">${work.work_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
-        <button id="submitP" type="submit" class="btn_green">수정</button>
+        <button type="button" class="btn_gray" id="cancel">취소</button>
+        <button id="submit" type="submit" class="btn_green">수정</button>
       </div>
         </form>
     </div>
@@ -94,19 +94,21 @@
 <script>
 
 	// 업무 글 수정하기
-//	$("#wUpdate").click(function(){
+	$("#submit").click(function(){
 	
-//			// ajax로 컨트롤러 이동 - update 페이지로~!
-//			$.ajax({
-//				type: "GET",
-<%-- 					url: "<%=request.getContextPath()%>/work/update", --%>
-//				data:{
-//					work_no:$("#work_no").val(),
-//					},
-//				success: function(result){
-//				}
-//			});
-//	});
+		var work = $("form[name=updateWork]").serialize();
+		
+			// ajax로 컨트롤러 이동 
+			$.ajax({
+				type: "POST",
+				url: "<%=request.getContextPath()%>/work/update",
+				data: work,
+				success: function(result){
+					alert(result);
+					location.reload();
+				}
+			});
+	});
 	
 	
 //다중 파일 업로드 예제

@@ -104,9 +104,9 @@ public class WorkController {
 		return mv;
 	}
 	
-	// 업무 글 수정
+	// 업무 글 수정 페이지로 이동
 	@PostMapping("/toUpdate") 
-	public ModelAndView updateWorkPage(ModelAndView mv, String work_no) {
+	public ModelAndView updateWorkPage(ModelAndView mv, @RequestParam(name="work_no", required=false) String work_no) {
 
 			System.out.println("업데이트 들어왔니");
 			Work work = service.viewWork(work_no);
@@ -117,9 +117,10 @@ public class WorkController {
 			return mv;
 		}
 	
+	// 업무 글 수정
 	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
-	public String toUpdate(Work work) {
+	public String updateWork(Work work) {
 		
 		int result= service.updateWork(work);
 		
