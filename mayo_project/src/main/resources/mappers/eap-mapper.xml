@@ -57,6 +57,6 @@ FROM DUAL
 			    where drafter_id = #{drafter_id}) A
 			JOIN EA_FORM FORM ON A.FORM_CODE = FORM.FORM_CODE
 			LEFT OUTER JOIN APPROVAL_FILE AF ON A.EA_NO = AF.DOC_NO
-			WHERE A.EA_NO = #{ea_no};
+			WHERE A.EA_NO = #{ea_no}
 	</select>
 </mapper>

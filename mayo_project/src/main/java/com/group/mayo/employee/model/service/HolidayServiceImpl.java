@@ -43,4 +43,15 @@ public class HolidayServiceImpl implements HolidayService{
 	}
 	
 	
+	@Override
+	public int insertHoliday(Holiday holiday) {
+		return dao.insertHoliday(holiday);
+	}
+
+	@Override
+	public Holiday selectHoliday(String ea_no) {
+		
+		return dao.selectHoliday(ea_no);
+	}
+	
 }

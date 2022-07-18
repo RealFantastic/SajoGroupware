@@ -410,7 +410,7 @@
 						_html += "		</span>";
 						_html += "	</span>";
 						_html += "</span>";
-					}
+					}                   
 					$('.sign_member_wrapper').nextAll().remove();
 					$('.sign_member_wrapper').after(_html);
 					$('.approval_list').modal('hide');

@@ -46,4 +46,11 @@ public interface HolidayService {
 	 * @author JHPark
 	 */
 	public int insertHoliday(Holiday holiday);
+	
+	/**
+	 * 
+	 * @param ea_no
+	 * @return 결재문서에 작성된 휴가 신청 내용
+	 */
+	public Holiday selectHoliday(String ea_no);
 }

@@ -38,4 +38,8 @@ public class HolidayDao {
 	public int insertHoliday(Holiday holiday) {
 		return sqlSession.insert("Holiday.insertHoliday", holiday);
 	}
+	
+	public Holiday selectHoliday(String ea_no) {
+		return sqlSession.selectOne("Holiday.selectHoliday", ea_no);
+	}
 }

@@ -156,16 +156,22 @@ public class EapController {
 		//세션 로그인 정보 가져옴.
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		eap.setDrafter_id(curUser.getEmp_no());
-		
 		EapDomain selectEap = service.selectDraft(eap);
 		
 		mv.addObject("myDraft",selectEap);
 		
 		switch(selectEap.getForm_code()) {
 		case "AR":
+			Holiday selectHoliday = hservice.selectHoliday(ea_no);
+			mv.addObject("selectHoliday", selectHoliday);
 			mv.setViewName("eap/selectVacation");
+			break;
 		case "BP":
 			mv.setViewName("eap/selectBP");
+			break;
+		default:
+			mv.setViewName("redirect:/");
+			break;
 		}
 		return mv;
 	}

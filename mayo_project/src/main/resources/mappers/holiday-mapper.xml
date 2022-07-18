@@ -20,4 +20,8 @@
 		, #{hd_count}, #{hd_reason}, #{ea_no}
 		)
 	</insert>
+	<!-- 선택한 결재문서의 내용  -->
+	<select id="selectHoliday" parameterType="string" resultType="Holiday">
+		SELECT * FROM HOLIDAY_HISTORY WHERE EA_NO=#{ea_no}
+	</select>
 </mapper>

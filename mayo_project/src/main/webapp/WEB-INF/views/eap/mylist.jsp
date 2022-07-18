@@ -93,7 +93,7 @@
 							      	</c:when>
 							      	<c:otherwise>
 							      		<td><div class="btn_green">접수</div></td>
-							      	</c:otherwise>
+							      	</c:otherwise>                      
 							      </c:choose>
 							    </tr>
 					  		</c:forEach>
