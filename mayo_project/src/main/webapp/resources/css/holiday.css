@@ -47,7 +47,7 @@
 	
 }
 .my_info{
-	    margin-bottom: 14px;
+	margin-bottom: 14px;
 }
 /* 왼쪽메뉴바를 제외한 날짜박스 */
 .select_box{
@@ -83,11 +83,13 @@
 /* 왼쪽메뉴바를 제외한 테이블 */
 .table_all{
 	width: 100%;
+	    margin-top: 244px;
 }
 
 .holiday_table{
 	text-align: center;
 	width: 100%;
+	
 }
 
 .holiday_table_list_th{

@@ -166,12 +166,14 @@
 										근태 주간날짜 조회 </label>
 								</div>
 								<div class="col-sm-8">
-									<span class="icon-block "> <input type="text"
-										class="form-control" id="weekpicker"> <span
-										class="icon-date"></span>
-									</span> <input type="hidden" id="start_dt"> <input
-										type="hidden" id="end_dt"> <input type="hidden"
-										id="empNo" value="${empNo}">
+									<span class="icon-block ">
+										<input type="text" class="form-control" id="weekpicker"> 
+									</span>	
+									<span class="icon-date">
+										<input type="hidden" id="start_dt">
+										<input type="hidden" id="end_dt">
+										<input type="hidden" id="empNo" value="${empNo}">
+									</span>
 									<div class="week-controls">
 										<button id="prevWeek" class="prev-week btn_gray">이전 주</button>
 										<button id="nextWeek" class="next-week btn_gray">다음 주</button>
@@ -340,17 +342,41 @@
 						
 						$('#Modal').modal('show');
 						
-						// 모달 수정버튼 클릭 시 TODO
-						$("#changemodal").on("click", function(){
-							
-// 							$('#Modal').modal('hide');
-						});
+						
 						// 	모달 취소버튼 클릭 시 
 						$(".modalclose").on("click", function() {
 							$('#Modal').modal('hide');
 						});
 						
-						}
+					}
+					
+					$(function(){
+						// 모달 수정버튼 클릭 시
+						$("#changemodal").on("click", function(){
+							$.ajax({
+								type:"post"
+								,url:"<%=request.getContextPath()%>/commute/change"
+								,data:{
+									empNo:$('#empNo').val(),
+									modal_day:$('#modal_day').val(),
+									modal_start_time:$('#modal_start_time').val(),
+									modal_end_time:$('#modal_end_time').val()
+								}
+								,dataType:"text"
+								,success : function(result) {
+									if (result == 'success'){
+										alert ("수정되었습니다.");
+										$('#Modal').modal('hide');
+										//리로드
+										location.reload();
+									}else{
+										alert("수정실패했습니다.")
+									}
+								}
+							})
+	
+						});
+					})
 				</script>
 			</div>
 		</div>
@@ -417,7 +443,7 @@
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">직원 근태 수정하기 </h5>
 						</div>
-						<form id="changemodal" action="<%=request.getContextPath()%>/" method="post">
+						<form >
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="taskId" class="col-form-label">선택한 근무일자</label>
@@ -431,7 +457,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-warning btn_yellow" id="changemodal">수정하기</button>
+								<button type="button" class="btn btn-warning btn_yellow" id="changemodal">수정하기</button>
 								<button type="button" class="btn btn-secondary btn_gray modalclose" data-dismiss="modal" id="sprintSettingModalClose">취소하기</button>
 							</div>
 						</form>

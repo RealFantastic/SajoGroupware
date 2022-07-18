@@ -76,8 +76,29 @@ public class CommuteDao {
 
 
 //	인사팀 - 직원근태 상세 - 수정
-	public List<CommuteRecord>empCommuteChange(){
-		return sqlSession.selectList("CommuteRecord.empCommuteChange");
+	public int change(Map<String, String> paramMap) {
+		
+		return sqlSession.update("CommuteRecord.change",paramMap);
 	}
 
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

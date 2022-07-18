@@ -91,9 +91,8 @@ public class CommuteServiceImpl implements CommuteService{
 	
 	//	출퇴근 수정
 	@Override
-	public List<CommuteRecord> empCommuteChange() {
-		return dao.empCommuteChange();
-	}
-
+	public int change(Map<String, String> paramMap) {
+		return dao.change(paramMap);
+}
 
 }

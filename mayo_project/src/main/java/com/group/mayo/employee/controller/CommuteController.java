@@ -96,7 +96,7 @@ public class CommuteController {
 		return mv;
 
 	}
-
+//	차트
 	@RequestMapping(value = "/selectCommuteList", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String selectCommuteList(@RequestParam("start_dt") String startDt, @RequestParam("end_dt") String endDt,
@@ -181,6 +181,31 @@ public class CommuteController {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String result = gson.toJson(resultMap);
+		return result;
+	}
+	
+	@RequestMapping(value = "/change", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String change(@RequestParam("empNo") String empNo, @RequestParam("modal_day") String modal_day
+						, @RequestParam("modal_start_time") String modal_start_time, @RequestParam("modal_end_time") String modal_end_time
+						, ModelAndView mv) throws Exception{
+		System.out.println(empNo);
+		System.out.println(modal_day);
+		System.out.println(modal_start_time);
+		System.out.println(modal_end_time);
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("empNo", empNo);
+		paramMap.put("modalDay", modal_day);
+		paramMap.put("modalStartTime", modal_start_time);
+		paramMap.put("modalEndTime", modal_end_time);
+		
+		int change = service.change(paramMap);
+		
+		String result ="fail";
+		if(change > 0) {
+			result = "success";
+		}
 		return result;
 	}
 

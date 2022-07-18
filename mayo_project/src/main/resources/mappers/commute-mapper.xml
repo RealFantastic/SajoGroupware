@@ -157,7 +157,20 @@
 
 
 <!-- //	인사팀 - 직원근태 상세 - 모달창 수정 -->
-	<select id="empCommuteChange" resultType="CommuteRecord">
+	<update id="change" parameterType="hashmap">
+		UPDATE commute_record 
+		SET start_time = to_date(#{modalDay}||' '|| #{modalStartTime} ||':00',   'YYYY-MM-DD hh24:mi:ss')
+		, end_time = to_date(#{modalDay}||' '||#{modalEndTime}||':00',   'YYYY-MM-DD hh24:mi:ss')
+		WHERE emp_no = #{empNo}  
+		AND TO_CHAR(start_time, 'YYYY-mm-dd') =#{modalDay}
+	</update>
 	
-	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

@@ -78,13 +78,15 @@ public interface CommuteService {
 
 
 
-
-//	인사팀 - 직원근태 상세 - 수정
+	
+//	모달창 수정
 	/**
-	 * @return 근무일, 출근시간, 퇴근시간
+	 * 
+	 * @param paramMap
+	 * @return int
 	 * @author hong
 	 */
-	public List<CommuteRecord>empCommuteChange();
+	public int change(Map<String, String> paramMap);
 
 
 
