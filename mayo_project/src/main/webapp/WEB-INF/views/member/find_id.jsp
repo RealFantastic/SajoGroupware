@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,7 @@
    	
  	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/findId.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/findId_modal.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 	
 	<!-- JSTree -->
@@ -22,7 +24,8 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
-<jsp:include page="/WEB-INF/views/modal/findId_modal.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/modal/findId_modal.jsp"/> --%>
+<form action="findId" method="post" name="findId">
 	<div class="w3-content w3-container w3-margin-top">
 		<div class="w3-container w3-card-4">
 				
@@ -41,7 +44,7 @@
 					</div>
 					
 					<div class="w3-center">
-						<button type="button" id='find_id' onclick="findId_click()" 
+						<button type="button" id='find_id_btn' onclick="findId_click()" 
 							class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">ID찾기</button>
 						<button type="button" onclick="history.go(-1);" 
 						class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">뒤로가기</button>
@@ -58,6 +61,31 @@
 			
 		</div>
 	</div>
+	</form>
+	
+	<!--모달창 -->
+	<div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>아이디 조회 결과</h2>
+            </div>
+            <div>
+            <c:choose>
+            	<c:when test="${check == 1 }">
+            		<p>일차하는 회원정보가 존재하지 않습니다.</p>
+            	</c:when>
+            	<c:when test="${check == 0 }">
+            		<p>'${findId}'</p>
+            	</c:when>
+            	<c:otherwise>
+            	
+            	</c:otherwise>
+            </c:choose>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content" id="id_value"></div>
+        </div>
+    </div>
 	
 	<script>
 		/* 아이디 찾기 */ 
@@ -77,6 +105,7 @@
 							$('#emp_name').val('');
 							$('#rrn').val('');
 						} else {
+							console.log(data);
 							$('#id_value').text(data);
 							$('#emp_name').val('');
 							$('#rrn').val('');
@@ -87,10 +116,10 @@
 			                alert("에러입니다");
 			            }
 				});
-			};
+ 			};
 		
 		const modal = document.getElementById("modal")
-		const btnModal = document.getElementById("find_id")
+		const btnModal = document.getElementById("find_id_btn")
 		
 		btnModal.addEventListener("click", e => {
 		    modal.style.display = "flex"

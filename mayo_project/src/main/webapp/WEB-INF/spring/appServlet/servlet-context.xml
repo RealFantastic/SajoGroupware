@@ -32,6 +32,8 @@
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/member/login/**"/>
 			<exclude-mapping path="/member/enroll/**"/>
+			<exclude-mapping path="/member/findId/**"/>
+			<exclude-mapping path="/member/findPwd/**"/>
 			<exclude-mapping path="/company/enroll/**"/>
 			<exclude-mapping path="/"/>
 			<beans:ref bean="LoginInterceptor"/>

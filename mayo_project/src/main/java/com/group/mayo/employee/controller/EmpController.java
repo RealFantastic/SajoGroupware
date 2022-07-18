@@ -356,30 +356,33 @@ public class EmpController {
 	 }
 	 
 	    // 아이디 찾기 페이지 이동
-		@RequestMapping(value="/findId")
+		//@RequestMapping(value="/findId",  method=RequestMethod.GET)
+	 	@GetMapping("/findId")
 		public ModelAndView findIdView(ModelAndView mv) {
 			mv.setViewName("member/find_id");
 			return mv;
 		}
 	    // 아이디 찾기 실행
 		@RequestMapping(value="findId", method=RequestMethod.POST)
-		@ResponseBody
 		public ModelAndView findId(Employee employee
 								, ModelAndView mv) {
 			Employee findId = service.findId(employee);
 			
 			if(findId == null) { 
+				System.out.println("findId : "+findId);
 				mv.addObject("check", 1);
 			} else { 
 				mv.addObject("check", 0);
 				mv.addObject("findId", findId);
+				System.out.println("findId : "+findId);
 			}
 			mv.setViewName("redirect:/member/findId");
+			System.out.println("findId : "+findId);
 			return mv;
 		}
 		
 	    // 비밀번호 찾기 페이지로 이동
-		@RequestMapping(value="/findPwd")
+		@GetMapping("/findPwd")
 		public ModelAndView findPwdView(ModelAndView mv) {
 			mv.setViewName("member/find_pwd");
 			return mv;
@@ -399,7 +402,7 @@ public class EmpController {
 			mv.setViewName("redirect:/member/findPwd");
 			return mv;
 		}
-	    // 비밀번호 바꾸기 실행
+	    // 비밀번호 재설정 실행
 		@RequestMapping(value="updatePwd", method=RequestMethod.POST)
 		public ModelAndView updatePwd(@RequestParam(value="updateid", defaultValue="", required=false) String emp_no,
 				Employee employee
@@ -408,7 +411,7 @@ public class EmpController {
 			employee.setEmp_no(emp_no);
 			service.updatePwd(employee);
 			
-			 // 비밀번호 바꾸기할 경우 성공 페이지 이동
+			 // 비밀번호 재설정할 경우 성공 페이지 이동
 			Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
 			if(loginSsInfo == null) {
 				mv.setViewName("redirect:/member/login");

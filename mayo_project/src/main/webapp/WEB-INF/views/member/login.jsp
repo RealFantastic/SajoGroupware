@@ -46,8 +46,10 @@
                 <div id="j_btn">
                     <button type="reset" class="btn_yellow" id="join_btn" 
                     	onclick="location.href='<%=request.getContextPath()%>/company/enroll'">회사등록</button>
-                    <button type="button" class="btn_gray" id="find_id_btn">ID찾기</button>
-                    <button type="button" class="btn_gray" id="find_pwd_btn">PW찾기</button>
+                    <button type="button" class="btn_gray" id="find_id_btn"
+                    onclick="location.href='<%=request.getContextPath()%>/member/findId'">ID찾기</button>
+                    <button type="button" class="btn_gray" id="find_pwd_btn"
+                    onclick="location.href='<%=request.getContextPath()%>/member/findPwd'">PW찾기</button>
                 </div>
             </div>
         </form>
