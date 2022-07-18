@@ -8,15 +8,14 @@
 <c:when test="${not empty work }">
 	<c:forEach var="work" items="${work}">
 		<div id="reloadBody">
-			<div id="workBody" class='modal-lg'
-				aria-labelledby='exampleModalLabel'>
+			<div id="workBody" class='modal-lg'>
 				<div class='modal-dialog'>
 					<div class='modal-content'>
 						<div class='modal-header'>
 							<div style="display: block;">
 								<input id="work_no" type="hidden" value="${work.work_no }">
 								<div>${work.work_no }</div>
-								<h5 class='modal-title font3 work_title' id='exampleModalLabel'
+								<h5 class='modal-title font3 work_title'
 									style='font-weight: bold;'>${work.work_title }</h5>
 							</div>
 								<div>
@@ -103,11 +102,11 @@
 
 
 	<!-- 업무 수정 모달창 -->
-<div class="modal fade modal-lg" id="updateWork" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade modal-lg" id="updateWork" tabindex="-1" aria-labelledby="updateWorkModal" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title font3" id="exampleModalLabel2" style="font-weight:bold;">업무 수정</h5>
+        <h5 class="modal-title font3" id="updateWorkModal" style="font-weight:bold;">업무 수정</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
         <form name="updateWork" action="<%=request.getContextPath()%>/work/update" method="POST" enctype="multipart/form-data">
@@ -124,7 +123,7 @@
 			</select>
         </div>
           <div>
-			 <input class="isemergency" name="isemergency" value="${work.work_status }" type="hidden">
+			 <input class="isemergency" name="isemergency" value="" type="hidden">
             <button type="button" id="uisemergency"><img id="ueimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
         </div>
           </div>
@@ -153,7 +152,7 @@
         </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" name="work_content" placeholder="${work.work_content }" required="required" style="height:200px;"></textarea>
+            <textarea class="form-control" name="work_content" required="required" style="height:200px;"></textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -187,10 +186,8 @@ $('.filedown').click(function() {        
 	});
 	
  		// 업무 글 수정하기
-		$("#wUpdate").click(function(){
+		$("#submitU").click(function(){
 			
-			// 업무 수정 여부 확인하기
-			var check = confirm("업무를 수정하시겠습니까?");
 			
 			if(check){
 				// ajax로 컨트롤러 이동 - update
@@ -202,7 +199,8 @@ $('.filedown').click(function() {        
 						
 						},
 					success: function(result){
-						alert(result);
+						// 업무 수정 여부 확인하기
+						var check = confirm("업무를 수정하시겠습니까?");
 					}
 				});
 		  } else {

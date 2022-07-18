@@ -80,10 +80,11 @@
         <h5 class="modal-title" id="exampleModalLabel">일정 추가</h5> 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form name="newSked">
       <div class="modal-body">
       	<div style="display: flex;">
 	   		<div>
-	        	<select name="proj_category" class="form-select" aria-label="Default select example">
+	        	<select name="sked_category" class="form-select" aria-label="Default select example">
 				  <option selected>종류</option>
 				  <option value="A">전사</option>
 				  <option value="P">개인</option>
@@ -117,10 +118,10 @@
 					    <div id="menu_wrap" class="bg_white">
 					        <div class="option">
 					            <div>
-					                <form style="display:flex;" onsubmit="searchPlaces(); return false;">
+<!-- 					                <form style="display:flex;" onsubmit="searchPlaces(); return false;"> -->
 					                    <input type="text" class="form-control" value="" id="keyword" size="15"> 
-					                    <button type="submit" class="btn_green">검색하기</button> 
-					                </form>
+					                    <button type="submit" class="btn_green" onclick="searchPlaces(); return false;">검색하기</button> 
+<!-- 					                </form> -->
 					            </div>
 					        </div>
 					        <hr>
@@ -138,6 +139,7 @@
         <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
         <button id="submitS" type="submit" class="btn_green">등록</button>
         </div>
+        </form>
       </div>
 	</div>
 	</div>
@@ -151,19 +153,42 @@
 <!-- SKED_LOCATION            VARCHAR2(500)   -->
 <!-- SKED_CATEGORY            VARCHAR2(50)    -->
 <!-- SKED_EMP_ID              VARCHAR2(50)    -->
-// 일정 추가하기 
 
-// $.ajax({
-// 	type: "POST",
-// 	url:,
-// 	data: { 
+// 일정 추가하기 
+	$("#submitS").click(function(){
+// 		var sked_name = $("#sked_name").val();
+// 		var sked_date = $("#sked_date").val();
+// 		var sked_content = $("#sked_content").val();
+// 		var sked_start_date = $("#sked_start_date").val();
+// 		var sked_end_date = $("#sked_end_date").val();
+// 		var sked_location = $("#sked_location").val();
+// 		var sked_category = $("select[name=sked_category]").val();
 		
-// 	},
-// 	success: function(result){
-// 		alert(result);
-// 	}
-	
-// });
+		var sked = $("form[name=newSked]").serialize();
+		
+// 		cosole.log(sked_name);
+// 		var sked = {
+// 				"sked_name":sked_name,
+// 				"sked_date":sked_date,
+// 				"sked_content":sked_content,
+// 				"sked_start_date":sked_start_date,
+// 				"sked_end_date":sked_end_date,
+// 				"sked_location":sked_location,
+// 				"sked_category":sked_category
+// 		};
+		
+		$.ajax({
+			type: "POST",
+			url:"<%=request.getContextPath()%>/schedule/insert",
+// 			data: JSON.stringify(sked),
+			data: sked,
+// 			dataType : 'json', 
+			success: function(result){
+				alert(result);
+			}
+			
+		});
+	});
 
 	// 카카오 지도
 // 마커를 담을 배열입니다
@@ -342,7 +367,7 @@ function selectInfo(thisEle){
 	$("#menu_wrap").hide();
 	
 //주소로 좌표를 검색합니다
-geocoder.addressSearch(road, function(result, status) {
+geocoder.addressSearch(jibun, function(result, status) {
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
 
@@ -450,10 +475,7 @@ function removeAllChildNods(el) {
     }
 }
 
-	// 일정 추가
-	// $(".newSked").click(fucntion(){
 
-	// });
 </script>
 </body>
 </html>
