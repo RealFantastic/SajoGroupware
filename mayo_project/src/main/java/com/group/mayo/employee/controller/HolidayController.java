@@ -53,7 +53,7 @@ public class HolidayController {
 		List<Holiday> holidayList = service.holidayMystatus();
 		
 		Gson gson=new GsonBuilder().setPrettyPrinting().create();
-		String result = gson.toJson();
+		String result ="";
 		
 		return result;
 	}
