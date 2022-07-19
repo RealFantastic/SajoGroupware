@@ -58,4 +58,11 @@ public interface EapService {
 	 * @author JHPark
 	 */
 	public int deleteEap(String ea_no);
+	
+	/**
+	 * 
+	 * @param emp_no
+	 * @return JHPark
+	 */
+	public List<EapDomain> selectListWaitApprove(String emp_no);
 }

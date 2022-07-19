@@ -42,4 +42,7 @@ public class EapDao {
 	public int deleteEap(String ea_no) {
 		return sqlSession.delete("Eap.deleteEap", ea_no);
 	}
+	public List<EapDomain> selectListWaitApprove(String emp_no) {
+		return sqlSession.selectList("Eap.selectListWaitApprove", emp_no);
+	}
 }

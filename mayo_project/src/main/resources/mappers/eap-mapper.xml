@@ -4,8 +4,8 @@
 	<!-- 결재문서 번호 생성 -->
 	<select id="selectNewEaNo" parameterType="Eap" resultType="string">
 	SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
-(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' ))
-FROM DUAL
+		(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' ))
+	FROM DUAL
 	</select>
 	<!-- 결재문서 상신 -->
 	<insert id="insertEap" parameterType="Eap">
@@ -44,24 +44,37 @@ FROM DUAL
 	
 	<!-- 기안문서함 상세보기 -->
 	<select id="selectMyDraft" parameterType="Eap" resultType="Eap">
-		SELECT 
-			A.*,FORM.FORM_TITLE
-			,(SELECT EMP_NAME FROM EMPLOYEE JOIN ELEC_APPROVAL ON (FIRST_APPROVER = EMP_NO) where EA_NO = A.EA_NO) FST_NAME
-			,(SELECT EMP_NAME FROM EMPLOYEE JOIN ELEC_APPROVAL ON (SECOND_APPROVER = EMP_NO) where EA_NO = A.EA_NO) SND_NAME
-			,(SELECT EMP_NAME FROM EMPLOYEE JOIN ELEC_APPROVAL ON (THIRD_APPROVER = EMP_NO) where EA_NO = A.EA_NO) THD_NAME
-			,(SELECT EMP_NAME FROM EMPLOYEE JOIN ELEC_APPROVAL ON (FINAL_APPROVER = EMP_NO) where EA_NO = A.EA_NO)  FNL_NAME
-			FROM
-			(SELECT * 
-			    FROM ELEC_APPROVAL EA
-			    JOIN EMPLOYEE E ON EA.DRAFTER_ID = E.EMP_NO
-			    where drafter_id = #{drafter_id}) A
-			JOIN EA_FORM FORM ON A.FORM_CODE = FORM.FORM_CODE
-			LEFT OUTER JOIN APPROVAL_FILE AF ON A.EA_NO = AF.DOC_NO
-			WHERE A.EA_NO = #{ea_no}
+		SELECT VIEW_INFOS.*, D.DEPT_NAME DEPT_NAME 
+		FROM VIEW_ELEC_APPR_INFOS VIEW_INFOS
+		JOIN EMPLOYEE E ON VIEW_INFOS.DRAFTER_ID = E.EMP_NO
+		JOIN DEPARTMENT D ON E.DEPT_NO = D.DEPT_NO
+		
+		WHERE DRAFTER_ID = #{drafter_id} AND EA_NO = #{ea_no}
 	</select>
 	
 	<!-- 내 기안문 회수 -->
 	<delete id="deleteEap" parameterType="string">
 		DELETE FROM ELEC_APPROVAL WHERE EA_NO=#{ea_no}
 	</delete>
+	
+	<!-- 결재대기문서 리스트 -->
+	<select id="selectListWaitApprove" parameterType="string" resultType="Eap">
+		SELECT EA.*,FORM.FORM_TITLE, E.EMP_NAME DRAFTER_NAME FROM ELEC_APPROVAL EA
+		JOIN EMPLOYEE E ON DRAFTER_ID = EMP_NO
+		JOIN EA_FORM FORM ON EA.FORM_CODE = FORM.FORM_CODE
+		WHERE 
+		(
+			RESULT_CODE=0 and
+			FIRST_APPROVER=#{emp_no}
+		)
+		OR 
+		(
+			RESULT_CODE=2 and
+			    ((SECOND_APPROVER=#{emp_no} AND STATUS_CODE IN(6,14)) 
+			    OR 
+			    (THIRD_APPROVER=#{emp_no} AND STATUS_CODE IN(4,12)) 
+			    OR 
+			(FINAL_APPROVER=#{emp_no} AND STATUS_CODE IN(8)))
+		)
+	</select>
 </mapper>

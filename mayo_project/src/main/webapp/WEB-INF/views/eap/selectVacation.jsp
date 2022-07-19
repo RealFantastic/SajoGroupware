@@ -63,11 +63,11 @@
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td>${loginSsInfo.emp_name }</td>
+												<td>${myDraft.first_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>
-												<td>${loginSsInfo.dept_name }</td>
+												<td>${myDraft.dept_name }</td>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안일</td>
@@ -91,10 +91,10 @@
 												<span class="sign_member_wrapper">
 													<span class="sign_member">
 														<span class="sign_rank">
-															<span class="rank">${loginSsInfo.job_name }</span>
+															<span class="rank">${myDraft.first_job_name }</span>
 														</span>
 														<span class="sign_wrapper">
-															<span class="sign_name">${loginSsInfo.emp_name }</span>
+															<span class="sign_name">${myDraft.first_name }</span>
 														</span>
 														<span class="sign_date_wrapper">
 															<span class="sign_date"></span>
@@ -106,10 +106,10 @@
 												<span class="sign_member_wrapper">
 													<span class="sign_member">
 														<span class="sign_rank">
-															<span class="rank">${myDraft.second_approver }</span>
+															<span class="rank">${myDraft.second_job_name }</span>
 														</span>
 														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.second_approver }</span>
+															<span class="sign_name">${myDraft.second_name }</span>
 														</span>
 														<span class="sign_date_wrapper">
 															<span class="sign_date"></span>
@@ -121,10 +121,10 @@
 												<span class="sign_member_wrapper">
 													<span class="sign_member">
 														<span class="sign_rank">
-															<span class="rank">${myDraft.third_approver }</span>
+															<span class="rank">${myDraft.third_job_name }</span>
 														</span>
 														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.third_approver }</span>
+															<span class="sign_name">${myDraft.third_name }</span>
 														</span>
 														<span class="sign_date_wrapper">
 															<span class="sign_date"></span>
@@ -136,10 +136,10 @@
 												<span class="sign_member_wrapper">
 													<span class="sign_member">
 														<span class="sign_rank">
-															<span class="rank">${myDraft.final_approver }</span>
+															<span class="rank">${myDraft.final_job_name }</span>
 														</span>
 														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.final_approver }</span>
+															<span class="sign_name">${myDraft.final_name }</span>
 														</span>
 														<span class="sign_date_wrapper">
 															<span class="sign_date"></span>
@@ -223,35 +223,39 @@
 								<tr>
 									<th scope="col">결재순서</th>
 									<th scope="col">사번</th>									
-<!-- 									<th scope="col">결재자</th> -->
-<!-- 									<th scope="col">부서</th> -->
-<!-- 									<th scope="col">직위</th> -->
+									<th scope="col">결재자</th>
+									<th scope="col">직위</th>
 								</tr>
 								<c:if test="${not empty myDraft.first_approver }">
 									<tr>
 										<td class="app_order">1</td>
 										<td class="emp_no">${myDraft.first_approver}</td>
-<%-- 											<td class="approver">${loginSsInfo.emp_name }</td> --%>
-<%-- 											<td class="dept_name">${loginSsInfo.dept_name }</td> --%>
-<%-- 											<td class="job_name">${loginSsInfo.job_name }</td> --%>
+										<td class="approver">${myDraft.first_name }</td>
+										<td class="job_name">${myDraft.first_job_name }</td>
 									</tr>
 								</c:if>
 								<c:if test="${not empty myDraft.second_approver }">
 									<tr>
 										<td class="app_order">2</td>
 										<td class="emp_no">${myDraft.second_approver}</td>
+										<td class="approver">${myDraft.second_name }</td>
+										<td class="job_name">${myDraft.second_job_name }</td>
 									</tr>
 								</c:if>
 								<c:if test="${not empty myDraft.third_approver }">
 									<tr>
 										<td class="app_order">3</td>
 										<td class="emp_no">${myDraft.third_approver}</td>
+										<td class="approver">${myDraft.third_name }</td>
+										<td class="job_name">${myDraft.third_job_name }</td>
 									</tr>
 								</c:if>
 								<c:if test="${not empty myDraft.final_approver }">
 									<tr>
 										<td class="app_order">4</td>
 										<td class="emp_no">${myDraft.final_approver}</td>
+										<td class="approver">${myDraft.final_name }</td>
+										<td class="job_name">${myDraft.final_job_name }</td>
 									</tr>
 								</c:if>
 							</table>

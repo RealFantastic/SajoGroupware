@@ -34,6 +34,13 @@
 .sub_menu{
     padding: 0 10px;
 }
+.sub_menu>ul li a{
+	cursor: pointer;
+}
+.sub_menu>ul li a:not([href]):hover{
+	color: #ccc;
+}
+
 .top_menu *{
    color: rgb(37, 158, 101);
 }

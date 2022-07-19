@@ -40,10 +40,27 @@ public class EapDomain {
 	private String update_date;
 	private String isemergency;
 	
+	//결재문서 상세보기 결재선 배치시 사용
+	private String drafter_name;
+	private String dept_name;
 	private String form_title;
+	private String first_name;
+	private String second_name;
+	private String third_name;
+	private String final_name;
+	private String drafter_sign_path;
+	private String first_sign_path;
+	private String second_sign_path;
+	private String third_sign_path;
+	private String final_sign_path;
+	private String drafter_job_name;
+	private String first_job_name;
+	private String second_job_name;
+	private String third_job_name;
+	private String final_job_name;
+	
 	//파일
 	private List<ApprovalFile> approvalFiles;
-	
 
 	
 	@Override
@@ -53,10 +70,15 @@ public class EapDomain {
 				+ ", second_approver=" + second_approver + ", third_approver=" + third_approver + ", final_approver="
 				+ final_approver + ", approver_emp_no=" + approver_emp_no + ", status_code=" + status_code
 				+ ", result_code=" + result_code + ", form_code=" + form_code + ", return_reson=" + return_reson
-				+ ", update_date=" + update_date + ", isemergency=" + isemergency + ", form_title=" + form_title
-				+ ", approvalFiles=" + approvalFiles + "]";
+				+ ", update_date=" + update_date + ", isemergency=" + isemergency + ", drafter_name=" + drafter_name
+				+ ", dept_name=" + dept_name + ", form_title=" + form_title + ", first_name=" + first_name
+				+ ", second_name=" + second_name + ", third_name=" + third_name + ", final_name=" + final_name
+				+ ", drafter_sign_path=" + drafter_sign_path + ", first_sign_path=" + first_sign_path
+				+ ", second_sign_path=" + second_sign_path + ", third_sign_path=" + third_sign_path
+				+ ", final_sign_path=" + final_sign_path + ", drafter_job_name=" + drafter_job_name
+				+ ", first_job_name=" + first_job_name + ", second_job_name=" + second_job_name + ", third_job_name="
+				+ third_job_name + ", final_job_name=" + final_job_name + ", approvalFiles=" + approvalFiles + "]";
 	}
-	
 	public String getEa_no() {
 		return ea_no;
 	}
@@ -169,8 +191,108 @@ public class EapDomain {
 	public void setApprovalFiles(List<ApprovalFile> approvalFiles) {
 		this.approvalFiles = approvalFiles;
 	}
+	public String getDrafter_name() {
+		return drafter_name;
+	}
+	public void setDrafter_name(String drafter_name) {
+		this.drafter_name = drafter_name;
+	}
+	public String getFirst_name() {
+		return first_name;
+	}
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+	public String getSecond_name() {
+		return second_name;
+	}
+	public void setSecond_name(String second_name) {
+		this.second_name = second_name;
+	}
+	public String getThird_name() {
+		return third_name;
+	}
+	public void setThird_name(String third_name) {
+		this.third_name = third_name;
+	}
+	public String getFinal_name() {
+		return final_name;
+	}
+	public void setFinal_name(String final_name) {
+		this.final_name = final_name;
+	}
+	public String getDrafter_sign_path() {
+		return drafter_sign_path;
+	}
+	public void setDrafter_sign_path(String drafter_sign_path) {
+		this.drafter_sign_path = drafter_sign_path;
+	}
+	public String getFirst_sign_path() {
+		return first_sign_path;
+	}
+	public void setFirst_sign_path(String first_sign_path) {
+		this.first_sign_path = first_sign_path;
+	}
+	public String getSecond_sign_path() {
+		return second_sign_path;
+	}
+	public void setSecond_sign_path(String second_sign_path) {
+		this.second_sign_path = second_sign_path;
+	}
+	public String getThird_sign_path() {
+		return third_sign_path;
+	}
+	public void setThird_sign_path(String third_sign_path) {
+		this.third_sign_path = third_sign_path;
+	}
+	public String getFinal_sign_path() {
+		return final_sign_path;
+	}
+	public void setFinal_sign_path(String final_sign_path) {
+		this.final_sign_path = final_sign_path;
+	}
+	public String getDrafter_job_name() {
+		return drafter_job_name;
+	}
+	public void setDrafter_job_name(String drafter_job_name) {
+		this.drafter_job_name = drafter_job_name;
+	}
+	public String getFirst_job_name() {
+		return first_job_name;
+	}
+	public void setFirst_job_name(String first_job_name) {
+		this.first_job_name = first_job_name;
+	}
+	public String getSecond_job_name() {
+		return second_job_name;
+	}
+	public void setSecond_job_name(String second_job_name) {
+		this.second_job_name = second_job_name;
+	}
+	public String getThird_job_name() {
+		return third_job_name;
+	}
+	public void setThird_job_name(String third_job_name) {
+		this.third_job_name = third_job_name;
+	}
+	public String getFinal_job_name() {
+		return final_job_name;
+	}
+	public void setFinal_job_name(String final_job_name) {
+		this.final_job_name = final_job_name;
+	}
 
 
+	public String getDept_name() {
+		return dept_name;
+	}
+
+
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+
+	
 	
 
 

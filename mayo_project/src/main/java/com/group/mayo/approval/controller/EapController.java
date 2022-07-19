@@ -132,7 +132,7 @@ public class EapController {
 	}
 	
 	//기안 문서함(내가 기안한 문서함) 리스트
-	@GetMapping("/list/mylist")
+	@PostMapping("/list/mylist")
 	public ModelAndView selectMylist(ModelAndView mv
 			, HttpSession session
 			, RedirectAttributes rttr) {
@@ -203,4 +203,25 @@ public class EapController {
 		mv.setViewName("redirect:/eap/list/mylist");
 		return mv;
 	}
+	@PostMapping("/list/waitApprove")
+	public ModelAndView selectListWaitApprove(ModelAndView mv
+			, HttpSession session
+			, RedirectAttributes rttr) {
+		mv.setViewName("redirect:/eap/main");
+		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
+		String emp_no= curUser.getEmp_no();
+		
+		List<EapDomain> waitApproveList = service.selectListWaitApprove(emp_no);
+		
+		if(waitApproveList != null) {
+			mv.addObject("waitList", waitApproveList);
+			mv.setViewName("eap/waitApprove");
+		}else {
+			String msg = "요청에 실패했습니다.";
+			rttr.addFlashAttribute("msg", msg);
+		}
+		
+		return mv;
+	}
+	
 }

@@ -63,6 +63,12 @@ public class EapServiceImpl implements EapService {
 	public int deleteEap(String ea_no) {
 		return dao.deleteEap(ea_no);
 	}
+
+
+	@Override
+	public List<EapDomain> selectListWaitApprove(String emp_no) {
+		return dao.selectListWaitApprove(emp_no);
+	}
 	
 	
 	

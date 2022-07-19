@@ -14,9 +14,8 @@
                     <a  class="top_menu_title" id="first_menu_title"><i class="fa-solid fa-caret-right" id="motion1"></i>결제하기</a>
                     <div class="sub_menu" id="first_sub">
                         <ul>
-                            <li><a href="#">결재 대기 문서</a></li>
-                            <li><a href="#">결재 수신 문서</a></li>
-                            <li><a href="#">결재 예정 문서</a></li>
+                            <li><a data-url="/eap/list/waitApprove">결재 대기 문서</a></li>
+                            <li><a data-url="/eap/list/receptApprove">결재 수신 문서</a></li>
                         </ul>
                     </div>
                 </div>
@@ -26,9 +25,9 @@
                     <a  class="top_menu_title" id="second_menu_title"><i class="fa-solid fa-caret-right" id="motion2"></i>개인 문서함</a>
                     <div class="sub_menu" id="second_sub">
                         <ul>
-                            <li><a href="<%=request.getContextPath()%>/eap/list/mylist">기안 문서함</a></li>
-                            <li><a href="#">결재 문서함</a></li>
-                            <li><a href="#">참조 문서함</a></li>
+                            <li><a data-url="/eap/list/mylist">기안 문서함</a></li>
+                            <li><a data-url="/">결재 문서함</a></li>
+                            <li><a data-url="/">반려 문서함</a></li>
                         </ul>
                     </div>
                 </div>
@@ -100,4 +99,18 @@
                 $("#second_sub").slideToggle(200);
             }
         });
+        //각 메뉴 클릭시 POST로 페이지 이동
+        $(".sub_menu>ul li a").click(function(e){
+        	var url=$(e.target).data('url');
+        	console.log(url);
+        	let form = document.createElement('form');
+        	form.setAttribute('method','POST');
+        	form.setAttribute('action','<%=request.getContextPath()%>'+url);
+        	document.body.appendChild(form);
+        	form.submit();
+        });
+        
+        
+        
+        
     </script>
