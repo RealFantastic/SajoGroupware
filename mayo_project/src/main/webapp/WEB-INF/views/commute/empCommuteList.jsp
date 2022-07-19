@@ -67,7 +67,7 @@
 					,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
 					,data:$("form[name=search_form]").serialize()
 					,success:function(result){
-	// 					debugger
+					//debugger
 						//테이블 초기화
 						$('.commute_list_table > tbody').empty();
 						result=JSON.parse(result);
@@ -105,8 +105,6 @@
 				
 			}
 		</script>
-
-
 
 
 

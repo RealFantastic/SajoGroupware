@@ -44,16 +44,19 @@ public class HolidayController {
 
 //	나의연차리스트
 	@RequestMapping(value="/selectHolidayList", produces="text/plain;charset=UTF-8", method=RequestMethod.POST)
-	public String selectHolidayList(
-//			연도,
-			HttpSession session) throws Exception {
+	public String selectHolidayList(@RequestParam(name="birth-year", required = false) String birthYear
+			, HttpSession session) throws Exception {
+		
 		Employee emp=(Employee) session.getAttribute("loginSsInfo");
+		String id = emp.getEmp_no();
+		
 //		String 연도
+		System.out.println(birthYear);
 		
 		List<Holiday> holidayList = service.holidayMystatus();
 		
-		Gson gson=new GsonBuilder().setPrettyPrinting().create();
-		String result ="";
+//		Gson gson=new GsonBuilder().setPrettyPrinting().create();
+		String result = "";
 		
 		return result;
 	}

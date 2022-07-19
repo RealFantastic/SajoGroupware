@@ -153,6 +153,7 @@ public class CommuteController {
 	@RequestMapping(value = "/empCommuteSelect", method = RequestMethod.POST)
 	public ModelAndView commuteEmpSelect(ModelAndView mv, HttpServletRequest request) {
 		String empNo = request.getParameter("empNo");
+
 		// 3.사원번호 ,사원명 ,직함 , 부서명, 연락처
 		CommuteEmployee commuteStaffInfo = service.commuteMyInfo(empNo);
 		mv.addObject("commuteStaffInfo", commuteStaffInfo);
@@ -199,9 +200,9 @@ public class CommuteController {
 		paramMap.put("modalDay", modal_day);
 		paramMap.put("modalStartTime", modal_start_time);
 		paramMap.put("modalEndTime", modal_end_time);
-		
+	
 		int change = service.change(paramMap);
-		
+	
 		String result ="fail";
 		if(change > 0) {
 			result = "success";

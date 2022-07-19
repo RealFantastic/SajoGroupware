@@ -2,16 +2,21 @@ package com.group.mayo.employee.domain;
 
 public class HolidayEmployee {
 
+	//테이블 명 : EMPLOYEE_HOLIDAY
+	private int total;
+	private int used_count; // 사용개수  
+	private int left_count; // 잔여개수
+	
+	
+	
+	
+	
 	private String emp_no;
 	private String emp_name;
 	private String phone;
 	private String dept_nm;
 	private String job_nm;
 	
-	//테이블 명 : EMPLOYEE_HOLIDAY
-	private int total;
-	private int used_count; // 사용개수  
-	private int left_count; // 잔여개수
 	
 	
 	@Override
@@ -25,6 +30,11 @@ public class HolidayEmployee {
 	}
 	public void setEmp_no(String emp_no) {
 		this.emp_no = emp_no;
+		
+		
+		
+		
+		
 	}
 	public String getEmp_name() {
 		return emp_name;

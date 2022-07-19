@@ -65,17 +65,17 @@
 			<div>
 				<select class="select_box form-control form-control-lg" name="birth-year">
 					<option value="">년도를 선택해주세요.▼</option>
-					<option value="2020y">2020년도 연차내역 </option>
-					<option value="2021y">2021년도 연차내역 </option>
-					<option value="2022y" selected >2022년도 연차내역 </option>
-					<option value="2023y">2023년도 연차내역 </option>
-					<option value="2024y">2024년도 연차내역 </option>
-					<option value="2025y">2025년도 연차내역 </option>
-					<option value="2026y">2026년도 연차내역 </option>
-					<option value="2027y">2027년도 연차내역 </option>
-					<option value="2028y">2028년도 연차내역 </option>
-					<option value="2029y">2029년도 연차내역 </option>
-					<option value="2030y">2030년도 연차내역 </option>
+					<option value="2020">2020년도 연차내역 </option>
+					<option value="2021">2021년도 연차내역 </option>
+					<option value="2022" selected >2022년도 연차내역 </option>
+					<option value="2023">2023년도 연차내역 </option>
+					<option value="2024">2024년도 연차내역 </option>
+					<option value="2025">2025년도 연차내역 </option>
+					<option value="2026">2026년도 연차내역 </option>
+					<option value="2027">2027년도 연차내역 </option>
+					<option value="2028">2028년도 연차내역 </option>
+					<option value="2029">2029년도 연차내역 </option>
+					<option value="2030">2030년도 연차내역 </option>
 				</select>
 			</div>
 
@@ -87,6 +87,7 @@
 			,url:"<%=request.getContextPath()%>/holiday/selectHolidayList"
 			,data:{
 // 				select option value
+				$("select[name=birth-year]").val();
 			}
 			,dataType:"json"
 			,success:funtion(result){
