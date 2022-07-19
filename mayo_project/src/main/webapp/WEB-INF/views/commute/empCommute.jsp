@@ -365,7 +365,7 @@
 								,dataType:"text"
 								,success : function(result) {
 									if (result == 'success'){
-										alert ("수정되었습니다.");
+										alert ("해당 직원에 근태 내역이 수정되었습니다.");
 										$('#Modal').modal('hide');
 										//리로드
 										location.reload();
@@ -387,8 +387,7 @@
 					<div class="personnel_button">
 						<button type="button"
 							onclick="location.href='<%=request.getContextPath()%>/commute/empCommuteList'"
-							class="btn btn-secondary btn_red" id="personnel">직원별 근태
-							리스트 보기</button>
+							class="btn btn-secondary btn_red" id="personnel">직원별 근태 리스트 보기</button>
 					</div>
 				</c:if>
 
