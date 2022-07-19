@@ -25,12 +25,12 @@ public class ScheduleDao {
 	}
 	
 	// 특정 프로젝트 전체 일정 조회
-	public List<Schedule> selectSked(int proj_no){
+	public List<Schedule> selectSked(String proj_no){
 		return sqlSession.selectList("Schedule.selectSked", proj_no);
 	}
 	
 	// 특정 일정 조회
-	public Schedule viewSked(int sked_no) {
+	public Schedule viewSked(String sked_no) {
 		return sqlSession.selectOne("Schedule.viewSked", sked_no);
 	}
 }

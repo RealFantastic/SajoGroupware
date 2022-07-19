@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캘린더</title>
+<title>일정 수정하기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
@@ -19,74 +18,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
-<!-- fullcalendar -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=349c4c75c4f78f9628da23a777619359&libraries=services"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          // 한글 달력 설정
-          locale: 'ko',
-          // 월요일 시작 달력
-          firstDay: 1,
-          // Bootstrap 5 사용
-          themeSystem: 'bootstrap5',
-          
-			
-          // DB에서 data 끌어오기
-          events: [ // 달력에 data 띄우기
-        	  <c:forEach var="work" items="${work}"> // 업무
-	    		{
-			      title: '${work.work_title}',
-			      start: '${work.work_start_date}', 
-			      end: '${work.work_deadline}',
-			      color: 'rgb(196, 223, 170)' // 줄 색상 / text-color - 글자 색상
-			    },
-		     </c:forEach>
-			 <c:forEach var="sked" items="${schedule}"> // 일정 - 전사/개인/프로젝트별 색상 바꿀 예정
-			  {
-				  title:'${sked.sked_name}',
-				  start:'${sked.sked_start_date}',
-				  end: '${sked.sked_end_date}',
-				  color: 'rgb(170, 205, 190)'
-			  },
-			 </c:forEach>
-		  ],
-		  
-		  // data 클릭 event
-		  eventClick: function(info) {
-			  	
-			    alert('Event: ' + info.event.title);
-		  }
-		  
-        });// 함수 끝
-        calendar.render();
-      });
-
-    </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 
-<div class="content">
-
-	<div id="cal" style="display:flex;">
-		<div id='calendar'></div> <button type="button" class="btn_yellow newSked" data-bs-toggle="modal" data-bs-target="#newSked">일정 추가</button>
-	</div>
-
-</div>
-
 <!-- 일정 추가 모달창 -->
-<div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal" id="newSked">
   <div class="modal-dialog ">
     <div class="modal-content skedModal">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">일정 추가</h5> 
+        <h5 class="modal-title" id="exampleModalLabel">일정 수정하기</h5> 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form name="newSked">
@@ -160,23 +103,6 @@
 <!-- SKED_LOCATION            VARCHAR2(500)   -->
 <!-- SKED_CATEGORY            VARCHAR2(50)    -->
 <!-- SKED_EMP_ID              VARCHAR2(50)    -->
-
-// 일정 추가하기 
-	$("#submitS").click(function(){
-		
-		var sked = $("form[name=newSked]").serialize();
-		
-		$.ajax({
-			type: "POST",
-			url:"<%=request.getContextPath()%>/schedule/insert",
-			data: sked,
-			success: function(result){
-				alert(result);
-			}
-			
-		});
-	});
-
 
 // 카카오 지도
 // 마커를 담을 배열입니다

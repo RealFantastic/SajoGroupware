@@ -27,12 +27,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public List<Schedule> selectSked(int proj_no) {
+	public List<Schedule> selectSked(String proj_no) {
 		return dao.selectSked(proj_no);
 	}
 
 	@Override
-	public Schedule viewSked(int sked_no) {
+	public Schedule viewSked(String sked_no) {
 		return dao.viewSked(sked_no);
 	}
 }

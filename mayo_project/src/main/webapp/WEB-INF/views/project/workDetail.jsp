@@ -7,8 +7,8 @@
 <c:choose>
 <c:when test="${not empty work }">
 	<c:forEach var="work" items="${work}">
-		<div id="reloadBody">
-			<div id="workBody" class='modal-lg'>
+		<div class="reloadBody">
+			<div class='modal-lg workBody'>
 				<div class='modal-dialog'>
 					<div class='modal-content'>
 						<div class='modal-header'>
@@ -19,15 +19,14 @@
 							</div>
 								<div>
 									<form action="<%=request.getContextPath() %>/work/toUpdate" method="POST">
-										<input id="work_no" type="hidden" name="work_no" value="${work.work_no }">
-										<button type='submit' id="wUpdate" class='btn_gray btn-modify'>수정</button>
+										<input type="hidden" name="work_no" value="${work.work_no }">
+										<button type='submit' class='btn_gray btn-modify wUpdate'>수정</button>
 									</form>
-									<button type='button' id="wDelete" class='btn_red btn-delete'>삭제</button>
+									<button type='button' class='btn_red btn-delete' onclick="wDelete('${work.work_no }')">삭제</button>
 								</div>
 						</div>
 						<div class="modal-body">
-							<input type="hidden" class="form-control" id="proj_no"
-								name="proj_no" value="${project.proj_no }">
+							<input type="hidden" class="form-control" name="proj_no" value="${project.proj_no }">
 							<div class="writer" style="display: flex;">
 								<div class="mgr" style="margin-right: 10px;">${work.emp_name }</div>
 								<div class="date">
@@ -54,7 +53,7 @@
 									</c:if>
 								</div>
 								<c:if test="${work.isemergency == 'Y'}">
-									<img id="dimg"
+									<img class="dimg"
 										src="<%=request.getContextPath()%>/resources/images/alert.png"
 										alt="긴급">
 								</c:if>
@@ -68,9 +67,9 @@
 						<div>
 							<div class="mb-3">
 								<label for="work_progress" class="col-form-label">진행률</label> <input
-									type="range" id="dprogress" class="dprogress"
+									type="range" class="dprogress dpro"
 									value="${work.work_progress }" min="0" max="100" step="10">
-								<input type="text" id="dpercentage" class="dpercentage"
+								<input type="text" class="dpercentage dper"
 									name="work_progress" placeholder="${work.work_progress }"
 									readonly />%
 							</div>
@@ -78,7 +77,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="work_file" class="col-form-label"><img
-							id="clip"
+							class="clip"
 							src="<%=request.getContextPath()%>/resources/images/clip.png"
 							alt="첨부파일"></label>  
 <%--  						<c:forEach var="file" items="${work.projfilelist }">                                              --%>
@@ -86,7 +85,7 @@
 <%-- 					</c:forEach> --%>
 					</div>
 					<div class="mb-3">
-						<textarea class="form-control" id="content"
+						<textarea class="form-control" class="content"
 							placeholder="${work.work_content }" readonly></textarea>
 					</div>
 				</div>
@@ -125,8 +124,8 @@ $('.filedown').click(function() {        
 
 		
  		// 업무 글 삭제하기
-		$("#wDelete").click(function(){
-			
+			function wDelete(work_no){
+				
 			//삭제 여부 확인하기
 			var check = confirm("업무를 삭제하시겠습니까?");
 			
@@ -135,19 +134,18 @@ $('.filedown').click(function() {        
 				$.ajax({
 					type:"POST",
 					url: "<%=request.getContextPath()%>/work/delete",
-				data : {
-					work_no : $("#work_no").val()
-				}, // 업무 번호 들고가기
+				data : 
+					work_no,
+				 // 업무 번호 들고가기
 				success : function(result) {
 					alert(result);
-// 					$("#reloadBody").load(location.href + " #reloadBody"); // 영역 reload
 					location.reload();
 				}
 			});
-		} else {
+			} else {
 			return false;
+			}
 		}
-	});
 
 	// 진행률 변경하기
 	$(".dprogress").click(function() {

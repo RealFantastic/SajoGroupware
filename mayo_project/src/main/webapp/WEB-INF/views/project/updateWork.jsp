@@ -36,8 +36,7 @@
       <input type="hidden" class="form-control" id="work_mgr" name="work_mgr" value="${work.work_mgr }">
         <div style="display:flex;">
         <div style="margin-right: 15px;">
-        	<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-			  <option selected>상태</option>
+        	<select id="select" name="work_status" class="form-select" aria-label="Default select example" required="required">
 			  <option value="0">요청</option>
 			  <option value="1">진행</option>
 			  <option value="2">완료</option>
@@ -92,6 +91,10 @@
 </div>
 
 <script>
+
+// selected 설정하기
+var status 
+$("#select").val("1").prop("selected", true);
 
 	// 업무 글 수정하기
 	$("#submit").click(function(){

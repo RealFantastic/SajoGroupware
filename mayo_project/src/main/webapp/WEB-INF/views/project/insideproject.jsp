@@ -221,10 +221,11 @@ $("#eimg").click(function(){
 });
 
     
-// 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
+// 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
 		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
+		$("#worklist").load("<%=request.getContextPath()%>/schedule/detail",{proj_no:proj_no});
 });
 
 // 프로그래스 바 값 가져오기

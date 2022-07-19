@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /*사이드 영역*/
-#side{
+.side{
 	width:250px;
 	min-width:250px;
 	height:100%;
@@ -10,19 +10,19 @@
 }
 
 /*사이드 안 내용*/
-#side-content{
+.side-content{
 	top: 30px;
 	position: relative;
 	flex-direction: column;
 }
 
 /* 사이드랑 안 겹치게 margin 줌 */
-#body{
+.body{
 	margin: 30px 300px;
 }
 
 /* 업무 상세글 몸통 */
-#workBody{
+.workBody{
 	max-width: 1000px;
 	min-width: 600px;
 	box-shadow: 5px 2px 2px rgb(235, 255, 246);
@@ -40,7 +40,7 @@
 }
 
 /* 긴급 아이콘 */
-#dimg{
+.dimg{
 	width: 38px;
 }
 
@@ -60,11 +60,11 @@
 
 
 /* 첨부파일 아이콘 */
-#clip{
+.clip{
 	width:25px;
 }
 
-#dpercentage {
+.dpercentage {
 	width: 35px;
 	border: none;
 }
@@ -115,7 +115,7 @@
   cursor: pointer; /* Cursor on hover */
 }
 /* 업무 글 내용 */
-#content{
+.content{
 	background-color: white;
 	border: none;
 /* 	textarea 크기 변경 못하게 하기 */
