@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+
+#error_body{
+background-color:rgb(255, 138, 0);
+}
+
+#error_img{
+/* 	postiion : relative; */
+/* 	text-align: center; */
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	min-height: 100vh;
+}
+
+
+.main_btn{
+	position: absolute;
+	top: 65%;
+	left : 55%; 
+	font-size:4rem;
+	font-weight:bold;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
