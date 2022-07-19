@@ -269,7 +269,7 @@ public class EmpController {
 		 	
 		 	return ro;
 	 }
-	//사업자번호 중복 체크
+	//사업자번호 조회
 	 @PostMapping(value="/checkcpnum",produces="text/plain;charset=UTF-8")
 	 @ResponseBody
 	 public String chkcpNum(
@@ -279,11 +279,11 @@ public class EmpController {
 		 	int result=service.checkCpNumber(cp_number);  
 		 	String ro = null;
 		 	if(result == 1) {
-		 		ro= "false";
+		 		ro= "ok";
 		 	}else {
-		 		ro ="ok";
+		 		ro ="false";
 		 	}
-		 	
+		 	System.out.println(ro);
 		 	return ro;
 	 }
 	 
@@ -398,7 +398,7 @@ public class EmpController {
 				mv.addObject("check", 0);
 				mv.addObject("findPwd", findPwd);
 			}
-			mv.setViewName("redirect:/member/findPwd");
+			mv.setViewName("redirect:/member/updatePwd");
 			return mv;
 		}
 	    // 비밀번호 재설정 실행

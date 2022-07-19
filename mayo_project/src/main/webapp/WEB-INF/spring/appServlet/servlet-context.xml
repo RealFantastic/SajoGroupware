@@ -33,10 +33,13 @@
 			<exclude-mapping path="/member/checkrrn/**"/>
 			<exclude-mapping path="/member/checkno/**"/>
 			<exclude-mapping path="/member/checkcpnum/**"/>
+			<exclude-mapping path="/member/mailCheck/**"/>
 			<exclude-mapping path="/member/login/**"/>
 			<exclude-mapping path="/member/enroll/**"/>
 			<exclude-mapping path="/member/findId/**"/>
 			<exclude-mapping path="/member/findPwd/**"/>
+			<exclude-mapping path="/member/invite/**"/>
+			<exclude-mapping path="/member/inviteMail/**"/>
 			<exclude-mapping path="/company/enroll/**"/>
 			<exclude-mapping path="/"/>
 			<beans:ref bean="LoginInterceptor"/>

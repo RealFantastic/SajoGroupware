@@ -10,7 +10,7 @@
     background-color: rgb(235, 255, 246);
     /* 가운데 정렬 */
     margin: 0 auto;
-
+	
 }
 
 #j_container{
@@ -24,6 +24,8 @@
     margin: 0 auto;
 
     border-radius: 15px;
+    
+    margin-top: 5%;
 }
 #j_container1{
     float: left;
@@ -49,11 +51,15 @@
     padding-top: 30px;
 
 }
+/* job */
+#job_no{
+    width: 120px;
+}
 /* 가운데 선 */
 #j_line {
     border-left :2px solid rgb(117, 117, 117);
     margin: 10px;
-    height : 350px;
+    height : 560px;
     float: left;
    
 }
@@ -67,7 +73,7 @@
 /* 이용약관 선 */
 #j_cline{
     align-content: center;
-    margin: 20px 0px;
+	margin: 20px 0px 45px;
 }
 /* 각 행들- 주소 제외*/
 .j_e{
@@ -90,8 +96,17 @@
 #j_btn{
     float: right;
     position: relative;
-    top: 15px;
+    top: 30px;
+    right: 50px;
     
+}
+.j_btn_gray, .doubleChk{
+	border-radius: 6px;
+    background-color: #ccc;
+    border: 0px;
+    color: white;
+    font-size: smaller;
+    padding: 5px;
 }
 /* div 크기 */
 #j_emp_no{
@@ -116,6 +131,7 @@
 }
 #j_email{
    padding-top: 5px;
+   height: 70px;
 }
 /* input 입력칸 크기 */
 #emp_name{

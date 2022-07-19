@@ -91,19 +91,18 @@
                     <div id="j_cp_number" class="j_e">
                         <label>사업자 번호 : </label>
                         <input type="text" id="cp_number" name="cp_number" required >
-                        <!--TODO : 사업자 번호 조회 방식 추후 수정 -->
-                        <button type="button" id="cp_number_btn" onclick = "checkNum()">조회</button>
-                        <div><font class="feedback" size ="2"></font></div>
+                        <button type="button" id="cp_number_btn" class="j_btn_gray">조회</button>
+                        <div><font id="check_cp" class="feedback" size ="2"></font></div>
                     </div>             
                     <div id="j_name" class="j_e">
-                        <label>성함 : </label>
+                        <label for="emp_name">성함 : </label>
                         <input type="text" id="emp_name" name="emp_name">
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_emp_number" class="j_e">
-                        <label>주민 번호 : </label>
+                        <label for="rrn">주민 번호 : </label>
                         <input type="text" id="rrn" name="rrn">
-                        <button type="button" onclick = "checkRrn()">조회</button>
+                        <button type="button" class="j_btn_gray" onclick = "checkRrn()">조회</button>
                         <div><font id="check_rrn" size ="2"></font></div>
                         <br><font class="feedback" size ="2"></font>
                     </div>
@@ -114,43 +113,49 @@
                             <option value="10">인사팀</option>
                             <option value="20">영업팀</option>
                             <option value="30">총무팀</option>
-                            <!-- TODO -->
+                            <option value="40">기획팀</option>
+                            <option value="50">회계팀</option>
+                            <option value="60">개발팀</option>
+                            <option value="70">마케팅팀</option>
+                            <option value="80">연구개발팀</option>
                         </select>
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_job">
-                        <label>직위 : </label>
-	                    <select name="job_no">
+                        <label for="job_no">직위 : </label>
+	                    <select name="job_no" id="job_no" required="required">
 	                    	<option value="">선택</option>
 	                    	<option value="1">사원</option>
 	                    	<option value="2">대리</option>
 	                    	<option value="3">과장</option>
-	                    	<!-- TODO -->
+	                    	<option value="4">차장</option>
+	                    	<option value="5">부장</option>
+	                    	<option value="6">이사</option>
+	                    	<option value="7">대표</option>
 	                    </select>
                     </div>
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
-                        <input type="text" id="emp_no" name="emp_no">
-                        <button type="button" onclick = "checkNo()">조회</button>
+                        <input type="text" id="emp_no" name="emp_no" required="required">
+                        <button type="button" class="j_btn_gray" onclick = "checkNo()">조회</button>
                         <br><font id="check_result" size ="2"></font>
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_pwd" class="j_e">
                         <label>비밀번호 : </label>
-                        <input type="password" id="password" name="password" class="j_pwd">
+                        <input type="password" id="password" name="password" class="j_pwd" required="required">
                         <br><font class="feedback" size ="2"></font>
-                        
                     </div>
                     <div id="j_pwd_chk" class="j_e">
                         <label for="password_chk">비밀번호 재확인 : </label>
-                        <input type="password" id="password_chk" name="password_chk" class="j_pwd">
+                        <input type="password" id="password_chk" name="password_chk" class="j_pwd" required="required">
                         <br><font id="check_pwd" size ="2"></font>
                         <br><font class="feedback" size ="2"></font>
                     </div>
 
                     <div class="j_e">
                         <label for="hire_date">입사일 : </label>
-                        <input type="date" id="hire_date" name="hire_date" />
+                        <input type="date" id="hire_date" name="hire_date" required="required"/>
                         <input type="hidden" name="total" value=""> 
                         <br><font class="feedback" size ="2"></font>
                     </div>
@@ -158,10 +163,10 @@
                         <div id="j_email" class="j_e">
                             <label>이메일 : </label>
                             <div>
-                            <input type="text" id="email_id" name="email_id" >
+                            <input type="text" id="email_id" name="email_id" required="required">
                             <span id="middle">@</span>
-                            <input type="text" id="domain" name="domain" />
-                            <select id="domain_list" name="domain_list">
+                            <input type="text" id="domain" name="domain" required="required"/>
+                            <select id="domain_list" name="domain_list" required="required">
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
@@ -169,18 +174,21 @@
                                 <option value="kakao.com">kakao.com</option>
                                 <option value="direct">직접입력</option>
                               </select>
-                              <button type="button" id="emailChk_send_btn" name="emailChk_send_btn">인증번호 보내기</button>
-                              <input type="hidden" id="totalemail" name="email" value="">
+                              <button type="button"
+                               id="emailChk_send_btn"
+                               class="j_btn_gray" 
+                               name="emailChk_send_btn" required="required">인증번호 보내기</button>
+                              <input type="hidden" id="totalemail" name="email" value="" required="required">
                             </div>
                             <br><font class="feedback" size ="2"></font>
                         </div>
     
-                        <div id="email_check" class="j_e">
+                        <div id="email_check" class="j_e" required="required">
                             <label>인증번호 : </label>
                             <input type="text" id="email_check_no" disabled required>
-                            <button type="button" id="email_check_btn" class="doubleChk">인증</button>
+                            <button type="button" id="email_check_btn" class="doubleChk" >인증</button>
  							<p class="point successEmailChk">이메일 입력후 인증번호 인증 해주십시오.</p>
-							<input type="hidden" id="emailDoubleChk"/>
+							<input type="hidden" id="emailDoubleChk" required="required"/>
                             <br><font class="feedback" size ="2"></font>
                         </div>
                     </div>
@@ -196,13 +204,13 @@
                         </div>
                         <div >
                             <div class="j_e">
-                                <label>우편번호 : </label>
-                                <input type="text" id="sample6_postcode" placeholder="우편번호" name="emp_postcode">
-                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                                <label for="sample6_postcode">우편번호 : </label>
+                                <input type="text" id="sample6_postcode" placeholder="우편번호" name="emp_postcode" required="required">
+                                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="j_btn_gray"><br>
                             </div>
                             <div class="j_e" style=" width: 100%;">
-                                <label>주소 : </label>
-                                <input type="text" id="sample6_address" placeholder="주소" name="address"><br>                        
+                                <label for="sample6_address">주소 : </label>
+                                <input type="text" id="sample6_address" placeholder="주소" name="address" required="required"><br>                        
                             </div>
                             <div class="j_e">
                                 <label for="sample6_detailAddress">상세주소 : </label>
@@ -215,39 +223,37 @@
                     </div>
                     <div id="j_emp_phone" class="j_e">
                         <label for="phone">전화번호 : </label>
-                        <input type="text" id="phone" name="phone">
+                        <input type="text" id="phone" name="phone" required="required">
                     </div>
                     <div class="j_e" id="j_sign_file">
                         <label for="sign_file">서명파일 : </label>
-                        <input type="file" id="sign_file" name="sign_file">
+                        <input type="file" id="sign_file" name="sign_file" >
                     </div>
 
-
-
-                    <div id="clause">
-                        <ul>
-                            <li>
-                                <hr id="j_cline">
-                            </li>
-                        <li>
-                            <label><a>이용약관 동의</a>(필수)</label>
-                            <input type="checkbox" class="clause" id="clause1" name="clause1" required="required">
-                        </li>
-                        <li>
-                            <label><a>개인 정보 수집및 이용 동의</a>(필수)</label>
-                            <input type="checkbox" class="clause" id="clause2" name="clause2" required="required">
-                        </li>
-                        <li>
-                            <label><a>마케팅 정보 활용 및 광고성 정보 수신 동의</a>(선택)</label>
-                            <input type="checkbox" class="clause" id="clause3" name="clause3">
-                        </li>
-                        <li>
-                            <br>
-                            <label><a><strong>모두 동의 하기</strong></a></label>
-                            <input type="checkbox" class="clause" id="clauseAll" name="clauseAll">                                
-                        </li>
-                    </ul>
-                </div>
+                   <div id="clause">
+                       <ul style="padding: 35px 3px;">
+                           <li>
+                               <hr id="j_cline">
+                           </li>
+	                        <li>
+	                            <label for="clause1"><a>이용약관 동의</a>(필수)</label>
+	                            <input type="checkbox" class="clause" id="clause1" name="clause1" required="required">
+	                        </li>
+	                        <li>
+	                            <label for="clause2"><a>개인 정보 수집및 이용 동의</a>(필수)</label>
+	                            <input type="checkbox" class="clause" id="clause2" name="clause2" required="required">
+	                        </li>
+	                        <li>
+	                            <label for="clause3"><a>마케팅 정보 활용 및 광고성 정보 수신 동의</a>(선택)</label>
+	                            <input type="checkbox" class="clause" id="clause3" name="clause3">
+	                        </li>
+	                        <li>
+	                            <br>
+	                            <label><a><strong>모두 동의 하기</strong></a></label>
+	                            <input type="checkbox" class="clause" id="clauseAll" name="clauseAll">                                
+	                        </li>
+                  		 </ul>
+              	 	</div>
                 <div id="j_btn">
                     <button type="reset" class="btn_yellow">뒤로가기</button>
                     <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
@@ -368,7 +374,7 @@
 // 				contentType:"json",
 				success: function(result){
 					console.log("result"+result);
-					if(result == "false"){
+					if(result == "false" || result == null){
 						console.log("안녕");
 						$("#check_rrn").html('주민번호를 다시 확인해주십시오.');
 						$("#check_rrn").attr('color','red');
@@ -509,33 +515,33 @@
       </script>
    <!--사업자 번호 중복체크  -->
 	<script type="text/javascript">
-	function checkNum(){
-			var cp_number = $('#cp_number').val();
-			console.log("cp_number: "+cp_number);
-			
-			$.ajax({
-				url:'<%=request.getContextPath()%>/member/checkcpnum',
-				type:"post",
-				data: {"cp_number":cp_number},
-// 				contentType:"json",
-				success: function(result){
-					console.log("result"+result);
-					if(result == "false"){
-						console.log("안녕");
-						$("#check_result").html('등록되지 않은 사업자번호 입니다.');
-						$("#check_result").attr('color','red');
-					}else if(result == "ok"){
-						$("#check_result").html('사업자번호가 확인 되었습니다.');
-						$("#check_result").attr('color','blue');
-					} 
-				},
-				error : function(){
-					alert("서버요청실패");
-				}
-			
-			});
-			
-		};
+	
+		 $("#cp_number_btn").click(function(){
+				var cp_number = $('#cp_number').val();
+				console.log("cp_number: "+cp_number);
+				
+				$.ajax({
+					url:'<%=request.getContextPath()%>/member/checkcpnum',
+					type:"post",
+					data: {"cp_number":cp_number},
+					success: function(result){
+						console.log("result:"+result);
+						if(result == "false" || result == null){
+							console.log("result:"+result);
+							$("#check_cp").html('등록되지 않은 사업자번호 입니다.');
+							$("#check_cp").attr('color','red');
+						}else if(result == "ok"){
+							$("#check_cp").html('사업자번호가 확인 되었습니다.');
+							$("#check_cp").attr('color','blue');
+						} 
+					},
+					error : function(){
+						alert("서버요청실패");
+					}
+				
+				});
+				
+		 });
 	
 	</script>  
 </body>
