@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,9 @@ public class EmpController {
 
 	@Inject
 	private JavaMailSender mailSender;
+	
+	@Inject
+	private BCryptPasswordEncoder pwdEncoding;
 	
 	@GetMapping("/list")
 	public ModelAndView selectEmp(ModelAndView mv) {
@@ -174,7 +178,7 @@ public class EmpController {
 			, HttpServletRequest req
 			) {
 //		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
-	
+		employee.setPassword(pwdEncoding.encode(employee.getPassword()));
 		int result = service.insertEmployee(employee);
 		
 		
@@ -209,21 +213,21 @@ public class EmpController {
 			, HttpSession session
 			) {
 		
-//		암호화 employee.setPasswd(pwdEncoding.encode(employee.getPasswd()));
 		Employee result = service.selectLogin(employee);
-		if(session.getAttribute("emp_no") != null) {
-			session.removeAttribute("emp_no");
+		
+		if(session.getAttribute("loginSsInfo") != null) {
+			session.removeAttribute("loginSsInfo");
 		}
 		
-		if(result == null) {
-			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
-			mv.setViewName("redirect:/member/login");
+		if(pwdEncoding.matches(employee.getPassword(), result.getPassword())) {
+			session.setAttribute("loginSsInfo", result);
+			rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
 		} else {
-		session.setAttribute("loginSsInfo", result);
-		rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
+		rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
+		mv.setViewName("redirect:/member/login");
+		}
 		//TODO 메인페이지 연결
 		mv.setViewName("redirect:/");
-		}
 		return mv;
 	}
 	
@@ -279,9 +283,9 @@ public class EmpController {
 		 	int result=service.checkCpNumber(cp_number);  
 		 	String ro = null;
 		 	if(result == 1) {
-		 		ro= "ok";
+		 		ro= "false";
 		 	}else {
-		 		ro ="false";
+		 		ro ="ok";
 		 	}
 		 	System.out.println(ro);
 		 	return ro;
@@ -405,7 +409,7 @@ public class EmpController {
 		@RequestMapping(value="updatePwd", method=RequestMethod.POST)
 		public ModelAndView updatePwd(@RequestParam(value="updateid", defaultValue="", required=false) String emp_no,
 				Employee employee
-				,ModelAndView mv
+				,ModelAndView mv 
 				,HttpSession session) {
 			employee.setEmp_no(emp_no);
 			service.updatePwd(employee);

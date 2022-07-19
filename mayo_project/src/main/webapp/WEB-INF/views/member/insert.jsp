@@ -532,7 +532,7 @@
 							$("#check_cp").attr('color','red');
 						}else if(result == "ok"){
 							$("#check_cp").html('사업자번호가 확인 되었습니다.');
-							$("#check_cp").attr('color','blue');
+							$("#check_cp").attr('color','green');
 						} 
 					},
 					error : function(){

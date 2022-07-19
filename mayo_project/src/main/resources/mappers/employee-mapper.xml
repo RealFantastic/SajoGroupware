@@ -63,7 +63,7 @@
         ON e.DEPT_NO = d.DEPT_NO
         JOIN JOB j
         ON e.JOB_NO = j.JOB_NO
-		WHERE EMP_NO=#{emp_no} AND PASSWORD=#{password}
+		WHERE EMP_NO=#{emp_no}
 	</select>
 	
 	<!--아이디 중복확인  -->
