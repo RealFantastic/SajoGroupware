@@ -120,7 +120,7 @@ public class WorkController {
 	// 업무 글 수정
 	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
-	public String updateWork(Work work) {
+	public String updateWork(@RequestParam("work") Work work) {
 		
 		int result= service.updateWork(work);
 		
