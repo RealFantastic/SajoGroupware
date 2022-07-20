@@ -27,8 +27,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public List<Schedule> selectSked(String proj_no) {
-		return dao.selectSked(proj_no);
+	public List<Schedule> selectSked(String sked_category) {
+		return dao.selectSked(sked_category);
 	}
 
 	@Override

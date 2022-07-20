@@ -25,8 +25,8 @@ public class ScheduleDao {
 	}
 	
 	// 특정 프로젝트 전체 일정 조회
-	public List<Schedule> selectSked(String proj_no){
-		return sqlSession.selectList("Schedule.selectSked", proj_no);
+	public List<Schedule> selectSked(String sked_category){
+		return sqlSession.selectList("Schedule.selectSked", sked_category);
 	}
 	
 	// 특정 일정 조회

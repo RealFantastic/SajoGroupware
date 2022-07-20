@@ -138,6 +138,7 @@ public class ProjectController {
 	public ModelAndView selectProj(ModelAndView mv, @RequestParam(name="proj_no", required=false) int proj_no) {
 		
 		System.out.println(proj_no);
+		
 		Project proj = service.selectProj(proj_no);
 		System.out.println("프로젝트" + proj);
 		

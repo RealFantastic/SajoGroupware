@@ -28,7 +28,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="font3 ftitle">업무 수정하기</h5>
+        <h5 class="font3 ftitle" style="margin-left:40px;">업무 수정하기</h5>
       </div>
         <form name="updateWork" enctype="multipart/form-data">
       <div class="modal-body insidebody">
@@ -40,7 +40,7 @@
 			  <option value="0">요청</option>
 			  <option value="1">진행</option>
 			  <option value="2">완료</option>
-			  <option value="3">반려</option>
+			  <option value="3">보류</option>
 			</select>
         </div>
           <div>
@@ -93,8 +93,9 @@
 <script>
 
 // selected 설정하기
-var status 
-$("#select").val("1").prop("selected", true);
+var status = "${work.work_status}";
+
+$("#select").val(status).prop("selected", true);
 
 	// 업무 글 수정하기
 	$("#submit").click(function(){

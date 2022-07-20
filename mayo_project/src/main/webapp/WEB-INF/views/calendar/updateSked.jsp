@@ -95,14 +95,6 @@
 	</div>
 	
 <script>
-<!-- SKED_NAME       NOT NULL VARCHAR2(50)    -->
-<!-- SKED_DATE       NOT NULL TIMESTAMP(6)    -->
-<!-- SKED_CONTENT             VARCHAR2(1500)  -->
-<!-- SKED_START_DATE          DATE            -->
-<!-- SKED_END_DATE            DATE            -->
-<!-- SKED_LOCATION            VARCHAR2(500)   -->
-<!-- SKED_CATEGORY            VARCHAR2(50)    -->
-<!-- SKED_EMP_ID              VARCHAR2(50)    -->
 
 // 카카오 지도
 // 마커를 담을 배열입니다

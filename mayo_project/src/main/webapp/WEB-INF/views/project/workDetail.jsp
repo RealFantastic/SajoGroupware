@@ -22,7 +22,7 @@
 										<input type="hidden" name="work_no" value="${work.work_no }">
 										<button type='submit' class='btn_gray btn-modify wUpdate'>수정</button>
 									</form>
-									<button type='button' class='btn_red btn-delete' onclick="wDelete('${work.work_no }')">삭제</button>
+									<button type='button' class='btn_red btn-delete'>삭제</button>
 								</div>
 						</div>
 						<div class="modal-body">
@@ -95,7 +95,7 @@
 </c:when>
 	<c:otherwise>
 		<div class="nothing font2">
-		작성된 업무 또는 일정이 없습니다.
+		작성된 업무가 없습니다.
 		</div>
 	</c:otherwise>
 </c:choose>
@@ -122,20 +122,21 @@ $('.filedown').click(function() {        
 	                );
 	});
 
-		
  		// 업무 글 삭제하기
-			function wDelete(work_no){
+			$(".btn-delete").click(function(event){ 
+				
+			console.log($(event.target).prev().children('input').val());
 				
 			//삭제 여부 확인하기
 			var check = confirm("업무를 삭제하시겠습니까?");
+			var work_no = $(event.target).prev().children('input').val();
 			
 			if(check){
 				// ajax로 컨트롤러 이동 - delete
 				$.ajax({
 					type:"POST",
 					url: "<%=request.getContextPath()%>/work/delete",
-				data : 
-					work_no,
+					data : {work_no: work_no },
 				 // 업무 번호 들고가기
 				success : function(result) {
 					alert(result);
@@ -145,7 +146,7 @@ $('.filedown').click(function() {        
 			} else {
 			return false;
 			}
-		}
+		});
 
 	// 진행률 변경하기
 	$(".dprogress").click(function() {

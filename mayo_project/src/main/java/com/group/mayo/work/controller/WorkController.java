@@ -26,6 +26,8 @@ import com.group.mayo.common.FileUpload;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.model.service.ProjectService;
+import com.group.mayo.schedule.domain.Schedule;
+import com.group.mayo.schedule.model.service.ScheduleService;
 import com.group.mayo.work.domain.ProjFile;
 import com.group.mayo.work.domain.Work;
 import com.group.mayo.work.model.service.WorkService;
@@ -38,11 +40,12 @@ public class WorkController {
 	private ProjectService projService;
 	@Autowired
 	private WorkService service;
-	
+	@Autowired 
+	private ScheduleService skedService;
 	@Autowired
 	private FileUpload commonFile;
 	
-	// 업무 리스트 불러오기
+	// 업무,일정 리스트 불러오기
 	@PostMapping("/detail") 
 	public ModelAndView detailWork(ModelAndView mv, @RequestParam("proj_no") String proj_no){
 		
@@ -52,6 +55,16 @@ public class WorkController {
 		
 		mv.addObject("work", work);
 		mv.setViewName("project/workDetail");
+		return mv;
+	}
+	
+	@PostMapping("/detailS") 
+	public ModelAndView detailSked(ModelAndView mv, @RequestParam("proj_no") String sked_category){
+		
+		List<Schedule> sked = skedService.selectSked(sked_category);
+		
+		mv.addObject("sked", sked);
+		mv.setViewName("calendar/skedDetail");
 		return mv;
 	}
 	

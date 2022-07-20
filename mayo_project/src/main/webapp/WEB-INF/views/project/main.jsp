@@ -72,28 +72,6 @@
   </div>
 </div>
 
-<script>
-$("#submitP").click(function(){
-	
-	location.href="<%=request.getContextPath()%>/project/insert";
-	
-// 	$.ajax(){
-// 		type: "POST",
-<%-- 		url: "<%=request.getContextPath()%>/project/insert", --%>
-// 		data: { 
-// 				proj_name: $("#title").val(),
-// 				proj_content: $("#content").val()
-// 				},
-// 		success: function(result){
-// 			if(result){
-// 				console.log(result);
-// 			}
-// 		}
-		
-// 	}
-});
-
-</script>
 
 <div id="container">
 <!--  전체 프로젝트 리스트 -->

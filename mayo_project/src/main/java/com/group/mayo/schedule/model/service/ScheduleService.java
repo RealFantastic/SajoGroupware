@@ -26,7 +26,7 @@ public interface ScheduleService {
 	 * @return 특정 프로젝트 전체 일정들
 	 * @author HyerinK
 	 */
-	public List<Schedule> selectSked(String proj_no);
+	public List<Schedule> selectSked(String sked_category);
 
 	/**
 	 * 

@@ -28,6 +28,9 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        
+
+        
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
           // 한글 달력 설정
@@ -37,7 +40,10 @@
           // Bootstrap 5 사용
           themeSystem: 'bootstrap5',
           
-			
+//           dateClick:function(){ // 날짜 클릭 시 이벤트
+//         	  $("#newSked").modal("show");
+//           },
+
           // DB에서 data 끌어오기
           events: [ // 달력에 data 띄우기
         	  <c:forEach var="work" items="${work}"> // 업무
@@ -47,6 +53,10 @@
 			      end: '${work.work_deadline}',
 			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
 			      extendedProps: {
+			    	  proj: '${work.proj_name}',
+			    	  content: '${work.work_content}',
+			    	  status: '${work.work_status}',
+			    	  emergency: '${work.isemergency}'
 			      }
 			    },
 		     </c:forEach>
@@ -57,7 +67,9 @@
 				  end: '${sked.sked_end_date}',
 				  color: 'rgb(170, 205, 190)',
 			      extendedProps: {
-			    	  category: '${sked.sked_category}'
+			    	  category: '${sked.sked_category}',
+			    	  location: '${sked.sked_location}',
+			    	  content: '${sked.sked_content}'
 			      }
 			  },
 			 </c:forEach>
@@ -68,7 +80,11 @@
 			 	// 일정일 때, 띄우는 모달
 			    $("#sked").modal("show");
 			    $("#sked .skedTitle").text(info.event.title);
-			    $("#sked .skedCate").text(info.event.category);
+			    $("#sked .skedCate").text(info.event.extendedProps.category);
+			    $("#sked .skedStart").text(info.event.start);
+			    $("#sked .skedEnd").text(info.event.end);
+			    $("#sked .skedLoca").text(info.event.extendedProps.location);
+			    $("#sked .skedContent").text(info.event.extendedProps.content);
 			    
 		  }
 		  
@@ -84,12 +100,14 @@
 <div class="content">
 
 	<div id="cal" style="display:flex;">
+		<!-- 일정 추가 버튼 -->
 		<div id='calendar'></div> <button type="button" class="btn_yellow newSked" data-bs-toggle="modal" data-bs-target="#newSked">일정 추가</button>
 	</div>
 
 </div>
 
-<div class="modal" id="sked" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
+	<!-- 일정 상세보기 -->
+<div class="modal fade" id="sked" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content skedModal">
       <div class="modal-header">
@@ -97,31 +115,30 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<div class="skedCate">
-      	</div>
+      	<div class="skedCate"></div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label skedTitle font2"></label>
+            <div class="col-form-label skedTitle font2"></div>
           </div>
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
-            	<label for="recipient-name" class="col-form-label"></label>
+            	<div class="col-form-label skedStart"></div>
           	</div>
           	<div class="mb-3">
-            	<label for="recipient-name" class="col-form-label" style="color:red;"></label>
+            	<div class="col-form-label skedEnd" style="color:red;"></div>
           	</div>
           </div>
-          <div class="mb-3" id="loca">
+          <div class="mb-3">
           	위치
-          	<div class="selectedLoca"></div>
-          	<input id="sked_location" name="sked_location" value="" type="hidden">
+          	<div class="skedLoca"></div>
 			 </div>
           <div class="mb-3">
-            <label for="message-text" class="col-form-label">설명</label>
+            <div class="col-form-label skedContent"></div>
           </div>
       </div>
       </div>
 	</div>
 	</div>
+	
 
 <!-- 일정 추가 모달창 -->
 <div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">

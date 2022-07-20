@@ -1,21 +1,5 @@
 @charset "UTF-8";
 
-/*사이드 영역*/
-.side{
-	width:250px;
-	min-width:250px;
-	height:100%;
-	background-color: rgb(235, 255, 246);
-	position:absolute;
-}
-
-/*사이드 안 내용*/
-.side-content{
-	top: 30px;
-	position: relative;
-	flex-direction: column;
-}
-
 /* 사이드랑 안 겹치게 margin 줌 */
 .body{
 	margin: 30px 300px;
