@@ -215,13 +215,14 @@ public class EmpController {
 		
 		Employee result = service.selectLogin(employee);
 		
-		if(session.getAttribute("loginSsInfo") != null || employee.getPassword() == result.getPassword()) {
+		if(session.getAttribute("loginSsInfo") != null ) {
 			session.removeAttribute("loginSsInfo");
 		}
 		
-		if(pwdEncoding.matches(employee.getPassword(), result.getPassword())) {
+		if(pwdEncoding.matches(employee.getPassword(), result.getPassword()) || employee.getPassword().equals(result.getPassword()) ) {
 			session.setAttribute("loginSsInfo", result);
 			rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
+			mv.setViewName("redirect:/");
 		}
 		else {
 		rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
