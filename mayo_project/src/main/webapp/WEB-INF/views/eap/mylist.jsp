@@ -48,7 +48,7 @@
 					  <c:choose>
 					  	<c:when test="${empty mylist}">
 					  		<tr>
-					  			<td style="font-weight:bold; color: blue;"> 기안한 문서가 없습니다. </td>
+					  			<td colspan="7" style="font-weight:bold; color: blue;"> 기안한 문서가 없습니다. </td>
 					  		</tr>
 					  	</c:when>
 					  	<c:otherwise>
@@ -93,7 +93,7 @@
 							      	</c:when>
 							      	<c:otherwise>
 							      		<td><div class="btn_green">접수</div></td>
-							      	</c:otherwise>                      
+							      	</c:otherwise>
 							      </c:choose>
 							    </tr>
 					  		</c:forEach>

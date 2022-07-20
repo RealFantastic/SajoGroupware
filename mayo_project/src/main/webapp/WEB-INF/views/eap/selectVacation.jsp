@@ -31,19 +31,40 @@
 	<jsp:include page="/WEB-INF/views/eap/eap_sidebar_template.jsp"/>
 	<div class="bodyContent">
 		<div class="content_top">
-			<h1>${myDraft.form_title }</h1>
+			<c:if test="${not empty myDraft }">
+				<h1>${myDraft.form_title }</h1>
+			</c:if>
+			<c:if test="${not empty detail }">
+				<h1>${detail.form_title }</h1>
+			</c:if>
 		</div>
 		<div class="content_page">
 			<div class="toolBar_container">
 				<div class="toolBar">
-					<c:if test="${myDraft.result_code eq 0}">
-					<form action="<%= request.getContextPath()%>/eap/delete" method="POST">
-						<input type="hidden" name="ea_no" value="${myDraft.ea_no }">					
-						<input type="hidden" name="form_code" value="${myDraft.form_code }">					
-						<button type="submit" class="btn_tool btn_recall btn_gray">결재 회수</button>
-					</form>
+					<c:choose>
+						<c:when test="${not empty myDraft }">
+							<c:if test="${myDraft.result_code eq 0}">
+								<form action="<%= request.getContextPath()%>/eap/delete" method="POST">
+									<input type="hidden" name="ea_no" value="${myDraft.ea_no }">					
+									<input type="hidden" name="form_code" value="${myDraft.form_code }">					
+									<button type="submit" class="btn_tool btn_recall btn_gray">결재 회수</button>
+								</form>
+							</c:if>
+						</c:when>
+						<c:when test="${not empty detail }">
+							<form action="<%= request.getContextPath()%>/eap/delete" method="POST">
+								<input type="hidden" name="ea_no" value="${detail.ea_no }">					
+								<input type="hidden" name="form_code" value="${detail.form_code }">					
+								<button type="submit" class="btn_tool btn_appr btn_gray">승인</button>
+							</form>
+						</c:when>
+					</c:choose>
+					<c:if test="${not empty myDraft }">
+						<button type="button" class="btn_tool btn_reDraft btn_green">재기안</button>					
 					</c:if>
-					<button type="button" class="btn_tool btn_reDraft btn_green">재기안</button>
+					<c:if test="${not empty detail }">
+						<button type="button" class="btn_tool btn_reject btn_green">반려</button>					
+					</c:if>
 					<button type="button" class="btn_tool app_line btn_yellow" 
 					data-bs-toggle="modal" data-bs-target="#approval_list_modal">결재 정보</button>
 				</div>
@@ -56,26 +77,52 @@
 						<table class="ar_table">
 							<tbody>
 								<tr>
-									<td colspan="2">${myDraft.ea_title }</td>
+									<c:if test="${not empty myDraft }">
+										<td colspan="2">${myDraft.ea_title }</td>									
+									</c:if>
+									<c:if test="${not empty detail }">
+										<td colspan="2">${detail.ea_title }</td>
+									</c:if>
 								</tr>
 								<tr>
 									<td>
 										<table class="approver_info">
 											<tr>
 												<td class="td_color_gray">기안자</td>
-												<td>${myDraft.first_name }</td>
+												<c:if test="${not empty myDraft }">
+													<td>${myDraft.first_name }</td>									
+												</c:if>
+												<c:if test="${not empty detail }">
+													<td>${detail.first_name }</td>	
+												</c:if>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안부서</td>
-												<td>${myDraft.dept_name }</td>
+												<c:if test="${not empty myDraft }">
+													<td>${myDraft.dept_name }</td>
+												</c:if>
+												<c:if test="${not empty detail }">
+													<td>${detail.dept_name }</td>	
+												</c:if>
 											</tr>
 											<tr>
 												<td class="td_color_gray">기안일</td>
-												<td><fmt:formatDate value="${myDraft.draft_date }" pattern="yyyy-MM-dd"/></td>
+												<c:if test="${not empty myDraft }">
+													<td><fmt:formatDate value="${myDraft.draft_date }" pattern="yyyy-MM-dd"/></td>
+												</c:if>
+												<c:if test="${not empty detail }">
+													<td><fmt:formatDate value="${detail.draft_date }" pattern="yyyy-MM-dd"/></td>	
+												</c:if>
+												
 											</tr>
 											<tr>
 												<td class="td_color_gray">문서번호</td>
-												<td>${myDraft.ea_no }</td>
+												<c:if test="${not empty myDraft }">
+													<td>${myDraft.ea_no }</td>
+												</c:if>
+												<c:if test="${not empty detail }">
+													<td>${detail.ea_no }</td>	
+												</c:if>
 											</tr>
 										</table>
 									</td>
@@ -86,67 +133,132 @@
 													<strong>승인</strong>
 												</span>
 											</span>
-											<!-- TODO : 결재선 ID로 결재자 정보(사원명, 직급) 불러오기 -->
-											<c:if test="${not empty myDraft.first_approver }">
-												<span class="sign_member_wrapper">
-													<span class="sign_member">
-														<span class="sign_rank">
-															<span class="rank">${myDraft.first_job_name }</span>
+											<c:choose>
+												<c:when test="${not empty myDraft }">
+													<c:if test="${not empty myDraft.first_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${myDraft.first_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${myDraft.first_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.first_name }</span>
+													</c:if>
+													<c:if test="${not empty myDraft.second_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${myDraft.second_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${myDraft.second_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_date_wrapper">
-															<span class="sign_date"></span>
+													</c:if>
+													<c:if test="${not empty myDraft.third_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${myDraft.third_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${myDraft.third_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-													</span>
-												</span>
-											</c:if>
-											<c:if test="${not empty myDraft.second_approver }">
-												<span class="sign_member_wrapper">
-													<span class="sign_member">
-														<span class="sign_rank">
-															<span class="rank">${myDraft.second_job_name }</span>
+													</c:if>
+													<c:if test="${not empty myDraft.final_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${myDraft.final_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${myDraft.final_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.second_name }</span>
+													</c:if>
+												</c:when>
+												<c:when test="${not empty detail }">
+													<c:if test="${not empty detail.first_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${detail.first_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${detail.first_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_date_wrapper">
-															<span class="sign_date"></span>
+													</c:if>
+													<c:if test="${not empty detail.second_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${detail.second_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${detail.second_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-													</span>
-												</span>
-											</c:if>
-											<c:if test="${not empty myDraft.third_approver }">
-												<span class="sign_member_wrapper">
-													<span class="sign_member">
-														<span class="sign_rank">
-															<span class="rank">${myDraft.third_job_name }</span>
+													</c:if>
+													<c:if test="${not empty detail.third_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${detail.third_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${detail.third_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.third_name }</span>
+													</c:if>
+													<c:if test="${not empty detail.final_approver }">
+														<span class="sign_member_wrapper">
+															<span class="sign_member">
+																<span class="sign_rank">
+																	<span class="rank">${detail.final_job_name }</span>
+																</span>
+																<span class="sign_wrapper">
+																	<span class="sign_name">${detail.final_name }</span>
+																</span>
+																<span class="sign_date_wrapper">
+																	<span class="sign_date"></span>
+																</span>
+															</span>
 														</span>
-														<span class="sign_date_wrapper">
-															<span class="sign_date"></span>
-														</span>
-													</span>
-												</span>
-											</c:if>
-											<c:if test="${not empty myDraft.final_approver }">
-												<span class="sign_member_wrapper">
-													<span class="sign_member">
-														<span class="sign_rank">
-															<span class="rank">${myDraft.final_job_name }</span>
-														</span>
-														<span class="sign_wrapper">
-															<span class="sign_name">${myDraft.final_name }</span>
-														</span>
-														<span class="sign_date_wrapper">
-															<span class="sign_date"></span>
-														</span>
-													</span>
-												</span>
-											</c:if>
+													</c:if>
+												</c:when>
+											</c:choose>
 										</span>
 									</td>
 								</tr>
@@ -226,38 +338,76 @@
 									<th scope="col">결재자</th>
 									<th scope="col">직위</th>
 								</tr>
-								<c:if test="${not empty myDraft.first_approver }">
-									<tr>
-										<td class="app_order">1</td>
-										<td class="emp_no">${myDraft.first_approver}</td>
-										<td class="approver">${myDraft.first_name }</td>
-										<td class="job_name">${myDraft.first_job_name }</td>
-									</tr>
-								</c:if>
-								<c:if test="${not empty myDraft.second_approver }">
-									<tr>
-										<td class="app_order">2</td>
-										<td class="emp_no">${myDraft.second_approver}</td>
-										<td class="approver">${myDraft.second_name }</td>
-										<td class="job_name">${myDraft.second_job_name }</td>
-									</tr>
-								</c:if>
-								<c:if test="${not empty myDraft.third_approver }">
-									<tr>
-										<td class="app_order">3</td>
-										<td class="emp_no">${myDraft.third_approver}</td>
-										<td class="approver">${myDraft.third_name }</td>
-										<td class="job_name">${myDraft.third_job_name }</td>
-									</tr>
-								</c:if>
-								<c:if test="${not empty myDraft.final_approver }">
-									<tr>
-										<td class="app_order">4</td>
-										<td class="emp_no">${myDraft.final_approver}</td>
-										<td class="approver">${myDraft.final_name }</td>
-										<td class="job_name">${myDraft.final_job_name }</td>
-									</tr>
-								</c:if>
+								<c:choose>
+									<c:when test="${not empty myDraft}">
+										<c:if test="${not empty myDraft.first_approver }">
+											<tr>
+												<td class="app_order">1</td>
+												<td class="emp_no">${myDraft.first_approver}</td>
+												<td class="approver">${myDraft.first_name }</td>
+												<td class="job_name">${myDraft.first_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty myDraft.second_approver }">
+											<tr>
+												<td class="app_order">2</td>
+												<td class="emp_no">${myDraft.second_approver}</td>
+												<td class="approver">${myDraft.second_name }</td>
+												<td class="job_name">${myDraft.second_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty myDraft.third_approver }">
+											<tr>
+												<td class="app_order">3</td>
+												<td class="emp_no">${myDraft.third_approver}</td>
+												<td class="approver">${myDraft.third_name }</td>
+												<td class="job_name">${myDraft.third_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty myDraft.final_approver }">
+											<tr>
+												<td class="app_order">4</td>
+												<td class="emp_no">${myDraft.final_approver}</td>
+												<td class="approver">${myDraft.final_name }</td>
+												<td class="job_name">${myDraft.final_job_name }</td>
+											</tr>
+										</c:if>
+									</c:when>
+									<c:when test="${not empty detail}">
+										<c:if test="${not empty detail.first_approver }">
+											<tr>
+												<td class="app_order">1</td>
+												<td class="emp_no">${detail.first_approver}</td>
+												<td class="approver">${detail.first_name }</td>
+												<td class="job_name">${detail.first_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty detail.second_approver }">
+											<tr>
+												<td class="app_order">2</td>
+												<td class="emp_no">${detail.second_approver}</td>
+												<td class="approver">${detail.second_name }</td>
+												<td class="job_name">${detail.second_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty detail.third_approver }">
+											<tr>
+												<td class="app_order">3</td>
+												<td class="emp_no">${detail.third_approver}</td>
+												<td class="approver">${detail.third_name }</td>
+												<td class="job_name">${detail.third_job_name }</td>
+											</tr>
+										</c:if>
+										<c:if test="${not empty detail.final_approver }">
+											<tr>
+												<td class="app_order">4</td>
+												<td class="emp_no">${detail.final_approver}</td>
+												<td class="approver">${detail.final_name }</td>
+												<td class="job_name">${detail.final_job_name }</td>
+											</tr>
+										</c:if>
+									</c:when>
+								</c:choose>
 							</table>
 						</div>
 					</div>

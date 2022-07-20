@@ -47,12 +47,12 @@
 					  <c:choose>
 					  	<c:when test="${empty waitList}">
 					  		<tr>
-					  			<td style="font-weight:bold; color: blue;"> 결재할 문서가 없습니다. </td>
+					  			<td colspan="7" style="font-weight:bold; color: blue;"> 결재할 문서가 없습니다. </td>
 					  		</tr>
 					  	</c:when>
 					  	<c:otherwise>
 					  		<c:forEach var="list" items="${waitList }">
-					  			<tr class="my_doc_list" data-eano="${list.ea_no }">
+					  			<tr class="waiting_list" data-eano="${list.ea_no }">
 							      <th scope="row">${list.ea_no }</th>
 							      <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.draft_date }"/></td>
 							      <td>${list.form_title }</td>
@@ -83,5 +83,18 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$(function(){
+		$(document).on('click','.waiting_list',function(){
+			var ea_no = $(this).data('eano');
+			let form = document.createElement('form');
+			form.setAttribute('method','POST');
+			form.setAttribute('adction','<%=request.getContextPath()%>/eap/list/waitApprove/detail ?ea_no=' +eano);
+			document.body.appendChild(form);
+			form.submit();
+		});
+	});
+	</script>
 </body>
 </html>

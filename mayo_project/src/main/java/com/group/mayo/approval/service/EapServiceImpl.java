@@ -69,6 +69,12 @@ public class EapServiceImpl implements EapService {
 	public List<EapDomain> selectListWaitApprove(String emp_no) {
 		return dao.selectListWaitApprove(emp_no);
 	}
+
+
+	@Override
+	public EapDomain selectWait(EapDomain eap) {
+		return dao.selectWait(eap);
+	}
 	
 	
 	

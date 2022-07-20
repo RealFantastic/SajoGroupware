@@ -223,5 +223,33 @@ public class EapController {
 		
 		return mv;
 	}
+	@PostMapping("/list/waitApprove/detail")
+	public ModelAndView selectWaitApprove(ModelAndView mv
+			, HttpSession session
+			, @RequestParam(name="ea_no", required=false) String ea_no
+			, EapDomain eap) {
+		EapDomain select = service.selectWait(eap);
+		
+		mv.addObject("detail",select);
+		
+		
+		switch(select.getForm_code()) {
+		case "AR":
+			Holiday selectHoliday = hservice.selectHoliday(ea_no);
+			mv.addObject("selectHoliday", selectHoliday);
+			mv.setViewName("eap/selectVacation");
+			break;
+		case "BP":
+			mv.setViewName("eap/selectBP");
+			break;
+		default:
+			mv.setViewName("redirect:/");
+			break;
+		}
+		
+		
+		
+		return mv;
+	}
 	
 }

@@ -34,7 +34,7 @@ public class EapDao {
 		return sqlSession.selectList("Eap.selectMyList", employee);
 	}
 	public EapDomain selectDraft(EapDomain eap) {
-		return sqlSession.selectOne("Eap.selectMyDraft",eap);
+		return sqlSession.selectOne("Eap.selectDraft",eap);
 	}
 	public EapDomain selectResult(EapDomain eap) {
 		return sqlSession.selectOne("Eap.selectResult",eap);
@@ -45,4 +45,8 @@ public class EapDao {
 	public List<EapDomain> selectListWaitApprove(String emp_no) {
 		return sqlSession.selectList("Eap.selectListWaitApprove", emp_no);
 	}
+	public EapDomain selectWait(EapDomain eap) {
+		return sqlSession.selectOne("Eap.selectDraft",eap);
+	}
+	
 }

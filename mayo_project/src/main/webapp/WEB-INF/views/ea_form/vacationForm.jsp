@@ -416,6 +416,13 @@
 					$('.approval_list').modal('hide');
 				});
 				$('.draftAR').click(function(){
+					if($(".summernote").summernote('isEmpty')){
+						alert('휴가 사유를 입력해야 합니다.');
+						return;
+					}else if($('#start_date').val()=="" || $('#end_date').val()==""){
+						alert('날짜를 입력해야 합니다.');
+						return;
+					}
 					let formData = $('#doc_content').serialize();
 					formData = decodeURIComponent(formData);
 					console.log(formData);

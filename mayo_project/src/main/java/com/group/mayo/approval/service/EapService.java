@@ -47,7 +47,7 @@ public interface EapService {
 	/**
 	 * 
 	 * @param eap
-	 * @return 새 문서번호 생
+	 * @return 새 문서번호 생성
 	 */
 	public String selectNewEaNo(EapDomain eap);
 	
@@ -65,4 +65,11 @@ public interface EapService {
 	 * @return JHPark
 	 */
 	public List<EapDomain> selectListWaitApprove(String emp_no);
+	
+	/**
+	 * 
+	 * @param eap
+	 * @return 결재문서 상세
+	 */
+	public EapDomain selectWait(EapDomain eap);
 }
