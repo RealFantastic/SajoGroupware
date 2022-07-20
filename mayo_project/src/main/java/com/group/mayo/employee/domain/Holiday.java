@@ -28,14 +28,23 @@ public class Holiday {
 	private	double hd_count; //반차 사용시 .5 일 수 있으므로 double형
 	private	String hd_reason;
 	private String ea_no;
+	private	double left_count;
 	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
 				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reason=" + hd_reason
-				+ ", ea_no=" + ea_no + "]";
+				+ ", ea_no=" + ea_no + ", left_count=" + left_count + "]";
 	}
 	
+	public double getLeft_count() {
+		return left_count;
+	}
+
+	public void setLeft_count(double left_count) {
+		this.left_count = left_count;
+	}
+
 	public int getHd_no() {
 		return hd_no;
 	}

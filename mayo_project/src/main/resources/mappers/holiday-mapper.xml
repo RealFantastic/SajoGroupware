@@ -22,10 +22,9 @@
 			, to_char(hd_start,'YYYY-MM-DD') HD_START<!-- 연차 시작일 -->
 			, to_char(hd_end, 'YYYY-MM-DD') HD_END<!-- 연차 종료일 --> 
 			, hd_count HD_COUNT<!-- 사용연차(일수) --> 
-			, left_count HD_mod<!--잔여연차(일수) -->
+			, left_count LEFT_COUNT<!--잔여연차(일수) -->
 			,ea_no HD_RESON<!--비고(문서번호) --> 
-		from holiday_history join employee_holiday
-		using (emp_no)
+		from holiday_history
 		where emp_no=#{id} and to_char(hd_start,'YYYY')='#{birthYear}'
 	</select>
 
