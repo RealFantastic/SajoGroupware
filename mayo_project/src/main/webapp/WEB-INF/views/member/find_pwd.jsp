@@ -72,38 +72,51 @@
 	<div id="modal" class="modal-overlay">
         <div class="modal-window">
             <div class="title">
-                <h2>비밀번호 조회 결과</h2>
+                <h2>비밀번호 찾기 결과</h2>
             </div>
             <div class="close-area">X</div>
-            <div class="content" id="pwd_value"></div>
+            <div class="content" id="pwd_value">
+              <div class="form-group" id="pwd_ok" >
+          		 <form class="user" action="/member/updatePwd" method="post">
+                     <input type="email" class="form-control form-control-user"
+                         id="memberEmail" aria-describedby="emailHelp" name="memberEmail"
+                         placeholder="Enter Email Address...">
+	                  
+	                 <button type="submit" class="btn btn-primary btn-user btn-block">
+	                     임시비밀번호 전송
+	                 </button>
+	             </form>
+               </div>
+            </div>
         </div>
     </div>
 	
 	<script>
 		/* 비밀번호 찾기 */ 
 			// 비밀번호 값 받고 출력하는 ajax
-			function findId_click(){
+			function findPwd_click(){
 				var emp_name = $('#emp_name').val();
 				var emp_no = $('#emp_no').val();
 				var rrn =$('#rrn').val();
 				
 				$.ajax({
-					url:"<%=request.getContextPath()%>/member/findPWd",
+					url:"<%=request.getContextPath()%>/member/findPwd",
 					type:"POST",
 					data:{"emp_name":emp_name,"emp_no":emp_no ,"rrn":rrn} ,
 					success:function(data){
 						if(data == "fail"){
+							$('#pwd_ok').hide();
 							$('#pwd_value').text("회원 정보를 확인해주세요!");
 							$('#emp_name').val('');
 							$('#emp_no').val('');
 							$('#rrn').val('');
 						} else {
 							console.log(data);
-							$('#pwd_value').text(data);
+ 							$('#pwd_value').text("이메일을 입력해주세요.");
+ 							$('#pwd_ok').show();
 							$('#emp_name').val('');
 							$('#emp_no').val('');
 							$('#rrn').val('');
-							
 						}
 					},
 					 error:function(){

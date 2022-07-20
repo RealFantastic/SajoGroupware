@@ -38,6 +38,7 @@
 			<exclude-mapping path="/member/enroll/**"/>
 			<exclude-mapping path="/member/findId/**"/>
 			<exclude-mapping path="/member/findPwd/**"/>
+			<exclude-mapping path="/member/updatePwd/**"/>
 			<exclude-mapping path="/member/invite/**"/>
 			<exclude-mapping path="/member/inviteMail/**"/>
 			<exclude-mapping path="/company/enroll/**"/>

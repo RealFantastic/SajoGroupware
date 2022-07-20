@@ -229,7 +229,6 @@ public class EmpController {
 		mv.setViewName("redirect:/member/login");
 		}
 		//TODO 메인페이지 연결
-		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
@@ -395,46 +394,43 @@ public class EmpController {
 	    // 비밀번호 찾기 실행
 		@RequestMapping(value="findPwd", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 		@ResponseBody
-		public ModelAndView findPwd(Employee employee, ModelAndView mv) {
+		public String findPwd(Employee employee, ModelAndView mv) {
+			
 			Employee findPwd = service.findPwd(employee);
 			
+			String result = "fail";
 			if(findPwd == null) { 
-				mv.addObject("check", 1);
-			} else { 
-				mv.addObject("check", 0);
-				mv.addObject("findPwd", findPwd);
+				System.out.println("findPwd : "+findPwd);
+				return result;
+			} else {
+				result = "ok";
 			}
-			mv.setViewName("redirect:/member/updatePwd");
-			return mv;
+			System.out.println("result"+result);
+			return result;
 		}
+		//비밀번호 재설정 페이지 
+	 	@GetMapping("/updatePwd")
+		public ModelAndView updatePwdView(ModelAndView mv) {
+			mv.setViewName("member/updatePwd");
+			return mv;
+	 	}
 	    // 비밀번호 재설정 실행
 		@RequestMapping(value="updatePwd", method=RequestMethod.POST)
 		public ModelAndView updatePwd(@RequestParam(value="updateid", defaultValue="", required=false) String emp_no,
-				Employee employee
-				,ModelAndView mv 
-				,HttpSession session) {
-			employee.setEmp_no(emp_no);
-			service.updatePwd(employee);
-			
-			 // 비밀번호 재설정할 경우 성공 페이지 이동
-			Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
-			if(loginSsInfo == null) {
-				mv.setViewName("redirect:/member/login");
-			} else {
-				mv.setViewName("redirect:/member/updatePwd");
-			}
-			return mv;
+			Employee employee
+			,ModelAndView mv 
+			,HttpSession session) {
+		employee.setEmp_no(emp_no);
+		service.updatePwd(employee);
+		
+		 // 비밀번호 재설정할 경우 성공 페이지 이동
+		Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
+		if(loginSsInfo == null) {
+			mv.setViewName("redirect:/member/login");
+		} else {
+			mv.setViewName("redirect:/member/updatePwd");
 		}
-	    // 비밀번호 바꾸기할 경우 성공 페이지 이동
-//		@RequestMapping(value="modifyPwd")
-//		public ModelAndView modifyPwd(HttpSession session, ModelAndView mv) {
-//			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
-//			
-//			if(loginEmp == null) {
-//				mv.setViewName("redirect:/member/login");
-//			} else {
-//				mv.setViewName("redirect:/member/modifyPwd");
-//			}
-//			return mv;
-//		}
+		return mv;
+	}
+
 }
