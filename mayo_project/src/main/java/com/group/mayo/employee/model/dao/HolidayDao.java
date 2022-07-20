@@ -1,6 +1,7 @@
 package com.group.mayo.employee.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,9 @@ public class HolidayDao {
 	}
 
 	//개인 연차내역 리스트
-	public List<Holiday> holidayMystatus;
+	public List<Holiday> holidayMystatus(Map<String, String> paramMap){
+		return sqlSession.selectList("Holiday.holidayMystatus",paramMap);
+	}
 
 
 	//	인사팀 - 직원 검색하기

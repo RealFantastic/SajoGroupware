@@ -87,10 +87,12 @@
 			,url:"<%=request.getContextPath()%>/holiday/selectHolidayList"
 			,data:{
 // 				select option value
-				$("select[name=birth-year]").val();
+				birthYear : $("select[name=birth-year]").val(),
+				empNo : '${loginSsInfo.emp_no}'
+				
 			}
 			,dataType:"json"
-			,success:funtion(result){
+			,success:function(result){
 				//데이블 초기화
 				$('.holiday_table > tbody').empty();
 				var list = result.holidayList;
@@ -159,9 +161,9 @@
 						<th class="holiday_table_list_th font2">연차 신청일</th>
 						<th class="holiday_table_list_th font2">연차 시작일</th>
 						<th class="holiday_table_list_th font2">연차 종료일</th>
-						<th class="holiday_table_list_th font2">사용 연차</th>
-						<th class="holiday_table_list_th font2">잔여 연차</th>
-						<th class="holiday_table_list_th font2">비고</th>
+						<th class="holiday_table_list_th font2">사용 연차(일수)</th>
+						<th class="holiday_table_list_th font2">잔여 연차(일수)</th>
+						<th class="holiday_table_list_th font2">비고(문서번호)</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Holiday">
 
+<!-- 	페이지 띄우기 -->
 	<select id="holidayEmpList" resultType="HolidayEmployee">
 		SELECT EMP_NO
 			, EMP_NAME
@@ -11,6 +12,41 @@
 			,(SELECT left_count FROM employee_holiday b WHERE b.emp_no=a.emp_no) LEFT_COUNT
 		FROM employee a order by EMP_NO
 	</select>
+
+
+
+<!-- 개인 연차내역 리스트 띄우기 TODO-->
+	<select id="holidayMystatus" parameterType="hashmap" >
+		select
+			to_char(req_date, 'YYYY-MM_DD') REQ_DATE<!-- 연차 신청일 -->
+			, to_char(hd_start,'YYYY-MM-DD') HD_START<!-- 연차 시작일 -->
+			, to_char(hd_end, 'YYYY-MM-DD') HD_END<!-- 연차 종료일 --> 
+			, hd_count HD_COUNT<!-- 사용연차(일수) --> 
+			, left_count HD_mod<!--잔여연차(일수) -->
+			,ea_no HD_RESON<!--비고(문서번호) --> 
+		from holiday_history join employee_holiday
+		using (emp_no)
+		where emp_no=#{id} and to_char(hd_start,'YYYY')='#{birthYear}'
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<insert id="insertHoliday" parameterType="Holiday">
 		INSERT INTO HOLIDAY_HISTORY 
 		VALUES

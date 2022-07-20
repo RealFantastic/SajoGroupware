@@ -1,6 +1,8 @@
 package com.group.mayo.employee.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,19 +46,22 @@ public class HolidayController {
 
 //	나의연차리스트
 	@RequestMapping(value="/selectHolidayList", produces="text/plain;charset=UTF-8", method=RequestMethod.POST)
-	public String selectHolidayList(@RequestParam(name="birth-year", required = false) String birthYear
+	@ResponseBody
+	public String selectHolidayList(@RequestParam(name="birthYear", required = false) String birthYear
+			,@RequestParam("empNo") String empNo
 			, HttpSession session) throws Exception {
 		
-		Employee emp=(Employee) session.getAttribute("loginSsInfo");
-		String id = emp.getEmp_no();
 		
-//		String 연도
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("birthYear", birthYear);
+		paramMap.put("id", empNo);
+
 		System.out.println(birthYear);
 		
-		List<Holiday> holidayList = service.holidayMystatus();
+		List<Holiday> holidayList = service.holidayMystatus(paramMap);
 		
-//		Gson gson=new GsonBuilder().setPrettyPrinting().create();
-		String result = "";
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String result = gson.toJson(holidayList);
 		
 		return result;
 	}

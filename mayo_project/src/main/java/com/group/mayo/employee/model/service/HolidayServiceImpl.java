@@ -1,6 +1,7 @@
 package com.group.mayo.employee.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,8 @@ public class HolidayServiceImpl implements HolidayService{
 
 //	개인 연차내역 리스트
 	@Override
-	public List<Holiday> holidayMystatus() {
-		return dao.holidayMystatus;
+	public List<Holiday> holidayMystatus(Map<String, String> paramMap) {
+		return dao.holidayMystatus(paramMap);
 	}
 
 

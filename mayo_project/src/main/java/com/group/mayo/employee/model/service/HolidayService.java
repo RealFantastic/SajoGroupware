@@ -1,6 +1,7 @@
 package com.group.mayo.employee.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.group.mayo.employee.domain.CommuteEmployee;
 import com.group.mayo.employee.domain.Holiday;
@@ -29,7 +30,7 @@ public interface HolidayService {
 	 * @return 신청일, 연차시작, 연차종료, 사용연차, 잔여연차, 비고
 	 * @author hong
 	 */
-	public List<Holiday> holidayMystatus();
+	public List<Holiday> holidayMystatus(Map<String, String> paramMap);
 	
 
 
