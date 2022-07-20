@@ -45,7 +45,9 @@
 			      title: '${work.work_title}',
 			      start: '${work.work_start_date}', 
 			      end: '${work.work_deadline}',
-			      color: 'rgb(196, 223, 170)' // 줄 색상 / text-color - 글자 색상
+			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
+			      extendedProps: {
+			      }
 			    },
 		     </c:forEach>
 			 <c:forEach var="sked" items="${schedule}"> // 일정 - 전사/개인/프로젝트별 색상 바꿀 예정
@@ -53,15 +55,21 @@
 				  title:'${sked.sked_name}',
 				  start:'${sked.sked_start_date}',
 				  end: '${sked.sked_end_date}',
-				  color: 'rgb(170, 205, 190)'
+				  color: 'rgb(170, 205, 190)',
+			      extendedProps: {
+			    	  category: '${sked.sked_category}'
+			      }
 			  },
 			 </c:forEach>
 		  ],
 		  
 		  // data 클릭 event
 		  eventClick: function(info) {
-			  	
-			    alert('Event: ' + info.event.title);
+			 	// 일정일 때, 띄우는 모달
+			    $("#sked").modal("show");
+			    $("#sked .skedTitle").text(info.event.title);
+			    $("#sked .skedCate").text(info.event.category);
+			    
 		  }
 		  
         });// 함수 끝
@@ -80,6 +88,40 @@
 	</div>
 
 </div>
+
+<div class="modal" id="sked" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content skedModal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">일정 상세보기</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<div class="skedCate">
+      	</div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label skedTitle font2"></label>
+          </div>
+           <div class="date" style="display:flex;">
+          	<div class="mb-3" style="margin-right:13px;">
+            	<label for="recipient-name" class="col-form-label"></label>
+          	</div>
+          	<div class="mb-3">
+            	<label for="recipient-name" class="col-form-label" style="color:red;"></label>
+          	</div>
+          </div>
+          <div class="mb-3" id="loca">
+          	위치
+          	<div class="selectedLoca"></div>
+          	<input id="sked_location" name="sked_location" value="" type="hidden">
+			 </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">설명</label>
+          </div>
+      </div>
+      </div>
+	</div>
+	</div>
 
 <!-- 일정 추가 모달창 -->
 <div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">

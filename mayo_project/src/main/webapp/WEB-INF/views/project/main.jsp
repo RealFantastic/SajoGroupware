@@ -16,6 +16,7 @@
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
 </head>
 <body>
 <script>
