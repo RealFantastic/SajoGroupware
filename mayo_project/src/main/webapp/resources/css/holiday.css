@@ -98,8 +98,8 @@
 	background-color :rgb(235, 255, 246);
 }
 
-/* .holiday_table_list_td{ */
-/* 	border: 1px solid; */
-/* 	padding: 5px; */
-/* } */
+.holiday_table_list_td{
+	border: 1px solid;
+	padding: 5px;
+}
 

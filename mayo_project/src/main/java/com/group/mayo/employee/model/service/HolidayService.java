@@ -26,7 +26,7 @@ public interface HolidayService {
 	public CommuteEmployee commuteMyInfo(String id);
 
 	/**
-	 * @param
+	 * @param paramMap
 	 * @return 신청일, 연차시작, 연차종료, 사용연차, 잔여연차, 비고
 	 * @author hong
 	 */

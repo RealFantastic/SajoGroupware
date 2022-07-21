@@ -161,7 +161,6 @@ public class CommuteController {
 		mv.setViewName("commute/empCommute");
 		return mv;
 	}
-
 	// 인사팀 - 직원근태상세보기
 	
 	@RequestMapping(value = "/selectEmpCommuteList", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)

@@ -1,9 +1,12 @@
 package com.group.mayo.employee.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,19 +109,41 @@ public class HolidayController {
 	
 //	인사팀-직원연차상세보기
 	@RequestMapping(value = "/empHolidayDetail", method = RequestMethod.POST)
-	public ModelAndView holidayEmpDetail(ModelAndView mv, HttpSession session) {
+	public ModelAndView holidayEmpDetail(ModelAndView mv
+//			, HttpSession session
+			, HttpServletRequest request) {
 		
-		Employee emp=(Employee) session.getAttribute("loginSsInfo");
-		String id=emp.getEmp_no();
+		String empNo = request.getParameter("empNo");
 		
 		//본인의 사원번호, 사원명, 직함, 부서명, 연락처
-		CommuteEmployee commuteMyInfo=service.commuteMyInfo(id);
-		mv.addObject("commuteMyInfo",commuteMyInfo);
+		CommuteEmployee commuteStaffInfo=service.commuteMyInfo(empNo);
+		mv.addObject("commuteStaffInfo", commuteStaffInfo);
+		mv.addObject("empNo", empNo);
 		mv.setViewName("holiday/empHoliday");
 		return mv;
 	}
 	
-	
-	
+//	인사팀 -직원 연차리스트
+	@RequestMapping(value="/selectEmpHolidayList", produces="text/plain;charset=UTF-8", method=RequestMethod.POST)
+	@ResponseBody
+	public String selectEmpHolidayList(@RequestParam(name="birthYear", required = false) String birthYear
+			,@RequestParam("empNo") String empNo
+//			, HttpSession session
+			) throws Exception {
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("birthYear", birthYear);
+		paramMap.put("id", empNo);
+
+		System.out.println(birthYear);
+		
+		List<Holiday> holidayList = service.holidayMystatus(paramMap);
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String result = gson.toJson(holidayList);
+		
+		return result;
+	}
 	
 }

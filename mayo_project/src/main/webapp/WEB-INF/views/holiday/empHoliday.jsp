@@ -48,21 +48,23 @@
 				　<br>
 					<div class="font2">　 ＜나의 인적사항＞　<br><br></div>
 					
-					　　사원번호 : ${commuteMyInfo.emp_no}　　<br><br>
-					　　사원명 : ${commuteMyInfo.emp_name }　　<br><br>
-					　　직함 : ${commuteMyInfo.job_nm }　　<br><br>
-					　　부서명 : ${commuteMyInfo.dept_nm }　　<br><br>
-					　　☎ : ${commuteMyInfo.phone }<br>
+					　　사원번호 : ${commuteStaffInfo.emp_no}　　<br><br>
+					　　사원명 : ${commuteStaffInfo.emp_name }　　<br><br>
+					　　직함 : ${commuteStaffInfo.job_nm }　　<br><br>
+					　　부서명 : ${commuteStaffInfo.dept_nm }　　<br><br>
+					　　☎ : ${commuteStaffInfo.phone }<br>
 					　
 			</div>
 		</div>
+	
+	<input type="hidden" id="empNo" value="${empNo}">
 	
 		<div class="year_select">
 			<div class="year_title font3">
 				연차 연도날짜 조회
 			</div>
 			<div>
-				<select class="select_box form-control form-control-lg" name="birth-year">
+				<select class="select_box form-control form-control-lg" name="birth-year" onchange="selectHolidayList()">
 					<option value="">년도를 선택해주세요.▼</option>
 					<option value="2020y">2020년도 연차내역 </option>
 					<option value="2021y">2021년도 연차내역 </option>
@@ -80,29 +82,47 @@
 
 
 <script type="text/javascript">
+
+	$(function(){
+		selectHolidayList()
+	});
 	function selectHolidayList(){
 		$.ajax({
 			type:"post"
-			,url:"<%=request.getContextPath()%>/holiday/selectHolidayList"
+			,url:"<%=request.getContextPath()%>/holiday/selectEmpHolidayList"
 			,data:{
 // 				select option value
+				birthYear : $("select[name=birth-year]").val(),
+				empNo : $("#empNo").val()
 			}
 			,dataType:"json"
-			,success:funtion(result){
+			,success:function(result){
 				//데이블 초기화
 				$('.holiday_table > tbody').empty();
-				var list = result.holidayList;
-			
+				
+				var list = result;
 				if(list.length > 0){
 					var str = "";
 					list.forEach(function(item){
 						str +="<tr>"
-						str +="<td class='holiday_table_list_td'>"+${holiday.REQ_DATE }+"</td>";
-						str +="<td class='holiday_table_list_td'>"+${holiday.HD_START }+"</td>";
-						str +="<td class='holiday_table_list_td'>"+${holiday.HD_END }+"</td>";
-						str +="<td class='holiday_table_list_td'>"+${holiday.HD_COUNT }+"</td>";
-						str +="<td class='holiday_table_list_td'>"+${holiday.HD_mod }+"</td>";
-						str +="<td class='holiday_table_list_td'>"+${holiday.HD_RESON }+"</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.req_date_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_start_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_end_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_count+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.left_count+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_reason+
+							  "</td>";
 						str +="</tr>";
 					})
 				}else{
@@ -110,6 +130,7 @@
 					str += "<td colspan='6' class='holiday_table_list_td'>조회된 연차내용이 없습니다.</td>";
 					str +="</tr>";
 				}
+				$(".holiday_table tbody").html(str);
 			}
 			,error:function(){
 				alert("연차ajax 제대로 동작했슈 ........ㅠㅠ");
@@ -163,22 +184,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${fn:length(holidayMyList) == 0}">
-						<tr class="no_list">
-							<!-- 	보여질 내역이 없을 경우 -->
-							<td colspan='6'> 조회된 연차내용이 없습니다.</td>
-						</tr>
-					</c:if>
-					<c:forEach var="holiday" items="${holidayMyList}">
-						<tr>
-							<td class="holiday_table_list_td">${holiday.REQ_DATE }</td>
-							<td class="holiday_table_list_td">${holiday.HD_START }</td>
-							<td class="holiday_table_list_td">${holiday.HD_END }</td>
-							<td class="holiday_table_list_td">${holiday.HD_COUNT }</td>
-							<td class="holiday_table_list_td">${holiday.HD_mod }</td>
-							<td class="holiday_table_list_td">${holiday.HD_RESON }</td>
-						</tr>
-					</c:forEach>
+				
 				</tbody>
 			</table>
 		</div>
