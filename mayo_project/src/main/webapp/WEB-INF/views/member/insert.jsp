@@ -80,6 +80,9 @@
 </head>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
+<script type="text/javascript">
+	${msg}
+</script>
     <div>
         <form id="emp_enroll" name="emp_enroll"
         	 action="<%=request.getContextPath()%>/member/enroll"

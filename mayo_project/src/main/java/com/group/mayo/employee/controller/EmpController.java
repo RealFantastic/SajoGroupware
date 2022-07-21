@@ -183,7 +183,7 @@ public class EmpController {
 		
 		
 		if(result < 1) {
-			//rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
+			rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
 			mv.setViewName("redirect:/member/enroll");
 			return mv;
 		}
@@ -196,7 +196,7 @@ public class EmpController {
 					employee.setSign_file_name(rename_filename);
 				}
 			}
-		
+		rttr.addFlashAttribute("msg", "가입이 완료 되었습니다.");
 		mv.setViewName("redirect:/");
 		return mv;
 	}		
@@ -221,7 +221,7 @@ public class EmpController {
 		
 		if(pwdEncoding.matches(employee.getPassword(), result.getPassword()) || employee.getPassword().equals(result.getPassword()) ) {
 			session.setAttribute("loginSsInfo", result);
-			rttr.addFlashAttribute("msg", result.getEmp_name()+"님 로그인되었습니다.");
+			rttr.addFlashAttribute("msg", "안녕하세요 "+result.getEmp_name()+" "+result.getJob_name()+"님!");
 			mv.setViewName("redirect:/");
 		}
 		else {
@@ -234,9 +234,11 @@ public class EmpController {
 	
 	//로그아웃
 	@RequestMapping("/logout")
-	public ModelAndView logout(ModelAndView mv,
-			HttpSession session){
+	public ModelAndView logout(ModelAndView mv
+			,RedirectAttributes rttr
+			,HttpSession session){
 		session.removeAttribute("loginSsInfo");
+		rttr.addFlashAttribute("msg", "로그아웃 되었습니다.");
 		mv.setViewName("redirect:/member/login");
 		return mv;
 	}
@@ -343,7 +345,7 @@ public class EmpController {
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = email;
 	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
-	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요.";
+	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요./n";
 	     String cp_num = "";
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
@@ -394,14 +396,15 @@ public class EmpController {
 	    // 비밀번호 찾기 실행
 		@RequestMapping(value="findPwd", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 		@ResponseBody
-		public String findPwd(Employee employee, ModelAndView mv) {
+		public String findPwd(Employee employee
+							, ModelAndView mv) {
 			
 			Employee findPwd = service.findPwd(employee);
 			
-			String result = "fail";
+			String result = null;
 			if(findPwd == null) { 
 				System.out.println("findPwd : "+findPwd);
-				return result;
+				result ="fail";
 			} else {
 				result = "ok";
 			}

@@ -18,9 +18,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
    	
+   	
 </head>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_body">
+   	<script type="text/javascript">
+   		${msg}
+   	</script>
     <div style="padding: 5%;">
         <form  id="login" name="login"
         	 action="<%=request.getContextPath()%>/member/login"
