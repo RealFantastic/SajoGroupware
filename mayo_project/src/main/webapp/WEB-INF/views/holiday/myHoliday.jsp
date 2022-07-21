@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
@@ -63,7 +64,7 @@
 				연차 연도날짜 조회
 			</div>
 			<div>
-				<select class="select_box form-control form-control-lg" name="birth-year">
+				<select class="select_box form-control form-control-lg" name="birth-year" onchange="selectHolidayList()">
 					<option value="">년도를 선택해주세요.▼</option>
 					<option value="2020">2020년도 연차내역 </option>
 					<option value="2021">2021년도 연차내역 </option>
@@ -81,6 +82,10 @@
 
 
 <script type="text/javascript">
+
+	$(function(){
+		selectHolidayList()
+	});
 	function selectHolidayList(){
 		$.ajax({
 			type:"post"
@@ -95,18 +100,29 @@
 			,success:function(result){
 				//데이블 초기화
 				$('.holiday_table > tbody').empty();
-				var list = result.holidayList;
-			
+				var list = result;
 				if(list.length > 0){
 					var str = "";
 					list.forEach(function(item){
 						str +="<tr>"
-						str +="<td class='holiday_table_list_td'>"+item.req_date+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_start+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_end+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_count+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_mod+"</td>";
-						str +="<td class='holiday_table_list_td'>"+item.hd_reason+"</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.req_date_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_start_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_end_str+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_count+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.left_count+
+							  "</td>";
+						str +="<td class='holiday_table_list_td'>"
+								+item.hd_reason+
+							  "</td>";
 						str +="</tr>";
 					})
 				}else{
@@ -114,6 +130,9 @@
 					str += "<td colspan='6' class='holiday_table_list_td'>조회된 연차내용이 없습니다.</td>";
 					str +="</tr>";
 				}
+				
+				$(".holiday_table tbody").html(str);
+				
 			}
 			,error:function(){
 				alert("연차ajax 제대로 동작못했슈 ........ㅠㅠ");
@@ -125,10 +144,9 @@
 
 
 
-
 			<div class="occur_title alert alert-success font2" role="alert">
-				해당연도 발생연차 :　 0 일 
-<!-- 				일단 0일 기준  -->
+				해당연도 발생연차 :　${holidayMystatus.total } 일 
+				<!-- 일단 0일 기준  -->
 			</div>
 		</div>
 
@@ -167,22 +185,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${fn:length(holidayMyList) == 0}">
-						<tr class="no_list">
-							<!-- 	보여질 내역이 없을 경우 -->
-							<td colspan='6'> 조회된 연차내용이 없습니다.</td>
-						</tr>
-					</c:if>
-					<c:forEach var="holiday" items="${holidayMyList}">
-						<tr>
-							<td class="holiday_table_list_td">${holiday.REQ_DATE }</td>
-							<td class="holiday_table_list_td">${holiday.HD_START }</td>
-							<td class="holiday_table_list_td">${holiday.HD_END }</td>
-							<td class="holiday_table_list_td">${holiday.HD_COUNT }</td>
-							<td class="holiday_table_list_td">${holiday.HD_mod }</td>
-							<td class="holiday_table_list_td">${holiday.HD_RESON }</td>
-						</tr>
-					</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>

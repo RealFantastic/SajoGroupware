@@ -30,11 +30,19 @@ public class Holiday {
 	private String ea_no;
 	private	double left_count;
 	
+	
+	
+	private	String req_date_str;
+	private	String hd_start_str;
+	private	String hd_end_str;
+	
+	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
 				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reason=" + hd_reason
-				+ ", ea_no=" + ea_no + ", left_count=" + left_count + "]";
+				+ ", ea_no=" + ea_no + ", left_count=" + left_count + ", req_date_str=" + req_date_str
+				+ ", hd_start_str=" + hd_start_str + ", hd_end_str=" + hd_end_str + "]";
 	}
 	
 	public double getLeft_count() {
@@ -113,6 +121,30 @@ public class Holiday {
 	}
 	public void setEa_no(String ea_no) {
 		this.ea_no = ea_no;
+	}
+
+	public String getReq_date_str() {
+		return req_date_str;
+	}
+
+	public void setReq_date_str(String req_date_str) {
+		this.req_date_str = req_date_str;
+	}
+
+	public String getHd_start_str() {
+		return hd_start_str;
+	}
+
+	public void setHd_start_str(String hd_start_str) {
+		this.hd_start_str = hd_start_str;
+	}
+
+	public String getHd_end_str() {
+		return hd_end_str;
+	}
+
+	public void setHd_end_str(String hd_end_str) {
+		this.hd_end_str = hd_end_str;
 	}
 	
 	

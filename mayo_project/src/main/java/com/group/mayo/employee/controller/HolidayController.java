@@ -40,6 +40,7 @@ public class HolidayController {
 		//본인의 사원번호, 사원명, 직함, 부서명, 연락처
 		CommuteEmployee commuteMyInfo=service.commuteMyInfo(id);
 		mv.addObject("commuteMyInfo",commuteMyInfo);
+		
 		mv.setViewName("holiday/myHoliday");
 		return mv;
 	}
