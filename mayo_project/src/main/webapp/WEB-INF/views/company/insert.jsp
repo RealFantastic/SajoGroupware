@@ -91,7 +91,7 @@
                     <div id="j_cp_number" class="j_c">
                         <label>사업자 번호 : </label>
                         <input type="text" id="cp_number" name="cp_number" required >
-                        <button type="button" id="cp_number_btn" onclick = "checkNum()">조회</button>
+                        <button type="button" id="cp_number_btn" class="j_btn_gray" onclick = "checkNum()">조회</button>
                         <br><font id="check_result" size ="2"></font>
                     </div>
                     <div id="j_name" class="j_c">
@@ -124,7 +124,7 @@
                             <label>우편번호 : </label>
                             <input type="text" id="sample6_postcode" placeholder="우편번호" name="cp_postcode"
                             style="width: 45%; margin: 10px 0;" required="required">
-                            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                            <input type="button" onclick="sample6_execDaumPostcode()" class="j_btn_gray" value="우편번호 찾기"><br>
                         </div>
                         <div>
                             <label>주소 : </label>
@@ -146,16 +146,16 @@
                 </div>
                 <div id="j_container2">
                 	<div id="j_birth" >
-                	 <label id="j_birth_t">회사창립일 : </label>
-                	<input type="date" class="form-control" id="cp_birth" name="cp_birth" placeholder="YYYY/MM/DD" required="required">	
+                	 <label id="j_birth_t" for="cp_birth" class="j_c">회사창립일 : </label>
+                	 <input type="date"  id="cp_birth" name="cp_birth" placeholder="YYYY/MM/DD" required="required">	
                 	</div>
                     <div id="j_email" class="j_c">
-                        <label>이메일 : </label>
+                        <label for="email_id" class="">이메일 : </label>
                         <div>
                         <input type="text" id="email_id" name="email_id" required="required">
-                        <span>@</span>
-                        <input type="text" id="domain" name="domain" />
-                        <select id="domain_list" name="domain" required="required">
+                        <span id="middle">@</span>
+                        <input type="text" id="domain" name="domain" required="required"/>
+                        <select id="domain_list" name="domain_list" required="required">
                             <option value="naver.com">naver.com</option>
                             <option value="google.com">google.com</option>
                             <option value="hanmail.net">hanmail.net</option>
@@ -163,13 +163,21 @@
                             <option value="kakao.com">kakao.com</option>
                             <option value="direct" >직접입력</option>
                           </select>
+                            <button 
+                               type="button"
+                               id="emailChk_send_btn"
+                               class="j_btn_gray" 
+                               name="emailChk_send_btn" required="required">인증번호 전송</button>
+                              <input type="hidden" id="totalemail" name="email" value="" required="required">
                         </div>
                     </div>
 
                     <div id="email_check" class="j_c">
                         <label>인증번호 : </label>
                         <input type="text" id="email_check_no" required="required">
-                        <button type="button" id="email_check_btn">인증</button>
+                            <button type="button" id="email_check_btn" class="doubleChk" >인증</button>
+ 							<p class="point successEmailChk">이메일 입력후 인증번호를 인증 해주십시오.</p>
+							<input type="hidden" id="emailDoubleChk" required="required"/>
                     </div>
 
                     <div id="clause">
@@ -320,7 +328,26 @@
         });
     </script>
     
-    <!-- 이메일 아이디 형식 체크  -->
+	<!-- 이메일 합치기 -->
+	<script type="text/javascript">
+		//이메일주소 가져오기
+		$("#email_id").blur(function(){
+			email();	
+		});
+		
+		$("#domain_list").change(function(){
+			email();	
+		});
+	
+		function email() {
+			const email = $("#email_id").val();
+			const middle = $("#middle").text();
+			const address = $("#domain_list").val();
+			if(email != "" && address != "") {
+				$("#totalemail").val(email+middle+address);
+			}
+		};
+	</script>
     
     <!-- 이메일 직접입력 -->
     <script>
@@ -341,6 +368,51 @@
         });
    
     </script>
+    <!-- 이메일 인증 -->
+    <script>
+	var code = "";
+	$("#emailChk_send_btn").click(function(){
+		var email = $("#totalemail").val();
+		$.ajax({
+	        type:"GET",
+	        url:"mailCheck?email=" + email,
+	        cache : false,
+	        success:function(data){
+	        	if(data == "error"){
+	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
+					$("#totalemail").attr("autofocus",true);
+					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
+					$(".successEmailChk").css("color","red");
+	        	}else{	        		
+					alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
+	        		$("#email_check_no").attr("disabled",false);
+	        		$("#email_check_btn").css("display","inline-block");
+	        		$(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
+	        		$(".successEmailChk").css("color","black");
+	        		code = data;
+	        	}
+	        }
+	    });
+	});
+	</script>
+	
+	<!-- 이메일 인증번호 대조  -->
+	<script type="text/javascript">
+		$("#email_check_btn").click(function(){
+		if($("#email_check_no").val() == code){
+			$(".successEmailChk").text("인증번호가 일치합니다.");
+			$(".successEmailChk").css("color","green");
+			$("#emailDoubleChk").val("true");
+			$("#email_check_no").attr("disabled",true);
+		}else{
+			$(".successEmailChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다.");
+			$(".successEmailChk").css("color","red");
+			$("#emailDoubleChk").val("false");
+			$("#email_check_no").attr("autofocus",true);
+		}
+	});
+	</script>    
+	
     <!-- 약관 모두 동의 -->
     <script>
         $(document).ready( function() {
@@ -369,7 +441,7 @@
 						$("#check_result").attr('color','red');
 					}else if(result == "ok"){
 						$("#check_result").html('사업자번호가 등록되었습니다.');
-						$("#check_result").attr('color','blue');
+						$("#check_result").attr('color','green');
 					} 
 				},
 				error : function(){

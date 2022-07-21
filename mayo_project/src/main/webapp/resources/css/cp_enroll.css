@@ -77,6 +77,7 @@
     top: 30px;
 
     font-size: larger;
+    font-weight: bold;
 }
 /* footer */
 #j_footer{
@@ -106,10 +107,10 @@
 }
 #email_id{
     display: inline-block;
-    width: 50%;
+    width: 25%;
 }
 #domain{
-    width: 42%;
+    width: 40%;
 }
 #domain_list{
 	margin: 10px 0 0;
@@ -127,6 +128,37 @@
 }
 /* 창립일  */
 #j_birth_t{
+	width:30%;
 	font-size: larger;
+	display: contents;
 }
-
+#j_birth{
+	width:100%;
+    
+}
+#cp_birth{
+	width: 50%;
+}
+/* 버튼 */
+#j_btn{
+    float: right;
+    position: relative;
+    top: 30px;
+    right: 50px;
+    
+}
+.j_btn_gray, .doubleChk{
+	border-radius: 6px;
+    background-color: #ccc;
+    border: 0px;
+    color:  white;
+    font-size: smaller;
+    font-weight:bold;
+    padding: 5px;
+      
+}
+.j_btn_gray:hover ,.doubleChk:hover{
+    background-color: rgb(150, 150, 150);
+}
+      
+   

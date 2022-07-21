@@ -320,7 +320,7 @@
     		}
     	}
     		
-	})
+	});
 
     </script>
     <!--전화번호 하이픈 정규식 DOM  -->
@@ -383,7 +383,7 @@
 						$("#check_rrn").attr('color','red');
 					}else if(result == "ok"){
 						$("#check_rrn").html('주민번호가 확인 되었습니다.');
-						$("#check_rrn").attr('color','blue');
+						$("#check_rrn").attr('color','green');
 					} 
 				},
 				error : function(){
@@ -477,7 +477,7 @@
 	        		$("#email_check_no").attr("disabled",false);
 	        		$("#email_check_btn").css("display","inline-block");
 	        		$(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
-	        		$(".successEmailChk").css("color","green");
+	        		$(".successEmailChk").css("color","black");
 	        		code = data;
 	        	}
 	        }

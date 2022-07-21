@@ -41,7 +41,9 @@
 			<exclude-mapping path="/member/updatePwd/**"/>
 			<exclude-mapping path="/member/invite/**"/>
 			<exclude-mapping path="/member/inviteMail/**"/>
+			<exclude-mapping path="/company/**"/>
 			<exclude-mapping path="/company/enroll/**"/>
+			<exclude-mapping path="/company/mailCheck/**"/>
 			<exclude-mapping path="/"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>

@@ -1,9 +1,13 @@
 package com.group.mayo.company.controller;
 
 
+import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +25,9 @@ public class CompanyController {
 
 	@Autowired
 	private CompanyService service;
+	
+	@Inject
+	private JavaMailSender mailSender;
 	
 //	@GetMapping("/enroll")
 	@RequestMapping(value = "enroll", method = RequestMethod.GET)
@@ -65,31 +72,32 @@ public class CompanyController {
 		 	
 		 	return ro;
 	 }
-//	 @PostMapping(value="/check",produces="text/plain;charset=UTF-8")
-////	 @ResponseBody
-//	 public void checkCpNumber(
-//			 @RequestParam("cp_number") String cp_number,
-//			 HttpServletResponse res
-//			 ) {
-//		 	
-//		 	int result=service.checkCpNumber(cp_number);  
-//		 	
-//		 	try {
-//				PrintWriter out = res.getWriter();
-//				if(result ==1) {
-//					
-//					out.print(0);
-//					out.flush();
-//					out.close();
-//				}else {
-//					out.print(result);
-//					out.flush();
-//					out.close();
-//				}
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		 	
-//	 }
+	 @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	 @ResponseBody
+	 public String mailCheck(@RequestParam("email") String totalemail) throws Exception{
+	     int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
+	     
+	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
+	     String to = totalemail;
+	     String title = "[MAYO 그룹웨어] 회사등록시 필요한 인증번호 입니다.";
+	     String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
+	     String num = "";
+	     try {
+	     	 MimeMessage mail = mailSender.createMimeMessage();
+	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+	         
+	         mailHelper.setFrom(from);
+	         mailHelper.setTo(to);
+	         mailHelper.setSubject(title);
+	         mailHelper.setText(content, true);       
+	         
+	         mailSender.send(mail);
+	         num = Integer.toString(serti);
+	         
+	     } catch(Exception e) {
+	         num = "error";
+	     }
+	     return num;
+	 }
+
 }
