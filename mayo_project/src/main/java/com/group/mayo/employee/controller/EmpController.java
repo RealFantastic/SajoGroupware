@@ -393,6 +393,7 @@ public class EmpController {
 			mv.setViewName("member/find_pwd");
 			return mv;
 		}
+		
 	    // 비밀번호 찾기 실행
 		@RequestMapping(value="findPwd", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 		@ResponseBody
@@ -411,6 +412,40 @@ public class EmpController {
 			System.out.println("result"+result);
 			return result;
 		}
+	 	@GetMapping("/chkFindPwd")
+		public ModelAndView chkFindPwd(ModelAndView mv) {
+			mv.setViewName("member/chk_findPwd");
+			return mv;
+		}
+		 @RequestMapping(value = "/findPwdEmail", method = RequestMethod.GET)
+		 @ResponseBody
+		 public String findPwdEmail(@RequestParam("email") String totalemail
+				 	) throws Exception{
+		     int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
+		     
+		     String from = "xeonsnee@naver.com";//보내는 이 메일주소
+		     String to = totalemail;
+		     String title = "[MAYO 그룹웨어] 본인인증시 필요한 인증번호 입니다.";
+		     String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
+		     String num = "";
+		     try {
+		     	 MimeMessage mail = mailSender.createMimeMessage();
+		         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+		         
+		         mailHelper.setFrom(from);
+		         mailHelper.setTo(to);
+		         mailHelper.setSubject(title);
+		         mailHelper.setText(content, true);       
+		         
+		         mailSender.send(mail);
+		         num = Integer.toString(serti);
+		         
+		       
+		     } catch(Exception e) {
+		         num = "error";
+		     }
+		     return num;
+		 }
 		//비밀번호 재설정 페이지 
 	 	@GetMapping("/updatePwd")
 		public ModelAndView updatePwdView(ModelAndView mv) {

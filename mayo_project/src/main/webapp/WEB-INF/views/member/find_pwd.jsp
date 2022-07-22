@@ -72,7 +72,7 @@
 	<div id="modal" class="modal-overlay">
         <div class="modal-window">
             <div class="title">
-                <h2>비밀번호 찾기 결과</h2>
+                <h2>비밀번호 찾기</h2>
             </div>
             <div class="close-area">X</div>
             <div class="content" id="pwd_value">
@@ -108,13 +108,14 @@
 						} else {
 							$('.content').empty();
 							var html = "";
-							html += "<p> 이메일을 입력해주세요. </p>";
-			          		html += "<form class='user' action='/member/updatePwd' method='post'>";
-			                html += "<input type='email' class='form-control form-control-user'id='memberEmail' aria-describedby='emailHelp' name='memberEmail' placeholder='Enter Email Address...'>"    
-	                        html += "<button type='submit' class='btn_yellow'> 인증번호 전송 </button>";
+							html += "<p> 본인인증 후 비밀번호를 재설정해주세요.</p>";
+			          		html += "<form action='<%=request.getContextPath()%>/member/chkFindPwd' method='get'>";
+ 			                //html += "<input type='email' class='form-control form-control-user'id='memberEmail' aria-describedby='emailHelp' name='email' placeholder='Enter Email Address...'>"    
+	                        html += "<button type='submit' class='btn_yellow' id='emailChk_send_btn' name='emailChk_send_btn' required='required'>본인인증 하러가기</button>";
 							html += "</form>";
-				            html += "</div>"; 
+				            //html += "</div>"; 
  							$('.content').append(html);
+ 							let url = " ";
 							$('#emp_name').val('');
 							$('#emp_no').val('');
 							$('#rrn').val('');
@@ -125,6 +126,7 @@
 			            }
 				});
  			};
+ 			
 		
 		const modal = document.getElementById("modal")
 		const btnModal = document.getElementById("find_pwd_btn")

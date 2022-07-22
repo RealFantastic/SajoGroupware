@@ -14,13 +14,11 @@
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet">   
 	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
-	<!-- JSTree -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
    	
    	
 </head>
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
+<jsp:include page="/WEB-INF/views/template_header_login.jsp"/>
 <body id="j_body">
    	<script type="text/javascript">
    		${msg}

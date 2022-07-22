@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/* 각 행들- 주소 제외*/
+.j_e{
+    font-size: larger;
+    
+    display: block;
+	float: left;
+	
+    padding: 5px
+}
+/* 버튼 위치*/
+#j_btn{
+    float: right;
+    position: relative;
+    bottom: 10px;
+    right: 40px;
+    
+}
+.j_btn_gray, .doubleChk{
+	border-radius: 6px;
+    background-color: #ccc;
+    border: 0px;
+    color: white;
+    font-size: smaller;
+    padding: 5px;
+}
+/* 버튼 */
+#updatePwd_btn{
+    display: block;
+    width: 350px;
+    margin: 0 auto;
+}
+#j_email{
+   padding-top: 5px;
+   height: 70px;
+}
+#email_id{
+    display: inline-block;
+    width: 33%;
+}
+#domain{
+    width: 42%;
+}
+#email_check{
+    font-size: medium;
+    padding-top: 20px;
+}
+#email_check_no{
+    width: 25%;
+}
