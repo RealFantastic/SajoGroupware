@@ -33,4 +33,9 @@ public class ScheduleDao {
 	public Schedule viewSked(String sked_no) {
 		return sqlSession.selectOne("Schedule.viewSked", sked_no);
 	}
+	
+	// 특정 일정 삭제
+	public int deleteSked(String sked_no) {
+		return sqlSession.delete("Schedule.deleteSked", sked_no);
+	}
 }

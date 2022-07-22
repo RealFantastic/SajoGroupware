@@ -34,6 +34,50 @@
 	margin: 10px;
 }
 
+/* 리스트 버튼 디테일 */
+.list{
+	border: none;
+/* 	배경 투명 */
+	background-color: transparent;
+	padding: 5px;
+	color: rgb(22, 160, 133);
+}
+
+.list:hover{
+	color:rgb(107, 191, 152);
+}
+
+.deleteFile{
+	border: none;
+	background-color: transparent;
+}
+
+#addFile{
+	padding: 3px 5px 3px 5px;
+	margin-left: 10px;
+}
+
+input {
+	padding: 5px;	
+}
+
+/* 직원 추가 */
+#insertPic{
+	margin: 50px;
+	padding: 10px;
+	border: none;
+	background-color: transparent;
+}
+
+.fa-lg{
+	color: rgb(242, 184, 75);
+}
+
+.fa-lg:hover{
+	color: rgb(255, 166, 0);
+}
+
+
 #body {
 	margin: 30px 300px;
 }

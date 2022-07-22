@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -65,7 +66,40 @@ public class ScheduleController {
 		return mv;
 	}
 	
+	// 일정 글 수정 페이지로 이동
+	@PostMapping("/toUpdate") 
+	public ModelAndView updateSkedPage(ModelAndView mv,
+			@RequestParam(name="sked_no", required=false) String sked_no) {
+
+			System.out.println("sked 업데이트 들어왔니");
+			Schedule sked = service.viewSked(sked_no);
+			
+			mv.addObject("sked", sked);
+			mv.setViewName("calendar/updateSked");
+			
+			return mv;
+		}
+	
+	
 	// 일정 수정하기
 	
 	// 일정 삭제하기
+	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") 
+	@ResponseBody
+	public String deleteWork(@RequestParam(name="sked_no", required=false) String sked_no) {
+		 
+		System.out.println("sked delete로 들어왔냐" + sked_no);
+		int result = service.deleteSked(sked_no);
+		
+		String msg="";
+		
+		if(result<=0) {
+			System.out.println("일정 글 삭제 실패~!");
+			msg="삭제에 실패했습니다";
+		} else {
+			System.out.println("일정 글 삭제 성공~!");
+			msg="일정이 삭제되었습니다";
+		}
+		return msg;
+	}
 }

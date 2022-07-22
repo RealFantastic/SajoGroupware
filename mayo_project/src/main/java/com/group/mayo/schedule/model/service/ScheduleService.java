@@ -14,14 +14,12 @@ public interface ScheduleService {
 	public int insertSked(Schedule sked);
 	
 	/**
-	 * 
 	 * @return 전체 일정들
 	 * @author HyerinK
 	 */
 	public List<Schedule> selectAllSked();
 
 	/**
-	 * 
 	 * @param proj_no
 	 * @return 특정 프로젝트 전체 일정들
 	 * @author HyerinK
@@ -29,11 +27,16 @@ public interface ScheduleService {
 	public List<Schedule> selectSked(String sked_category);
 
 	/**
-	 * 
 	 * @param sked_no
 	 * @return 특정 일정 글
 	 * @author HyerinK
 	 */
 	public Schedule viewSked(String sked_no);
+	
+	/**
+	 * @param sked_no
+	 * @return 삭제된 일정 글
+	 */
+	public int deleteSked(String sked_no);
 	
 }

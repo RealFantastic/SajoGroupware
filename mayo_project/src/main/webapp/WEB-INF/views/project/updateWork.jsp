@@ -91,6 +91,10 @@
 </div>
 
 <script>
+// 취소 버튼 누르면 뒤로가기
+$("#cancel").click(function(){
+	window.history.back();
+});
 
 // selected 설정하기
 var status = "${work.work_status}";

@@ -29,7 +29,7 @@
 
 <!-- 카테고리별 일정 보기 -->
 <select id="selectSked" resultType="Schedule">
-	select * from schedule where sked_category=#{sked_category}
+	select * from schedule where sked_category=#{sked_category} order by sked_date desc
 </select>
 
 <!-- 일정 상세 보기 -->

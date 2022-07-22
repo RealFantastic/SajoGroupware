@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,11 +30,13 @@
 	<aside id="side">
 		<div id="side-content">
 			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
-			<div class="insert">
+			<div style="display:flex;">
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
 			</div>
+			  <div style="display:flex;">
 				<button id="insertSch" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newSked">새 일정</button>
-				<button id="insertPic" class="btn_yellow sidebtn">직원 추가</button>
+			  </div>
+				<button id="insertPic"><i class="fa-solid fa-user-plus fa-lg"></i></button>
 		 </div>
 	</aside>
 
@@ -84,10 +88,10 @@
 			<div>${project.proj_name } </div>
 		</div>
 		
-		<!-- 프로젝트 업무들 load 통해서 불러올 것-->		
-        <div id="worklist">
-		</div>
-		<div id="skedlist"></div>
+		<!-- 프로젝트 업무, 일정들 load 통해서 불러올 것-->	
+		<button id="skedList" class="font3 list">업무</button><button id="skedList" class="font3 list">일정</button>
+        <div id="worklist"></div>
+        <div id="skedlist"></div>
 		
 		<!--  새 업무 추가 모달창 -->
 <div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
@@ -136,10 +140,6 @@
 		</div>
         <div class="mb-3">
         	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
-        	<div style="display:flex;">
-        		<input type="file" name="uploadfile" class="file">
-        		<i class="fa-solid fa-trash-can"></i>
-        	</div>
         	<div id="files"></div>
         </div>
           <div class="mb-3">
@@ -225,8 +225,20 @@
 	var fileCnt = 1;
 	$("#addFile").click(function(){
 		fileCnt++;
-		var html= "<div style='display:flex;'><input type='file' name='uploadfile'><i class='fa-solid fa-trash-can'></i><div>";
+		var html= "<div style='display:flex;'><input type='file' name='uploadfile' class='file'>";
+		html += "<button class='deleteFile'><i class='fa-solid fa-trash-can'></i><div></button>";
 		$("#files").append(html);
+	});
+	
+// 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
+$(function(){
+		var proj_no = ${project.proj_no};
+		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
+});
+
+	//휴지통 누르면 파일 삭제하기
+	(".deleteFile").click(function(){
+		$('.file').closest("div").remove();
 	});
 
 // 프로젝트 수정 ajax
@@ -287,12 +299,6 @@ $("#eimg").click(function(){
 });
 
     
-// 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
-$(function(){
-		var proj_no = ${project.proj_no};
-		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
-		$("#skedlist").load("<%=request.getContextPath()%>/work/detailS",{proj_no:proj_no});
-});
 
 // 프로그래스 바 값 가져오기
 var slider = document.getElementById("progress");

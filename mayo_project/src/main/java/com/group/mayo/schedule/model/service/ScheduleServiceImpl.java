@@ -35,4 +35,9 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public Schedule viewSked(String sked_no) {
 		return dao.viewSked(sked_no);
 	}
+
+	@Override
+	public int deleteSked(String sked_no) {
+		return dao.deleteSked(sked_no);
+	}
 }

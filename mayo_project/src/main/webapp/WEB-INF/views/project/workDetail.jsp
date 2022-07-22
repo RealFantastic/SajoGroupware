@@ -22,7 +22,7 @@
 										<input type="hidden" name="work_no" value="${work.work_no }">
 										<button type='submit' class='btn_gray btn-modify wUpdate'>수정</button>
 									</form>
-									<button type='button' class='btn_red btn-delete'>삭제</button>
+									<button type='button' class='btn_red btn-delete deleteW'>삭제</button>
 								</div>
 						</div>
 						<div class="modal-body">
@@ -76,13 +76,10 @@
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="work_file" class="col-form-label"><img
-							class="clip"
-							src="<%=request.getContextPath()%>/resources/images/clip.png"
-							alt="첨부파일"></label>  
-<%--  						<c:forEach var="file" items="${work.projfilelist }">                                              --%>
-<%-- 							<li>${file.original_filename}<a href="#" class="filedown" sfolder="${file.saveFolder}" sfile="${file.saveFile}" ofile="${file.original_filename}">[다운로드]</a> <img src="${root}/resources/upload/${file.saveFolder}/${file.saveFile}">                                         --%>
-<%-- 					</c:forEach> --%>
+						<i class="fa-solid fa-paperclip"></i> 
+ 						<c:forEach var="file" items="${work.projfilelist }">                                             
+							<div>${file.proj_original_filename}</div>                                
+						</c:forEach>
 					</div>
 					<div class="mb-3">
 						<textarea class="form-control" class="content"
@@ -123,7 +120,7 @@ $('.filedown').click(function() {        
 	});
 
  		// 업무 글 삭제하기
-			$(".btn-delete").click(function(event){ 
+			$(".deleteW").click(function(event){ 
 				
 			console.log($(event.target).prev().children('input').val());
 				
@@ -165,13 +162,14 @@ $('.filedown').click(function() {        
 		// 			document.getElementsByClassName("dpercentage").value = this.value;
 		// 			}
 
-		var result = confirm("진행률을 변경하겠습니까?");
-		if (!result) {
-			$(this).next().val(outputOrigin);
-			slider = outputOrigin;
-		} else {
+// 		var result = confirm("진행률을 변경하겠습니까?");
+// 		if (!result) {
+// 			$(this).next().val(outputOrigin);
+// 			slider = outputOrigin;
+// 		} else {
 			$(this).next().val(outputChange);
-		}
+			confirm("진행률이 변경되었습니다.");
+// 		}
 
 	});
 

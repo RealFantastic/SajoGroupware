@@ -24,13 +24,11 @@
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 
-<!-- 일정 추가 모달창 -->
-<div class="modal" id="newSked">
+<div id="updateSked">
   <div class="modal-dialog ">
     <div class="modal-content skedModal">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">일정 수정하기</h5> 
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title">일정 수정하기</h5> 
       </div>
       <form name="newSked">
       <div class="modal-body">
@@ -48,16 +46,16 @@
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">일정명</label>
-            <input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
+            <input type="text" class="form-control" id="sked_name" name="sked_name" value="${sked.sked_name }" required="required">
           </div>
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
             	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
+            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" value="${sked.sked_start_date }">
           	</div>
           	<div class="mb-3">
             	<label for="recipient-name" class="col-form-label" style="color:red;">종료일</label>
-            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
+            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" value="${sked.sked_end_date }"> 
           	</div>
           </div>
           <div class="mb-3" id="loca">
@@ -82,12 +80,12 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="sked_content" required></textarea>
+            <textarea class="form-control" id="content" name="sked_content" required>${sked.sked_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
-        <button id="submitS" type="submit" class="btn_green">등록</button>
+        <button type="button" class="btn_gray" id="cancel">취소</button>
+        <button id="submit" type="submit" class="btn_green">수정</button>
         </div>
         </form>
       </div>
@@ -95,6 +93,11 @@
 	</div>
 	
 <script>
+//취소 버튼 누르면 뒤로가기
+$("#cancel").click(function(){
+	window.history.back();
+});
+
 
 // 카카오 지도
 // 마커를 담을 배열입니다

@@ -17,7 +17,7 @@
 }
 
 /* 수정,삭제 버튼 */
-.btn-modify, .btn-delete{
+.btn-modify, .btn-delete, .deleteS{
 	width:50px;
 	font-size:0.9rem;
 	padding: 7px;

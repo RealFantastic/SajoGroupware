@@ -127,9 +127,8 @@
             	<div class="col-form-label skedEnd" style="color:red;"></div>
           	</div>
           </div>
-          <div class="mb-3">
-          	위치
-          	<div class="skedLoca"></div>
+          <div class="mb-3" style="display:flex;">
+          	<i class="fa-solid fa-location-dot"></i><div class="skedLoca"  style="margin-left:5px;"></div>
 			 </div>
           <div class="mb-3">
             <div class="col-form-label skedContent"></div>
