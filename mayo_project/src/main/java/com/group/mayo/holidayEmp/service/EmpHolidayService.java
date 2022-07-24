@@ -10,4 +10,11 @@ public interface EmpHolidayService {
 	 */
 	public int insertTotal(HolidayEmployee hemployee);
 	
+	/**
+	 * 
+	 * @param hemployee
+	 * @return 0 or 1
+	 * @author JHPark
+	 */
+	public int updateEmpHd(HolidayEmployee hemployee);
 }

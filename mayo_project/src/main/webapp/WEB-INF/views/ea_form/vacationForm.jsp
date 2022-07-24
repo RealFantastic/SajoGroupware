@@ -118,7 +118,8 @@
 								<td style="border-bottom:1px solid black;">
 								<!-- TODO 페이지 로드시 사원정보로 보유 중인 잔여 연차 가져와야함. -->
 									<label for="left_count">잔여 연차 : </label>
-									<input type="text" id="left_count" name="left_count" readonly>
+									<input type="text" id="total_count" name="total_count" readonly>
+									<input type="hidden" name="left_count">
 									<label for="used_count">신청 연차 : </label>
 									<input type="text" id="used_count" name="used_count" readonly>
 								</td>
@@ -182,6 +183,22 @@
 	</div>
 	<script>
 		$(function(){
+				$.ajax({
+					type:"post",
+					url:'<%=request.getContextPath()%>/eap/select/user/holiday',
+					success:function(data){
+						if(data == "fail"){
+							
+						}else{
+							$('input[name=total_count]').val(data);
+						}
+					},
+					error:function(error){
+						alert("휴가개수 못불러왔음");
+					}
+				});
+				
+			
 				$('input[type=date]').change(function(e){
 					console.log(e.target.value);
 					/* 오늘 날짜 */
@@ -223,6 +240,15 @@
 					
 					$('#hd_count').val(holiday); //사용 일수 표시
 					$('#used_count').val(holiday); //신청 연차 표시
+					
+					var total = $('#total_count').val();
+					if(holiday > total){
+						$('.overAlert').show();
+					}else{
+						$('.overAlert').hide();
+						var left = total - holiday;
+						$('input[name=left_count]').val(left);
+					}
 					
 				});
 				
@@ -422,6 +448,9 @@
 						return;
 					}else if($('#start_date').val()=="" || $('#end_date').val()==""){
 						alert('날짜를 입력해야 합니다.');
+						return;
+					}else if($('#hd_count').val() == 0 || $('#hd_count').val() > $('#total_count').val()){
+						alert("잔여연차를 초과했습니다. 날짜를 다시 지정해주세요.");
 						return;
 					}
 					let formData = $('#doc_content').serialize();

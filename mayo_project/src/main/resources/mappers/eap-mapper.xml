@@ -3,8 +3,7 @@
 <mapper namespace="Eap">
 	<!-- 결재문서 번호 생성 -->
 	<select id="selectNewEaNo" parameterType="Eap" resultType="string">
-	SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE)) ||'-'||'AR'||'-'|| 
-		(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' ))
+	SELECT TO_CHAR(EXTRACT (YEAR FROM SYSDATE))||'-'||'AR'||'-'||(select lpad(nvl(to_number(substr(max_ea_no,9,3)),0)+1,3,0) from ( SELECT max(ea_no) max_ea_no FROM ELEC_APPROVAL where ea_no like '%'||#{form_code}||'%' ))
 	FROM DUAL
 	</select>
 	<!-- 결재문서 상신 -->
@@ -21,6 +20,10 @@
 			, DEFAULT, #{form_code},default
 		)
 	</insert>
+	<select id="selectLoginUserHoliday" parameterType="string" resultType="_double">
+		SELECT LEFT_COUNT FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no} 
+	</select>
+	
 	<!-- 방금 인서트한 결과물 select -->
 	<select id="selectResult" parameterType="Eap" resultType="Eap">
 		SELECT *
@@ -82,6 +85,7 @@
 			    OR 
 			(FINAL_APPROVER=#{emp_no} AND STATUS_CODE IN(8)))
 		)
+		ORDER BY DRAFT_DATE DESC
 	</select>
 	
 	<update id="updateAppr" parameterType="Eap">

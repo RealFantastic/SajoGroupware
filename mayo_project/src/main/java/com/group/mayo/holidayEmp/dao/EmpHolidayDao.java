@@ -15,4 +15,11 @@ public class EmpHolidayDao {
 		return sqlSession.insert("EmpHoliday.insertTotal",hemployee);
 	}
 	
+	public int updateEmpHd(HolidayEmployee hemployee) {
+		return sqlSession.update("EmpHoliday.updateEmpHd",hemployee);
+	}
+	
+	public int updateRestore(HolidayEmployee hemployee) {
+		return sqlSession.update("EmpHoliday.updateRestore",hemployee);
+	}
 }

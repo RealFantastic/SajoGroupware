@@ -29,6 +29,13 @@ public interface EapService {
 	 * @author JHPark
 	 */
 	public EaForm selectForm(String form_code);
+	
+	/**
+	 * 
+	 * @return 로그인 사용자 휴가 개수
+	 */
+	public double selectLoginUserHoliday(String emp_no);
+	
 	/**
 	 * 
 	 * @param employee : 사용자

@@ -30,6 +30,10 @@ public class EapDao {
 	public EaForm selectForm(String form_code) {
 		return sqlSession.selectOne("EaForm.selectForm",form_code);
 	}
+	public double selectLoginUserHoliday(String emp_no) {
+		return sqlSession.selectOne("Eap.selectLoginUserHoliday",emp_no);
+	}
+	
 	public List<EapDomain> selectMyList(Employee employee) {
 		return sqlSession.selectList("Eap.selectMyList", employee);
 	}

@@ -24,6 +24,11 @@
 <script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
 </head>
 <body>
+	<c:if test="${not empty msg }">
+		<script>
+			alert("${msg}");
+		</script>
+	</c:if>
 	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 	<jsp:include page="/WEB-INF/views/eap/eap_sidebar_template.jsp"/>
 	<div class="bodyContent">

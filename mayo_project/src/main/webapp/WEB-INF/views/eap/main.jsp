@@ -67,8 +67,28 @@
 				<jsp:include page="/WEB-INF/views/ea_form/bpForm.jsp"></jsp:include>
 			</div>
 		</div>
-    </div> 
-
-     
+    </div>
+    <c:if test="${not empty form_code }">
+	    <script>
+	    	var form_code = '${form_code}';
+	    	if(form_code != null){
+	   			$('.content_page').children().hide();
+	    		switch(form_code){
+	    		case"AR":
+					$('#vacationForm').show();
+					$('.content_top').children('h1').text("휴가신청서");
+					break;
+	    		case"BP":
+					$('#bpForm').show();
+					$('.content_top').children('h1').text("업무기안");
+					break;
+				case "SR":
+					$('#srForm').show();
+					$('.content_top').children('h1').text("지출결의서");
+					break;
+	    		}
+	    	}
+	    </script>
+    </c:if>
 </body>
 </html>

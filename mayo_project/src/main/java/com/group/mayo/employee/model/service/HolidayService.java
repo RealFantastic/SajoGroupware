@@ -63,4 +63,7 @@ public interface HolidayService {
 	 * @author JHPark
 	 */
 	public int deleteHoliday(String ea_no);
+	
+	
+
 }

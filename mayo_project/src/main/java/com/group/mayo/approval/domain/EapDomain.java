@@ -29,12 +29,7 @@ public class EapDomain {
 	private String drafter_id;	//NN
 	private Timestamp draft_date;
 	private String first_approver;
-	public Timestamp getDraft_date() {
-		return draft_date;
-	}
-	public void setDraft_date(Timestamp draft_date) {
-		this.draft_date = draft_date;
-	}
+
 
 
 	private String second_approver;
@@ -147,7 +142,14 @@ public class EapDomain {
 	public void setStatus_code(int status_code) {
 		this.status_code = status_code;
 	}
-
+	
+	public Timestamp getDraft_date() {
+		return draft_date;
+	}
+	public void setDraft_date(Timestamp draft_date) {
+		this.draft_date = draft_date;
+	}
+	
 	public int getResult_code() {
 		return result_code;
 	}

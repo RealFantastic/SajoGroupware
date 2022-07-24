@@ -194,5 +194,10 @@
 	cursor: pointer;
 }
 
+.overAlert{
+	color:red;
+	font-weight:bold;
+	display:none;
+}
 
 

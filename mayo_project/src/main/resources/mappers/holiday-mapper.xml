@@ -63,7 +63,7 @@
 		(
 		(SELECT NVL(MAX(HD_NO),0)+1 FROM HOLIDAY_HISTORY)
 		, #{emp_no}, default, #{hd_start}, #{hd_end}, #{hd_code}
-		, #{hd_count}, #{hd_reason}, #{ea_no}
+		, #{hd_count}, #{hd_reason}, #{ea_no}, #{left_count}
 		)
 	</insert>
 	<!-- 선택한 결재문서의 내용  -->

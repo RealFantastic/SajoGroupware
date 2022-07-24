@@ -15,5 +15,12 @@ public class EmpHolidayServiceImpl implements EmpHolidayService{
 	public int insertTotal(HolidayEmployee hemployee) {
 		return dao.insertTotal(hemployee);
 	}
+
+	@Override
+	public int updateEmpHd(HolidayEmployee hemployee) {
+		return dao.updateEmpHd(hemployee);
+	}
+	
+	
 	
 }

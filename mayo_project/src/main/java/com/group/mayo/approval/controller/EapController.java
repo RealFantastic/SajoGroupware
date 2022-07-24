@@ -18,12 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.service.EapService;
-import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.domain.Holiday;
+import com.group.mayo.employee.domain.HolidayEmployee;
 import com.group.mayo.employee.model.service.HolidayService;
+import com.group.mayo.holidayEmp.service.EmpHolidayService;
 
 @Controller
 @RequestMapping("eap")
@@ -35,25 +38,36 @@ public class EapController {
 	@Autowired
 	private HolidayService hservice;
 	
+	@Autowired
+	private EmpHolidayService ehservice;
+	
 	@GetMapping("/main")
-	public ModelAndView mainPage(ModelAndView mv) {
-		
-		mv.addObject("formlist", service.selectListEaForm());
+	public ModelAndView mainPage(ModelAndView mv,HttpSession session,
+			@RequestParam(name="form_code",required=false) String form_code) {
+		session.setAttribute("formlist",service.selectListEaForm());
+//		mv.addObject("formlist", service.selectListEaForm());
+		mv.addObject("form_code",form_code);
 		mv.setViewName("eap/main");
 		
 		return mv;
 	}
-	@RequestMapping("/new/ar")
-	public ModelAndView showArForm(ModelAndView mv,
-			@RequestParam(name="form_code", required=false) String form_code
-			) {
-		System.out.println(form_code);
-		EaForm selectForm= service.selectForm(form_code);
+	@PostMapping(value="/select/user/holiday", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String selectLoginUserHoliday(HttpSession session) {
+		String result = null;
+		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
+		String emp_no = curUser.getEmp_no();
 		
-		mv.addObject("selectForm", selectForm);
-		mv.setViewName("ea_form/vacationForm");
+		double count = service.selectLoginUserHoliday(emp_no);
 		
-		return mv;
+		if(count == 0) {
+			result = "fail";
+		}else {
+			result = Double.toString(count);
+		}
+		
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -61,6 +75,7 @@ public class EapController {
 	public String insertEap(EapDomain eap
 			,HttpSession session
 			,Holiday holiday
+			,HolidayEmployee hemployee
 			,@RequestParam(name="hd_count", required=false) String hd_count) {
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		String msg = "컨트롤러";
@@ -119,6 +134,10 @@ public class EapController {
 				holiday.setHd_count(Double.parseDouble(hd_count));
 				holiday.setHd_reason(eap.getEa_content());
 				int insertAR = hservice.insertHoliday(holiday);
+				if(insertAR != 0) {
+					hemployee.setEmp_no(curUser.getEmp_no());
+					ehservice.updateEmpHd(hemployee);
+				}
 				isComplete = insertAR;
 				break;
 			case "BP":
@@ -170,10 +189,10 @@ public class EapController {
 		switch(form_code) {
 		case "AR":
 			int result= hservice.deleteHoliday(ea_no);
-//			if(result==0) {
-//				String msg="회수에 실패했습니다. 다시 시도하세요.";
-//				rttr.addFlashAttribute("msg", msg);
-//			}
+			if(result==0) {
+				String msg="회수에 실패했습니다. 다시 시도하세요.";
+				rttr.addFlashAttribute("msg", msg);
+			}
 			break;
 		case "BP":
 			//TODO 업무기안
@@ -186,7 +205,6 @@ public class EapController {
 	public ModelAndView selectListWaitApprove(ModelAndView mv
 			, HttpSession session
 			, RedirectAttributes rttr) {
-		mv.setViewName("redirect:/eap/main");
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		String emp_no= curUser.getEmp_no();
 		
@@ -198,8 +216,8 @@ public class EapController {
 		}else {
 			String msg = "요청에 실패했습니다.";
 			rttr.addFlashAttribute("msg", msg);
+			mv.setViewName("redirect:/eap/main");
 		}
-		
 		return mv;
 	}
 	@PostMapping("/list/detail")
@@ -242,6 +260,8 @@ public class EapController {
 		int diffStatus = 1;
 		String result = null;
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
+		
+		
 		//결재자가 첫번째 결재자이면 status_code -1, result_code = 2로변경
 		if(curUser.getEmp_no().equals(eap.getFirst_approver())) {
 			currentStatus -= diffStatus;
@@ -296,13 +316,19 @@ public class EapController {
 	@PostMapping(value="/update/reject", produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String updateReject(EapDomain eap
+			,Holiday holiday
 			,@RequestParam(name="return_reson", required=false) String return_reson
+			,HttpServletRequest req
 			) {
+		System.out.println(eap);
 		String result = null;
 		String ea_no = eap.getEa_no();
 		String form_code = eap.getForm_code();
+		
 		//반려로 전환
 		eap.setResult_code(3);
+		
+		
 		int rejectResult = service.updateReject(eap);
 		
 		if(rejectResult != 0) {

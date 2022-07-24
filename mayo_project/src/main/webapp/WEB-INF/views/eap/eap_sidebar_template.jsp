@@ -68,23 +68,24 @@
 // 			$('#home_my_draftedlist').hide();
 			let selectForm = $('#formCategory').val();
 			console.log(selectForm);
-			switch(selectForm){
-				case "AR":
-					$('.content_page').children().hide();
-					$('#vacationForm').show();
-					$('.content_top').children('h1').text("휴가신청서");
-					break;
-				case "BP":
-					$('.content_page').children().hide();
-					$('#bpForm').show();
-					$('.content_top').children('h1').text("업무기안");
-					break;
-				case "SR":
-					$('.content_page').children().hide();
-					$('#srForm').show();
-					$('.content_top').children('h1').text("지출결의서");
-					break;
-			}
+// 			switch(selectForm){
+// 				case "AR":
+					location.href='<%=request.getContextPath()%>/eap/main?form_code=' + selectForm;
+// 					$('.content_page').children().hide();
+// 					$('#vacationForm').show();
+// 					$('.content_top').children('h1').text("휴가신청서");
+// 					break;
+// 				case "BP":
+// 					$('.content_page').children().hide();
+// 					$('#bpForm').show();
+// 					$('.content_top').children('h1').text("업무기안");
+// 					break;
+// 				case "SR":
+// 					$('.content_page').children().hide();
+// 					$('#srForm').show();
+// 					$('.content_top').children('h1').text("지출결의서");
+// 					break;
+// 			}
  	  	});
 
         $(".sub_menu").hide();
@@ -110,7 +111,15 @@
         	form.submit();
         });
         
-        
+//         $(function(){
+//         	$.ajax({
+//         		type:'GET',
+<%--         		url:'<%=request.getContextPath()%>/eap/selectListForm', --%>
+//         		success:function(data){
+        			
+//         		}
+//         	});
+//         });
         
         
     </script>

@@ -49,4 +49,8 @@ public class HolidayDao {
 	public int deleteHoliday(String ea_no) {
 		return sqlSession.delete("Holiday.deleteHoliday",ea_no);
 	}
+	
+	public int updateEmpHd(Holiday holiday) {
+		return sqlSession.update("EmpHoliday.updateEmpHd", holiday);
+	}
 }

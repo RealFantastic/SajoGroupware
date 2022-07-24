@@ -487,6 +487,10 @@
 			          <div class="mb-3">
 			            <label for="message-text" class="col-form-label">반려 사유를 적어주세요:</label>
 			            <textarea class="form-control" id="return_reson" required="required"></textarea>
+			            <input type="hidden" name="ea_no" value="${detail.ea_no }">
+			            <input type="hidden" name="form_code" value="${detail.form_code }">
+			            <input type="hidden" name="result_code" value="${detail.result_code }">
+			            <input type="hidden" name="status_code" value="${detail.status_code }">
 			          </div>
 			        </form>
 			      </div>
@@ -502,6 +506,7 @@
 	<script>
 		$(function(){
 				/* SummerNote Library */
+				$('.summernote').val("${detail.ea_content}");				
 				$('.summernote').summernote({
 						toolbar: [
 							['style',['bold','italic','underline','clear']],
@@ -514,7 +519,8 @@
 						height: 300,
 						minHeight: 300,
 						codeviewFilter: false,
-						codeviewIframeFilter:true
+						codeviewIframeFilter:true,
+						
 				});
 				
 				orgChart($('#jstree_org_chart'));
@@ -522,13 +528,6 @@
 				    var target = $(event.target);
 				    searchJstree(target);
 				});
-				var myDraftContent = '${myDraft.ea_content}';
-				if(myDraftContent != ""){
-					$('.summernote').summernote('code','${myDraft.ea_content}');					
-				}else{
-					$('.summernote').summernote('code','${detail.ea_content}');
-				}
-				
 				$('.btn_tool').click(function(){
 					console.log($(this));
 					var form = $('#btn_category');
@@ -539,9 +538,10 @@
 						form.submit();
 					}else if($(this).hasClass('btn_reDraft')){
 						//재기안 버튼 클릭인 경우
-						form.attr('action','<%=request.getContextPath()%>/eap/update/redraft');
-						form.attr('method','post');
-						form.submit();
+						alert("서비스 준비중...");
+<%-- 						form.attr('action','<%=request.getContextPath()%>/eap/update/redraft'); --%>
+// 						form.attr('method','post');
+// 						form.submit();
 					}else if($(this).hasClass('btn_appr')){
 						//승인 버튼 클릭인 경우
 						var answer = window.confirm("승인하시겠습니까?");
@@ -577,20 +577,18 @@
 				});
 				
 				$('.reject_submit').click(function(){
-					var return_reson = $('#return_reson').val();
-					var thisInfo = $('#btn_category').serialize();
+					var rejectInfo = $('#reject').serialize();
+					console.log(rejectInfo);
 					if(return_reson == "" || return_reson == null){
 						alert("반려사유를 반드시 입력해주세요.");
 						return;
 					}else{
 						$.ajax({
 							type:'POST',
-							url: '<%=request.getContextPath()%>/eap/update/reject';
-							data:{return_reson : return_reson,
-									thisInfo : thisInfo
-								 },
+							url: '<%=request.getContextPath()%>/eap/update/reject',
+							data:rejectInfo,
 							success:function(result){
-								
+								console.log(result);
 							},
 							error:function(error){
 								alert("서버 연결에 실패했습니다. 사유 : " + error);

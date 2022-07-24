@@ -37,6 +37,7 @@ public class Holiday {
 	private	String hd_end_str;
 	
 	
+	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
@@ -146,6 +147,7 @@ public class Holiday {
 	public void setHd_end_str(String hd_end_str) {
 		this.hd_end_str = hd_end_str;
 	}
+
 	
 	
 }

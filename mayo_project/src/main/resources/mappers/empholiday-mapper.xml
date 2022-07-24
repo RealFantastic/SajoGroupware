@@ -3,6 +3,27 @@
 <mapper namespace="EmpHoliday">
 
 	<insert id="insertTotal" parameterType="HolidayEmployee">
+	<!-- HOLIDAY_EMPLOYEE 테이블 컬럼들 전체 변경됨에 따라 쿼리 수정 부탁합니다 -박정환- -->
 		INSERT INTO EMPLOYEE_HOLIDAY(EMP_NO, TOTAL) VALUES (#{emp_no},#{total})
 	</insert>
+	
+	<update id="updateEmpHd" parameterType="HolidayEmployee">
+		UPDATE EMPLOYEE_HOLIDAY SET 
+		USED_COUNT = (select
+						to_number(nvl(
+							(SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}),0)) + #{used_count}
+					from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no})		
+		, LEFT_COUNT = #{left_count} 
+		WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}
+	</update>
+	
+	<update id="updateRestore" parameterType="HolidayEmployee">
+		UPDATE EMPLOYEE_HOLIDAY SET
+		USED_COUNT = (select
+						to_number(nvl(
+							(SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}),0)) - #{used_count}
+					from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no})		
+		, LEFT_COUNT = #{left_count} 
+		WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}
+	</update>
 </mapper>

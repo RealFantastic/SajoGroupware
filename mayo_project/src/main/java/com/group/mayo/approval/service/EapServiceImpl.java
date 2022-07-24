@@ -45,6 +45,13 @@ public class EapServiceImpl implements EapService {
 		return dao.selectForm(form_code);
 	}
 
+	
+	
+	@Override
+	public double selectLoginUserHoliday(String emp_no) {
+		return dao.selectLoginUserHoliday(emp_no);
+	}
+
 
 	@Override
 	public List<EapDomain> selectMyList(Employee employee) {
