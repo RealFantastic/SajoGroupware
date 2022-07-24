@@ -75,6 +75,18 @@ public class EapServiceImpl implements EapService {
 	public EapDomain selectWait(EapDomain eap) {
 		return dao.selectWait(eap);
 	}
+
+
+	@Override
+	public int updateAppr(EapDomain eap) {
+		return dao.updateAppr(eap);
+	}
+
+
+	@Override
+	public int updateReject(EapDomain eap) {
+		return dao.updateReject(eap);
+	}
 	
 	
 	

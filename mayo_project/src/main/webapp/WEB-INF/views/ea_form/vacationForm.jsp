@@ -116,6 +116,7 @@
 							<tr>
 								<td class="td_color_gray"> 연차 사용 일수 </td>
 								<td style="border-bottom:1px solid black;">
+								<!-- TODO 페이지 로드시 사원정보로 보유 중인 잔여 연차 가져와야함. -->
 									<label for="left_count">잔여 연차 : </label>
 									<input type="text" id="left_count" name="left_count" readonly>
 									<label for="used_count">신청 연차 : </label>

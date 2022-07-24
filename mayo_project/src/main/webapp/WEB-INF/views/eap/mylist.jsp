@@ -32,7 +32,7 @@
 		</div>
 		<div class="content_page">
 			<div id="my_doc_list_container">
-				<table class="table mylist">
+				<table class="table draft_list">
 				  <thead>
 				    <tr>
 				      <th scope="col">문서번호</th>
@@ -53,7 +53,7 @@
 					  	</c:when>
 					  	<c:otherwise>
 					  		<c:forEach var="list" items="${mylist }">
-					  			<tr class="my_doc_list" data-eano="${list.ea_no }">
+					  			<tr class="my_doc_list" data-eano="${list.ea_no }" data-drafter_id="${list.drafter_id }">
 							      <th scope="row">${list.ea_no }</th>
 							      <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.draft_date }"/></td>
 							      <td>${list.form_title }</td>
@@ -107,8 +107,13 @@
 	<script>
 		$(document).on('click','.my_doc_list',function(e){
 			var ea_no = $(this).data('eano');
-			var form_code = $(this).data('form_code');
-			location.href="<%=request.getContextPath()%>/eap/list/mylist/detail?ea_no=" + ea_no;
+			var drafter_id=$(this).data('drafter_id');
+			console.log(ea_no);
+			let form = document.createElement('form');
+			form.setAttribute('method','POST');
+			form.setAttribute('action','<%=request.getContextPath()%>/eap/list/detail?ea_no='+ea_no +'&drafter_id='+drafter_id);
+			document.body.appendChild(form);
+			form.submit();
 		});
 	</script>
 </body>

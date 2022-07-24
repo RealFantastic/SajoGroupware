@@ -72,4 +72,18 @@ public interface EapService {
 	 * @return 결재문서 상세
 	 */
 	public EapDomain selectWait(EapDomain eap);
+	
+	/**
+	 * 
+	 * @param eap
+	 * @return 0 or 1
+	 */
+	public int updateAppr(EapDomain eap);
+	
+	/**
+	 * 
+	 * @param eap
+	 * @return 0 or 1
+	 */
+	public int updateReject(EapDomain eap);
 }

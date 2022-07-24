@@ -27,14 +27,22 @@ public class EapDomain {
 	private String ea_title;	//NN
 	private String ea_content;	//NN
 	private String drafter_id;	//NN
-	private Timestamp draft_date;	//NN
+	private Timestamp draft_date;
 	private String first_approver;
+	public Timestamp getDraft_date() {
+		return draft_date;
+	}
+	public void setDraft_date(Timestamp draft_date) {
+		this.draft_date = draft_date;
+	}
+
+
 	private String second_approver;
 	private String third_approver;
 	private String final_approver;
 	private List<String> approver_emp_no;
 	private int status_code;
-	private String result_code;
+	private int result_code;
 	private String form_code;	//NN
 	private String return_reson;
 	private String update_date;
@@ -62,7 +70,7 @@ public class EapDomain {
 	//파일
 	private List<ApprovalFile> approvalFiles;
 
-	
+
 	@Override
 	public String toString() {
 		return "EapDomain [ea_no=" + ea_no + ", ea_title=" + ea_title + ", ea_content=" + ea_content + ", drafter_id="
@@ -103,12 +111,6 @@ public class EapDomain {
 	public void setDrafter_id(String drafter_id) {
 		this.drafter_id = drafter_id;
 	}
-	public Timestamp getDraft_date() {
-		return draft_date;
-	}
-	public void setDraft_date(Timestamp draft_date) {
-		this.draft_date = draft_date;
-	}
 	public String getFirst_approver() {
 		return first_approver;
 	}
@@ -145,10 +147,11 @@ public class EapDomain {
 	public void setStatus_code(int status_code) {
 		this.status_code = status_code;
 	}
-	public String getResult_code() {
+
+	public int getResult_code() {
 		return result_code;
 	}
-	public void setResult_code(String result_code) {
+	public void setResult_code(int result_code) {
 		this.result_code = result_code;
 	}
 	public String getForm_code() {

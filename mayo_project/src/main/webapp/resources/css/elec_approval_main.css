@@ -50,6 +50,7 @@
 .bodyContent{
 	margin-left: 250px;
 	min-height:600px;
+	padding-top:60px;
 }
 .content_top{
 	padding:18px 24px;
@@ -91,9 +92,10 @@ table#list_app th:first-child{
 #my_doc_list_container{
 	margin: 0 30px;
 }
-.mylist{
+.draft_list{
 	width:1200px;
 	text-align: center;
 	vertical-align: middle;
+	cursor:pointer;
 }
 

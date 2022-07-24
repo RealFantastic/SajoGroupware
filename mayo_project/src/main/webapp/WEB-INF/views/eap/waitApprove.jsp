@@ -31,7 +31,7 @@
 		</div>
 		<div class="content_page">
 			<div id="my_doc_list_container">
-				<table class="table mylist">
+				<table class="table draft_list">
 				  <thead>
 				    <tr>
 				      <th scope="col">문서번호</th>
@@ -83,14 +83,14 @@
 			</div>
 		</div>
 	</div>
-	
 	<script>
 	$(function(){
 		$(document).on('click','.waiting_list',function(){
 			var ea_no = $(this).data('eano');
+			console.log(ea_no);
 			let form = document.createElement('form');
 			form.setAttribute('method','POST');
-			form.setAttribute('adction','<%=request.getContextPath()%>/eap/list/waitApprove/detail ?ea_no=' +eano);
+			form.setAttribute('action','<%=request.getContextPath()%>/eap/list/detail?ea_no=' +ea_no);
 			document.body.appendChild(form);
 			form.submit();
 		});

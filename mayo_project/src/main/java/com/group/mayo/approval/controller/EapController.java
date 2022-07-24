@@ -2,9 +2,12 @@ package com.group.mayo.approval.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.approval.domain.EapDomain;
@@ -51,6 +55,7 @@ public class EapController {
 		
 		return mv;
 	}
+	
 	@ResponseBody
 	@PostMapping(value="/insert/ar", produces="text/plain;charset=UTF-8")
 	public String insertEap(EapDomain eap
@@ -104,7 +109,6 @@ public class EapController {
 		}
 		//결재선 개수에 따라 증가한 상태코드를 대입
 		eap.setStatus_code(statusCode);
-//		//TODO 트랜잭션 생각하면 Service에서 동작하게 해야하는데....
 		int isComplete = 0;
 		int result = service.insertEap(eap);
 		if(result != 0) {
@@ -148,35 +152,10 @@ public class EapController {
 		
 		return mv;
 	}
-	@GetMapping("/list/mylist/detail")
-	public ModelAndView selectDraft(ModelAndView mv
-			, HttpSession session
-			, @RequestParam(name="ea_no", required=false) String ea_no
-			, EapDomain eap) {
-		//세션 로그인 정보 가져옴.
-		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
-		eap.setDrafter_id(curUser.getEmp_no());
-		EapDomain selectEap = service.selectDraft(eap);
-		
-		mv.addObject("myDraft",selectEap);
-		
-		switch(selectEap.getForm_code()) {
-		case "AR":
-			Holiday selectHoliday = hservice.selectHoliday(ea_no);
-			mv.addObject("selectHoliday", selectHoliday);
-			mv.setViewName("eap/selectVacation");
-			break;
-		case "BP":
-			mv.setViewName("eap/selectBP");
-			break;
-		default:
-			mv.setViewName("redirect:/");
-			break;
-		}
-		return mv;
-	}
-	@PostMapping("/delete")
+	
+	@PostMapping("/update/recall")
 	public ModelAndView deleteEap(
+			HttpServletRequest req,
 			@RequestParam(name="ea_no", required=false) String ea_no
 			,@RequestParam(name="form_code", required=false) String form_code
 			,RedirectAttributes rttr
@@ -199,7 +178,7 @@ public class EapController {
 		case "BP":
 			//TODO 업무기안
 		}
-		
+		req.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
 		mv.setViewName("redirect:/eap/list/mylist");
 		return mv;
 	}
@@ -223,11 +202,15 @@ public class EapController {
 		
 		return mv;
 	}
-	@PostMapping("/list/waitApprove/detail")
+	@PostMapping("/list/detail")
 	public ModelAndView selectWaitApprove(ModelAndView mv
 			, HttpSession session
 			, @RequestParam(name="ea_no", required=false) String ea_no
 			, EapDomain eap) {
+		
+		System.out.println("기안자명 : " + eap.getDrafter_id());
+		System.out.println("문서번호 : " + eap.getEa_no());
+		
 		EapDomain select = service.selectWait(eap);
 		
 		mv.addObject("detail",select);
@@ -246,10 +229,102 @@ public class EapController {
 			mv.setViewName("redirect:/");
 			break;
 		}
-		
-		
-		
+
 		return mv;
 	}
+	@PostMapping(value="/update/appr", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateAppr(EapDomain eap
+			, HttpSession session
+			, HttpServletResponse res) {
+		int currentStatus = eap.getStatus_code();
+		System.out.println("현재 "+currentStatus);
+		int diffStatus = 1;
+		String result = null;
+		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
+		//결재자가 첫번째 결재자이면 status_code -1, result_code = 2로변경
+		if(curUser.getEmp_no().equals(eap.getFirst_approver())) {
+			currentStatus -= diffStatus;
+			System.out.println(currentStatus);
+			eap.setStatus_code(currentStatus);
+			if(currentStatus == 0) {
+				//뺀 결과가 0이면 결재 완료.
+				eap.setResult_code(4);
+			}else {
+				eap.setResult_code(2);				
+			}
+		//결재자가 두번째 결재자이면 status_code -2, result_code = 2
+		} else if (curUser.getEmp_no().equals(eap.getSecond_approver())) {
+			currentStatus -= diffStatus<<1;
+			System.out.println(currentStatus);
+			eap.setStatus_code(currentStatus);
+			if(currentStatus == 0) {
+				//뺀 결과가 0이면 결재 완료.
+				eap.setResult_code(4);
+			}
+		//결재자가 세번째 결재자이면 status_code -4, result_code = 2
+		} else if (curUser.getEmp_no().equals(eap.getThird_approver())) {
+			currentStatus -= diffStatus<<2;
+			System.out.println(currentStatus);
+			eap.setStatus_code(currentStatus);
+			if(currentStatus == 0) {
+				//뺀 결과가 0이면 결재 완료.
+				eap.setResult_code(4);
+			}
+		//결재자가 네번쨰(최종) 결재자이면 status_code -8 result_code = 4
+		} else if (curUser.getEmp_no().equals(eap.getFinal_approver())) {
+			currentStatus -= diffStatus<<3;
+			System.out.println(currentStatus);
+			eap.setStatus_code(currentStatus);
+			eap.setResult_code(4);
+		} 
+		
+		 result = currentStatus + ", " + eap.getResult_code();
+		
+		
+		int updateResult = service.updateAppr(eap);
+		
+		if(updateResult != 0) {
+			result = "complete";
+		}else {
+			result = "fail";
+		}
+		
+		return result;
+	}
+	
+	@PostMapping(value="/update/reject", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateReject(EapDomain eap
+			,@RequestParam(name="return_reson", required=false) String return_reson
+			) {
+		String result = null;
+		String ea_no = eap.getEa_no();
+		String form_code = eap.getForm_code();
+		//반려로 전환
+		eap.setResult_code(3);
+		int rejectResult = service.updateReject(eap);
+		
+		if(rejectResult != 0) {
+			switch(form_code) {
+			case "AR":
+				int deleteHoliday = hservice.deleteHoliday(ea_no);
+				if(deleteHoliday != 0) {
+					result = "complete";
+				}else {
+					result = "fail";
+				}
+				break;
+			case "BP":
+				//TODO 업무기안
+				break;
+			}
+		}
+		
+		
+		
+		return result;
+	}
+	
 	
 }

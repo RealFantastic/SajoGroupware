@@ -48,5 +48,10 @@ public class EapDao {
 	public EapDomain selectWait(EapDomain eap) {
 		return sqlSession.selectOne("Eap.selectDraft",eap);
 	}
-	
+	public int updateAppr(EapDomain eap) {
+		return sqlSession.update("Eap.updateAppr",eap);
+	}
+	public int updateReject(EapDomain eap) {
+		return sqlSession.update("Eap.updateReject",eap);
+	}
 }

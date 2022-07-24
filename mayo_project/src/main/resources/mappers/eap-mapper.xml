@@ -58,7 +58,7 @@
 		</where>
 	</select>
 	
-	<!-- 내 기안문 회수 -->
+	<!-- 내 기안문 회수 TODO 결과코드 1로 변경하도록 update -->
 	<delete id="deleteEap" parameterType="string">
 		DELETE FROM ELEC_APPROVAL WHERE EA_NO=#{ea_no}
 	</delete>
@@ -83,5 +83,15 @@
 			(FINAL_APPROVER=#{emp_no} AND STATUS_CODE IN(8)))
 		)
 	</select>
+	
+	<update id="updateAppr" parameterType="Eap">
+		UPDATE ELEC_APPROVAL SET status_code=#{status_code}, result_code=#{result_code}, update_date = default
+		WHERE EA_NO = #{ea_no}
+	</update>
+	
+	<update id="updateReject" parameterType="Eap">
+		UPDATE ELEC_APPROVAL SET result_code = #{result_code}, update_date = default, return_reson = #{return_reson}
+		WHERE EA_NO = #{ea_no}
+	</update>
 	
 </mapper>
