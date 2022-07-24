@@ -885,6 +885,10 @@ alter table work_pic drop constraint FK_WORK_BOARD_TO_WORK_PIC;
 alter table work_pic add constraint FK_WORK_BOARD_TO_WORK_PIC foreign key (work_no)
     references work_board (work_no) on delete cascade;
 
+alter table work_comment drop constraint FK_WORK_BOARD_TO_WORK_COMMENT;
+alter table work_comment add constraint FK_WORK_BOARD_TO_WORK_COMMENT foreign key (work_no)
+    references work_board (work_no) on delete cascade;
+
 commit;
 
 
