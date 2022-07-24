@@ -20,9 +20,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
 <!-- fullcalendar -->
+<!-- moment lib -->
+<script src='https://cdn.jsdelivr.net/npm/moment@2.27.0/min/moment.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
+<!-- moment lib -->
+<script src='https://cdn.jsdelivr.net/npm/moment@2.27.0/min/moment.min.js'></script>
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=349c4c75c4f78f9628da23a777619359&libraries=services"></script>
     <script>
@@ -37,12 +41,9 @@
           locale: 'ko',
           // 월요일 시작 달력
           firstDay: 1,
+          
           // Bootstrap 5 사용
           themeSystem: 'bootstrap5',
-          
-//           dateClick:function(){ // 날짜 클릭 시 이벤트
-//         	  $("#newSked").modal("show");
-//           },
 
           // DB에서 data 끌어오기
           events: [ // 달력에 data 띄우기
@@ -53,6 +54,7 @@
 			      end: '${work.work_deadline}',
 			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
 			      extendedProps: {
+			    	  work_no: '${work.work_no}',
 			    	  proj: '${work.proj_name}',
 			    	  content: '${work.work_content}',
 			    	  status: '${work.work_status}',
@@ -67,6 +69,7 @@
 				  end: '${sked.sked_end_date}',
 				  color: 'rgb(170, 205, 190)',
 			      extendedProps: {
+			    	  sked_no: '${sked.sked_no}',
 			    	  category: '${sked.sked_category}',
 			    	  location: '${sked.sked_location}',
 			    	  content: '${sked.sked_content}'
@@ -77,14 +80,21 @@
 		  
 		  // data 클릭 event
 		  eventClick: function(info) {
+			  	
+			  
 			 	// 일정일 때, 띄우는 모달
-			    $("#sked").modal("show");
-			    $("#sked .skedTitle").text(info.event.title);
-			    $("#sked .skedCate").text(info.event.extendedProps.category);
-			    $("#sked .skedStart").text(info.event.start);
-			    $("#sked .skedEnd").text(info.event.end);
-			    $("#sked .skedLoca").text(info.event.extendedProps.location);
-			    $("#sked .skedContent").text(info.event.extendedProps.content);
+			 	if(info.event.extendedProps.emergency == null){
+				    $("#sked").modal("show");
+				    $("#sked input[name='sked_no']").val(info.event.sked_no);
+				    $("#sked .skedTitle").text(info.event.title);
+				    $("#sked .skedCate").text(info.event.extendedProps.category);
+				    $("#sked .skedStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
+					$("#sked .skedEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
+				    $("#sked .skedLoca").text(info.event.extendedProps.location);
+				    $("#sked .skedContent").text(info.event.extendedProps.content);
+			 	} else {
+			 		$("#work").modal("show");
+			 	}
 			    
 		  }
 		  
