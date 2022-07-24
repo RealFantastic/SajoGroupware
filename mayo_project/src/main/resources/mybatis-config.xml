@@ -20,6 +20,7 @@
 	<typeAlias type="com.group.mayo.eaform.domain.EaForm" alias="EaForm"/>
 	<typeAlias type="com.group.mayo.schedule.domain.Schedule" alias="Schedule"/>
 	<typeAlias type="com.group.mayo.approval.domain.ApprovalFile" alias="ApFile"/>
+	<typeAlias type="com.group.mayo.work.domain.Comment" alias="Comment"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/employee-mapper.xml"/>
@@ -33,5 +34,6 @@
 	<mapper resource="mappers/eaForm-mapper.xml"/>
 	<mapper resource="mappers/schedule-mapper.xml"/>
 	<mapper resource="mappers/empholiday-mapper.xml"/>
+	<mapper resource="mappers/comment-mapper.xml"/>
 </mappers>
 </configuration>

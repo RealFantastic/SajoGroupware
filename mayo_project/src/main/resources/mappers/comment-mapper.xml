@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Comment">
+<!-- COMMENT_NO   NOT NULL NUMBER         -->
+<!-- C_WRITER     NOT NULL VARCHAR2(30)   -->
+<!-- C_CONTENT    NOT NULL VARCHAR2(200)  -->
+<!-- C_WRITE_DATE NOT NULL TIMESTAMP(6)   -->
+<!-- WORK_NO      NOT NULL NUMBER    -->
+
+<insert id="insertComment" parameterType="Comment">
+	insert into work_comment values ((select nvl(max(comment_no),0)+1 from work_comment), #{c_writer}, #{c_content},
+	default, #{work_no} )
+</insert>
+
+<!-- 댓글 보기 -->
+<select id="selectComment" resultType="Comment">
+	select * from work_comment where work_no = #{work_no}  
+</select>
+
+<!-- 댓글 삭제하기 -->
+<delete id="deleteComment">
+	delete from work_comment where comment_no=#{comment_no}
+</delete>
+
+</mapper>

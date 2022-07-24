@@ -221,7 +221,7 @@
 </div>
 
 <script>
-//다중 파일 업로드 예제
+// 파일 추가
 	var fileCnt = 1;
 	$("#addFile").click(function(){
 		fileCnt++;
@@ -234,6 +234,7 @@
 $(function(){
 		var proj_no = ${project.proj_no};
 		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
+		$("#skedlist").load("<%=request.getContextPath()%>/work/detailS",{proj_no:proj_no});
 });
 
 	//휴지통 누르면 파일 삭제하기
