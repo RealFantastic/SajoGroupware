@@ -841,14 +841,19 @@ INSERT INTO EMPLOYEE_HOLIDAY VALUES (SEQ_BIRTH_NO.NEXTVAL,EXTRACT(YEAR FROM SYSD
 INSERT INTO EMPLOYEE_HOLIDAY VALUES (SEQ_BIRTH_NO.NEXTVAL,EXTRACT(YEAR FROM SYSDATE),'202220123',15,null,null);
 INSERT INTO EMPLOYEE_HOLIDAY VALUES (SEQ_BIRTH_NO.NEXTVAL,EXTRACT(YEAR FROM SYSDATE),'202230001',15,null,null);
 
+update EMPLOYEE_HOLIDAY set left_count = 15 where birth_year = EXTRACT(YEAR FROM SYSDATE) and emp_no = '202230001';
 
 
+select
+to_number(nvl((SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = '202210001'),0))+4
+from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = '202210001'
+;
 
+commit;
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------
 
 
 -------------------------------------------------------  김혜린  시작(732 ~ )  ---------------------------------------------------------------------------------------
-
 INSERT INTO DEPARTMENT VALUES(20, '영업팀');
 INSERT INTO EMPLOYEE VALUES (202220123,'김혜린',0,'hhyrin03@gmail.com',
 '010-1111-3333','경기도 고양시 일산동구','900동 203호','10303','951203-2222222',default,
