@@ -35,6 +35,19 @@
 		                </a>
 		                <ul class="dropdown_menu hide">
 		                    <li><a href="#">내 정보</a></li>
+		                    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
+		                    <li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
+		 				</ul>                   
+	 				</c:when> 
+            		<c:when test="${loginSsInfo.emp_no != null && loginSsInfo.job_no == 10 }">
+		                <a href="#" class="dropdown_toggle">
+		                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
+		                    <strong>${loginSsInfo.emp_name}</strong>
+		                </a>
+		                <ul class="dropdown_menu hide">
+		                    <li><a href="#">내 정보</a></li>
+		                    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
+		                    <li><a href="<%=request.getContextPath()%>/member/invite">직원초대</a></li>
 		                    <li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
 		 				</ul>                   
 	 				</c:when> 

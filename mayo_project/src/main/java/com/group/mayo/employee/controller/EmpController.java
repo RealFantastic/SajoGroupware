@@ -196,7 +196,7 @@ public class EmpController {
 					employee.setSign_file_name(rename_filename);
 				}
 			}
-		rttr.addFlashAttribute("msg", "가입이 완료 되었습니다.");
+		rttr.addFlashAttribute("msg", "가입이 완료되었습니다.");
 		mv.setViewName("redirect:/");
 		return mv;
 	}		
@@ -345,7 +345,7 @@ public class EmpController {
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = email;
 	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
-	     String content = "아래 링크를 클릭하여 회원가입을 진행해주세요./n";
+	     //String content = "아래 링크를 클릭하여 회원가입을 진행해주세요./n ";
 	     String cp_num = "";
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
@@ -354,7 +354,7 @@ public class EmpController {
 	         mailHelper.setFrom(from);
 	         mailHelper.setTo(to);
 	         mailHelper.setSubject(title);
-	         mailHelper.setText(content, true);       
+	         mailHelper.setText("text/html","<html><p>아래 링크를 클릭하여 회원가입을 완료해주십시오.</p><div><a href='<%=request.getContextPath()%>/member/enroll'>회원가입 하러가기</a></div></html>");       
 	         
 	         mailSender.send(mail);
 	         cp_num = Integer.toString(cp_number);
@@ -454,20 +454,20 @@ public class EmpController {
 	 	}
 	    // 비밀번호 재설정 실행
 		@RequestMapping(value="updatePwd", method=RequestMethod.POST)
-		public ModelAndView updatePwd(@RequestParam(value="updateid", defaultValue="", required=false) String emp_no,
+		@ResponseBody
+		public ModelAndView updatePwd(
 			Employee employee
 			,ModelAndView mv 
+			,RedirectAttributes rttr
 			,HttpSession session) {
-		employee.setEmp_no(emp_no);
-		service.updatePwd(employee);
+			
+			Employee updatdPwd = service.updatePwd(employee);
+			employee.setPassword(pwdEncoding.encode(updatdPwd.getPassword()));
 		
-		 // 비밀번호 재설정할 경우 성공 페이지 이동
-		Employee loginSsInfo = (Employee)session.getAttribute("loginSsInfo");
-		if(loginSsInfo == null) {
+			session.invalidate();
+			rttr.addFlashAttribute("msg", "비밀번호 변경이 완료되었습니다.");
 			mv.setViewName("redirect:/member/login");
-		} else {
-			mv.setViewName("redirect:/member/updatePwd");
-		}
+
 		return mv;
 	}
 
