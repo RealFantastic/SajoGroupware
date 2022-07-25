@@ -228,6 +228,10 @@
                         <label for="phone">전화번호 : </label>
                         <input type="text" id="phone" name="phone" required="required">
                     </div>
+                    <div class="j_e" id="j_pic_file">
+                        <label for="pic_file">프로필 사진 : </label>
+                        <input type="file" id="pic_file" name="pic_file" >
+                    </div>
                     <div class="j_e" id="j_sign_file">
                         <label for="sign_file">서명파일 : </label>
                         <input type="file" id="sign_file" name="sign_file" >
