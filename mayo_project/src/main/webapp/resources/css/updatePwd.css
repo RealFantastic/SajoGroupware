@@ -1,0 +1,52 @@
+@charset "UTF-8";
+#j_body{
+ /* 배경색상 */
+ background-color: rgb(235, 255, 246);
+ /* 가운데 정렬 */
+ margin: 0 auto;
+}
+#j_container{
+    margin: 0 auto;
+    padding: 5%;
+    width: 400px;
+    padding: 0;
+}
+
+ #j_container1{
+	 box-sizing: border-box;
+	 background-color: white;
+	 padding: 30px;
+	 width: 500px;
+	 height: 300px;
+	
+	 /* 가운데 정렬 */
+	 margin: 0 auto;
+	
+	 border-radius: 15px;
+ }
+ #j_emp_no{
+ 	width: 420px;
+ 	margin: 0 auto;
+ }
+ #emp_no{
+ 	width: 300px;
+ }
+ #j_pwd1, #j_pwd2{
+ 	width: 300px;
+    margin: 0 auto;
+
+ }
+ #password_new, #password_new_chk{
+ 	width: 300px;
+ }
+ #j_btn{
+ 	width: 230px;
+ 	margin: 20px 260px;
+ }
+ #j_footer_c{
+ 	margin: 0 auto;
+ 	width: 400px;
+ }
+ #j_emp_no, #j_pwd1, #j_pwd2{
+ 	margin-bottom: 10px;
+ }

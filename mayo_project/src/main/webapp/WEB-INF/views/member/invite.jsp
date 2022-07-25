@@ -26,7 +26,10 @@
 <body id="j_background">
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
  	<div id="j_container">
-	    <div id="j_container1">
+	    <div id="j_container1"
+	    style="margin: 0 auto;
+			    position: relative;
+			    top: 100px;" >										
 	        <form id="invite" name="invite" action="<%=request.getContextPath()%>/member/invite" method="post">
 	            <div>
 	                <div>
@@ -60,7 +63,9 @@
 	        </form>
 	    </div>
 	    <div>
-	        <footer>
+	        <footer style="
+						    position: relative;
+						    top: 110px;	">		
 	            <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
 	        </footer>
 		</div>
@@ -71,7 +76,7 @@
     	$(invite).ready (function (){
     		$('#add_btn').click(function(){
     			$('.addInput').append (
-    				'<input type="type" name="email" value="이메일 주소" class="email">\
+    				'<input type="type" name="email" placeholder="이메일 주소" class="email">\
     				<button type="button" class="btnRemove">삭제</button><br>'
     			); //input taf 추가
     			$('.btnRemove').on('click',function(){
@@ -103,6 +108,7 @@
 	        		console.log(data);
 					alert("직원 초대 이메일 발송이 완료 되었습니다.");
 					$("#email").val('');
+					$(".email").val('');
 	        		$("#email_check_btn").css("display","inline-block");
 // 					$(".successEmailChk").text("직원 초대 이메일 발송이 완료 되었습니다.");
 // 					$(".successEmailChk").css("color","green");

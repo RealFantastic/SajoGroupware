@@ -78,17 +78,23 @@
     
 		    
 </head>
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
 <script type="text/javascript">
 	${msg}
 </script>
+<jsp:include page="/WEB-INF/views/template_header.jsp"/>
     <div>
         <form id="emp_enroll" name="emp_enroll"
         	 action="<%=request.getContextPath()%>/member/enroll"
 			 method="post" enctype="multipart/form-data">
             <section>
-            <div id="j_container">
+            <div id="j_container"
+             style="
+    			padding-top: 40px;
+    			margin: 0 auto;
+			    display: block;
+			    position: relative;
+			    top: 150px;">
             <p id="j_title">회원가입</p>
              <div id="j_container1">
                     <div id="j_cp_number" class="j_e">
@@ -261,7 +267,7 @@
 	                        </li>
                   		 </ul>
               	 	</div>
-                <div id="j_btn">
+                <div id="j_btn" style="bottom: 30px; z-index: 9999;">
                     <button type="reset" class="btn_yellow">뒤로가기</button>
                     <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
                 </div>
@@ -269,7 +275,7 @@
             </div>
             </section>
         </form>
-        <footer>
+        <footer style="position: relative; top: 150px;">
             <p class="mb-1" id="j_footer">&copy; 2022 참치 마요 주식회사 - 대표자 참지 않아 박정환</p>
         </footer>
     </div>

@@ -175,28 +175,39 @@ public class EmpController {
 			, Employee employee
 			, HolidayEmployee hemployee
 			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
+			, @RequestParam(name="pic_file", required = false) MultipartFile pic_file
 			, HttpServletRequest req
 			) {
 		
+		
+		// 첨부파일있다면 첨부파일 저장
+		if(sign_file !=null) {
+			String rename_filename = commonFile.saveFile(sign_file, req);
+			if(rename_filename != null) {
+				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+				employee.setSign_path(sign_file.getOriginalFilename());
+				employee.setSign_file_name(rename_filename);
+			}
+		}
+		// 첨부파일있다면 첨부파일 저장
+		if(pic_file !=null) {
+			String rename_filename = commonFile.saveFile(pic_file, req);
+			if(rename_filename != null) {
+				//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
+				employee.setPic_path(pic_file.getOriginalFilename());
+				employee.setPic_name(rename_filename);
+			}
+		}
 		//암ㅎ화
 		employee.setPassword(pwdEncoding.encode(employee.getPassword()));
+		
 		int result = service.insertEmployee(employee);
-		
-		
 		if(result < 1) {
 			rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
 			mv.setViewName("redirect:/member/enroll");
 			return mv;
 		}
-			// 첨부파일있다면 첨부파일 저장
-			if(sign_file !=null) {
-				String rename_filename = commonFile.saveFile(sign_file, req);
-				if(rename_filename != null) {
-					//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
-					employee.setSign_path(sign_file.getOriginalFilename());
-					employee.setSign_file_name(rename_filename);
-				}
-			}
+			
 		rttr.addFlashAttribute("msg", "가입이 완료되었습니다.");
 		mv.setViewName("redirect:/");
 		return mv;
@@ -476,18 +487,7 @@ public class EmpController {
 
 		return mv;
 		
-//	int result = service.insertEmployee(employee);
-//		
-//		
-//		if(result < 1) {
-//			rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
-//			mv.setViewName("redirect:/member/enroll");
-//			return mv;
-//		}
-
-//		rttr.addFlashAttribute("msg", "가입이 완료 되었습니다.");
-//		mv.setViewName("redirect:/");
-//		return mv;									
+								
 
 	}
 
