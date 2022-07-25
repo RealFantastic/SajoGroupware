@@ -35,20 +35,24 @@ public class Holiday {
 	private	String req_date_str;
 	private	String hd_start_str;
 	private	String hd_end_str;
+	private String total;
 	
 	
+
 	
 	@Override
 	public String toString() {
 		return "Holiday [hd_no=" + hd_no + ", emp_no=" + emp_no + ", req_date=" + req_date + ", hd_start=" + hd_start
 				+ ", hd_end=" + hd_end + ", hd_code=" + hd_code + ", hd_count=" + hd_count + ", hd_reason=" + hd_reason
 				+ ", ea_no=" + ea_no + ", left_count=" + left_count + ", req_date_str=" + req_date_str
-				+ ", hd_start_str=" + hd_start_str + ", hd_end_str=" + hd_end_str + "]";
+				+ ", hd_start_str=" + hd_start_str + ", hd_end_str=" + hd_end_str + ", total=" + total + "]";
 	}
-	
+
+
 	public double getLeft_count() {
 		return left_count;
 	}
+
 
 	public void setLeft_count(double left_count) {
 		this.left_count = left_count;
@@ -147,7 +151,13 @@ public class Holiday {
 	public void setHd_end_str(String hd_end_str) {
 		this.hd_end_str = hd_end_str;
 	}
+	public String getTotal() {
+		return total;
+	}
 
-	
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
 	
 }

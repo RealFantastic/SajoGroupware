@@ -100,7 +100,7 @@
 				//데이블 초기화
 				$('.holiday_table > tbody').empty();
 				
-				var list = result;
+				var list = result.holidayList;
 				if(list.length > 0){
 					var str = "";
 					list.forEach(function(item){
@@ -124,14 +124,22 @@
 								+item.hd_reason+
 							  "</td>";
 						str +="</tr>";
-					})
+					});
+					
+					
 				}else{
 					str +="<tr>"
 					str += "<td colspan='6' class='holiday_table_list_td'>조회된 연차내용이 없습니다.</td>";
 					str +="</tr>";
+					
+					
 				}
-				
 				$(".holiday_table tbody").html(str);
+				
+				if(result.totalHoliday != null){
+					console.log("total : "+result.totalHoliday);
+					$("#total_holiday").html(result.totalHoliday);
+				}
 				
 			}
 			,error:function(){
@@ -145,7 +153,7 @@
 
 
 			<div class="occur_title alert alert-success font2" role="alert">
-				해당연도 발생연차 :　${holidayMystatus.total } 일 
+				해당연도 발생연차 :　<span id="total_holiday"></span> 일 
 				<!-- 일단 0일 기준  -->
 			</div>
 		</div>
@@ -190,5 +198,7 @@
 			</table>
 		</div>
 	</div>
+	
+	
 </body>
 </html>

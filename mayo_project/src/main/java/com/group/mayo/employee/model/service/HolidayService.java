@@ -41,6 +41,20 @@ public interface HolidayService {
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception;
 	
 	/**
+	 * @param paramMap
+	 * @return 해당연도 총 연차발생 개수
+	 * @author hong
+	 */
+	public int selectTotalHoliday(Map<String, String> paramMap);
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
 	 * 
 	 * @param holiday
 	 * @return 0 or 1
@@ -63,7 +77,8 @@ public interface HolidayService {
 	 * @author JHPark
 	 */
 	public int deleteHoliday(String ea_no);
-	
-	
+
+
+
 
 }

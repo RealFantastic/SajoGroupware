@@ -27,16 +27,27 @@ public class HolidayDao {
 		return sqlSession.selectOne("CommuteRecord.commuteMyInfo", id);
 	}
 
-	//개인 연차내역 리스트
+//	해당연도 총 연차발생 개수
 	public List<Holiday> holidayMystatus(Map<String, String> paramMap){
 		return sqlSession.selectList("Holiday.holidayMystatus",paramMap);
 	}
 
+	//	개인 연차내역 리스트
+	public int selectTotalHoliday(Map<String, String> paramMap) {
+		return sqlSession.selectOne("Holiday.selectTotalHoliday", paramMap);
+	}
 
 	//	인사팀 - 직원 검색하기
 	public List<CommuteEmployee>commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception{
 		return sqlSession.selectList("CommuteRecord.commuteEmpSearch", empCommuteSearch);
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	public int insertHoliday(Holiday holiday) {
 		return sqlSession.insert("Holiday.insertHoliday", holiday);

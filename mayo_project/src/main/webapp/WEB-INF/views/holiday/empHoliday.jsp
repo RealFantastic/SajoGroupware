@@ -41,12 +41,12 @@
 
 	<div class="left_bar_exception">
 	
-		<div class="holiday_list font4">나의 연차현황</div>
+		<div class="holiday_list font4">직원 연차현황</div>
 		
 		<div class="my_pe">
 			<div class="my_info font1">
 				　<br>
-					<div class="font2">　 ＜나의 인적사항＞　<br><br></div>
+					<div class="font2">　 ＜직원 인적사항＞　<br><br></div>
 					
 					　　사원번호 : ${commuteStaffInfo.emp_no}　　<br><br>
 					　　사원명 : ${commuteStaffInfo.emp_name }　　<br><br>
@@ -66,17 +66,17 @@
 			<div>
 				<select class="select_box form-control form-control-lg" name="birth-year" onchange="selectHolidayList()">
 					<option value="">년도를 선택해주세요.▼</option>
-					<option value="2020y">2020년도 연차내역 </option>
-					<option value="2021y">2021년도 연차내역 </option>
-					<option value="2022y" selected >2022년도 연차내역 </option>
-					<option value="2023y">2023년도 연차내역 </option>
-					<option value="2024y">2024년도 연차내역 </option>
-					<option value="2025y">2025년도 연차내역 </option>
-					<option value="2026y">2026년도 연차내역 </option>
-					<option value="2027y">2027년도 연차내역 </option>
-					<option value="2028y">2028년도 연차내역 </option>
-					<option value="2029y">2029년도 연차내역 </option>
-					<option value="2030y">2030년도 연차내역 </option>
+					<option value="2020">2020년도 연차내역 </option>
+					<option value="2021">2021년도 연차내역 </option>
+					<option value="2022" selected >2022년도 연차내역 </option>
+					<option value="2023">2023년도 연차내역 </option>
+					<option value="2024">2024년도 연차내역 </option>
+					<option value="2025">2025년도 연차내역 </option>
+					<option value="2026">2026년도 연차내역 </option>
+					<option value="2027">2027년도 연차내역 </option>
+					<option value="2028">2028년도 연차내역 </option>
+					<option value="2029">2029년도 연차내역 </option>
+					<option value="2030">2030년도 연차내역 </option>
 				</select>
 			</div>
 
@@ -100,7 +100,7 @@
 				//데이블 초기화
 				$('.holiday_table > tbody').empty();
 				
-				var list = result;
+				var list = result.holidayList;
 				if(list.length > 0){
 					var str = "";
 					list.forEach(function(item){
@@ -114,7 +114,7 @@
 						str +="<td class='holiday_table_list_td'>"
 								+item.hd_end_str+
 							  "</td>";
-						str +="<td class='holiday_table_list_td'>"
+					str +="<td class='holiday_table_list_td'>"
 								+item.hd_count+
 							  "</td>";
 						str +="<td class='holiday_table_list_td'>"
@@ -131,6 +131,11 @@
 					str +="</tr>";
 				}
 				$(".holiday_table tbody").html(str);
+				
+				if(result.totalHoliday != null){
+					console.log("total emp : "+result.totalHoliday);
+					$("#total_holiday").html(result.totalHoliday);
+				}
 			}
 			,error:function(){
 				alert("연차ajax 제대로 동작했슈 ........ㅠㅠ");
@@ -144,8 +149,8 @@
 
 
 			<div class="occur_title alert alert-success font2" role="alert">
-				해당연도 발생연차 :　 0 일 
-<!-- 				일단 0일 기준  -->
+				해당연도 발생연차 :　<span id="total_holiday"></span> 일 
+				<!-- 일단 0일 기준  -->
 			</div>
 		</div>
 

@@ -61,11 +61,15 @@ public class HolidayController {
 		paramMap.put("id", empNo);
 
 		System.out.println(birthYear);
-		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Holiday> holidayList = service.holidayMystatus(paramMap);
+		int totalHoliday = service.selectTotalHoliday(paramMap);
+		
+		resultMap.put("holidayList", holidayList);
+		resultMap.put("totalHoliday", totalHoliday);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String result = gson.toJson(holidayList);
+		String result = gson.toJson(resultMap);
 		
 		return result;
 	}
@@ -114,7 +118,7 @@ public class HolidayController {
 			, HttpServletRequest request) {
 		
 		String empNo = request.getParameter("empNo");
-		
+	
 		//본인의 사원번호, 사원명, 직함, 부서명, 연락처
 		CommuteEmployee commuteStaffInfo=service.commuteMyInfo(empNo);
 		mv.addObject("commuteStaffInfo", commuteStaffInfo);
@@ -137,11 +141,16 @@ public class HolidayController {
 		paramMap.put("id", empNo);
 
 		System.out.println(birthYear);
-		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Holiday> holidayList = service.holidayMystatus(paramMap);
+		// total 가져오는 로직 추가 
+		int totalHoliday = service.selectTotalHoliday(paramMap);
+		
+		resultMap.put("holidayList", holidayList);
+		resultMap.put("totalHoliday", totalHoliday);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String result = gson.toJson(holidayList);
+		String result = gson.toJson(resultMap);
 		
 		return result;
 	}

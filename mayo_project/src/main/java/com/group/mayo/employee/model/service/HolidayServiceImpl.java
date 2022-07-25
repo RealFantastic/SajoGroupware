@@ -47,6 +47,18 @@ public class HolidayServiceImpl implements HolidayService{
 		return dao.commuteEmpSearch(empCommuteSearch);
 	}
 	
+//	해당연도 발생연차 갯수
+	@Override
+	public int selectTotalHoliday(Map<String, String> paramMap) {
+		return dao.selectTotalHoliday(paramMap);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public int insertHoliday(Holiday holiday) {
