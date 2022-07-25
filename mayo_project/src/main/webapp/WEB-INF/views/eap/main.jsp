@@ -88,6 +88,7 @@
 					break;
 	    		}
 	    	}
+	    	<% request.getSession().removeAttribute("form_code");%>
 	    </script>
     </c:if>
 </body>

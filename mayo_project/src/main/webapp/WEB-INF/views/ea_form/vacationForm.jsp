@@ -359,7 +359,7 @@
 				});
 				
 				$('#jstree_org_chart').bind('select_node.jstree',function(event,data){
-					var emp_no = data.instance.get_node(data.selected).id;
+					var emp_no = data.instance.get_node(data.selected).id; //클릭한 사원의 아이디를 가져옴.
 					console.log(emp_no);
 					var currOrder = $('.list_approval tr:last-child').find('td:eq(0)').text();
 					console.log(currOrder);
