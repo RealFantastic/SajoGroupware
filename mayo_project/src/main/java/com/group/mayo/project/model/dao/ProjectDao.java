@@ -27,7 +27,7 @@ public class ProjectDao {
 		return sqlSession.update("Project.updateProj", proj);
 	}
 	
-	public int deleteProj(String proj_no) {
+	public int deleteProj(int proj_no) {
 		return sqlSession.delete("Project.deleteProj", proj_no);
 	}
 	

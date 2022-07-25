@@ -20,7 +20,7 @@ public class CommentDao {
 	}
 	
 	public int insertComment(Comment comment) {
-		return sqlSession.insert("Comment.selectComment", comment);
+		return sqlSession.insert("Comment.insertComment", comment);
 	}
 	
 	public int deleteComment(String comment_no) {

@@ -139,14 +139,6 @@ $("#select").val(status).prop("selected", true);
 			});
 	});
 	
-	
-//다중 파일 업로드 예제
-// 	var fileCnt = 1;
-// 	$("#addFile").click(function(){
-// 		fileCnt++;
-// 		var html= "<div style='display:flex;'><input type='file' name='uploadfile'><i class='fa-solid fa-trash-can'></i><div>";
-// 		$("#files").append(html);
-// 	});
 
 // 프로그래스 바 값 가져오기
 var slider = document.getElementById("progress");

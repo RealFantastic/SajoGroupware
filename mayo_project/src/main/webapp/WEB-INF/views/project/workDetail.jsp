@@ -73,14 +73,6 @@
 							</div>
 						</div>
 					<div class="mb-3">
-						<i class="fa-solid fa-paperclip"></i> 
-						<c:if test="${!empty work.projfilelist}">
- 						<c:forEach var="file" items="${work.projfilelist }">                                             
-							<div>${file.proj_original_filename}</div>                                
-						</c:forEach>
- 						</c:if>
-					</div>
-					<div class="mb-3">
 						<textarea class="form-control readContent" readonly>${work.work_content }</textarea>
 					</div>
 					<button type="button" class="btn_comment">댓글</button>
@@ -92,7 +84,10 @@
 								<button type="button" class="btn_yellow insertComment">등록</button>
 							</form>
 						</div>
-						<div class="viewComment"></div>
+						<!-- 댓글 조회 -->
+						<input type="hidden" name="work_no" value="${work.work_no }">
+						<div class="viewComment">
+						</div>
 					</div>
 				  </div>
 				</div>
@@ -109,8 +104,24 @@
 
 <script>
 	// 댓글 버튼 누르면 영역 보이기
-	$(".btn_comment").click(function(){
+	$(".btn_comment").click(function(event){
 		$(this).next(".commentArea").toggle();
+		
+// 		var work_no = $(event.target).next().children('input').val();
+// 		console.log("업무번호"+$(event.target).next().children('input').val());
+		
+// 		$.ajax({
+// 			type:"GET",
+<%-- 			url: "<%=request.getContextPath()%>/comment/select", --%>
+// 			data : {
+// 					work_no: work_no
+// 					},
+// 			 // 업무 번호 들고가기
+// 			success : function(comment) {
+// 				console.log(comment);
+// 			}
+// 		});
+		
 	});
 
 
@@ -144,12 +155,10 @@
 		});
  		
 	 		// 댓글 작성하기
-			$(".insertComment").click(function(event){ 
+			$(".insertComment").click(function(){ 
 				
 			var comment = $("form[name=newComment]").serialize();
 			
-			console.log($(event.target).prev('input').val());
-				
 				// ajax로 컨트롤러 이동 - insert
 				$.ajax({
 					type:"POST",
@@ -158,7 +167,7 @@
 				 // 업무 번호 들고가기
 				success : function(result) {
 					alert(result);
-					location.reload();
+					console.log(result);
 				}
 			});
 

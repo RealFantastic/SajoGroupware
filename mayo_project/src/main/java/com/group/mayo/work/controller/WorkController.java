@@ -1,8 +1,5 @@
 package com.group.mayo.work.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,25 +7,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.group.mayo.common.FileUpload;
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.model.service.EmpService;
-import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.schedule.domain.Schedule;
 import com.group.mayo.schedule.model.service.ScheduleService;
-import com.group.mayo.work.domain.ProjFile;
 import com.group.mayo.work.domain.Work;
 import com.group.mayo.work.model.service.WorkService;
 

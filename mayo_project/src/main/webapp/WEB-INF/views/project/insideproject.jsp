@@ -154,8 +154,7 @@
 							<div style="display: flex; margin-bottom: 10px;">
 								<div style="margin-right: 15px;">
 									<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-										<option selected>상태</option>
-										<option value="0">요청</option>
+										<option selected value="0">요청</option>
 										<option value="1">진행</option>
 										<option value="2">완료</option>
 										<option value="3">보류</option>
@@ -177,11 +176,11 @@
 							<div class="date" style="display: flex;">
 								<div class="mb-3" style="margin-right: 13px;">
 									<label for="recipient-name" class="col-form-label">시작일</label>
-									<input type="Date" class="form-control" id="work_start_date" name="work_start_date">
+									<input type="Date" class="form-control" id="work_start_date" name="work_start_date" required>
 								</div>
 								<div class="mb-3">
 									<label for="recipient-name" class="col-form-label" style="color: red;">마감일</label> 
-									<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
+									<input type="Date" class="form-control" id="work_deadline" name="work_deadline" required>
 								</div>
 							</div>
 							<div class="mb-3">
@@ -227,11 +226,11 @@
 							<div class="date" style="display: flex;">
 								<div class="mb-3" style="margin-right: 13px;">
 									<label for="recipient-name" class="col-form-label">시작일</label>
-									<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
+									<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" required>
 								</div>
 								<div class="mb-3">
 									<label for="recipient-name" class="col-form-label" style="color: red;">종료일</label> 
-									<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
+									<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" required>
 								</div>
 							</div>
 							<div class="mb-3" id="loca">

@@ -21,6 +21,7 @@ public class CommentServiceImpl implements CommentService{
 		return dao.selectComment(work_no);
 	}
 
+	@Override
 	public int insertComment(Comment comment) {
 		return dao.insertComment(comment);
 	}

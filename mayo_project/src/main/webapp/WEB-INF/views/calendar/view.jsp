@@ -32,9 +32,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        
 
-        
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
           // 한글 달력 설정
@@ -102,7 +100,7 @@
 					$("#work .workEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
 				    $("#work .workContent").text(info.event.extendedProps.content);
 			 	}
-			    
+			 	
 		  }
         });// 함수 끝
         calendar.render();
@@ -114,12 +112,10 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 
 <div class="content">
-
 	<div id="cal" style="display:flex;">
 		<!-- 일정 추가 버튼 -->
 		<div id='calendar'></div> <button type="button" class="btn_yellow newSked" data-bs-toggle="modal" data-bs-target="#newSked">일정 추가</button>
 	</div>
-
 </div>
 
 	<!-- 일정 상세보기 -->

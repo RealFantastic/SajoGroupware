@@ -32,7 +32,7 @@ public interface ProjectService {
 	 * @return 삭제된 프로젝트 개수
 	 * @author HyerinK
 	 */
-	public int deleteProj(String proj_no);
+	public int deleteProj(int proj_no);
 	
 	/**
 	 * @param proj 프로젝트 번호 proj_no

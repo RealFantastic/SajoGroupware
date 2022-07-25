@@ -33,7 +33,7 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 	
 	@Override
-	public int deleteProj(String proj_no) {
+	public int deleteProj(int proj_no) {
 		return dao.deleteProj(proj_no); 
 	}
 

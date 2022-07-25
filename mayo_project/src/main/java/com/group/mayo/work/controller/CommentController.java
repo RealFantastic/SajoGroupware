@@ -26,20 +26,19 @@ public class CommentController {
 
 	@Autowired
 	private CommentService service;
-	// 댓글
+	
+	// 댓글 조회
 	@GetMapping("/list") 
-	public ModelAndView selectComment(ModelAndView mv,@RequestParam(name="work_no", required=false) String work_no){
+	public List<Comment> selectComment(ModelAndView mv,@RequestParam(name="work_no", required=false) String work_no){
 		
 		List<Comment> comment = service.selectComment(work_no);		
 		
-		mv.addObject("comment", comment);
-		mv.setViewName("project/insideproj");
-		return mv;
+		return comment;
 	}
 	
 	// 댓글 등록
 	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8") 
-	public String insertComment(ModelAndView mv, Comment comment, HttpSession session, RedirectAttributes rttr) {
+	public String insertComment(Comment comment, HttpSession session) {
 		
 		Employee employee = (Employee)session.getAttribute("loginSsInfo");
 		comment.setC_writer(employee.getEmp_no());
@@ -52,7 +51,7 @@ public class CommentController {
 		
 		if(result <= 0) {
 			System.out.println("댓글 등록 실패");
-			msg="등록에 실패했습니다";
+			msg="댓글 등록에 실패했습니다";
 		} else {
 			msg="댓글이 등록됐습니다";
 		}

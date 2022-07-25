@@ -19,7 +19,9 @@ import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.service.ProjectService;
+import com.group.mayo.work.domain.Comment;
 import com.group.mayo.work.domain.Work;
+import com.group.mayo.work.model.service.CommentService;
 import com.group.mayo.work.model.service.WorkService;
 
 @Controller
@@ -92,7 +94,7 @@ public class ProjectController {
 	// 프로젝트 삭제
 	@PostMapping(value="/delete", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
-	public String deleteProj(@RequestParam(name="proj_no", required=false) String proj_no) {
+	public String deleteProj(@RequestParam(name="proj_no", required=false) int proj_no) {
 		int result = service.deleteProj(proj_no);
 		String msg="";
 		
