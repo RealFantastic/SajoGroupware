@@ -89,7 +89,7 @@
 								$('.commute_list_table').append(str);
 							})
 							
-						}else{j
+						}else{
 							str="<tr>"
 							str += "<td colspan='6' class='commute_table_list_td'>조회된 데이터가 없습니다.</td>";
 							str += "</tr>";
