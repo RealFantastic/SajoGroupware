@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
+import com.group.mayo.project.domain.ProjectPic;
 
 public interface ProjectService {
 	
 	/**
+	 * @param emp_no 로그인 한 회원 사번
 	 * @return 전체 프로젝트 리스트
 	 * @author HyerinK
 	 */
-	public List<Project> selectAllProj();
+	public List<Project> selectAllProj(String emp_no);
 	
 	/**
 	 * @param 새로운 프로젝트 - 종류(proj_type), 제목(proj_name), 내용(proj_content), 생성자(proj_mgr)
@@ -46,7 +48,7 @@ public interface ProjectService {
 	 * @return 추가된 직원 수 
 	 * @author HyerinK
 	 */
-	public int insertPic(Employee emp);
+	public int insertPic(ProjectPic emp);
 	
 	/**
 	 * @param emp_no 사원번호

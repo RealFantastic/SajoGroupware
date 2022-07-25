@@ -39,6 +39,9 @@
 			<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add">
 				<i class="fa-solid fa-user-plus fa-lg"></i>
 			</button>
+			<div id="projectPic">
+				
+			</div>
 		</div>
 	</aside>
 
@@ -49,13 +52,14 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+						<h5 class="modal-title" id="exampleModalLabel3">담당자 추가</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body" style="display: flex;">
 						<div id="empJstree"></div>
 						<div id="selectedEmp_container">
 							<div id="selectedEmp">
+								<form id="select_add">
 								<table id="selected_list">
 									<thead>
 										<tr>
@@ -68,6 +72,8 @@
 									<tbody>
 									</tbody>
 								</table>
+								<input type="hidden" name="proj_no" value="${project.proj_no }">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -302,12 +308,11 @@ $(function(){
 					console.log(result);
 					var html ="";
 					html +=  "<tr>";
-   					html += "<td class='emp_no'>"+result.emp_no+"</td>";
+   					html += "<td class='emp_no'>"+result.emp_no+"<input type='hidden' name='emp_no' value='"+result.emp_no +"'></td>";
    					html += "<td>"+result.emp_name+"</td>";
    					html += "<td>"+result.dept_name+"</td>";
    					html += "<td>"+result.job_name+"</td>";       				
    					html += "</tr>";
-   					
    					$("#selected_list tbody").append(html);
 				},
 				error: function(){}
@@ -315,28 +320,15 @@ $(function(){
 			
 		});
 		
-		// 프로젝트 담당자 추가
+ 		// 프로젝트 담당자 추가
 		$("#insertEmp").click(function(){
-			var emp_no = new Array();// 배열 생성(동적할당용)
-			var i = 0; //하나씩 증가하는 수
-			while(tmp != ""){
-			var tmp = $('.emp_no').eq(i).text();
-				emp_no.push(tmp); //배열에 하나씩 추가
-				
-				i++;
-				console.log(tmp);
-			}
-			emp_no.pop(); //마지막 인덱스 값을 삭제
-			console.log(emp_no);
-			
-			var proj_no = $("input[name=proj_no]").val();
-			
+
+			console.log($("#select_add").serialize());
+
 			$.ajax({
 				type: "POST",
 				url: "<%=request.getContextPath()%>/project/insertPic",
-				data: {emp_no:emp_no,
-						proj_no: proj_no
-				},
+				data: $("#select_add").serialize(),
 				success: function(result){
 					alert(result);
 				}
@@ -345,8 +337,6 @@ $(function(){
 		
 		});
 });
-
-
 
 
 	//휴지통 누르면 파일 삭제하기

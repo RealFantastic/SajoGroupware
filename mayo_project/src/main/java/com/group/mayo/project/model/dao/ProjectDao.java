@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
+import com.group.mayo.project.domain.ProjectPic;
 
 @Repository
 public class ProjectDao {
@@ -15,8 +16,8 @@ public class ProjectDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Project> selectAllProj(){
-		return sqlSession.selectList("Project.selectAllProj");
+	public List<Project> selectAllProj(String emp_no){
+		return sqlSession.selectList("Project.selectAllProj", emp_no);
 	}
 	
 	public int insertProj(Project proj) {
@@ -35,7 +36,7 @@ public class ProjectDao {
 		return sqlSession.selectOne("Project.selectProj", proj_no);
 	}
 	
-	public int insertPic(Employee emp) {
+	public int insertPic(ProjectPic emp) {
 		return sqlSession.insert("Project.insertPic", emp);
 	}
 	

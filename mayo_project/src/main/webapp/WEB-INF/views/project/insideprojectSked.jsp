@@ -42,40 +42,43 @@
 
 	<div id="body">
 	
-	<!-- 직원 추가 Modal -->
-<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" style="display:flex;">
-       <div id="empJstree"></div>
-       <div id="selectedEmp_container">
-       		<div id="selectedEmp">
-       			<table id="selected_list">
-	       			<thead>
-	       				<tr>
-	       					<td>사번</td>
-	       					<td>사원명</td>
-	       					<td>부서명</td>
-	       					<td>직급명</td>       				
-	       				</tr>
-	       			</thead>
-	       			<tbody>
-	       			</tbody>
-       			</table>
-       		</div>
-       	</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="insertEmp">추가</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<!-- 직원 추가 Modal -->
+		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel3">담당자 추가</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" style="display: flex;">
+						<div id="empJstree"></div>
+						<div id="selectedEmp_container">
+							<div id="selectedEmp">
+								<form id="select_add">
+								<table id="selected_list">
+									<thead>
+										<tr>
+											<td>사번</td>
+											<td>사원명</td>
+											<td>부서명</td>
+											<td>직급명</td>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<input type="hidden" name="proj_no" value="${project.proj_no }">
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
+						<button type="button" class="btn btn_green" id="insertEmp">추가</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	<!-- 프로젝트 정보 모달창 -->
 <div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -181,10 +184,6 @@
 			<input type="range" id="progress" min="0" max="100" step="10">
 			<input type="text" id="percentage" name="work_progress" value="" readonly>%
 		</div>
-        <div class="mb-3">
-        	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
-        	<div id="files"></div>
-        </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
             <textarea class="form-control" id="content" name="work_content" rows="7" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
@@ -264,15 +263,6 @@
 </div>
 
 <script>
-// 파일 추가
-	var fileCnt = 1;
-	$("#addFile").click(function(){
-		fileCnt++;
-		var html= "<div class='fileDiv' style='display:flex;'><input type='file' name='uploadfile' class='file'>";
-		html += "<button class='deleteFile'><i class='fa-solid fa-trash-can'></i></button></div>";
-		$("#files").append(html);
-	});
-	
 // 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
@@ -295,7 +285,7 @@ $(function(){
 					console.log(result);
 					var html ="";
 					html +=  "<tr>";
-   					html += "<td>"+result.emp_no+"</td>";
+   					html += "<td class='emp_no'>"+result.emp_no+"<input type='hidden' name='emp_no' value='"+result.emp_no +"'></td>";
    					html += "<td>"+result.emp_name+"</td>";
    					html += "<td>"+result.dept_name+"</td>";
    					html += "<td>"+result.job_name+"</td>";       				
@@ -307,13 +297,23 @@ $(function(){
 			});
 			
 		});
-});
+		
+ 		// 프로젝트 담당자 추가
+		$("#insertEmp").click(function(){
 
-$("#insertEmp").click(function(){
-	$.ajax({
-		url:"<%=request.getContextPath()%>/",
-		type:"POST",
-	});
+			console.log($("#select_add").serialize());
+
+			$.ajax({
+				type: "POST",
+				url: "<%=request.getContextPath()%>/project/insertPic",
+				data: $("#select_add").serialize(),
+				success: function(result){
+					alert(result);
+				}
+				
+			});
+		
+		});
 });
 
 	//휴지통 누르면 파일 삭제하기

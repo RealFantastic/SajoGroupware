@@ -33,6 +33,7 @@ public class ScheduleController {
 	
 	// 새 일정 등록
 	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8") 
+	@ResponseBody
 	public String insertSked(Schedule sked, HttpSession session) {
 		
 		Employee employee = (Employee)session.getAttribute("loginSsInfo");
@@ -58,13 +59,14 @@ public class ScheduleController {
 	public ModelAndView skedPage(ModelAndView mv,
 			@RequestParam(name="proj_no", required=false) String proj_no
 			, HttpSession session) {
+		// 로그인 세션 불러오기
+		Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+		String emp_no = loginEmp.getEmp_no();
 
 			System.out.println("sked 페이지 들어왔니");
 			List<Schedule> sked = service.selectSked(proj_no);
-			List<Project> projList = projservice.selectAllProj();
+			List<Project> projList = projservice.selectAllProj(emp_no);
 			Project proj = projservice.selectProj(proj_no);
-			// 로그인 세션 불러오기
-			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
 			
 			mv.addObject("sked", sked);
 			mv.addObject("proj",projList);
@@ -94,11 +96,16 @@ public class ScheduleController {
 	// 일정 글 수정 페이지로 이동
 	@PostMapping("/toUpdate") 
 	public ModelAndView updateSkedPage(ModelAndView mv,
-			@RequestParam(name="sked_no", required=false) String sked_no) {
+			@RequestParam(name="sked_no", required=false) String sked_no,
+			HttpSession session) {
 
+			// 로그인 세션 불러오기
+			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+			String emp_no = loginEmp.getEmp_no();
+				
 			System.out.println("sked 업데이트 들어왔니");
 			Schedule sked = service.viewSked(sked_no);
-			List<Project> proj = projservice.selectAllProj();
+			List<Project> proj = projservice.selectAllProj(emp_no);
 			
 			mv.addObject("sked", sked);
 			mv.addObject("proj",proj);
@@ -109,7 +116,8 @@ public class ScheduleController {
 	
 	
 	// 일정 수정하기
-	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8")
+	@ResponseBody
 	public String updateSked(Schedule sked, HttpSession session) {
 		
 		int result = service.updateSked(sked);

@@ -134,7 +134,6 @@ $("#select").val(status).prop("selected", true);
 				data: work,
 				success: function(result){
 					alert(result);
-					location.reload();
 				}
 			});
 	});

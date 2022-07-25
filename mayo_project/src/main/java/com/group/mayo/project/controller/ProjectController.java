@@ -1,7 +1,9 @@
 package com.group.mayo.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,7 @@ import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.service.ProjectService;
-import com.group.mayo.work.domain.Comment;
 import com.group.mayo.work.domain.Work;
-import com.group.mayo.work.model.service.CommentService;
 import com.group.mayo.work.model.service.WorkService;
 
 @Controller
@@ -37,10 +37,14 @@ public class ProjectController {
 	
 	// 전체 프로젝트, 업무 목록
 	@GetMapping("/list") 
-	public ModelAndView selectAllProj(ModelAndView mv){
+	public ModelAndView selectAllProj(ModelAndView mv, HttpSession session){
 		
-		List<Project> proj = service.selectAllProj();
-		List<Work> work = workService.selectAllWork();		
+		// 로그인 세션 
+		Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+		String emp_no = loginEmp.getEmp_no();
+		
+		List<Project> proj = service.selectAllProj(emp_no);
+		List<Work> work = workService.selectAllWork(emp_no);		
 		
 		mv.addObject("work", work);
 		
@@ -108,16 +112,27 @@ public class ProjectController {
 		
 	}
 	
-	 // 프로젝트 담당 직원 추가
+	// 프로젝트 담당 직원 추가
 	@PostMapping(value="/insertPic", produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertPic(@RequestParam(name="emp_no", required=false) Employee emp, @RequestParam(name="proj_no", required=false) int proj_no) {
+	public String insertPic(HttpServletRequest req
+			,ProjectPic pic) {
+		String msg = "";
+		System.out.println(pic);
 		
-		ProjectPic projPic = new ProjectPic();
-		projPic.setProj_no(proj_no);
+		pic.setProj_no(pic.getProj_no());
+		System.out.println(pic.getEmp_no());
 		
-		int result = service.insertPic(emp);
-		String msg="";
+		String str = pic.getEmp_no();
+		
+		String[] emp_no = str.split(","); // , 기준으로 나누기
+		
+		int result = 0;
+		for(int i = 0; i < emp_no.length; i++) {
+			System.out.println(i + "번째 emp : " + emp_no[i]);
+			pic.setEmp_no(emp_no[i]);
+			result += service.insertPic(pic);
+		}
 		
 		if(result <= 0) {
 			System.out.println("직원 추가 성공!!");
@@ -138,7 +153,7 @@ public class ProjectController {
 		String msg="";
 		
 		if(result <= 0) {
-			System.out.println("직원 추가 성공!!");
+			System.out.println("직원 삭제 성공!!");
 			msg="직원 삭제에 실패했습니다";
 		} else {
 			msg="직원이 삭제되었습니다";

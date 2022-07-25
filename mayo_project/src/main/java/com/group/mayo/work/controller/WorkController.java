@@ -101,21 +101,22 @@ public class WorkController {
 		}
 	
 	// 업무 글 수정
-		@PostMapping("/update")
-		public String updateWork(Work work) {
-			
-		int result= service.updateWork(work);
+	@PostMapping("/update")
+	@ResponseBody
+	public String updateWork(Work work) {
 		
-		String msg="";
+	int result= service.updateWork(work);
+	
+	String msg="";
 
-		if(result <= 0) {
-			System.out.println("업무 수정 실패 ㅠㅠ");
-			msg="수정에 실패했습니다";
-		} else {
-			System.out.println("업무 수정 성공~!~!");
-			msg="업무가 수정되었습니다";
-		}
-		return msg;
+	if(result <= 0) {
+		System.out.println("업무 수정 실패 ㅠㅠ");
+		msg="수정에 실패했습니다";
+	} else {
+		System.out.println("업무 수정 성공~!~!");
+		msg="업무가 수정되었습니다";
+	}
+	return msg;
 	}
 	
 	// 업무 글 삭제

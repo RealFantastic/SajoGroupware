@@ -21,7 +21,6 @@ public class Project {
 	private String proj_mgr;
 	private int proj_type;
 	
-	
 	@Override
 	public String toString() {
 		return "Proj [proj_no=" + proj_no + ", proj_name=" + proj_name + ", proj_date=" + proj_date + ", proj_content="

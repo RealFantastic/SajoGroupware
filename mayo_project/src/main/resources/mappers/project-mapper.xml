@@ -25,9 +25,8 @@
 	<collection property="Employee" resultMap="Employee"/>
 </resultMap>
 
-
-<select id="selectAllProj" resultType="Project">
-	select * from proj order by proj_no desc
+<select id="selectAllProj" parameterType="Project" resultType="Project">
+	select * from proj left outer join project_pic using(proj_no) where emp_no=#{emp_no} or proj_mgr=#{emp_no} order by proj_no desc
 </select>
 
 <!-- 프로젝트 생성 -->
@@ -38,12 +37,12 @@
 
 <!-- 프로젝트 담당자 추가 -->
 <insert id="insertPic" parameterType="Project">
-	insert into proj_pic values (#{emp_no}, #{proj_no})
+	insert into project_pic values (#{emp_no}, #{proj_no})
 </insert>
 
 <!-- 프로젝트 담당자 삭제 -->
 <delete id="deletePic" parameterType="Project">
-	delete from proj_pic where emp_no=#{emp_no}
+	delete from project_pic where emp_no=#{emp_no}
 </delete>
 
 <!-- 프로젝트 선택 -->

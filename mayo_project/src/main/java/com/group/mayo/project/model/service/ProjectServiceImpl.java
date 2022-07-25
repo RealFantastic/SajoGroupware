@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
+import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.dao.ProjectDao;
 
 @Service
@@ -18,8 +19,8 @@ public class ProjectServiceImpl implements ProjectService{
 	private ProjectDao dao;
 	
 	@Override
-	public List<Project> selectAllProj(){
-		return dao.selectAllProj();
+	public List<Project> selectAllProj(String emp_no){
+		return dao.selectAllProj(emp_no);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
-	public int insertPic(Employee emp) {
+	public int insertPic(ProjectPic emp) {
 		return dao.insertPic(emp);
 	}
 
