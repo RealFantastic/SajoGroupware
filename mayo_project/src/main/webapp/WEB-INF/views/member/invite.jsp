@@ -38,7 +38,7 @@
 	                <div>
 	                    <div>
 	                    	<input type="hidden" value="cp_number">
-	                        <input type="text" name="email" value="이메일 주소" id="email" class="email">
+	                        <input type="text" name="email" placeholder="이메일 주소" id="email" class="email">
 	                        
 	                    </div>
 	                    <div>
@@ -48,7 +48,7 @@
 	                        <button type="button" id="add_btn" class="btn_yellow">+</button>
 	                    </div>
 	                    <div>
-	                    	<button type="submit" class="btn_green" id="invite_btn">초대하기</button>
+	                    	<button type="button" class="btn_green" id="invite_btn">초대하기</button>
 	                    </div>
 	                </div>
 	                <div id="j_logo_black">
@@ -84,27 +84,30 @@
     </script>
     <!-- 초대하기 버튼 -->
     <script>
-	var code = "";
+	//var code = "";
 	$("#invite_btn").click(function(){
 		var email = $(".email").val();
+		console.log(email);
 		$.ajax({
 	        type:"GET",
-	        url:"inviteMail?email=" + email,
+	        url:"<%=request.getContextPath()%>/member/inviteMail?email=" + email,
 	        cache : false,
 	        success:function(data){
 	        	if(data == "error"){
+	        		console.log(data);
 	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
 					$(".email").attr("autofocus",true);
 					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
 					$(".successEmailChk").css("color","red");
-	        	}else{	        		
+	        	}else{	        	
+	        		console.log(data);
 					alert("직원 초대 이메일 발송이 완료 되었습니다.");
-	        		$("#email_check_no").attr("disabled",false);
+					$("#email").val('');
 	        		$("#email_check_btn").css("display","inline-block");
 // 					$(".successEmailChk").text("직원 초대 이메일 발송이 완료 되었습니다.");
 // 					$(".successEmailChk").css("color","green");
 
-	        		code = data;
+	        		//code = data;
 	        	}
 	        }
 	    });

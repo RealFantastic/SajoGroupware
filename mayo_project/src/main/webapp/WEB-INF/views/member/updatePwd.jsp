@@ -20,10 +20,10 @@
     				<input type="text" id="emp_no" name="emp_no" >
     			</div>
                 <div>
-                    <input type="password" id="password_new" name="password" placeholder="새 비밀번호" />
+                    <input type="password" id="password_new" name="password" placeholder="새 비밀번호" required="required"/>
                 </div>
                 <div>
-                    <input type="password" id="password_new_chk" name="password_new_chk"  placeholder="새 비밀번호 확인" />
+                    <input type="password" id="password_new_chk" name="password_new_chk"  placeholder="새 비밀번호 확인" required="required"/>
                 </div>
                 <div>
                 	<button type="submit" id="updatePwd_btn" name="updatePwd_btn">비밀번호 변경</button> 

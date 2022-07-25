@@ -177,7 +177,8 @@ public class EmpController {
 			, @RequestParam(name="sign_file", required = false) MultipartFile sign_file
 			, HttpServletRequest req
 			) {
-//		암호화 member.setPasswd(pwdEncoding.encode(member.getPasswd()));
+		
+		//암ㅎ화
 		employee.setPassword(pwdEncoding.encode(employee.getPassword()));
 		int result = service.insertEmployee(employee);
 		
@@ -337,16 +338,15 @@ public class EmpController {
 		}
 	 @RequestMapping(value = "/inviteMail", method = RequestMethod.GET)
 	 @ResponseBody
-	 public String mailCheck(
+	 public boolean  inviteMail(
 			 @RequestParam("email") String email
-			 ,@RequestParam("cp_number") int cp_number
 			 ) throws Exception{
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
 	     String to = email;
 	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
 	     //String content = "아래 링크를 클릭하여 회원가입을 진행해주세요./n ";
-	     String cp_num = "";
+	    // String url = "";
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
 	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
@@ -354,15 +354,15 @@ public class EmpController {
 	         mailHelper.setFrom(from);
 	         mailHelper.setTo(to);
 	         mailHelper.setSubject(title);
-	         mailHelper.setText("text/html","<html><p>아래 링크를 클릭하여 회원가입을 완료해주십시오.</p><div><a href='<%=request.getContextPath()%>/member/enroll'>회원가입 하러가기</a></div></html>");       
+	         mailHelper.setText("text/html","<html><p>아래 링크를 클릭하여 회원가입을 완료해주십시오.</p><div><a href='localhost:8090/mayo/member/enroll'>회원가입 하러가기</a></div></html>");       
 	         
 	         mailSender.send(mail);
-	         cp_num = Integer.toString(cp_number);
+	         //url = "member/invite";
 	         
 	     } catch(Exception e) {
-	    	 cp_num = "error";
+	    	 return false;
 	     }
-	     return cp_num;
+	     return true;
 	 }
 	 
 	    // 아이디 찾기 페이지 이동
@@ -461,14 +461,34 @@ public class EmpController {
 			,RedirectAttributes rttr
 			,HttpSession session) {
 			
+			employee.setPassword(pwdEncoding.encode(employee.getPassword()));
 			Employee updatdPwd = service.updatePwd(employee);
-			employee.setPassword(pwdEncoding.encode(updatdPwd.getPassword()));
 		
-			session.invalidate();
-			rttr.addFlashAttribute("msg", "비밀번호 변경이 완료되었습니다.");
-			mv.setViewName("redirect:/member/login");
+			if(updatdPwd == null) {
+				rttr.addFlashAttribute("msg", "비밀번호 변경을 실패하였습니다. 다시시도 해주세요.");
+				mv.setViewName("redirect:/member/updatePwd");
+			}else {
+				
+				session.invalidate();
+				rttr.addFlashAttribute("msg", "비밀번호 변경이 완료되었습니다.다시 로그인 해주세요.");
+				mv.setViewName("redirect:/member/login");
+			}
 
 		return mv;
+		
+//	int result = service.insertEmployee(employee);
+//		
+//		
+//		if(result < 1) {
+//			rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
+//			mv.setViewName("redirect:/member/enroll");
+//			return mv;
+//		}
+
+//		rttr.addFlashAttribute("msg", "가입이 완료 되었습니다.");
+//		mv.setViewName("redirect:/");
+//		return mv;									
+
 	}
 
 }
