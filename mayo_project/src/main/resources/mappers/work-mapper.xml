@@ -57,6 +57,7 @@
 <!-- 모든 프로젝트의 모든 업무 글 보기 -->
 <select id="selectAllWork" resultType="Work"> 
 	select * from work_board join proj using (proj_no) order by work_no desc
+<!-- 	where work_mgr=#{work_mgr}  -->
 </select>
 
 <!-- 특정 프로젝트의 모든 업무 글 보기 -->
@@ -81,12 +82,8 @@
 
 <!-- 새 업무 글 작성 -->
 <insert id="insertWork" parameterType="Work"> 
-    insert all
-    into work_board values (max_work_no, #{proj_no}, #{work_title}, #{work_content}, #{work_mgr} , #{work_start_date}, #{work_deadline}, #{work_progress}, #{isemergency}, #{work_status}, default)
-   <foreach collection="projfilelist" item="projfile" index="idx">
-   into project_file values (max_file_no+#{idx}, #{projfile.proj_file_path}, #{projfile.proj_original_filename}, max_work_no)
-   </foreach>
-   select (select nvl(max(work_no),0)+1 from work_board ) as max_work_no, (select nvl(max(file_no),0)+1 from project_file) as max_file_no from dual
+insert into work_board values ((select nvl(max(work_no),0)+1 from work_board ), #{proj_no}, #{work_title}
+, #{work_content}, #{work_mgr} , #{work_start_date}, #{work_deadline}, #{work_progress}, #{isemergency}, #{work_status}, default)
 </insert>
 
 <!-- 업무 상태 수정 -->

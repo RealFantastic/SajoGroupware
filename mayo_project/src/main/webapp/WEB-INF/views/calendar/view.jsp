@@ -54,7 +54,7 @@
 			      end: '${work.work_deadline}',
 			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
 			      extendedProps: {
-			    	  work_no: '${work.work_no}',
+			    	  workNo: '${work.work_no}',
 			    	  proj: '${work.proj_name}',
 			    	  content: '${work.work_content}',
 			    	  status: '${work.work_status}',
@@ -69,7 +69,7 @@
 				  end: '${sked.sked_end_date}',
 				  color: 'rgb(170, 205, 190)',
 			      extendedProps: {
-			    	  sked_no: '${sked.sked_no}',
+			    	  skedNo: '${sked.sked_no}',
 			    	  category: '${sked.sked_category}',
 			    	  location: '${sked.sked_location}',
 			    	  content: '${sked.sked_content}'
@@ -81,11 +81,11 @@
 		  // data 클릭 event
 		  eventClick: function(info) {
 			  	
-			  
 			 	// 일정일 때, 띄우는 모달
 			 	if(info.event.extendedProps.emergency == null){
 				    $("#sked").modal("show");
-				    $("#sked input[name='sked_no']").val(info.event.sked_no);
+				    $("#sked .withSked_no").val(info.event.extendedProps.skedNo);
+				    console.log(info.event.skedNo);
 				    $("#sked .skedTitle").text(info.event.title);
 				    $("#sked .skedCate").text(info.event.extendedProps.category);
 				    $("#sked .skedStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
@@ -94,10 +94,16 @@
 				    $("#sked .skedContent").text(info.event.extendedProps.content);
 			 	} else {
 			 		$("#work").modal("show");
+				    $("#work .work_no").val(info.event.extendedProps.work_no);
+				    $("#work .proj_name").val(info.event.extendedProps.proj);
+				    $("#work .workTitle").text(info.event.title);
+				    $("#work .workStatus").text(info.event.extendedProps.category);
+				    $("#work .workStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
+					$("#work .workEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
+				    $("#work .workContent").text(info.event.extendedProps.content);
 			 	}
 			    
 		  }
-		  
         });// 함수 끝
         calendar.render();
       });
@@ -117,37 +123,76 @@
 </div>
 
 	<!-- 일정 상세보기 -->
-<div class="modal fade" id="sked" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="sked" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content skedModal">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">일정 상세보기</h5> 
+        <h5 class="modal-title" id="exampleModalLabel1" style='font-weight: bold;'>일정 상세보기</h5> 
+        <form action="<%=request.getContextPath()%>/schedule/toUpdate" method="POST">
+				<input type="hidden" name="sked_no" class="withSked_no"value="">
+				<button type='submit' class='btn-modify sUpdate'>수정</button>
+		</form>
+        <div>
+				<input type="hidden" name="sked_no" class="withSked_no"value="">
+				<button type='button' class='deleteS'>삭제</button>
+		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       	<div class="skedCate"></div>
           <div class="mb-3">
             <div class="col-form-label skedTitle font2"></div>
-          </div>
+            	<div class="writer" style="display: flex;">
+					<div class="mgr" style="margin-right: 10px;"></div>
+					<div class="date"></div>
+				</div>
+         	 </div>
            <div class="date" style="display:flex;">
-          	<div class="mb-3" style="margin-right:13px;">
-            	<div class="col-form-label skedStart"></div>
+            	<i class="fa-regular fa-calendar"></i>
+            	<div class="skedStart" style="margin-left:5px;"></div><div style="margin:0 3px 0 3px">~</div>
+            	<div class="skedEnd" style="color:red;"></div>
           	</div>
-          	<div class="mb-3">
-            	<div class="col-form-label skedEnd" style="color:red;"></div>
-          	</div>
-          </div>
           <div class="mb-3" style="display:flex;">
-          	<i class="fa-solid fa-location-dot"></i><div class="skedLoca"  style="margin-left:5px;"></div>
+          	<i class="fa-solid fa-location-dot"></i><div class="skedLoca" style="margin-left:5px;"></div>
 			 </div>
           <div class="mb-3">
-            <div class="col-form-label skedContent"></div>
+            <textarea class="col-form-label skedContent" style="padding:10px; border:none;" readonly></textarea>
           </div>
       </div>
       </div>
 	</div>
 	</div>
 	
+	<!-- 업무 상세 보기 -->
+	<div class="modal fade" id="work" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content skedModal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2" style='font-weight: bold;'>업무 상세보기</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<div class="proj_name"></div>
+      	<div id="work_status"></div>
+          <div class="mb-3">
+            <div class="col-form-label workTitle font2"></div>
+            	<div class="writer" style="display: flex;">
+					<div class="mgr" style="margin-right: 10px;"></div>
+					<div class="date"></div>
+				</div>
+         	 </div>
+           <div class="date" style="display:flex;">
+            	<i class="fa-regular fa-calendar"></i>
+            	<div class="workStart" style="margin-left:5px;"></div><div style="margin:0 3px 0 3px">~</div>
+            	<div class="workEnd" style="color:red;"></div>
+          	</div>
+          <div class="mb-3">
+            <textarea class="col-form-label workContent" style="padding:10px; border:none;" readonly></textarea>
+          </div>
+      </div>
+      </div>
+	</div>
+	</div>
 
 <!-- 일정 추가 모달창 -->
 <div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -207,7 +252,8 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="sked_content" required></textarea>
+            <textarea class="form-control" rows="4" id="content" name="sked_content" required></textarea>
+            
           </div>
       </div>
       <div class="modal-footer">
@@ -245,6 +291,31 @@
 		});
 	});
 
+	// 일정 글 삭제하기
+	$(".deleteS").click(function(event){ 
+		
+	console.log($(event.target).prev('input').val());
+		
+	//삭제 여부 확인하기
+	var check = confirm("일정을 삭제하시겠습니까?");
+	var sked_no = $(event.target).prev('input').val();
+
+		if(check){
+			// ajax로 컨트롤러 이동 - delete
+			$.ajax({
+				type:"POST",
+				url: "<%=request.getContextPath()%>/schedule/delete",
+				data : {sked_no: sked_no},
+			 // 일정 번호 들고가기
+			success : function(result) {
+				alert(result);
+				location.reload();
+				}
+			});
+		} else {
+			return false;
+		}
+	});
 
 // 카카오 지도
 // 마커를 담을 배열입니다
@@ -400,6 +471,7 @@ function selectInfo(thisEle){
 	console.log(thisEle);
 	console.log($(thisEle));
 	
+	$("#location").remove();
 	// 장소명
 	var name = $(thisEle).children(".infoName").text();
 	// 장소 도로명 주소
@@ -407,9 +479,9 @@ function selectInfo(thisEle){
 	// 장소 지번 주소
 	var jibun = $(thisEle).children(".infoAddr").text();
 	
-	var html = "<div style='font-weight:bold;'>"+name+"</div>";
+	var html = "<div id='newLoca'><div style='display:flex;'><div style='font-weight:bold;'>"+name+"</div><button class='deleteLoca'><i class='fa-solid fa-trash-can'></i></button></div>";
 	html += "<div>"+road+"</div>";
-	html += "<div style='color:#8a8a8a;'>"+jibun+"</div>";
+	html += "<div style='color:#8a8a8a;'>"+jibun+"</div></div>";
 	
 	// 주소 보내기
 	$(".selectedLoca").append(html);
@@ -443,7 +515,7 @@ geocoder.addressSearch(jibun, function(result, status) {
         infowindow.open(map, marker);
 
         // 지도 크기 조정
-        $("#map").css("height","300px");
+//         $("#map").css("height","300px");
         
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
@@ -453,6 +525,9 @@ geocoder.addressSearch(jibun, function(result, status) {
 
 }
 
+// $(".selectedLoca").on('click','[class=deleteLoca]',function(e){
+// 	$("#newLoca").remove();
+// });
 
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다

@@ -33,12 +33,12 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 	
 	@Override
-	public int deleteProj(int proj_no) {
+	public int deleteProj(String proj_no) {
 		return dao.deleteProj(proj_no); 
 	}
 
 	@Override
-	public Project selectProj(int proj_no) {
+	public Project selectProj(String proj_no) {
 		return dao.selectProj(proj_no);
 	}
 
@@ -48,7 +48,7 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
-	public int deletePic(int emp_no) {
+	public int deletePic(String emp_no) {
 		return dao.deletePic(emp_no);
 	}
 

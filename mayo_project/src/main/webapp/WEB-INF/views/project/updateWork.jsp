@@ -30,10 +30,11 @@
       <div class="modal-header">
         <h5 class="font3 ftitle" style="margin-left:40px;">업무 수정하기</h5>
       </div>
-        <form name="updateWork" enctype="multipart/form-data">
+        <form name="updateWork">
       <div class="modal-body insidebody">
-      <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${work.proj_no }">
-      <input type="hidden" class="form-control" id="work_mgr" name="work_mgr" value="${work.work_mgr }">
+      <input type="hidden"  id="proj_no" name="work_no" value="${work.work_no }">
+      <input type="hidden"	id="proj_no" name="proj_no" value="${work.proj_no }">
+      <input type="hidden"  id="work_mgr" name="work_mgr" value="${work.work_mgr }">
         <div style="display:flex;">
         <div style="margin-right: 15px;">
         	<select id="select" name="work_status" class="form-select" aria-label="Default select example" required="required">
@@ -43,7 +44,7 @@
 			  <option value="3">보류</option>
 			</select>
         </div>
-          <div>
+           <div>
 			 <input class="isemergency" name="isemergency" value="N" type="hidden">
             <button type="button" id="isemergency"><img id="eimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
         </div>
@@ -67,13 +68,6 @@
 			<input type="range" id="progress" value="${work.work_progress }" min="0" max="100" step="10">
 			<input type="text" id="percentage" name="work_progress" readonly>%
 		</div>
-        <div class="mb-3">
-        	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
-        	<div style="display:flex;">
-        		<input type="file" name="uploadfile" class="file"><i class="fa-solid fa-trash-can"></i>
-        	</div>
-        	<div id="files"></div>
-        </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
             <textarea class="form-control" id="content" name="work_content" required="required" style="height:200px;">${work.work_content }</textarea>
@@ -91,9 +85,36 @@
 </div>
 
 <script>
-// 취소 버튼 누르면 뒤로가기
-$("#cancel").click(function(){
-	window.history.back();
+	var loginEmp = ${loginEmp.emp_no};
+	var workMgr = ${work.work_mgr};
+	console.log("로그인"+loginEmp);
+	console.log("작성자"+workMgr);
+	
+	if(loginEmp != workMgr){ // 작성자가 아니면 상태만 변경 가능
+		$('input[name=work_title]').attr('readonly' , true);
+		$('input[name=work_start_date]').attr('readonly' , true);
+		$('input[name=work_deadline]').attr('readonly' , true);
+		$('input[name=work_content]').attr('readonly' , true);
+		$('#isemergency').attr('disabled', 'disabled'); // 버튼 비활성화 안 됨
+	};
+
+	// 취소 버튼 누르면 뒤로가기
+	$("#cancel").click(function(){
+		window.history.back();
+	});
+
+//긴급 버튼
+$("#eimg").click(function(){
+	var eimg = $("#eimg").attr("src");
+	
+	if(eimg=="<%=request.getContextPath() %>/resources/images/blackalert.png"){
+		$("#eimg").attr("src", "<%=request.getContextPath() %>/resources/images/alert.png");	
+		$("input[name=isemergency]").val('Y');
+		console.log($("input[name=isemergency]").val());
+	} else {
+		$("#eimg").attr("src", "<%=request.getContextPath() %>/resources/images/blackalert.png");
+		$("input[name=isemergency]").val('N');
+	}
 });
 
 // selected 설정하기
@@ -120,27 +141,12 @@ $("#select").val(status).prop("selected", true);
 	
 	
 //다중 파일 업로드 예제
-	var fileCnt = 1;
-	$("#addFile").click(function(){
-		fileCnt++;
-		var html= "<div style='display:flex;'><input type='file' name='uploadfile'><i class='fa-solid fa-trash-can'></i><div>";
-		$("#files").append(html);
-	});
-
-// 긴급 버튼
-$("#eimg").click(function(){
-	var eimg = $("#eimg").attr("src");
-	
-	if(eimg=="<%=request.getContextPath() %>/resources/images/blackalert.png"){
-		$("#eimg").attr("src", "<%=request.getContextPath() %>/resources/images/alert.png");	
-		$("input[name=isemergency]").val('Y');
-		console.log($("input[name=isemergency]").val());
-	} else {
-		$("#eimg").attr("src", "<%=request.getContextPath() %>/resources/images/blackalert.png");
-		$("input[name=isemergency]").val('N');
-	}
-});
-
+// 	var fileCnt = 1;
+// 	$("#addFile").click(function(){
+// 		fileCnt++;
+// 		var html= "<div style='display:flex;'><input type='file' name='uploadfile'><i class='fa-solid fa-trash-can'></i><div>";
+// 		$("#files").append(html);
+// 	});
 
 // 프로그래스 바 값 가져오기
 var slider = document.getElementById("progress");
@@ -151,17 +157,6 @@ slider.oninput = function() {
   document.getElementById("percentage").value = this.value;
 }
 
-//progress bar 색상 채우기
-$('input[type="range"]').on("change mousemove", function () {
-    var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
-
-    $(this).css('background-image',
-                '-webkit-gradient(linear, left top, right top, '
-                + 'color-stop(' + val + ', rgb(107, 191, 152)), '
-                + 'color-stop(' + val + ', #d3d3db)'
-                + ')'
-                );
-});
 </script>
 
 </body>

@@ -37,15 +37,10 @@ import com.group.mayo.work.model.service.WorkService;
 public class WorkController {
 	
 	@Autowired
-	private ProjectService projService;
-	@Autowired
 	private WorkService service;
 	@Autowired 
 	private ScheduleService skedService;
-	@Autowired
-	private FileUpload commonFile;
-	
-	// 업무,일정 리스트 불러오기
+	// 업무 리스트 불러오기
 	@PostMapping("/detail") 
 	public ModelAndView detailWork(ModelAndView mv, @RequestParam("proj_no") String proj_no){
 		
@@ -71,7 +66,6 @@ public class WorkController {
 	// 새 업무 글 등록
 	@PostMapping("/insert") 
 	public ModelAndView insertWork(ModelAndView mv, Work work, RedirectAttributes rttr
-			, @RequestParam(name="uploadfile", required = false) List<MultipartFile> uploadfiles
 			, @RequestParam(name="work_pic", required=false) String work_pic
 			, HttpSession session
 			, HttpServletRequest req) {
@@ -84,25 +78,6 @@ public class WorkController {
 		}
 		// 로그인 아이디 저장 
 		work.setWork_mgr(employee.getEmp_no());
-		
-		// 첨부파일있다면 첨부파일 저장
-		List<ProjFile> projfilelist = new ArrayList<ProjFile>();
-		for(int i=0; i< uploadfiles.size(); i++) {
-			if(uploadfiles.get(i) !=null) {
-				ProjFile pfile = new ProjFile();
-				String rename_filename = commonFile.saveFile(uploadfiles.get(i), req);
-				if(rename_filename != null) {
-					//파일저장에 성공하면 DB에 저장할 데이터를 채워줌
-					pfile.setProj_original_filename(uploadfiles.get(i).getOriginalFilename());
-					pfile.setProj_file_path(rename_filename);
-					projfilelist.add(pfile);
-				}
-			}
-		}
-		work.setProjfilelist(projfilelist);
-		
-		// 담당자가 있으면 담당자 추가
-		
 		
 		int result = service.insertWork(work);
 		//
@@ -119,32 +94,38 @@ public class WorkController {
 	
 	// 업무 글 수정 페이지로 이동
 	@PostMapping("/toUpdate") 
-	public ModelAndView updateWorkPage(ModelAndView mv, @RequestParam(name="work_no", required=false) String work_no) {
+	public ModelAndView updateWorkPage(ModelAndView mv,
+			@RequestParam(name="work_no", required=false) String work_no
+			, HttpSession session) {
 
+			// 로그인 세션 불러오기
+			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+			
 			System.out.println("업데이트 들어왔니");
 			Work work = service.viewWork(work_no);
 			
 			mv.addObject("work", work);
+			mv.addObject("loginEmp", loginEmp);
+			
 			mv.setViewName("project/updateWork");
 			
 			return mv;
 		}
 	
 	// 업무 글 수정
-	@PostMapping(value="/update", produces="text/plain;charset=UTF-8") 
-	@ResponseBody
-	public String updateWork(@RequestParam("work") Work work) {
-		
+		@PostMapping("/update")
+		public String updateWork(Work work) {
+			
 		int result= service.updateWork(work);
 		
-		String msg= "";
-		
-		if(result<=0) {
-			System.out.println("업무 글 수정 실패~!");
+		String msg="";
+
+		if(result <= 0) {
+			System.out.println("업무 수정 실패 ㅠㅠ");
 			msg="수정에 실패했습니다";
 		} else {
-			System.out.println("업무 글 수정 성공~!");
-			msg="글이 수정되었습니다!";
+			System.out.println("업무 수정 성공~!~!");
+			msg="업무가 수정되었습니다";
 		}
 		return msg;
 	}

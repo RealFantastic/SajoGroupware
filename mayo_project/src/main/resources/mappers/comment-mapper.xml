@@ -9,7 +9,7 @@
 
 <insert id="insertComment" parameterType="Comment">
 	insert into work_comment values ((select nvl(max(comment_no),0)+1 from work_comment), #{c_writer}, #{c_content},
-	default, #{work_no} )
+	default, #{work_no})
 </insert>
 
 <!-- 댓글 보기 -->

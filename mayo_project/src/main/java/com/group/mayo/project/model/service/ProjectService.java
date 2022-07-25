@@ -32,14 +32,14 @@ public interface ProjectService {
 	 * @return 삭제된 프로젝트 개수
 	 * @author HyerinK
 	 */
-	public int deleteProj(int proj_no);
+	public int deleteProj(String proj_no);
 	
 	/**
 	 * @param proj 프로젝트 번호 proj_no
 	 * @return 프로젝트 정보
 	 * @author HyerinK
 	 */
-	public Project selectProj(int proj_no);
+	public Project selectProj(String proj_no);
 	
 	/**
 	 * @param emp 직원 정보
@@ -53,6 +53,6 @@ public interface ProjectService {
 	 * @return 삭제된 직원 수
 	 * @author HyerinK
 	 */
-	public int deletePic(int emp_no);
+	public int deletePic(String emp_no);
 	
 }

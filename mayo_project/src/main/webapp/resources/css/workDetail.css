@@ -21,11 +21,12 @@
 	width:50px;
 	font-size:0.9rem;
 	padding: 7px;
+	margin: 2px;
 }
 
 /* 긴급 아이콘 */
 .dimg{
-	width: 38px;
+	width: 34px;
 }
 
 /* 상태 표시 */
@@ -36,6 +37,10 @@
 	padding: 5px 7px 5px 7px;
 }
 
+.readContent{
+	background-color: white;
+}
+
 /* 안내문 */
 .nothing {
 	padding: 30px;
@@ -44,8 +49,42 @@
 
 
 /* 첨부파일 아이콘 */
-.clip{
+.clip {
 	width:25px;
+}
+
+/* 댓글 버튼 */
+.btn_comment {
+	border:none;
+	background-color: transparent;
+}
+
+.btn_comment:hover {
+	text-decoration: underline gray;
+	background-color: transparent;
+	padding:0;
+}
+
+/* 댓글 영역 */
+.commentArea {
+	display: none;
+}
+
+/* 댓글 작성 영역 */
+.newComment {
+	display:flex;
+}
+
+
+/* 댓글 작성 내용 */
+.comment {
+	resize: none; 
+}
+
+/* 댓글 등록 버튼 */
+.insertComment {
+	padding:0 1px 0 1px;
+	margin-left: 7px;
 }
 
 .dpercentage {
@@ -97,11 +136,4 @@
   height: 25px; /* Slider handle height */
   background: rgb(107, 191, 152); /* Green background */
   cursor: pointer; /* Cursor on hover */
-}
-/* 업무 글 내용 */
-.content{
-	background-color: white;
-	border: none;
-/* 	textarea 크기 변경 못하게 하기 */
-	resize: none;
 }

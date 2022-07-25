@@ -40,4 +40,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public int deleteSked(String sked_no) {
 		return dao.deleteSked(sked_no);
 	}
+
+	@Override
+	public int updateSked(Schedule sked) {
+		return dao.updateSked(sked);
+	}
+
 }

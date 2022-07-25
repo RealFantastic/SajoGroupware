@@ -30,103 +30,100 @@
 	<aside id="side">
 		<div id="side-content">
 			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
-			<div style="display: flex;">
+			<div style="display:flex;">
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
 			</div>
-			<div style="display: flex;">
+			  <div style="display:flex;">
 				<button id="insertSch" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newSked">새 일정</button>
-			</div>
-			<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add">
-				<i class="fa-solid fa-user-plus fa-lg"></i>
-			</button>
-		</div>
+			  </div>
+				<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add"><i class="fa-solid fa-user-plus fa-lg"></i></button>
+		 </div>
 	</aside>
 
 	<div id="body">
+	
+	<!-- 직원 추가 Modal -->
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="display:flex;">
+       <div id="empJstree"></div>
+       <div id="selectedEmp_container">
+       		<div id="selectedEmp">
+       			<table id="selected_list">
+	       			<thead>
+	       				<tr>
+	       					<td>사번</td>
+	       					<td>사원명</td>
+	       					<td>부서명</td>
+	       					<td>직급명</td>       				
+	       				</tr>
+	       			</thead>
+	       			<tbody>
+	       			</tbody>
+       			</table>
+       		</div>
+       	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="insertEmp">추가</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-		<!-- 직원 추가 Modal -->
-		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body" style="display: flex;">
-						<div id="empJstree"></div>
-						<div id="selectedEmp_container">
-							<div id="selectedEmp">
-								<table id="selected_list">
-									<thead>
-										<tr>
-											<td>사번</td>
-											<td>사원명</td>
-											<td>부서명</td>
-											<td>직급명</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
-						<button type="button" class="btn btn_green" id="insertEmp">추가</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 프로젝트 정보 모달창 -->
-		<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">프로젝트</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form name="mProject">
-						<div class="modal-body">
-							<div style="display: flex;">
-								<div>
-									<c:if test="${not empty project.proj_type }">
-										<c:choose>
-											<c:when test="${project.proj_type eq '1'}">업무</c:when>
-											<c:when test="${project.proj_type eq '2'}">동호회</c:when>
-											<c:when test="${project.proj_type eq '3'}">정보공유</c:when>
-											<c:otherwise>기타</c:otherwise>
-										</c:choose>
-									</c:if>
-								</div>
-								<div style="margin-left: 10px;">${project.proj_no }</div>
-								<input type="hidden" name="proj_no" value="${project.proj_no }">
-							</div>
-							<div class="mb-3">
-								<label for="recipient-name" class="col-form-label">프로젝트명</label>
-								<input type="text" class="form-control" id="title" 
-									name="proj_name" value="${project.proj_name }" required="required">
-							</div>
-							<div class="mb-3">
-								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="content" name="proj_content" required>${project.proj_content }</textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" id="deleteProj" class="btn_red">삭제</button>
-							<button id="submitM" type="submit" class="btn_green">수정</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+	<!-- 프로젝트 정보 모달창 -->
+<div class="modal fade" id="projInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">프로젝트</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form name="mProject">
+      <div class="modal-body">
+      	<div style="display: flex;">
+      		<div>
+	      		<c:if test="${not empty project.proj_type }">
+				<c:choose>
+				<c:when test="${project.proj_type eq '1'}">업무</c:when>
+				<c:when test="${project.proj_type eq '2'}">동호회</c:when>
+				<c:when test="${project.proj_type eq '3'}">정보공유</c:when>
+				<c:otherwise>기타</c:otherwise>
+				</c:choose>
+				</c:if> 
+      		</div>
+				<div style="margin-left:10px;">${project.proj_no }</div>
+				<input type="hidden" name="proj_no" value="${project.proj_no }">
+      	</div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">프로젝트명</label>
+            <input type="text" class="form-control" id="title" name="proj_name" value="${project.proj_name }" required="required">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">설명</label>
+            <textarea class="form-control" id="content" name="proj_content" required>${project.proj_content }</textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteProj" class="btn_red">삭제</button>
+        <button id="submitM" type="submit" class="btn_green">수정</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 		<!-- 프로젝트 정보 -->
 		<div class="font4 proj">
-			<div>${project.proj_name }</div>
+			<div>${project.proj_name } </div>
 		</div>
-
-		<!-- 프로젝트 업무, 일정들 load 통해서 불러올 것-->
+		
+		<!-- 프로젝트 업무, 일정들 load 통해서 불러올 것-->	
 		<div style="display:flex;">
 			<form action="<%=request.getContextPath()%>/project/select" method="GET">
 				<input type="hidden" name="proj_no" value="${project.proj_no }">
@@ -137,162 +134,157 @@
 				<button id="skedList" type="submit" class="font3 list">일정</button>
 			</form>
 		</div>
-		<div id="worklist"></div>
-		<div id="skedlist"></div>
-
+        <div id="skedlist"></div>
+		
 		<!--  새 업무 추가 모달창 -->
-		<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title font3" id="exampleModalLabel1" style="font-weight: bold;">새 업무</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
-						<div class="modal-body insidebody">
-							<input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
-							<div style="display: flex; margin-bottom: 10px;">
-								<div style="margin-right: 15px;">
-									<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-										<option selected>상태</option>
-										<option value="0">요청</option>
-										<option value="1">진행</option>
-										<option value="2">완료</option>
-										<option value="3">보류</option>
-									</select>
-								</div>
-								<div>
-									<input class="isemergency" name="isemergency" value="N" type="hidden">
-									<button type="button" id="isemergency">
-										<img id="eimg"
-											src="<%=request.getContextPath()%>/resources/images/blackalert.png"
-											alt="긴급">
-									</button>
-								</div>
-							</div>
-							<div class="mb-3">
-								<label for="recipient-name" class="col-form-label font2">제목</label>
-								<input type="text" class="form-control" id="title" name="work_title" placeholder="제목을 입력해주세요" required="required">
-							</div>
-							<div class="date" style="display: flex;">
-								<div class="mb-3" style="margin-right: 13px;">
-									<label for="recipient-name" class="col-form-label">시작일</label>
-									<input type="Date" class="form-control" id="work_start_date" name="work_start_date">
-								</div>
-								<div class="mb-3">
-									<label for="recipient-name" class="col-form-label" style="color: red;">마감일</label> 
-									<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
-								</div>
-							</div>
-							<div class="mb-3">
-								<label for="work_progress" class="col-form-label">진행률</label> 
-								<input type="range" id="progress" min="0" max="100" step="10">
-								<input type="text" id="percentage" name="work_progress" value="" readonly>%
-							</div>
-							<div class="mb-3">
-								<label for="message-text" class="col-form-label font2">내용</label>
-								<textarea class="form-control" id="content" name="work_content" 
-									rows="7" placeholder="내용을 입력해주세요" required="required"
-									style="height: 200px;"></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
-							<button id="submitP" type="submit" class="btn_green">등록</button>
-						</div>
-					</form>
-				</div>
-			</div>
+<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font3" id="exampleModalLabel1" style="font-weight:bold;">새 업무</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
+      <div class="modal-body insidebody">
+      <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
+        <div style="display:flex; margin-bottom:10px;">
+        <div style="margin-right: 15px;">
+        	<select name="work_status" class="form-select" aria-label="Default select example" required="required">
+			  <option selected>상태</option>
+			  <option value="0">요청</option>
+			  <option value="1">진행</option>
+			  <option value="2">완료</option>
+			  <option value="3">보류</option>
+			</select>
+        </div>
+          <div>
+			 <input class="isemergency" name="isemergency" value="N" type="hidden">
+            <button type="button" id="isemergency"><img id="eimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
+        </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label font2">제목</label>
+            <input type="text" class="form-control" id="title" name="work_title" placeholder="제목을 입력해주세요" required="required">
+          </div>
+          <div class="date" style="display:flex;">
+          	<div class="mb-3" style="margin-right:13px;">
+            	<label for="recipient-name" class="col-form-label">시작일</label>
+            	<input type="Date" class="form-control" id="work_start_date" name="work_start_date">
+          	</div>
+          	<div class="mb-3">
+            	<label for="recipient-name" class="col-form-label" style="color:red;">마감일</label>
+            	<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
+          	</div>
+          </div>
+	    <div class="mb-3">
+        	<label for="work_progress" class="col-form-label">진행률</label>
+			<input type="range" id="progress" min="0" max="100" step="10">
+			<input type="text" id="percentage" name="work_progress" value="" readonly>%
 		</div>
+        <div class="mb-3">
+        	<label for="work_file" class="col-form-label">첨부파일</label><button type="button" id="addFile" class="btn_yellow">추가</button>
+        	<div id="files"></div>
+        </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label font2">내용</label>
+            <textarea class="form-control" id="content" name="work_content" rows="7" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button id="submitP" type="submit" class="btn_green">등록</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
 
-		<!-- 새 일정 추가 모달창 -->
-		<div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static">
-			<div class="modal-dialog">
-				<div class="modal-content skedModal">
-					<div class="modal-header">
-						<h5 class="modal-title font3" id="exampleModalLabel2" style="font-weight: bold;">새 일정</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- 새 일정 추가 모달창 -->
+<div class="modal fade" id="newSked" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content skedModal">
+      <div class="modal-header">
+        <h5 class="modal-title font3" id="exampleModalLabel2" style="font-weight:bold;">새 일정</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form name="newSked">
+      <div class="modal-body">
+      	<div style="display: flex;">
+	   		<div>
+	        	<input name="sked_category" value="${project.proj_no }" type="hidden">
+	        </div>
+      	</div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">일정명</label>
+            <input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
+          </div>
+           <div class="date" style="display:flex;">
+          	<div class="mb-3" style="margin-right:13px;">
+            	<label for="recipient-name" class="col-form-label">시작일</label>
+            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
+          	</div>
+          	<div class="mb-3">
+            	<label for="recipient-name" class="col-form-label" style="color:red;">종료일</label>
+            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
+          	</div>
+          </div>
+          <div class="mb-3" id="loca">
+          	위치
+			<button type="button" id="location" class="btn_yellow">추가</button>
+          	<div class="selectedLoca"></div>
+          	<input id="sked_location" name="sked_location" value="" type="hidden">
+			        <div class="map_wrap" style="display:none;">
+					    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+					    <div id="menu_wrap" class="bg_white">
+					        <div class="option">
+					            <div style="display:flex;">
+					                <input type="text" class="form-control" value="" id="keyword" size="15"> 
+					                <button type="submit" class="btn_green" onclick="searchPlaces(); return false;">검색하기</button> 
+					            </div>
+					        </div>
+					        <hr>
+					        <ul id="placesList"></ul>
+					        <div id="pagination"></div>
+					    </div>
 					</div>
-					<form name="newSked">
-						<div class="modal-body">
-							<div style="display: flex;">
-								<div>
-									<input name="sked_category" value="${project.proj_no }" type="hidden">
-								</div>
-							</div>
-							<div class="mb-3">
-								<label for="recipient-name" class="col-form-label">일정명</label> 
-								<input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
-							</div>
-							<div class="date" style="display: flex;">
-								<div class="mb-3" style="margin-right: 13px;">
-									<label for="recipient-name" class="col-form-label">시작일</label>
-									<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
-								</div>
-								<div class="mb-3">
-									<label for="recipient-name" class="col-form-label" style="color: red;">종료일</label> 
-									<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
-								</div>
-							</div>
-							<div class="mb-3" id="loca">
-								위치
-								<button type="button" id="location" class="btn_yellow">추가</button>
-								<div class="selectedLoca"></div>
-								<input id="sked_location" name="sked_location" value="" type="hidden">
-								<div class="map_wrap" style="display: none;">
-									<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-									<div id="menu_wrap" class="bg_white">
-										<div class="option">
-											<div style="display: flex;">
-												<input type="text" class="form-control" value="" id="keyword" size="15">
-												<button type="submit" class="btn_green" onclick="searchPlaces(); return false;">검색하기</button>
-											</div>
-										</div>
-										<hr>
-										<ul id="placesList"></ul>
-										<div id="pagination"></div>
-									</div>
-								</div>
-							</div>
-							<div class="mb-3">
-								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="content" name="sked_content" required></textarea>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
-							<button id="submitS" type="submit" class="btn_green">등록</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+			 </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">설명</label>
+            <textarea class="form-control" id="content" name="sked_content" required></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button id="submitS" type="submit" class="btn_green">등록</button>
+        </div>
+        </form>
+      </div>
 	</div>
+	</div>
+</div>
 
-	<script>
+<script>
 // 파일 추가
-// 	var fileCnt = 1;
-// 	$("#addFile").click(function(){
-// 		fileCnt++;
-// 		var html= "<div class='fileDiv' style='display:flex;'><input type='file' name='uploadfile' class='file'>";
-// 		html += "<button class='deleteFile'><i class='fa-solid fa-trash-can'></i></button></div>";
-// 		$("#files").append(html);
-// 	});
-
-// 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
+	var fileCnt = 1;
+	$("#addFile").click(function(){
+		fileCnt++;
+		var html= "<div class='fileDiv' style='display:flex;'><input type='file' name='uploadfile' class='file'>";
+		html += "<button class='deleteFile'><i class='fa-solid fa-trash-can'></i></button></div>";
+		$("#files").append(html);
+	});
+	
+// 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
-		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
+		$("#skedlist").load("<%=request.getContextPath()%>/work/detailS",{proj_no:proj_no});
 		
 		orgChart($("#empJstree"));
 		
-		// 조직도
 		$("#empJstree").bind("select_node.jstree",function(event,data){
 			var emp_no = data.instance.get_node(data.selected).id;
 			if(emp_no.length<=2){
 				return;
 			}
-			
 			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/member/detail",
@@ -303,7 +295,7 @@ $(function(){
 					console.log(result);
 					var html ="";
 					html +=  "<tr>";
-   					html += "<td class='emp_no'>"+result.emp_no+"</td>";
+   					html += "<td>"+result.emp_no+"</td>";
    					html += "<td>"+result.emp_name+"</td>";
    					html += "<td>"+result.dept_name+"</td>";
    					html += "<td>"+result.job_name+"</td>";       				
@@ -315,47 +307,21 @@ $(function(){
 			});
 			
 		});
-		
-		// 프로젝트 담당자 추가
-		$("#insertEmp").click(function(){
-			var emp_no = new Array();// 배열 생성(동적할당용)
-			var i = 0; //하나씩 증가하는 수
-			while(tmp != ""){
-			var tmp = $('.emp_no').eq(i).text();
-				emp_no.push(tmp); //배열에 하나씩 추가
-				
-				i++;
-				console.log(tmp);
-			}
-			emp_no.pop(); //마지막 인덱스 값을 삭제
-			console.log(emp_no);
-			
-			var proj_no = $("input[name=proj_no]").val();
-			
-			$.ajax({
-				type: "POST",
-				url: "<%=request.getContextPath()%>/project/insertPic",
-				data: {emp_no:emp_no,
-						proj_no: proj_no
-				},
-				success: function(result){
-					alert(result);
-				}
-				
-			});
-		
-		});
 });
 
-
-
+$("#insertEmp").click(function(){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/",
+		type:"POST",
+	});
+});
 
 	//휴지통 누르면 파일 삭제하기
 	$("#files").on('click','[class=deleteFile]',function(e){
 		$(this).parent('.fileDiv').remove();
-	});
-	
-	
+	})
+
+
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
 	// form data 전부 넘기기	
@@ -575,16 +541,16 @@ function getListItem(index, places) {
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info" onclick="selectInfo(this)">' +
-                ' <h5 class="infoName">' + places.place_name + '</h5>';
+                '   <h5 class="infoName">' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
-        itemStr += '<span class="infoRoad">' + places.road_address_name + '</span>' +
-                    '<span class="jibun gray infoAddr">' +  places.address_name  + '</span>';
+        itemStr += '    <span class="infoRoad">' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray infoAddr">' +  places.address_name  + '</span>';
     } else {
-        itemStr += '<span class=infoAddr>' +  places.address_name  + '</span>'; 
+        itemStr += '    <span class=infoAddr>' +  places.address_name  + '</span>'; 
     }
                  
-      itemStr += '<span class="tel">' + places.phone  + '</span>' +
+      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
                 '</div>';           
 
     el.innerHTML = itemStr;

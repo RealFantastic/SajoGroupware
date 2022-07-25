@@ -8,6 +8,10 @@
  	width: 75vw;
 }
 
+textarea {
+	resize:none;
+}
+
 button{
 	width: fit-content;
 	min-width: fit-content;	

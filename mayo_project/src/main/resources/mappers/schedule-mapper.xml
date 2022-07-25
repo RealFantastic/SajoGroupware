@@ -22,9 +22,9 @@
 	#{sked_start_date}, #{sked_end_date}, #{sked_location}, #{sked_category}, #{sked_emp_id})
 </insert>
 
-<!-- 전체 일정 보기 -->
+<!-- 전체 일정 보기 수정예정-->
 <select id="selectAllSked" resultType="Schedule">
-	select * from schedule 
+	select * from schedule
 </select>
 
 <!-- 카테고리별 일정 보기 -->

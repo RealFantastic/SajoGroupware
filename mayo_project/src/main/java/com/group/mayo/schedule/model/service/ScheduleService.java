@@ -39,4 +39,11 @@ public interface ScheduleService {
 	 */
 	public int deleteSked(String sked_no);
 	
+	/**
+	 * @param sked_no
+	 * @return 수정된 글
+	 * @author HyerinK
+	 */
+	public int updateSked(Schedule sked);
+	
 }

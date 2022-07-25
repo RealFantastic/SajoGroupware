@@ -32,11 +32,8 @@
 
 <!-- 프로젝트 생성 -->
 <insert id="insertProj" parameterType="Project">
-<!-- 	insert into proj values  -->
-<!-- 	((select nvl(max(PROJ_NUM),0)+1 from proj)), #{proj_name}, default, #{proj_content}, #{proj_mgr}, #{proj_type})  -->
-	<!-- TODO 로그인 세션, 프로젝트 종류 -->
 	insert into proj values 
-	((select nvl(max(proj_no),0)+1 from proj), #{proj_name}, default, #{proj_content}, 202220123 , #{proj_type}) 
+	((select nvl(max(proj_no),0)+1 from proj), #{proj_name}, default, #{proj_content}, #{proj_mgr}, #{proj_type}) 
 </insert>
 
 <!-- 프로젝트 담당자 추가 -->

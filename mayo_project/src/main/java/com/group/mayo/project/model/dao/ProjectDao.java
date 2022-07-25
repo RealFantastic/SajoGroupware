@@ -27,11 +27,11 @@ public class ProjectDao {
 		return sqlSession.update("Project.updateProj", proj);
 	}
 	
-	public int deleteProj(int proj_no) {
+	public int deleteProj(String proj_no) {
 		return sqlSession.delete("Project.deleteProj", proj_no);
 	}
 	
-	public Project selectProj(int proj_no) {
+	public Project selectProj(String proj_no) {
 		return sqlSession.selectOne("Project.selectProj", proj_no);
 	}
 	
@@ -39,7 +39,7 @@ public class ProjectDao {
 		return sqlSession.insert("Project.insertPic", emp);
 	}
 	
-	public int deletePic(int emp_no) {
+	public int deletePic(String emp_no) {
 		return sqlSession.delete("Project.deletePic", emp_no);
 	}
 }
