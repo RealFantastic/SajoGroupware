@@ -108,7 +108,7 @@ public class ScheduleController {
 			List<Project> proj = projservice.selectAllProj(emp_no);
 			
 			mv.addObject("sked", sked);
-			mv.addObject("proj",proj);
+			mv.addObject("project",proj);
 			mv.setViewName("calendar/updateSked");
 			
 			return mv;

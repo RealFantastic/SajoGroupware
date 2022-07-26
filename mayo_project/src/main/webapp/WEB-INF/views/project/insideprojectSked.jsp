@@ -40,7 +40,7 @@
 		 </div>
 	</aside>
 
-	<div id="body">
+	<div id="body" style="padding-top:60px;">
 	
 		<!-- 직원 추가 Modal -->
 		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">

@@ -38,6 +38,7 @@ public class CommentController {
 	
 	// 댓글 등록
 	@PostMapping(value="/insert", produces="text/plain;charset=UTF-8") 
+	@ResponseBody
 	public String insertComment(Comment comment, HttpSession session) {
 		
 		Employee employee = (Employee)session.getAttribute("loginSsInfo");

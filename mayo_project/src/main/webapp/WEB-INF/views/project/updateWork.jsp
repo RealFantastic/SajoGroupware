@@ -21,7 +21,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 
-	<div id="body">
+	<div id="body" style="padding-top:150px;">
 		
 <!-- 업무 수정 -->
 <div class="modal-lg" id="updateWork">
@@ -75,7 +75,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn_gray" id="cancel">취소</button>
-        <button id="submit" type="submit" class="btn_green">수정</button>
+        <button id="submit" type="button" class="btn_green">수정</button>
       </div>
         </form>
     </div>
@@ -94,7 +94,7 @@
 		$('input[name=work_title]').attr('readonly' , true);
 		$('input[name=work_start_date]').attr('readonly' , true);
 		$('input[name=work_deadline]').attr('readonly' , true);
-		$('input[name=work_content]').attr('readonly' , true);
+		$('textarea[name=work_content]').attr('readonly' , true);
 		$('#isemergency').attr('disabled', 'disabled'); // 버튼 비활성화 안 됨
 	};
 

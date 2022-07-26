@@ -45,7 +45,7 @@
 		</div>
 	</aside>
 
-	<div id="body">
+	<div id="body" style="padding-top:60px;">
 
 		<!-- 직원 추가 Modal -->
 		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
@@ -154,13 +154,14 @@
 						<h5 class="modal-title font3" id="exampleModalLabel1" style="font-weight: bold;">새 업무</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
+					<form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST">
 						<div class="modal-body insidebody">
 							<input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
 							<div style="display: flex; margin-bottom: 10px;">
 								<div style="margin-right: 15px;">
 									<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-										<option selected value="0">요청</option>
+										<option selected disabled>상태</option>
+										<option value="0">요청</option>
 										<option value="1">진행</option>
 										<option value="2">완료</option>
 										<option value="3">보류</option>

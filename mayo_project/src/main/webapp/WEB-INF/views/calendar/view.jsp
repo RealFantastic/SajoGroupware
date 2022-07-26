@@ -53,14 +53,14 @@
 			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
 			      extendedProps: {
 			    	  workNo: '${work.work_no}',
-			    	  proj: '${work.proj_name}',
+			    	  proj: '${work.proj_no}',
 			    	  content: '${work.work_content}',
 			    	  status: '${work.work_status}',
 			    	  emergency: '${work.isemergency}'
 			      }
 			    },
 		     </c:forEach>
-			 <c:forEach var="sked" items="${schedule}"> // 일정 - 전사/개인/프로젝트별 색상 바꿀 예정
+			 <c:forEach var="sked" items="${schedule}"> // 프로젝트 일정들
 			  {
 				  title:'${sked.sked_name}',
 				  start:'${sked.sked_start_date}',
@@ -74,26 +74,68 @@
 			      }
 			  },
 			 </c:forEach>
+			 <c:forEach var="skedA" items="${scheduleA}"> // 전사 일정
+			  {
+				  title:'${skedA.sked_name}',
+				  start:'${skedA.sked_start_date}',
+				  end: '${skedA.sked_end_date}',
+				  color: 'rgb(244, 124, 124)',
+			      extendedProps: {
+			    	  skedNo: '${skedA.sked_no}',
+			    	  category: '${skedA.sked_category}',
+			    	  location: '${skedA.sked_location}',
+			    	  content: '${skedA.sked_content}'
+			      }
+			  },
+			 </c:forEach>
+			 <c:forEach var="skedP" items="${scheduleP}"> // 개인 일정
+			  {
+				  title:'${skedP.sked_name}',
+				  start:'${skedP.sked_start_date}',
+				  end: '${skedP.sked_end_date}',
+				  color: 'rgb(250, 217, 161)',
+			      extendedProps: {
+			    	  skedNo: '${skedP.sked_no}',
+			    	  category: '${skedP.sked_category}',
+			    	  location: '${skedP.sked_location}',
+			    	  content: '${skedP.sked_content}'
+			      }
+			  },
+			 </c:forEach>
 		  ],
 		  
 		  // data 클릭 event
 		  eventClick: function(info) {
+				    console.log(info.event.extendedProps.category);
 			  	
 			 	// 일정일 때, 띄우는 모달
 			 	if(info.event.extendedProps.emergency == null){
 				    $("#sked").modal("show");
+				    
+				    if(info.event.extendedProps.category == 'A'){  			// 전사 일정
+				    	$("#sked .skedType").text('전사');
+				    
+				    } else if (info.event.extendedProps.category == 'P'){  // 개인 일정
+				    $("#sked .skedType").text('개인');
+				    
+				    } else { 											// 프로젝트 일정
+				    $("#sked .skedType").text('프로젝트 번호');
+				    $("#sked .skedCate").text(info.event.extendedProps.category);
+				    }
+				    
 				    $("#sked .withSked_no").val(info.event.extendedProps.skedNo);
+				    $("#sked .withSked_no").text(info.event.extendedProps.skedNo);
 				    console.log(info.event.skedNo);
 				    $("#sked .skedTitle").text(info.event.title);
-				    $("#sked .skedCate").text(info.event.extendedProps.category);
 				    $("#sked .skedStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
 					$("#sked .skedEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
 				    $("#sked .skedLoca").text(info.event.extendedProps.location);
 				    $("#sked .skedContent").text(info.event.extendedProps.content);
+
 			 	} else {
 			 		$("#work").modal("show");
-				    $("#work .work_no").val(info.event.extendedProps.work_no);
-				    $("#work .proj_name").val(info.event.extendedProps.proj);
+				    $("#work .work_no").text(info.event.extendedProps.workNo);
+				    $("#work .proj_no").text(info.event.extendedProps.proj);
 				    $("#work .workTitle").text(info.event.title);
 				    $("#work .workStatus").text(info.event.extendedProps.category);
 				    $("#work .workStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
@@ -135,7 +177,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<div class="skedCate"></div>
+      	<div style="display:flex;">
+      	<div class="skedType"></div><div class="skedCate"></div> 
+      	일정 번호 <div class="withSked_no"></div>
+      	</div>
           <div class="mb-3">
             <div class="col-form-label skedTitle font2"></div>
             	<div class="writer" style="display: flex;">
@@ -168,7 +213,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<div class="proj_name"></div>
+      	<div style="display:flex;">
+      	프로젝트 번호 <div class="proj_no"></div> 업무 번호 <div class="work_no"></div>
+      	</div>
       	<div id="work_status"></div>
           <div class="mb-3">
             <div class="col-form-label workTitle font2"></div>
@@ -203,7 +250,7 @@
       	<div style="display: flex;">
 	   		<div>
 	        	<select name="sked_category" class="form-select" aria-label="Default select example">
-				  <option selected>종류</option>
+				  <option selected disabled>종류</option>
 				  <option value="A">전사</option>
 				  <option value="P">개인</option>
 				  <c:forEach var="project" items="${project }">
@@ -219,11 +266,11 @@
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
             	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
+            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" required>
           	</div>
           	<div class="mb-3">
             	<label for="recipient-name" class="col-form-label" style="color:red;">종료일</label>
-            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
+            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" required>
           	</div>
           </div>
           <div class="mb-3" id="loca">

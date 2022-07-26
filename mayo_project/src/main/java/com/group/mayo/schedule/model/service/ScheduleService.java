@@ -14,10 +14,11 @@ public interface ScheduleService {
 	public int insertSked(Schedule sked);
 	
 	/**
-	 * @return 전체 일정들
+	 * @param emp_no 로그인 한 사원 사번
+	 * @return 전체 담당 프로젝트 전체 일정들
 	 * @author HyerinK
 	 */
-	public List<Schedule> selectAllSked();
+	public List<Schedule> selectAllSked(String emp_no);
 
 	/**
 	 * @param proj_no
@@ -25,6 +26,19 @@ public interface ScheduleService {
 	 * @author HyerinK
 	 */
 	public List<Schedule> selectSked(String sked_category);
+	
+	/**
+	 * @return 전사 일정
+	 * @author HyerinK
+	 */
+	public List<Schedule> selectSkedA();
+	
+	/**
+	 * @param emp_no 로그인 한 사원 사번
+	 * @return 개인 일정
+	 * @author HyerinK
+	 */
+	public List<Schedule> selectSkedP(String emp_no);
 
 	/**
 	 * @param sked_no

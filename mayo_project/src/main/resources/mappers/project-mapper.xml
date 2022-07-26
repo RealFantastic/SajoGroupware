@@ -26,7 +26,11 @@
 </resultMap>
 
 <select id="selectAllProj" parameterType="Project" resultType="Project">
-	select * from proj left outer join project_pic using(proj_no) where emp_no=#{emp_no} or proj_mgr=#{emp_no} order by proj_no desc
+select * from proj where proj_no in
+(select distinct proj_no
+  from proj left outer join project_pic using(proj_no) 
+ where emp_no=#{emp_no} or proj_mgr=#{emp_no}) 
+ order by proj_no desc
 </select>
 
 <!-- 프로젝트 생성 -->

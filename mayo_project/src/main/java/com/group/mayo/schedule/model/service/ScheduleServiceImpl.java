@@ -22,8 +22,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public List<Schedule> selectAllSked() {
-		return dao.selectAllSked();
+	public List<Schedule> selectAllSked(String emp_no) {
+		return dao.selectAllSked(emp_no);
 	}
 
 	@Override
@@ -31,6 +31,16 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return dao.selectSked(sked_category);
 	}
 
+	@Override
+	public List<Schedule> selectSkedA() {
+		return dao.selectSkedA();
+	}
+	
+	@Override
+	public List<Schedule> selectSkedP(String emp_no) {
+		return dao.selectSkedP(emp_no);
+	}
+	
 	@Override
 	public Schedule viewSked(String sked_no) {
 		return dao.viewSked(sked_no);
@@ -45,5 +55,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public int updateSked(Schedule sked) {
 		return dao.updateSked(sked);
 	}
+
+
 
 }

@@ -37,14 +37,22 @@ public class CalendarController {
 	@GetMapping("/view")
 	public ModelAndView viewCal(ModelAndView mv, HttpSession session) { 
 
-		List<Work> work = workservice.selectAllWork();
-		List<Project> proj = projservice.selectAllProj();
-		List<Schedule> sked = service.selectAllSked();
+		Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+		String emp_no = loginEmp.getEmp_no();
+		
+		List<Work> work = workservice.selectAllWork(emp_no);
+		List<Project> proj = projservice.selectAllProj(emp_no);
+		List<Schedule> sked = service.selectAllSked(emp_no);
+		List<Schedule> skedA = service.selectSkedA();
+		List<Schedule> skedP = service.selectSkedP(emp_no);
+
 		List<Employee> emplist = empservice.selectListEmp();
 		
 		Employee emp = (Employee)session.getAttribute("loginSsInfo");
 		
 		mv.addObject("schedule", sked);
+		mv.addObject("scheduleA", skedA);
+		mv.addObject("scheduleP", skedP);
 		mv.addObject("employee", emp);
 		mv.addObject("project", proj);
 		mv.addObject("emplist", emplist);

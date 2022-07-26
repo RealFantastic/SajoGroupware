@@ -10,6 +10,35 @@
 <!-- SKED_LOCATION            VARCHAR2(500)   -->
 <!-- SKED_CATEGORY            VARCHAR2(50)    -->
 <!-- SKED_EMP_ID              VARCHAR2(50)    -->
+<resultMap type="Employee" id="Employee">
+	<result column="EMP_NO" property="emp_no"/>
+	<result column="EMP_NAME" property="emp_name"/>
+	<result column="EMP_NAME" property="emp_name"/>
+	<result column="DEPT_NO" property="dept_no"/>
+</resultMap>
+
+<resultMap type="Project" id="Project">
+	<result column="PROJ_NO" property="proj_no"/>
+	<result column="PROJ_NAME" property="proj_name"/>
+	<result column="PROJ_DATE" property="proj_date"/>
+	<result column="PROJ_CONTENT" property="proj_content"/>
+	<result column="PROJ_MGR" property="proj_mgr"/>
+	<result column="PROJ_TYPE" property="proj_type"/>
+</resultMap>	
+	
+<resultMap type="Schedule" id="Schedule">
+	<result column="SKED_NO" property="sked_no"/>
+	<result column="SKED_NAME" property="sked_name"/>
+	<result column="SKED_DATE" property="sked_date"/>
+	<result column="SKED_CONTENT" property="sked_content"/>
+	<result column="SKED_START_DATE" property="sked_start_date"/>
+	<result column="SKED_END_DATE" property="sked_end_date"/>
+	<result column="SKED_LOCATION" property="sked_location"/>
+	<result column="SKED_CATEGORY" property="sked_category"/>
+	<result column="SKED_EMP_ID" property="sked_emp_id"/>
+	<collection property="Employee" resultMap="Employee"/>
+	<collection property="Project" resultMap="Project"/>
+</resultMap>
 
 <!-- 특정 프로젝트 일정 글 수 -->
 <select id="selectSkedCnt" resultType="_int">
@@ -22,14 +51,25 @@
 	#{sked_start_date}, #{sked_end_date}, #{sked_location}, #{sked_category}, #{sked_emp_id})
 </insert>
 
-<!-- 전체 일정 보기 수정예정-->
-<select id="selectAllSked" resultType="Schedule">
-	select * from schedule
+<!-- 전체 프로젝트 일정 보기 -->
+<select id="selectAllSked" parameterType="Schedule" resultType="Schedule">
+	select * from schedule s join proj p on (s.SKED_CATEGORY = TO_CHAR(p.proj_no)) 
+	where proj_no in (select proj_no from proj left outer join project_pic using(proj_no) where emp_no=#{emp_no} or proj_mgr=#{emp_no})
 </select>
 
-<!-- 카테고리별 일정 보기 -->
+<!-- 전사 일정 보기 -->
+<select id="selectSkedA" resultType="Schedule">
+	select * from schedule where sked_category = 'A'
+</select>
+
+<!-- 개인 일정 보기 -->
+<select id="selectSkedP" parameterType="Schedule" resultType="Schedule">
+	select * from schedule where sked_emp_id = #{emp_no}
+</select>
+
+<!-- 특정 프로젝트 일정 보기 -->
 <select id="selectSked" resultType="Schedule">
-	select * from schedule where sked_category=#{sked_category} order by sked_date desc
+	select * from schedule where sked_category = #{sked_category} order by sked_date desc
 </select>
 
 <!-- 일정 상세 보기 -->

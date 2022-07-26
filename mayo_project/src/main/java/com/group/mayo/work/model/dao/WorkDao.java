@@ -14,8 +14,8 @@ public class WorkDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Work> selectAllWork() {
-		return sqlSession.selectList("Work.selectAllWork");
+	public List<Work> selectAllWork(String emp_no) {
+		return sqlSession.selectList("Work.selectAllWork", emp_no);
 	}
 	
 	public int selectTotalCnt() {

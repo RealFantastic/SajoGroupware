@@ -41,6 +41,7 @@ public class WorkController {
 		return mv;
 	}
 	
+	// 프로젝트 일정 리스트 불러오기
 	@PostMapping("/detailS") 
 	public ModelAndView detailSked(ModelAndView mv, @RequestParam("proj_no") String sked_category){
 		
@@ -101,7 +102,7 @@ public class WorkController {
 		}
 	
 	// 업무 글 수정
-	@PostMapping("/update")
+	@PostMapping(value="/update", produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String updateWork(Work work) {
 		

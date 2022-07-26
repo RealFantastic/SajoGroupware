@@ -20,13 +20,23 @@ public class ScheduleDao {
 	}
 	
 	// 전체 일정 조회
-	public List<Schedule> selectAllSked(){
-		return sqlSession.selectList("Schedule.selectAllSked");
+	public List<Schedule> selectAllSked(String emp_no){
+		return sqlSession.selectList("Schedule.selectAllSked", emp_no);
 	}
 	
 	// 특정 프로젝트 전체 일정 조회
 	public List<Schedule> selectSked(String sked_category){
 		return sqlSession.selectList("Schedule.selectSked", sked_category);
+	}
+	
+	// 전사 일정 조회
+	public List<Schedule> selectSkedA(){
+		return sqlSession.selectList("Schedule.selectSkedA");
+	}
+	
+	// 개인 일정 조회
+	public List<Schedule> selectSkedP(String emp_no){
+		return sqlSession.selectList("Schedule.selectSkedP", emp_no);
 	}
 	
 	// 특정 일정 조회

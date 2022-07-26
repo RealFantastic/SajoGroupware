@@ -27,7 +27,7 @@
 </script>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
  
-<div id="body">
+<div id="body" style="padding-top:60px;">
  
 <aside id="side">
 	<div id="insertProj">
@@ -46,8 +46,8 @@
         <form action="<%=request.getContextPath()%>/project/insert" method="POST">
       <div class="modal-body">
         <div>
-        	<select name="proj_type" class="form-select" aria-label="Default select example">
-			  <option selected>종류</option>
+        	<select name="proj_type" class="form-select" aria-label="Default select example" required>
+			  <option selected disabled>종류</option>
 			  <option value="1">업무</option>
 			  <option value="2">동호회</option>
 			  <option value="3">정보공유</option>
@@ -60,7 +60,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="proj_content"></textarea>
+            <textarea class="form-control" id="content" name="proj_content" required></textarea>
           </div>
       </div>
       <div class="modal-footer">

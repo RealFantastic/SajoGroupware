@@ -17,8 +17,8 @@ public class WorkServiceImpl implements WorkService{
 	private WorkDao dao;
 	
 	@Override
-	public List<Work> selectAllWork(){
-		return dao.selectAllWork();
+	public List<Work> selectAllWork(String emp_no){
+		return dao.selectAllWork(emp_no);
 	}
 
 	@Override

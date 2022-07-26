@@ -7,10 +7,11 @@ import com.group.mayo.work.domain.Work;
 public interface WorkService {
 
 	/**
+	 * @param emp_no 로그인 한 사원 번호
 	 * @return 전체 업무 리스트
 	 * @author HyerinK
 	 */
-	public List<Work> selectAllWork();
+	public List<Work> selectAllWork(String emp_no);
 	
 	/**
 	 * @return 전체 업무 글 개수 

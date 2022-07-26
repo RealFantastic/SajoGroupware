@@ -18,6 +18,10 @@ button{
 	min-width: fit-content;	
 }
 
+.skedCate, .withSked_no, .proj_no, .work_no{
+	padding: 0 5px 0 5px;
+}
+
 /* 일정 추가 버튼 */
 .newSked {
 	margin-left: 30px;

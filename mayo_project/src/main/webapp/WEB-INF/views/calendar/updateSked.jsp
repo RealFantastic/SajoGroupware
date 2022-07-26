@@ -24,7 +24,8 @@
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 
-	<div id="updateSked" style="margin-top: 60px;">
+<div id="body" style="padding-top: 150px;">
+	<div id="updateSked">
 		<div class="modal-dialog ">
 			<div class="modal-content skedModal">
 				<div class="modal-header">
@@ -34,7 +35,7 @@
 					<div class="modal-body">
 						<div style="display: flex;">
 							<div>
-								<select name="sked_category" class="form-select" aria-label="Default select example">
+								<select id="select" name="sked_category" class="form-select" aria-label="Default select example">
 									<option selected>종류</option>
 									<option value="A">전사</option>
 									<option value="P">개인</option>
@@ -89,14 +90,20 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn_gray" id="cancel">취소</button>
-						<button id="updateSked_submit" class="btn_green">수정</button>
+						<button id="updateSked_submit" type="button" class="btn_green">수정</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
+</div>
 	<script>
+	
+	// selected 설정하기
+	var category = "${sked.sked_category}";
+
+	$("#select").val(category).prop("selected", true);
+	
 		//취소 버튼 누르면 뒤로가기
 		$("#cancel").click(function() {
 			window.history.back();
