@@ -849,6 +849,9 @@ to_number(nvl((SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRAC
 from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = '202210001'
 ;
 
+
+
+
 commit;
 --------------------------------------------------------  박정환  종료  --------------------------------------------------------------------------------------------
 

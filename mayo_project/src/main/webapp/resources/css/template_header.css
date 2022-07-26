@@ -1,11 +1,18 @@
 @charset "UTF-8";
+#top_menu_container{
+	position: fixed;
+	width:100%;
+	top:0;
+	height:60px;
+	z-index: 1;
+}
+
 #menu_bar_container{
     background-color: rgb(107, 191, 152);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position:fixed;
-    width:100%;
+   
 }
 #logo img{
     width: 150px;

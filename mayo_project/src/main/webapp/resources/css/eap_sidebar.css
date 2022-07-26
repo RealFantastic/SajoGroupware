@@ -2,13 +2,13 @@
 #side_bar_container{
     width: 250px;
     height: 100vh;
-    margin-top:60px;
     background-color:rgb(235, 255, 246);
     padding: 1rem;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
     position:fixed;
+    top:60px;
 }
 .new_button{
    margin-bottom: 15px;

@@ -31,8 +31,8 @@
 		alert('${msg}');
 	</script>
 </c:if>
-	<jsp:include page="/WEB-INF/views/template_header.jsp"/>
-	<jsp:include page="/WEB-INF/views/eap/eap_sidebar_template.jsp"/>
+	<jsp:include page="/WEB-INF/views/template_header.jsp"/>	
+    <jsp:include page="/WEB-INF/views/eap/eap_sidebar_template.jsp"/>
     <div class="bodyContent">
     	<div class="content_top">
 			<h1> 전자결재 홈 </h1>

@@ -32,11 +32,14 @@
 	<!-- 하이차트 -->
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
+	<!-- FullCalendar -->
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
 	<!-- CSS적용 -->
 	<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 	<link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet"> 
 	<link href="<%=request.getContextPath()%>/resources/css/commute.css" rel="stylesheet">
+	<link href="<%=request.getContextPath()%>/resources/css/template_nav.css" rel="stylesheet">
 
 	<!-- JSTree -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
@@ -47,7 +50,7 @@
 <body>
 
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
-<jsp:include page="/WEB-INF/views/template_left.jsp"/>
+<jsp:include page="/WEB-INF/views/template_nav.jsp"/>
 
 
 	<div class="left_bar_exception">

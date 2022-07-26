@@ -589,6 +589,12 @@
 							data:rejectInfo,
 							success:function(result){
 								console.log(result);
+								if(result == "fail"){
+									alert("실패했습니다.");
+								}else{
+									alert("반려했습니다.");
+									location.href='<%=request.getContextPath()%>/eap/main';
+								}
 							},
 							error:function(error){
 								alert("서버 연결에 실패했습니다. 사유 : " + error);

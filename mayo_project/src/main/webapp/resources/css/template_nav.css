@@ -1,0 +1,100 @@
+@charset "UTF-8";
+/* nav 컨테이너 css 시작 */
+#main_nav_container{
+	width:250px;
+    background-color:rgb(235, 255, 246);
+    position:fixed;
+	top:60px;
+}
+/* nav 컨테이너 css 종료 */
+/* --------------------- */
+
+/* nav 래퍼 css 시작 */
+#main_nav_wrapper{
+	height: 100vh;
+	display:flex;
+	align-items: center;
+	flex-direction: column;
+	padding:15px;
+}
+/* #main_nav_wrapper div{ */
+/* 	margin-top:15px; */
+/* } */
+/* nav 래퍼 css 종료 */
+/* --------------------- */
+
+/* nav user_info css 시작 */
+#user_info{
+	width:200px;
+	background: white;
+	border-radius: 15px;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+.user_name{
+	font-size: 20px;
+	font-weight:bold;
+	
+}
+#user_img{
+	width:160px;
+	height:150px;
+}
+#user_img>img{
+	width:inherit;
+	height:inherit;
+}
+#user_name_dept{
+	text-align: center;
+}
+
+/* nav user_info css 종료 */
+/* --------------------- */
+
+/* nav digital_watch css 시작 */
+#digital_watch{
+	text-align: center;
+}
+.left_bar_btn{
+	text-align: center;
+}
+.left_bar_date{
+    font-weight: bolder;
+}
+
+.left_bar_time{
+	font-weight: bolder;
+}
+.btn_attendance{
+	font-weight: bolder;
+}
+.btn_leave{
+	font-weight: bolder;
+}
+.btn_off{
+	font-weight: bolder;
+}
+.fc table{
+	font-size: 0.79em !important;
+}
+.fc .fc-toolbar.fc-header-toolbar{
+	
+	margin-bottom:5px;
+}
+.fc .fc-toolbar-title{
+font-size: 1.3em;	
+}
+/* nav digital_watch css 종료 */
+
+
+
+
+
+
+
+
+
+
+
+

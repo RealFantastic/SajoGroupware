@@ -1,73 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<header>
-        <div id="menu_bar_container">
-            <div id="logo">
-                <a href="#">
-                    <img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="로고">
-                </a>
-            </div>
-            <div id="menus_container">
-                <ul id="menus" class="font3">
-                    <li><a href="#">홈</a></li>
-                    <li><a href="<%=request.getContextPath()%>/calendar/view">캘린더</a></li>
-                    <li><a href="<%=request.getContextPath()%>/commute/status">근태관리</a></li>
-                    <li><a href="<%=request.getContextPath()%>/project/list">업무관리</a></li>
-                    <li><a href="<%=request.getContextPath()%>/holiday/list">연차관리</a></li>
-                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#empchart">조직도</a></li>
-                    <li><a href="<%=request.getContextPath()%>/eap/main">전자결재</a></li>
-                </ul>
-                <div id="search_area">
-                    <form action="#" method="post">
-                        <input type="text" name="searchWord" id="searchBox" class="font2">
-                        <button  id="s_button"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </div>
-            </div>
-
-            <div id="profile">
-            	<c:choose>
-            		<c:when test="${loginSsInfo.emp_no != null && loginSsInfo.dept_no == 10}">
-		                <a href="#" class="dropdown_toggle">
-		                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
-		                    <strong>${loginSsInfo.emp_name}</strong>
-		                </a>
-		                <ul class="dropdown_menu hide">
-		                    <li><a href="#">내 정보</a></li>
-		                    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
-		                    <li><a href="<%=request.getContextPath()%>/member/invite">직원초대</a></li>
-		                    <li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
-		 				</ul>                   
-	 				</c:when> 
-            		<c:when test="${loginSsInfo.emp_no != null}">
-		                <a href="#" class="dropdown_toggle">
-		                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
-		                    <strong>${loginSsInfo.emp_name}</strong>
-		                </a>
-		                <ul class="dropdown_menu hide">
-		                    <li><a href="#">내 정보</a></li>
-		                    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
-		                    <li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
-		 				</ul>                   
-	 				</c:when> 
-
-	 				<c:otherwise>
-		                <a href="#" class="dropdown_toggle">
-		                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
-		                    <strong>Login or Join us!</strong>
-	               		 </a>
-						 <ul class="dropdown_menu hide">
-							<li><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
-							<li><a href="<%=request.getContextPath()%>/company/enroll">회원가입</a></li>
-		                </ul>
-	                </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-        <!-- Modal -->
-		<div class="modal fade" id="empchart" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="empchart" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -134,6 +69,63 @@
 				</div>
 			</div>
 		</div>
+	<header id="top_menu_container">
+        <div id="menu_bar_container">
+            <div id="logo">
+                <a href="<%=request.getContextPath()%>/">
+                    <img src="<%=request.getContextPath()%>/resources/images/main_logo.png" alt="로고">
+                </a>
+            </div>
+            <div id="menus_container">
+                <ul id="menus" class="font3">
+                    <li><a href="<%=request.getContextPath()%>/">홈</a></li>
+                    <li><a href="<%=request.getContextPath()%>/calendar/view">캘린더</a></li>
+                    <li><a href="<%=request.getContextPath()%>/commute/status">근태관리</a></li>
+                    <li><a href="<%=request.getContextPath()%>/project/list">업무관리</a></li>
+                    <li><a href="<%=request.getContextPath()%>/holiday/list">연차관리</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#empchart">조직도</a></li>
+                    <li><a href="<%=request.getContextPath()%>/eap/main">전자결재</a></li>
+                </ul>
+                <div id="search_area">
+                    <form action="#" method="post">
+                        <input type="text" name="searchWord" id="searchBox" class="font2">
+                        <button  id="s_button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="profile">
+                <a href="#" class="dropdown_toggle">
+                    <img src="<%=request.getContextPath()%>/resources/images/default_profile_img.png" alt="프로필">
+                    <strong>${loginSsInfo.emp_name}</strong>
+                </a>
+                <c:choose>
+					<c:when test="${loginSsInfo.emp_no != null && loginSsInfo.dept_no == 10}">
+						<ul class="dropdown_menu hide">
+						    <li><a href="#">내 정보</a></li>
+						    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
+							<li><a href="<%=request.getContextPath()%>/member/invite">직원초대</a></li>
+							<li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
+						</ul>                   
+					</c:when> 
+					<c:when test="${loginSsInfo.emp_no != null}">
+						<ul class="dropdown_menu hide">
+						    <li><a href="#">내 정보</a></li>
+						    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
+							<li><a href="<%=request.getContextPath()%>/member/logout">로그아웃</a></li>
+						</ul>
+					</c:when> 
+					<c:otherwise>
+						<ul class="dropdown_menu hide">
+							<li><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+							<li><a href="<%=request.getContextPath()%>/company/enroll">회원가입</a></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+            </div>
+        </div>
+        <!-- Modal -->
+	
 		<script>
 		console.log("0");
 		sessionStorage.setItem("contextPath","${pageContext.request.contextPath}");
