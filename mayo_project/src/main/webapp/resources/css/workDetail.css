@@ -38,7 +38,8 @@
 }
 
 .readContent{
-	background-color: white;
+	background-color: transparent !important;
+	border: none;
 }
 
 /* 안내문 */

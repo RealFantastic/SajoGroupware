@@ -39,6 +39,8 @@
           locale: 'ko',
           // 월요일 시작 달력
           firstDay: 1,
+          // 시간 나타내지 않기
+          displayEventTime: false,
           
           // Bootstrap 5 사용
           themeSystem: 'bootstrap5',
@@ -48,8 +50,8 @@
         	  <c:forEach var="work" items="${work}"> // 업무
 	    		{
 			      title: '${work.work_title}',
-			      start: '${work.work_start_date}', 
-			      end: '${work.work_deadline}',
+			      start:  new Date ("${work.work_start_date}"+" 00:00:00"), 
+			      end: new Date ("${work.work_deadline}"+ " 23:59:59"),
 			      color: 'rgb(196, 223, 170)', // 줄 색상 / text-color - 글자 색상
 			      extendedProps: {
 			    	  workNo: '${work.work_no}',
@@ -63,8 +65,8 @@
 			 <c:forEach var="sked" items="${schedule}"> // 프로젝트 일정들
 			  {
 				  title:'${sked.sked_name}',
-				  start:'${sked.sked_start_date}',
-				  end: '${sked.sked_end_date}',
+				  start: new Date ("${sked.sked_start_date}"+" 00:00:00"), 
+				  end: new Date ("${sked.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(170, 205, 190)',
 			      extendedProps: {
 			    	  skedNo: '${sked.sked_no}',
@@ -77,8 +79,8 @@
 			 <c:forEach var="skedA" items="${scheduleA}"> // 전사 일정
 			  {
 				  title:'${skedA.sked_name}',
-				  start:'${skedA.sked_start_date}',
-				  end: '${skedA.sked_end_date}',
+				  start:new Date ("${skedA.sked_start_date}"+" 00:00:00"), 
+				  end: new Date ("${skedA.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(244, 124, 124)',
 			      extendedProps: {
 			    	  skedNo: '${skedA.sked_no}',
@@ -91,8 +93,8 @@
 			 <c:forEach var="skedP" items="${scheduleP}"> // 개인 일정
 			  {
 				  title:'${skedP.sked_name}',
-				  start:'${skedP.sked_start_date}',
-				  end: '${skedP.sked_end_date}',
+				  start: new Date ("${skedP.sked_start_date}"+" 00:00:00"), 
+				  end: new Date ("${skedP.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(250, 217, 161)',
 			      extendedProps: {
 			    	  skedNo: '${skedP.sked_no}',
@@ -120,9 +122,9 @@
 				    
 				    } else { 											// 프로젝트 일정
 				    $("#sked .skedType").text('프로젝트 번호');
-				    $("#sked .skedCate").text(info.event.extendedProps.category);
 				    }
 				    
+				    $("#sked .skedCate").text(info.event.extendedProps.category);
 				    $("#sked .withSked_no").val(info.event.extendedProps.skedNo);
 				    $("#sked .withSked_no").text(info.event.extendedProps.skedNo);
 				    console.log(info.event.skedNo);
@@ -168,11 +170,11 @@
         <h5 class="modal-title" id="exampleModalLabel1" style='font-weight: bold;'>일정 상세보기</h5> 
         <form action="<%=request.getContextPath()%>/schedule/toUpdate" method="POST">
 				<input type="hidden" name="sked_no" class="withSked_no"value="">
-				<button type='submit' class='btn-modify sUpdate'>수정</button>
+				<button type='submit' class='sUpdate viewM'>수정</button>
 		</form>
         <div>
 				<input type="hidden" name="sked_no" class="withSked_no"value="">
-				<button type='button' class='deleteS'>삭제</button>
+				<button type='button' class='deleteS viewD'>삭제</button>
 		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -181,23 +183,25 @@
       	<div class="skedType"></div><div class="skedCate"></div> 
       	일정 번호 <div class="withSked_no"></div>
       	</div>
-          <div class="mb-3">
+      	 <div class="mb-3">
             <div class="col-form-label skedTitle font2"></div>
             	<div class="writer" style="display: flex;">
 					<div class="mgr" style="margin-right: 10px;"></div>
 					<div class="date"></div>
 				</div>
-         	 </div>
+				</div>
+				 <div class="mb-3">
            <div class="date" style="display:flex;">
             	<i class="fa-regular fa-calendar"></i>
             	<div class="skedStart" style="margin-left:5px;"></div><div style="margin:0 3px 0 3px">~</div>
             	<div class="skedEnd" style="color:red;"></div>
           	</div>
+          	</div>
           <div class="mb-3" style="display:flex;">
           	<i class="fa-solid fa-location-dot"></i><div class="skedLoca" style="margin-left:5px;"></div>
 			 </div>
           <div class="mb-3">
-            <textarea class="col-form-label skedContent" style="padding:10px; border:none;" readonly></textarea>
+            <textarea class="col-form-label skedContent" style="padding:10px; border:none;" disabled></textarea>
           </div>
       </div>
       </div>
@@ -230,7 +234,7 @@
             	<div class="workEnd" style="color:red;"></div>
           	</div>
           <div class="mb-3">
-            <textarea class="col-form-label workContent" style="padding:10px; border:none;" readonly></textarea>
+            <textarea class="col-form-label workContent" style="padding:10px; border:none;" disabled></textarea>
           </div>
       </div>
       </div>

@@ -73,7 +73,7 @@
 							</div>
 						</div>
 					<div class="mb-3">
-						<textarea class="form-control readContent" readonly>${work.work_content }</textarea>
+						<textarea class="form-control readContent" disabled>${work.work_content }</textarea>
 					</div>
 					<button type="button" class="btn_comment">댓글</button>
 					<div class="mb-3 commentArea">

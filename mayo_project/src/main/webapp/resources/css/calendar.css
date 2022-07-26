@@ -11,6 +11,7 @@
 
 textarea {
 	resize:none;
+	background-color: transparent;
 }
 
 button{
@@ -20,6 +21,26 @@ button{
 
 .skedCate, .withSked_no, .proj_no, .work_no{
 	padding: 0 5px 0 5px;
+}
+
+/* 일정 수정,삭제 버튼 */
+.viewM, .viewD{
+ margin-right: 10px;	
+ border: none;
+ background-color: transparent;
+}
+
+.viewM:hover, .viewD:hover {
+	text-decoration:underline;
+}
+/* 일정 삭제 버튼 */
+.viewD {
+	color: red;
+}
+/* 일정 수정 버튼 */
+.viewM {
+	margin-left: 20px;
+	color: gray;
 }
 
 /* 일정 추가 버튼 */

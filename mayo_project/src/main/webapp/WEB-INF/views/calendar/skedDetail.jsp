@@ -54,7 +54,7 @@
 									</div>
 								</c:if>
 								<div class="mb-3">
-									<textarea class="form-control skedContent" readonly>${sked.sked_content }</textarea>
+									<textarea class="form-control readContent" disabled>${sked.sked_content }</textarea>
 								</div>
 							</div>
 						</div>
