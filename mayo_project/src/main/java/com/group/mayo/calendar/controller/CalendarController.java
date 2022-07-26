@@ -50,9 +50,9 @@ public class CalendarController {
 		
 		Employee emp = (Employee)session.getAttribute("loginSsInfo");
 		
-		mv.addObject("schedule", sked);
-		mv.addObject("scheduleA", skedA);
-		mv.addObject("scheduleP", skedP);
+		mv.addObject("schedule", sked); // 프로젝트
+		mv.addObject("scheduleA", skedA); //전사
+		mv.addObject("scheduleP", skedP); // 개인
 		mv.addObject("employee", emp);
 		mv.addObject("project", proj);
 		mv.addObject("emplist", emplist);

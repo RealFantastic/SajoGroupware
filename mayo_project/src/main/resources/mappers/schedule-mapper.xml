@@ -64,7 +64,7 @@
 
 <!-- 개인 일정 보기 -->
 <select id="selectSkedP" parameterType="Schedule" resultType="Schedule">
-	select * from schedule where sked_emp_id = #{emp_no}
+	select * from schedule where sked_category = 'P' and sked_emp_id = #{emp_no}
 </select>
 
 <!-- 특정 프로젝트 일정 보기 -->
