@@ -76,6 +76,10 @@
 					$("#password_new_chk").focus();
 					return false
 				}
+		    	var frm = $("#updatePwd");
+				frm.attr("action","<%=request.getContextPath()%>/member/updatePwd"); 
+				frm.attr("method","post");
+				frm.submit();
 				
 			});
 			

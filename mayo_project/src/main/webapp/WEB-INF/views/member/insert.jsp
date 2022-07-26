@@ -356,7 +356,7 @@
 // 				contentType:"json",
 				success: function(result){
 					console.log("result"+result);
-					if(result == "false" || result == ""){
+					if(result == "false" || result == null){
 						console.log("안녕");
 						$("#check_result").html('사원번호를 다시 확인해주세요.');
 						$("#check_result").attr('color','red');

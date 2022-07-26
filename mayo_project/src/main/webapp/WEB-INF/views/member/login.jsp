@@ -18,11 +18,11 @@
    	
    	
 </head>
-<jsp:include page="/WEB-INF/views/template_header_login.jsp"/>
 <body id="j_body">
    	<script type="text/javascript">
    		${msg}
    	</script>
+<jsp:include page="/WEB-INF/views/template_header_login.jsp"/>
     <div style="padding: 5%;">
         <form  id="login" name="login"
         	 action="<%=request.getContextPath()%>/member/login"
@@ -62,18 +62,23 @@
     
     <!-- 유효성 체크  -->
   	<script>
-    function validateForm(login) {
-        if (!login.emp_no.value) {
+    $("#login_btn").click(function(){
+        if ($("#emp_no").val()=='') {
             alert("아이디를 입력하세요.");
-            login.emp_no.focus();
+            $("#emp_no").focus();
             return false;
         }
-        if (login.password.value == "") {
-        	login.password.focus();
+        if ($("#password").val()=='') {
             alert("패스워드를 입력하세요.");
+        	$("#password").focus();
             return false;
         }
-    }
+    	var frm = $("#login");
+		frm.attr("action","<%=request.getContextPath()%>/member/login"); 
+		frm.attr("method","post");
+		frm.submit();
+        
+});	
     </script>
 
 </body>
