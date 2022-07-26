@@ -443,13 +443,24 @@
 					$('.approval_list').modal('hide');
 				});
 				$('.draftAR').click(function(){
+					var hd_count = $('#hd_count').val();
+					console.log(hd_count);
+					var total_count = $('#total_count').val();
+					console.log(total_count);
+					
+					console.log(hd_count > total_count ? '신청이 더큼': '토탈이 더큼');
+					console.log(parseFloat(hd_count) > total_count ? '신청이 더큼': '토탈이 더큼');
+					
+					
+					console.log(total_count - hd_count);
 					if($(".summernote").summernote('isEmpty')){
 						alert('휴가 사유를 입력해야 합니다.');
 						return;
 					}else if($('#start_date').val()=="" || $('#end_date').val()==""){
 						alert('날짜를 입력해야 합니다.');
 						return;
-					}else if($('#hd_count').val() == 0 || $('#hd_count').val() > $('#total_count').val()){
+					}else if(hd_count == 0 || parseFloat(hd_count) > total_count){
+						
 						alert("잔여연차를 초과했습니다. 날짜를 다시 지정해주세요.");
 						return;
 					}
