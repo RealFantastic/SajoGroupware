@@ -57,14 +57,16 @@ public class EapController {
 		String result = null;
 		Employee curUser = (Employee)session.getAttribute("loginSsInfo");
 		String emp_no = curUser.getEmp_no();
-		
-		double count = service.selectLoginUserHoliday(emp_no);
-		
-		if(count == 0) {
-			result = "fail";
-		}else {
-			result = Double.toString(count);
+		double count = 0;
+		try {
+			count = service.selectLoginUserHoliday(emp_no);			
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			count = 0;
 		}
+		
+		result = Double.toString(count);
+		
 		
 		
 		return result;
