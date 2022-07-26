@@ -248,6 +248,7 @@
 						$('.overAlert').hide();
 						var left = total - holiday;
 						$('input[name=left_count]').val(left);
+						console.log(left);
 					}
 					
 				});
@@ -316,6 +317,11 @@
 						$('input[name=endHalf]').attr("disabled","disabled");
 						$('#hd_count').val(holiday); //사용 일수 표시
 						$('#used_count').val(holiday); //신청 연차 표시
+						
+						var total = $('#total_count').val();
+						var left = total - holiday;
+						$('input[name=left_count]').val(left);
+						console.log(left);
 					}
 				});
 				$('input[type=radio]').click(function(event){
@@ -334,6 +340,12 @@
 					
 					$('#hd_count').val(holidayCount); //사용 일수 표시
 					$('#used_count').val(holidayCount); //신청 연차 표시
+					
+					
+					var total = $('#total_count').val();
+					var left = total - holidayCount;
+					$('input[name=left_count]').val(left);
+					console.log(left);
 				});
 				
 				/* SummerNote Library */
@@ -477,7 +489,7 @@
 							}else{
 								alert("상신에 실패했습니다.");
 							}
-							location.replace="<%=request.getContextPath()%>/eap/main";
+							location.href="<%=request.getContextPath()%>/eap/main";
 							
 						},
 						error:function(xhr,status,error){

@@ -68,23 +68,36 @@
 	
 	<!-- 결재대기문서 리스트 -->
 	<select id="selectListWaitApprove" parameterType="string" resultType="Eap">
-		SELECT EA.*,FORM.FORM_TITLE, E.EMP_NAME DRAFTER_NAME FROM ELEC_APPROVAL EA
-		JOIN EMPLOYEE E ON DRAFTER_ID = EMP_NO
-		JOIN EA_FORM FORM ON EA.FORM_CODE = FORM.FORM_CODE
-		WHERE 
-		(
-			RESULT_CODE=0 and
-			FIRST_APPROVER=#{emp_no}
-		)
+<!-- 		SELECT EA.*,FORM.FORM_TITLE, E.EMP_NAME DRAFTER_NAME FROM ELEC_APPROVAL EA -->
+<!-- 		JOIN EMPLOYEE E ON DRAFTER_ID = EMP_NO -->
+<!-- 		JOIN EA_FORM FORM ON EA.FORM_CODE = FORM.FORM_CODE -->
+<!-- 		WHERE  -->
+<!-- 		( -->
+<!-- 			RESULT_CODE=0 and -->
+<!-- 			FIRST_APPROVER=#{emp_no} -->
+<!-- 		) -->
+<!-- 		OR  -->
+<!-- 		( -->
+<!-- 			RESULT_CODE=2 and -->
+<!-- 			    ((SECOND_APPROVER=#{emp_no} AND STATUS_CODE IN(6,14))  -->
+<!-- 			    OR  -->
+<!-- 			    (THIRD_APPROVER=#{emp_no} AND STATUS_CODE IN(4,12))  -->
+<!-- 			    OR  -->
+<!-- 			(FINAL_APPROVER=#{emp_no} AND STATUS_CODE IN(8))) -->
+<!-- 		) -->
+<!-- 		ORDER BY DRAFT_DATE DESC -->
+		
+		SELECT info.*,e.emp_name drafter_name, hh.left_count left_count FROM view_elec_appr_infos info
+		join employee e on drafter_id = emp_no
+		join holiday_history hh on info.ea_no = hh.ea_no
+		WHERE RESULT_CODE = 0 AND DRAFTER_ID = #{emp_no}
 		OR 
-		(
-			RESULT_CODE=2 and
-			    ((SECOND_APPROVER=#{emp_no} AND STATUS_CODE IN(6,14)) 
-			    OR 
-			    (THIRD_APPROVER=#{emp_no} AND STATUS_CODE IN(4,12)) 
-			    OR 
-			(FINAL_APPROVER=#{emp_no} AND STATUS_CODE IN(8)))
-		)
+		(RESULT_CODE = 2 
+		    AND (
+		    (SECOND_APPROVER = #{emp_no} )
+		    OR (THIRD_APPROVER = #{emp_no})
+		    OR (FINAL_APPROVER = #{emp_no})
+		    ))
 		ORDER BY DRAFT_DATE DESC
 	</select>
 	

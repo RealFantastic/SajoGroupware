@@ -21,7 +21,8 @@ public class EapDomain {
 //	RESULT_CODE              VARCHAR2(1)    
 //	FORM_CODE       NOT NULL VARCHAR2(20)   
 //	RETURN_RESON             VARCHAR2(200)  
-//	UPDATE_DATE              DATE   
+//	UPDATE_DATE              DATE
+//	LEFT_COUNT				 NUMBER
 	
 	private String ea_no;	//NN
 	private String ea_title;	//NN
@@ -42,6 +43,7 @@ public class EapDomain {
 	private String return_reson;
 	private String update_date;
 	private String isemergency;
+	private double left_count;
 	
 	//결재문서 상세보기 결재선 배치시 사용
 	private String drafter_name;
@@ -66,6 +68,7 @@ public class EapDomain {
 	private List<ApprovalFile> approvalFiles;
 
 
+	
 	@Override
 	public String toString() {
 		return "EapDomain [ea_no=" + ea_no + ", ea_title=" + ea_title + ", ea_content=" + ea_content + ", drafter_id="
@@ -73,11 +76,11 @@ public class EapDomain {
 				+ ", second_approver=" + second_approver + ", third_approver=" + third_approver + ", final_approver="
 				+ final_approver + ", approver_emp_no=" + approver_emp_no + ", status_code=" + status_code
 				+ ", result_code=" + result_code + ", form_code=" + form_code + ", return_reson=" + return_reson
-				+ ", update_date=" + update_date + ", isemergency=" + isemergency + ", drafter_name=" + drafter_name
-				+ ", dept_name=" + dept_name + ", form_title=" + form_title + ", first_name=" + first_name
-				+ ", second_name=" + second_name + ", third_name=" + third_name + ", final_name=" + final_name
-				+ ", drafter_sign_path=" + drafter_sign_path + ", first_sign_path=" + first_sign_path
-				+ ", second_sign_path=" + second_sign_path + ", third_sign_path=" + third_sign_path
+				+ ", update_date=" + update_date + ", isemergency=" + isemergency + ", left_count=" + left_count
+				+ ", drafter_name=" + drafter_name + ", dept_name=" + dept_name + ", form_title=" + form_title
+				+ ", first_name=" + first_name + ", second_name=" + second_name + ", third_name=" + third_name
+				+ ", final_name=" + final_name + ", drafter_sign_path=" + drafter_sign_path + ", first_sign_path="
+				+ first_sign_path + ", second_sign_path=" + second_sign_path + ", third_sign_path=" + third_sign_path
 				+ ", final_sign_path=" + final_sign_path + ", drafter_job_name=" + drafter_job_name
 				+ ", first_job_name=" + first_job_name + ", second_job_name=" + second_job_name + ", third_job_name="
 				+ third_job_name + ", final_job_name=" + final_job_name + ", approvalFiles=" + approvalFiles + "]";
@@ -295,6 +298,12 @@ public class EapDomain {
 
 	public void setDept_name(String dept_name) {
 		this.dept_name = dept_name;
+	}
+	public double getLeft_count() {
+		return left_count;
+	}
+	public void setLeft_count(double left_count) {
+		this.left_count = left_count;
 	}
 
 	
