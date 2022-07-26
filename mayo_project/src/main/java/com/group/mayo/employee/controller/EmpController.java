@@ -31,6 +31,7 @@ import com.group.mayo.department.service.DeptService;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.domain.HolidayEmployee;
 import com.group.mayo.employee.model.service.EmpService;
+import com.group.mayo.holidayEmp.service.EmpHolidayService;
 
 
 @Controller
@@ -41,6 +42,9 @@ public class EmpController {
 	
 	@Autowired
 	private DeptService dservice;
+	
+	@Autowired
+	private EmpHolidayService hservice;
 	
 	@Autowired
 	private SignFileUpload commonFile;
@@ -206,8 +210,11 @@ public class EmpController {
 			mv.setViewName("redirect:/member/enroll");
 			return mv;
 		}
-		rttr.addFlashAttribute("msg", "가입이 완료되었습니다.");
-		mv.setViewName("redirect:/");
+		int insert = hservice.insertTotal(hemployee);
+		if(insert != 0) {
+			rttr.addFlashAttribute("msg", "가입이 완료되었습니다.");
+			mv.setViewName("redirect:/");	
+		}
 		return mv;
 	}		
 	// 로그인
