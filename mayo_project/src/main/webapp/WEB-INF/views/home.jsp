@@ -45,16 +45,5 @@
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <jsp:include page="/WEB-INF/views/template_nav.jsp"/>
 <jsp:include page="template_section.jsp"/>
-
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-
-<button type="button" onclick="location.href='<%= request.getContextPath()%>/member/list'">회원목록</button>
-<button type="button" onclick="location.href='<%= request.getContextPath()%>/company/enroll'">회사등록</button>
-<button type="button" onclick="location.href='<%= request.getContextPath()%>/member/login'">로그인</button>
-
 </body>
 </html>

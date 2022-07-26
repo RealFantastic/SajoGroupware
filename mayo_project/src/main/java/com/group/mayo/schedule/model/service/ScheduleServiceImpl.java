@@ -60,7 +60,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 	
 	
 	
-	//¹Ì´Ï´Ş·Â ÀÏÁ¤ ºÒ·¯¿À±â
+	//ë¯¸ë‹ˆë‹¬ë ¥ ì¼ì • ë¶ˆëŸ¬ì˜¤ê¸°
 	@Override
 	public List<Schedule> selectAllminiCalPlan(String emp_no) {
 		return dao.selectAllminiCalPlan(emp_no);
