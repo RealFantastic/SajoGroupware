@@ -1,0 +1,62 @@
+@charset "UTF-8";
+#j_section{
+/* 	margin-top: 60px; */
+	margin-left: 250px;
+}
+/* article1  */
+#j_commute{
+	position: relative;
+	top: 60px;
+	
+	display: flex;
+    width: 1200px;
+/*     margin: 0 auto; */
+}
+}
+/* commute.css */
+
+.table_all{
+/* 	border-collapse: seperate !important; */
+	width: 110%;
+	
+
+}
+
+.commute_table{
+	text-align: center;
+	width: 110%;
+}
+
+.commute_table_th{
+	/* border: 1px solid; */
+	padding: 5px;
+	/* 초록 */
+/* 	background-color :rgb(235, 255, 246); */
+	/* 노랑 */ 
+	background-color :rgb(242, 184, 75); 
+	border-radius:15px;
+}
+
+.commute_table_list_td{
+	
+/* 	border: 2px solid rgb(242, 184, 75); */
+	background-color :#ffc10729;
+	padding: 5px;
+	
+   border-radius: 20px;
+   -moz-border-radius: 20px;
+   -webkit-border-radius: 20px;
+   -o-border-radius: 20px;
+   
+   font-size: smaller;
+}
+.chart_week{
+	display: block;
+/*     margin: 0 auto; */
+}
+
+/* article2_ 전자결재 */
+#bodyContent{
+	width: 1200px;
+}
+
