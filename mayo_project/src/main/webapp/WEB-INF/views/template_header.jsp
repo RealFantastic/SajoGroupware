@@ -12,7 +12,7 @@
 					<div class="modal-body" id="emp_info">
 						<div id="emp_list">
 							<input type="text" id="empchart_search">
-							<div id="jstree_empchart">
+							<div class="jstree_empchart">
 							</div>
 						</div>
 						<div id="emp_detail_container">
@@ -131,7 +131,7 @@
 		sessionStorage.setItem("contextPath","${pageContext.request.contextPath}");
 		console.log("1");
 		$(function () {
-			orgChart($('#jstree_empchart'));
+			setTimeout(orgChart($('.jstree_empchart')),250);
 			var to = false;
 			$('#empchart_search').keyup(function(event){
 			  	var target = $(event.target);

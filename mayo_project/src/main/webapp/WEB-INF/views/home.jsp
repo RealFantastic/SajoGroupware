@@ -19,17 +19,18 @@
 <link href="<%=request.getContextPath()%>/resources/css/template_nav.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_section.css" rel="stylesheet">
 
-<!-- JSTree -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
-
 <!-- 주달력 -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script> <!-- 	날짜 보기 편한 CDN : moment -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+
+<!-- JSTree -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/mayoJstree.js"></script>
+
 
 <!-- 하이차트 -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
