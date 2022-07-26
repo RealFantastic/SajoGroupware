@@ -56,6 +56,20 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return dao.updateSked(sked);
 	}
 
-
+	
+	
+	
+	
+	//미니달력 일정 불러오기
+	@Override
+	public List<Schedule> selectAllminiCalPlan(String emp_no) {
+		return dao.selectAllminiCalPlan(emp_no);
+	}
+	
+	
+	
+	
+	
+	
 
 }

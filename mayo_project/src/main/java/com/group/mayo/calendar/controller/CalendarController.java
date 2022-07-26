@@ -1,6 +1,8 @@
 package com.group.mayo.calendar.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.domain.Project;
@@ -60,4 +66,39 @@ public class CalendarController {
 		mv.setViewName("calendar/view");
 		return mv;
 	}
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/select-all")
+	@ResponseBody
+	public JsonArray selectAllminiCalPlan(
+			@RequestParam(name="emp_no",required=false) String emp_no){
+		List<Schedule> allPlan = service.selectAllminiCalPlan(emp_no);
+		JsonObject jobj = null;
+		JsonArray jArr = new JsonArray();
+		
+		HashMap<String,Object> hash = new HashMap<>();
+		
+		for(Schedule plan : allPlan) {
+			jobj = new JsonObject();
+//			hash.put("title", plan.getSked_name());
+//			hash.put("start", plan.getSked_start_date());
+//			hash.put("end", plan.getSked_end_date());
+			
+			jobj.addProperty("title", plan.getSked_content());
+			jobj.addProperty("start", plan.getSked_start_date().toString());
+			jobj.addProperty("end", plan.getSked_end_date().toString());
+			jArr.add(jobj);
+		}
+		
+		return jArr;
+		
+	}
+	
+	
+	
 }

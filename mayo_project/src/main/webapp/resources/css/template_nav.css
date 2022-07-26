@@ -17,7 +17,7 @@
 	flex-direction: column;
 	padding:15px;
 }
-/* #main_nav_wrapper div{ */
+/* #main_nav_wrapper div:not(.user_info){ */
 /* 	margin-top:15px; */
 /* } */
 /* nav 래퍼 css 종료 */
@@ -54,9 +54,11 @@
 
 /* nav digital_watch css 시작 */
 #digital_watch{
+	margin-top:35px;
 	text-align: center;
 }
 .left_bar_btn{
+	margin-top:15px;
 	text-align: center;
 }
 .left_bar_date{
@@ -75,6 +77,15 @@
 .btn_off{
 	font-weight: bolder;
 }
+
+/* nav digital_watch css 종료 */
+/* --------------------- */
+
+/* nav mini_calendar css 시작 */
+#mini_calendar{
+	margin-top:25px;
+	height:300px;
+}
 .fc table{
 	font-size: 0.79em !important;
 }
@@ -85,10 +96,16 @@
 .fc .fc-toolbar-title{
 font-size: 1.3em;	
 }
-/* nav digital_watch css 종료 */
-
-
-
+.fc .fc-button{
+	padding:0.2em 0.5em;
+}
+.fc-scroller-liquid-absolute::-webkit-scrollbar-track{
+	background-color:rgb(107, 191, 152);
+}
+.fc-scroller-liquid-absolute::-webkit-scrollbar-thumb{
+	background-color:rgb(107, 191, 152);
+}
+/* nav mini_calendar css 종료 */
 
 
 

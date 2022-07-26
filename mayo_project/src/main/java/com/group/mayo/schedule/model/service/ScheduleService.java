@@ -60,4 +60,10 @@ public interface ScheduleService {
 	 */
 	public int updateSked(Schedule sked);
 	
+	/**
+	 * @param emp_no
+	 * @return List<schedule>
+	 */
+	public List<Schedule> selectAllminiCalPlan(String emp_no);
+	
 }

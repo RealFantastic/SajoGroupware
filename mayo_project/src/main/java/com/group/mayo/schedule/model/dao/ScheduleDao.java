@@ -53,4 +53,16 @@ public class ScheduleDao {
 	public int updateSked(Schedule sked) {
 		return sqlSession.update("Schedule.updateSked", sked);
 	}
+	
+	
+	
+	
+	//미니달력 일정 불러오기
+	public List<Schedule> selectAllminiCalPlan(String emp_no) {
+		return sqlSession.selectList("Schedule.selectAllminiCalPlan",emp_no);
+	}
+	
+	
+	
+	
 }

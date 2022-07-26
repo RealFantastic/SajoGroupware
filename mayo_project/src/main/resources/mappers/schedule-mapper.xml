@@ -89,4 +89,27 @@
 	delete from schedule where sked_no=#{sked_no}
 </delete>
 
+
+
+
+
+
+
+
+
+
+
+<select id="selectAllminiCalPlan" resultType="Schedule">
+	SELECT * FROM SCHEDULE
+</select>
+
+
+
+
+
+
+
+
+
+
 </mapper>

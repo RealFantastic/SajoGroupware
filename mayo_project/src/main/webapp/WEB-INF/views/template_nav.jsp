@@ -20,29 +20,59 @@
 		<div id="mini_calendar">
 			<div id="calendar" style="width:250px;"></div>
 		</div>
-		
-		<div>
-			ㅎㅇㅎㅇ
-		</div>
 	</div>
 	
 </nav>
 <script>
+	
 	document.addEventListener('DOMContentLoaded',function(){
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl,{
-			initialView: 'dayGridMonth',
-			height:300,
-			aspectRatio: 2,
-			locale: 'ko',
-			contentHeight:200,
-			headerToolbar:{
-				left:'title',
-				center:'',
-				right:''
-			}
+		$(function(){
+			var request = $.ajax({
+				url:'<%=request.getContextPath()%>/calendar/select-all',
+				type:'get',
+				data:'${loginSsInfo.emp_no}',
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+				}
+			});
+			request.done(function(data){
+				console.log(data); // 위 결과 데이터 확인
+				
+				var calendarEl = document.getElementById('calendar');
+				
+				var calendar = new FullCalendar.Calendar(calendarEl,{
+					initialView: 'dayGridMonth',
+					height:300,
+					aspectRatio: 1,
+					locale: 'ko',
+					contentHeight:350,
+					events:data,
+					customButtons:{
+						move:{
+							text:'캘린더 이동',
+							click:function(){
+								location.href = '<%=request.getContextPath()%>/calendar/view';
+							}
+						}
+					},
+					headerToolbar:{
+						left:'title',
+						center:'',
+						right:'move'
+					},
+				});
+				
+				calendar.render();
+			});
+			
+			request.fail(function(jqXHR, textStatus){
+				alert("Request failed : " + textStatus);
+			});
+			
 		});
-		calendar.render();
+		
+		
 	});
 
 	//	현재시간  https://stickode.tistory.com/124 
@@ -70,6 +100,7 @@
 				
 				
 	// 		출퇴근시간 확인
+		
 		$.ajax({
 			type:"post"
 			,url:"<%=request.getContextPath()%>/commute/leftAttInfo"

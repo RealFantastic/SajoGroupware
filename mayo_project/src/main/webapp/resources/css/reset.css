@@ -96,3 +96,10 @@ li{
         background: rgb(235, 255, 246);;
         color: rgb(107, 191, 152);
 }
+::-webkit-scrollbar-track{
+	background-color:rgb(107, 191, 152);
+}
+::-webkit-scrollbar-thumb{
+	background-color:rgb(107, 191, 152);
+}
+
