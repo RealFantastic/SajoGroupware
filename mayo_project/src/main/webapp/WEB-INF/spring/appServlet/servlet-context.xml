@@ -47,7 +47,6 @@
 			<exclude-mapping path="/company/**"/>
 			<exclude-mapping path="/company/enroll/**"/>
 			<exclude-mapping path="/company/mailCheck/**"/>
-			<exclude-mapping path="/"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>

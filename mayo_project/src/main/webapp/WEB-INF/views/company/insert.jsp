@@ -76,8 +76,11 @@
 
 
 </head>
-<jsp:include page="/WEB-INF/views/template_header.jsp"/>
 <body id="j_background">
+<script type="text/javascript">
+	${msg}
+</script>
+<jsp:include page="/WEB-INF/views/template_header.jsp"/>
     <div style="padding: 50px;">
         <form id="cp_enroll" name="cp_enroll" action="<%=request.getContextPath()%>/company/enroll" method="post">
             <section>
@@ -238,6 +241,18 @@
 			$("#cp_number").focus();
 			return false;
 		} 	
+		/* 사업자 성함 */
+		var replaceName = /^[가-힣a-zA-Z\s]+$/
+			 
+		$("#cp_king").on("focusout", function() {
+		    var x = $(this).val();
+		    if (x.length > 0) {
+		        if (!x.match(replaceName)) {
+		           alert("성함은 한글, 영문만 입력 가능합니다.");
+		        } 
+		    }
+		});
+
     	/*전화번호 형식 체크*/
  		var phone = $("#cp_tel").val().trim();
 		var regExpPhone = /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}$/; // 숫자3-숫자3,4-숫자4
@@ -267,15 +282,16 @@
 			return false;
 		}
 		   
-<%-- 	
 	var frm = $("#cp_enroll");
 	frm.attr("action","<%= request.getContextPath()%>/company/enroll"); 
 	frm.attr("method","post");
 	frm.submit(); 
---%>
 	});
     
     </script>
+    
+
+    
     
     <!--사업자 번호 하이픈 정규식 DOM  -->
     <script>

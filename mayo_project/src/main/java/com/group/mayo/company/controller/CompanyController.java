@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.company.domain.Company;
 import com.group.mayo.company.model.service.CompanyService;
@@ -39,7 +40,7 @@ public class CompanyController {
 	public ModelAndView insert(ModelAndView mv
 //			, @RequestParam(name="title", defaultValue = "aaa") String t1
 //			, @RequestParam(name="title", required = false) String t1
-			//, RedirectAttributes rttr
+			, RedirectAttributes rttr
 			, Company company
 			, HttpServletRequest req
 			) {
@@ -47,11 +48,12 @@ public class CompanyController {
 	
 		int result = service.insertCompany(company);
 		if(result < 1) {
-			//rttr.addFlashAttribute("msg", "가입에 실패했습니다. 다시 회원가입 시도해주세요.");
+			rttr.addFlashAttribute("msg", "회사등록에 실패했습니다. 다시 시도해주세요.");
 			mv.setViewName("redirect:/company/enroll");
 			return mv;
 		}
-		mv.setViewName("redirect:/");
+		rttr.addFlashAttribute("msg", "회사등록이 완료되었습니다.반드시 회원가입을 진행해주세요!");
+		mv.setViewName("redirect:/member/enroll");
 		return mv;
 	}	
 	
