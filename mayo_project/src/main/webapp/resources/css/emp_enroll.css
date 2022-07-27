@@ -18,7 +18,7 @@
     background-color: white;
     padding: 25px;
     width: 1000px;
-    height: 800px;
+    height: 815px;
 
     /* 가운데 정렬 */
     margin: 0 auto;
@@ -35,12 +35,11 @@
 
     height: 400px;
 
-    padding-top: 30px;
+    padding-top: 40px;
     
 }
 #j_container2{
     float: left;
-    padding: 10px;
     width: 450px;
     box-sizing: border-box;
 
@@ -48,7 +47,7 @@
     position: relative;
     left: 40px;
 
-    padding-top: 30px;
+    padding-top: 10px;
 
 }
 /* job */
@@ -73,7 +72,7 @@
 /* 이용약관 선 */
 #j_cline{
     align-content: center;
-	margin: 20px 0px 45px;
+	margin: 20px 0px 25px;
 }
 /* 각 행들- 주소 제외*/
 .j_e{
@@ -157,14 +156,23 @@
     width: 20%;
 }
 #domain{
-    width: 42%;
+    width: 60%;
+}
+#domain_box{
+	display: inline-block;
+	padding-top: 5px;
 }
 #email_check{
     font-size: medium;
     padding-top: 5px;
+    
+    position: relative;
+    top: 83px;
+    float: right;
+    width: 100%	;
 }
 #email_check_no{
-    width: 25%;
+    width: 30%;
 }
 #sample6_postcode{
 	width: 35%;

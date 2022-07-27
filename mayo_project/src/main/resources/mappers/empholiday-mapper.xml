@@ -4,7 +4,7 @@
 
 	<insert id="insertTotal" parameterType="HolidayEmployee">
 	<!-- HOLIDAY_EMPLOYEE 테이블 컬럼들 전체 변경됨에 따라 쿼리 수정 부탁합니다 -박정환- -->
-		INSERT INTO EMPLOYEE_HOLIDAY(EMP_NO, TOTAL,LEFT_COUNT) VALUES (#{emp_no},#{total},#{total})
+	INSERT INTO EMPLOYEE_HOLIDAY VALUES (SEQ_BIRTH_NO.NEXTVAL,EXTRACT(YEAR FROM SYSDATE),#{emp_no},#{total},null,#{left_count})
 	</insert>
 	
 	<update id="updateEmpHd" parameterType="HolidayEmployee">

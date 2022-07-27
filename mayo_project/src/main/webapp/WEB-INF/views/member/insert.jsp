@@ -116,7 +116,6 @@
                         <input type="text" id="rrn" name="rrn" maxlength="14">
                         <button type="button" class="j_btn_gray" onclick = "checkRrn()">조회</button>
                         <div><font id="check_rrn" size ="2"></font></div>
-                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div class="j_e" id="j_dept">
                         <label for="dept_no">부서 : </label>
@@ -148,10 +147,9 @@
                     </div>
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
-                        <input type="text" id="emp_no" name="emp_no" maxlength="9" required="required">
+                        <input type="text" id="emp_no" name="emp_no" maxlength="9" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required="required">
                         <button type="button" class="j_btn_gray" onclick = "checkNo()">조회</button>
                         <br><font id="check_result" size ="2"></font>
-                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_pwd" class="j_e">
                         <label>비밀번호 : </label>
@@ -162,14 +160,12 @@
                         <label for="password_chk">비밀번호 재확인 : </label>
                         <input type="password" id="password_chk" name="password_chk" class="j_pwd" required="required">
                         <br><font id="check_pwd" size ="2"></font>
-                        <br><font class="feedback" size ="2"></font>
-                    </div>
+                  </div>
 
                     <div class="j_e">
                         <label for="hire_date">입사일 : </label>
                         <input type="date" id="hire_date" name="hire_date" required="required"/>
                         <input type="hidden" name="total" value=""> 
-                        <br><font class="feedback" size ="2"></font>
                     </div>
                     <div>
                         <div id="j_email" class="j_e">
@@ -177,31 +173,31 @@
                             <div>
                             <input type="text" id="email_id" name="email_id" required="required">
                             <span id="middle">@</span>
-                            <input type="text" id="domain" name="domain" required="required"/>
+                            <input type="text" id="domain" name="domain" />
+                            <div id="domain_box" >
                             <select id="domain_list" name="domain_list" required="required">
                                 <option value="naver.com">naver.com</option>
                                 <option value="google.com">google.com</option>
                                 <option value="hanmail.net">hanmail.net</option>
                                 <option value="nate.com">nate.com</option>
                                 <option value="kakao.com">kakao.com</option>
-                                <option value="direct">직접입력</option>
+                                <option value="direct" >직접입력</option>
                               </select>
                               <button type="button"
                                id="emailChk_send_btn"
                                class="j_btn_gray" 
-                               name="emailChk_send_btn" required="required">인증번호 보내기</button>
+                               name="emailChk_send_btn">인증번호 보내기</button>
+                               </div>
                               <input type="hidden" id="totalemail" name="email" value="" required="required">
                             </div>
-                            <br><font class="feedback" size ="2"></font>
                         </div>
     
-                        <div id="email_check" class="j_e" required="required">
+                        <div id="email_check" class="j_e" >
                             <label>인증번호 : </label>
-                            <input type="text" id="email_check_no" disabled required>
+                            <input type="text" id="email_check_no" disabled required="required">
                             <button type="button" id="email_check_btn" class="doubleChk" >인증</button>
- 							<p class="point successEmailChk">이메일 입력후 인증번호 인증 해주십시오.</p>
 							<input type="hidden" id="emailDoubleChk" required="required"/>
-                            <br><font class="feedback" size ="2"></font>
+							<br><font class="point successEmailChk"></font>
                         </div>
                     </div>
 
@@ -247,7 +243,7 @@
                     </div>
 
                    <div id="clause">
-                       <ul style="padding: 35px 3px;">
+                       <ul style="padding: 10px 3px;">
                            <li>
                                <hr id="j_cline">
                            </li>
@@ -270,7 +266,7 @@
 	                        </li>
                   		 </ul>
               	 	</div>
-                <div id="j_btn" style="bottom: 30px;">
+                <div id="j_btn">
                     <button type="reset" class="btn_yellow">뒤로가기</button>
                     <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
                 </div>
@@ -346,6 +342,8 @@
     		$("#phone").focus();
     		return false;
     	}
+    	
+
 
     });	
     </script>
@@ -363,9 +361,11 @@
     			console.log("password_chk :"+password_chk);
     			$("#check_pwd").html('비밀번호가 일치 합니다.');
     			$("#check_pwd").attr('color','green');
+    			$("#j_enroll_btn").attr("disabled",false);
     		}else {
     			$("#check_pwd").html('비밀번호가 일치하지 않습니다.');
     			$("#check_pwd").attr('color','red');
+    			$("#j_enroll_btn").attr("disabled",true);
     		}
     	}
     		
@@ -409,14 +409,16 @@
 				type:"post",
 				data: {"emp_no":emp_no},
 				success: function(result){
-					console.log("result"+result);
-					if(result == "false" || result == null){
+					console.log("result:"+result);
+					if(result == "false" ){
 						console.log("안녕");
 						$("#check_result").html('사원번호를 다시 확인해주세요.');
 						$("#check_result").attr('color','red');
-					}else if(result == "ok"){
+						$("#j_enroll_btn").attr("disabled",true);
+					}else if(result == "ok" ){
 						$("#check_result").html('사원번호가 확인 되었습니다.');
-						$("#check_result").attr('color','blue');
+						$("#check_result").attr('color','green');
+						$("#j_enroll_btn").attr("disabled",false);
 					} 
 				},
 				error : function(){
@@ -445,9 +447,11 @@
 						console.log("안녕");
 						$("#check_rrn").html('주민번호를 다시 확인해주십시오.');
 						$("#check_rrn").attr('color','red');
+						$("#j_enroll_btn").attr("disabled",true);
 					}else if(result == "ok"){
 						$("#check_rrn").html('주민번호가 확인 되었습니다.');
 						$("#check_rrn").attr('color','green');
+						$("#j_enroll_btn").attr("disabled",false);
 					} 
 				},
 				error : function(){
@@ -534,14 +538,14 @@
 	        	if(data == "error"){
 	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
 					$("#totalemail").attr("autofocus",true);
-					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
+					$(".successEmailChk").html("유효한 이메일 주소를 입력해주세요.");
 					$(".successEmailChk").css("color","red");
 	        	}else{	        		
 					alert("인증번호 발송이 완료되었습니다.\n입력한 이메일에서 인증번호 확인을 해주십시오.");
 	        		$("#email_check_no").attr("disabled",false);
 	        		$("#email_check_btn").css("display","inline-block");
-	        		$(".successEmailChk").text("인증번호를 입력한 뒤 이메일 인증을 눌러주십시오.");
-	        		$(".successEmailChk").css("color","black");
+	        		$(".successEmailChk").html("인증번호을 입력하여 인증을 완료해주세요.");
+	        		$(".successEmailChk").css("color","blue");
 	        		code = data;
 	        	}
 	        }
@@ -561,6 +565,7 @@
 			$(".successEmailChk").css("color","red");
 			$("#emailDoubleChk").val("false");
 			$("#email_check_no").attr("autofocus",true);
+			$("#j_enroll_btn").attr("disabled",true);
 		}
 	});
 	</script>
@@ -590,6 +595,7 @@
 							console.log("result:"+result);
 							$("#check_cp").html('등록되지 않은 사업자번호 입니다.');
 							$("#check_cp").attr('color','red');
+							$("#j_enroll_btn").attr("disabled",true);
 						}else if(result == "ok" || result != null){
 							console.log("result:"+result);
 							$("#check_cp").html('사업자번호가 확인 되었습니다.');

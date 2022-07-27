@@ -264,11 +264,10 @@ public class EmpController {
 	 @ResponseBody
 	 public String checkCpNumber(
 			 @RequestParam("emp_no") String emp_no
-			 ) {
-		 	
-		 	int result=service.checkEmpNo(emp_no);  
-		 	String ro = null;
-		 	if(result == 1) {
+			 ,RedirectAttributes rttr) {
+		 String ro = null;
+		 int result=service.checkEmpNo(emp_no);  
+		 	if(result != 0 || emp_no.equals("") || emp_no.length() != 9) {
 		 		ro= "false";
 		 	}else {
 		 		ro ="ok";
@@ -282,16 +281,15 @@ public class EmpController {
 	 public String checkRrn(
 			 @RequestParam("rrn") String rrn
 			 ) {
-		 	
-		 	int result=service.checkRrn(rrn);  
-		 	String ro = null;
-		 	if(result == 1) {
-		 		ro= "false";
-		 	}else {
-		 		ro ="ok";
-		 	}
-		 	
-		 	return ro;
+		 int result=service.checkRrn(rrn);  
+		 String ro = null;
+			 	if(result == 1 || rrn.equals("") || rrn.length() != 14) {
+			 		ro= "false";
+			 	}else {
+			 		ro ="ok";
+			 	}
+			 	
+			 	return ro;
 	 }
 	//사업자번호 조회
 	 @PostMapping(value="/checkcpnum",produces="text/plain;charset=UTF-8")
@@ -302,7 +300,7 @@ public class EmpController {
 		 	
 		 	int result=service.checkCpNumber(cp_number);  
 		 	String ro = null;
-		 	if(result == 1) {
+		 	if(result == 1 || cp_number.equals("") || cp_number.length() != 12) {
 		 		ro= "false";
 		 	}else {
 		 		ro ="ok";
@@ -329,9 +327,11 @@ public class EmpController {
 	         mailHelper.setTo(to);
 	         mailHelper.setSubject(title);
 	         mailHelper.setText(content, true);       
-	         
-	         mailSender.send(mail);
-	         num = Integer.toString(serti);
+	         if(totalemail != null) {
+	        	 
+	        	 mailSender.send(mail);
+	        	 num = Integer.toString(serti);
+	         }
 	         
 	     } catch(Exception e) {
 	         num = "error";
