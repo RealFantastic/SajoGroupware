@@ -10,6 +10,7 @@
 .approval_form{
 	margin:12px;
 	border:5px solid #eee;
+	min-width: 840px;
 }
 /* ToolBar css 시작 */
 .toolBar{

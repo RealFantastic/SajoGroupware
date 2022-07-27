@@ -71,52 +71,20 @@
 						<br>
 						<table class="ar_table2">
 							<tr>
-								<td class="td_color_gray">휴가종류</td>
+								<td class="td_color_gray">시행일자</td>
 								<td style="border-bottom:1px solid black;">
-									<select name="holiday_type">
-										<option value="F">연차</option>
-										<option value="H">반차</option>
-									</select>
+									<input type="date" name="start_date">
 								</td>
 							</tr>
 							<tr>
-								<td class="td_color_gray">기간 및 일시</td>
-								<td style="border-bottom:1px solid black;">
-									<input type="date" id="start_date" name="hd_start"> ~ <input type="date" id="end_date" name="hd_end">
-									<label for="hd_count">사용 일자 : </label>
-									<input type="text" readonly name="hd_count" id="hd_count">
-									<span class="overAlert">사용일수 초과</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="td_color_gray">반차 여부</td>
-								<td style="border-bottom:1px solid black;">
-									<input type="checkbox" id="is_half" name="is_half">
-									<label for="is_half">반차사용</label>
-									<div id="select_time_radio">
-										<input type="radio" name="selectTime" id="am" value="오전"><label for="am">오전</label>
-										<input type="radio" name="selectTime" id="pm" value="오후"><label for="pm">오후</label>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td_color_gray"> 연차 사용 일수 </td>
-								<td style="border-bottom:1px solid black;">
-									<label for="left_count">잔여 연차 : </label>
-									<input type="text" id="left_count" name="left_count" readonly>
-									<label for="used_count">신청 연차 : </label>
-									<input type="text" id="used_count" name="used_count" readonly>
-								</td>
-							</tr>
-							<tr>
-								<td class="td_color_gray">휴가 사유</td>
-								<td><textarea id="summernote" name="summernote" class="summernote"></textarea></td>
+								<td class="td_color_gray">내용</td>
+								<td><textarea id="summernote2" name="summernote" class="summernote"></textarea></td>
 							</tr>
 						</table>
 					</form>
 				</div>
 				<div class="add_file">
-				
+					
 				</div>
 			</div>
 		</section>
@@ -168,7 +136,7 @@
 	<script>
 		$(function(){		
 			/* SummerNote Library */
-			 $('#summernote').summernote({
+			 $('#summernote2').summernote({
 					toolbar: [
 						['style',['bold','italic','underline','clear']],
 						['font',['strikethrough','superscript','subscript']],
@@ -176,7 +144,11 @@
 						['color',['color']],
 						['para',['ul','ol','paragraph']],
 						['height',['height']]
-					]
+					],
+					height: 300,
+					minHeight: 300,
+					codeviewFilter: false,
+					codeviewIframeFilter:true
 			});
 			 orgChart($('#jstree_org_chart_bp'));
 				$('#org_chart_search_bp').keyup(function(event){
