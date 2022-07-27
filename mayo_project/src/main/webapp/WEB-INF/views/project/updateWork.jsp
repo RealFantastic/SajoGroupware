@@ -46,7 +46,16 @@
         </div>
            <div>
 			 <input class="isemergency" name="isemergency" value="N" type="hidden">
-            <button type="button" id="isemergency"><img id="eimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급"></button>
+            <button type="button" id="isemergency">
+	            <c:choose>
+	            	<c:when test="${work.isemergency == 'Y' }">
+	            		<img id="eimg" src="<%=request.getContextPath() %>/resources/images/alert.png" alt="긴급">
+	            	</c:when>
+	            	<c:otherwise>
+	            		<img id="eimg" src="<%=request.getContextPath() %>/resources/images/blackalert.png" alt="긴급">
+	            	</c:otherwise>
+	            </c:choose>
+            </button>
         </div>
           </div>
           <div class="mb-3">
@@ -100,7 +109,7 @@ $('#anyModal').on('hidden.bs.modal', function () {
 		$('input[name=work_start_date]').attr('readonly' , true);
 		$('input[name=work_deadline]').attr('readonly' , true);
 		$('textarea[name=work_content]').attr('readonly' , true);
-		$('#isemergency').attr('disabled', 'disabled'); // 버튼 비활성화 안 됨
+		$('#isemergency').attr('disabled', true); // 버튼 비활성화 안 됨
 	};
 
 	// 취소 버튼 누르면 뒤로가기
@@ -110,6 +119,11 @@ $('#anyModal').on('hidden.bs.modal', function () {
 
 //긴급 버튼
 $("#eimg").click(function(){
+	
+	if(emp != workMgr){
+		return;
+	};
+	
 	var eimg = $("#eimg").attr("src");
 	
 	if(eimg=="<%=request.getContextPath() %>/resources/images/blackalert.png"){

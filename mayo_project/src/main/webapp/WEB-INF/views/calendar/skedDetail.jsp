@@ -21,6 +21,7 @@
 									<form action="<%=request.getContextPath()%>/schedule/toUpdate" method="POST">
 										<input type="hidden" name="sked_no" value="${sked.sked_no }">
 										<button type='submit' class='btn_gray btn-modify sUpdate'>수정</button>
+<%-- 										<input type='hidden' value="${sked.sked_emp_id }"/> --%>
 									</form>
 									<button type='button' class='btn_red btn-delete deleteS'>삭제</button>
 									<input type='hidden' value="${sked.sked_emp_id }"/>
@@ -55,7 +56,7 @@
 									</div>
 								</c:if>
 								<div class="mb-3">
-									<textarea class="form-control readContent" disabled>${sked.sked_content }</textarea>
+									<div class="readContent">${sked.sked_content }</div>
 								</div>
 							</div>
 						</div>

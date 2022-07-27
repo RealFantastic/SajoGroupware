@@ -60,7 +60,6 @@
 			      extendedProps: {
 			    	  workNo: '${work.work_no}',
 			    	  proj: '${work.proj_no}',
-			    	  content: '${work.work_content}',
 			    	  status: '${work.work_status}',
 			    	  emergency: '${work.isemergency}'
 			      }
@@ -150,7 +149,6 @@
 				    $("#work .workStatus").text(info.event.extendedProps.category);
 				    $("#work .workStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
 					$("#work .workEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
-				    $("#work .workContent").text(info.event.extendedProps.content);
 			 	}
 			 	
 		  }
@@ -215,7 +213,7 @@
           	<i class="fa-solid fa-location-dot"></i><div class="skedLoca" style="margin-left:5px;"></div>
 			 </div>
           <div class="mb-3">
-            <textarea class="col-form-label skedContent" style="padding:10px; border:none;" disabled></textarea>
+            <div class="skedContent" style="padding:10px; border:none; background-color:transparent;"></div>
           </div>
       </div>
       </div>
@@ -247,9 +245,6 @@
             	<div class="workStart" style="margin-left:5px;"></div><div style="margin:0 3px 0 3px">~</div>
             	<div class="workEnd" style="color:red;"></div>
           	</div>
-          <div class="mb-3">
-            <textarea class="col-form-label workContent" style="padding:10px; border:none;" disabled></textarea>
-          </div>
       </div>
       </div>
 	</div>
@@ -268,9 +263,8 @@
       	<div style="display: flex;">
 	   		<div>
 	        	<select name="sked_category" class="form-select" aria-label="Default select example">
-				  <option selected disabled>종류</option>
-				  <option value="A">전사</option>
-				  <option value="P">개인</option>
+				  <option value="A" style="color:red;">전사</option>
+				  <option value="P" selected>개인</option>
 				  <c:forEach var="project" items="${project }">
 				  <option value="${project.proj_no }">${project.proj_name }</option>
 				  </c:forEach>
@@ -313,7 +307,7 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" rows="4" id="content" name="sked_content" required></textarea>
+            <input class="form-control" id="content" name="sked_content" required>
           </div>
       </div>
       <div class="modal-footer">

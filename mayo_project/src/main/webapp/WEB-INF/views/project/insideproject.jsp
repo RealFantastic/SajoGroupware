@@ -73,7 +73,7 @@
 						<div id="selectedEmp_container">
 							<div id="selectedEmp">
 								<form id="select_add">
-								<table id="selected_list">
+								<table id="selected_list" class="table">
 									<thead>
 										<tr>
 											<td>사번</td>
@@ -134,7 +134,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" id="deleteProj" class="btn_red">삭제</button>
-							<button id="submitM" type="submit" class="btn_green">수정</button>
+							<button id="submitM" type="button" class="btn_green">수정</button>
 						</div>
 					</form>
 				</div>
@@ -272,7 +272,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="contentS" name="sked_content" required></textarea>
+								<input class="form-control" id="contentS" name="sked_content" required>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -287,6 +287,7 @@
 
 	<script>
 var loginEmp = ${loginSsInfo.emp_no};
+var proj_mgr = ${project.proj_mgr};
 	
 // 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
 $(function(){
@@ -312,12 +313,17 @@ $(function(){
 					
 					var html ="";
 					
-					for(var i=0; i<$(".emp_no").length; i++){
+					// 이미 담당자인 직원 추가 못하게 
+					for(var i=0; i<$(".picempno").length; i++){
 						
-// 						if(result.emp_no == ) {
-// 							alert("이미 추가된 직원입니다");
-// 							return;
-// 						}
+						if(result.emp_no == $(".picempno").eq(i).text()){
+							alert("이미 추가된 직원입니다");
+							return;
+						}
+					}
+					
+					// 중복 선택 안 되게
+					for(var i=0; i<$(".emp_no").length; i++){
 						
 						if(result.emp_no == $(".emp_no").eq(i).text()){
 							alert("이미 선택한 직원입니다");
@@ -361,6 +367,12 @@ $(function(){
 	
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
+	
+	if(emp != proj_mgr){
+		alert("작성자만 수정할 수 있습니다.");
+		return;
+	}	
+	
 	// form data 전부 넘기기	
 	var proj = $("form[name=mProject]").serialize();
 	
@@ -379,6 +391,12 @@ $("#submitM").click(function(){
 
 // 프로젝트 삭제 ajax
 $("#deleteProj").click(function(){
+	
+	if(emp != proj_mgr){
+		alert("작성자만 삭제할 수 있습니다.");
+		return;
+	}	
+		
 	var proj_no = ${project.proj_no};
 	var check = confirm("프로젝트를 삭제하시겠습니까?");
 	// 프로젝트 삭제 여부 확인하기	
@@ -406,11 +424,13 @@ $("#submitP").click(function(){
 var sdate = $("#work_start_date").val();
 var edate = $("#work_deadline").val();
 
-if($("#title").val() == ""){
-	alert("업무명을 입력해주세요");
+console.log($("#title").length);
+
+if($("#title").val() == "" || $("#title").val().length>20){
+	alert("20자 이하 업무명을 입력해주세요");
 	$("#work_title").focus();
 	return false;
-}
+} 
 
 if(sdate > edate) {
 	alert("마감일은 시작일보다 빠를 수 없습니다");

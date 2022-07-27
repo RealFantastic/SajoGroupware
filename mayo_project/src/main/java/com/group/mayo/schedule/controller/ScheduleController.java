@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
+import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.schedule.domain.Schedule;
 import com.group.mayo.schedule.model.service.ScheduleService;
@@ -67,7 +68,9 @@ public class ScheduleController {
 			List<Schedule> sked = service.selectSked(proj_no);
 			List<Project> projList = projservice.selectAllProj(emp_no);
 			Project proj = projservice.selectProj(proj_no);
+			List<ProjectPic> projPic = projservice.selectPic(proj_no);
 			
+			mv.addObject("projPic", projPic);
 			mv.addObject("sked", sked);
 			mv.addObject("proj",projList);
 			mv.addObject("project", proj);
@@ -106,14 +109,38 @@ public class ScheduleController {
 			System.out.println("sked 업데이트 들어왔니");
 			Schedule sked = service.viewSked(sked_no);
 			List<Project> proj = projservice.selectAllProj(emp_no);
-			
+				
 			mv.addObject("sked", sked);
 			mv.addObject("project",proj);
 			mv.setViewName("calendar/updateSked");
 			
 			return mv;
 		}
-	
+//	
+//	
+//	// 일정 수정하기
+//	@PostMapping(value="/toUpdate", produces="text/plain;charset=UTF-8")
+//	@ResponseBody
+//	public String toUpdate(@RequestParam(name="sked_no", required=false) String sked_no, HttpSession session) {
+//		
+//		// 로그인 세션 불러오기
+//		Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
+//		String emp_no = loginEmp.getEmp_no();
+//			
+//		System.out.println("sked 업데이트 들어왔니");
+//		Schedule result = service.viewSked(sked_no);
+//		List<Project> proj = projservice.selectAllProj(emp_no);
+//		
+//		String msg="";
+//		
+//			System.out.println("일정 수정 실패~!");
+//			msg = "일정 수정에 실패했습니다";
+//		} else {
+//			System.out.println("일정 수정 성공!");
+//			msg = "일정이 수정됐습니다";
+//		}
+//		return msg;
+//	}
 	
 	// 일정 수정하기
 	@PostMapping(value="/update", produces="text/plain;charset=UTF-8")

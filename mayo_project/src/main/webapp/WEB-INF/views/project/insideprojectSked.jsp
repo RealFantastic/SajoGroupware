@@ -40,9 +40,22 @@
 			  <div style="display:flex;">
 				<button id="insertSch" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newSked">새 일정</button>
 			  </div>
-				<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add"><i class="fa-solid fa-user-plus fa-lg"></i></button>
+		 			<!-- 프로젝트 담당자 -->
+			<div id = "ppContent">
+				<div id="pp">
+					<div style="padding-top:10px;">담당자</div>
+					<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add">
+						<i class="fa-solid fa-user-plus fa-lg"></i>
+					</button>
+				</div>
+			<div id="projectPic">
+				<c:forEach var="projPic" items="${projPic }">
+					<div>${projPic.emp_name } ${projPic.job_name }</div>
+					<div class="picempno">${projPic.emp_no }</div>
+				</c:forEach>
+			</div>
 		 </div>
-		 <div id="projPic"></div>
+			</div>
 	</aside>
 
 	<div id="body" style="padding-top:60px;">
@@ -60,7 +73,7 @@
 						<div id="selectedEmp_container">
 							<div id="selectedEmp">
 								<form id="select_add">
-								<table id="selected_list">
+								<table id="selected_list" class="table">
 									<thead>
 										<tr>
 											<td>사번</td>
@@ -120,7 +133,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" id="deleteProj" class="btn_red">삭제</button>
-        <button id="submitM" type="submit" class="btn_green">수정</button>
+        <button id="submitM" type="button" class="btn_green">수정</button>
         </div>
         </form>
       </div>
@@ -250,7 +263,7 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="contentS" name="sked_content" required></textarea>
+            <input class="form-control" id="contentS" name="sked_content" required>
           </div>
       </div>
       <div class="modal-footer">
@@ -265,6 +278,7 @@
 
 <script>
 var emp = ${loginSsInfo.emp_no}; // 로그인 세션
+var proj_mgr = ${project.proj_mgr}; // 프로젝트 작성자
 
 // 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
 $(function(){
@@ -287,6 +301,25 @@ $(function(){
 				success: function(result){
 					console.log(result);
 					var html ="";
+					
+					// 이미 담당자인 직원 추가 못하게 
+					for(var i=0; i<$(".picempno").length; i++){
+						
+						if(result.emp_no == $(".picempno").eq(i).text()){
+							alert("이미 추가된 직원입니다");
+							return;
+						}
+					}
+					
+					// 중복 선택 안 되게
+					for(var i=0; i<$(".emp_no").length; i++){
+						
+						if(result.emp_no == $(".emp_no").eq(i).text()){
+							alert("이미 선택한 직원입니다");
+							return;
+						}
+					}
+					
 					html += "<tr>";
    					html += "<td class='emp_no'>"+result.emp_no+"<input type='hidden' name='emp_no' value='"+result.emp_no +"'></td>";
    					html += "<td>"+result.emp_name+"</td>";
@@ -302,8 +335,6 @@ $(function(){
 		});
 		
 		
-		
-		
  		// 프로젝트 담당자 추가
 		$("#insertEmp").click(function(){
 
@@ -315,6 +346,7 @@ $(function(){
 				data: $("#select_add").serialize(),
 				success: function(result){
 					alert(result);
+					location.reload();
 				}
 				
 			});
@@ -328,12 +360,16 @@ $(function(){
 // 	})
 
 
+
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
+	
+	if(emp != proj_mgr){
+		alert("작성자만 수정할 수 있습니다.");
+		return;
+	}	
 	// form data 전부 넘기기	
 	var proj = $("form[name=mProject]").serialize();
-	var referrer = document.referrer; // 이전 페이지
-	
 	
 	$.ajax({
  		type: "POST",
@@ -349,9 +385,11 @@ $("#submitM").click(function(){
 
 // 프로젝트 삭제 ajax
 $("#deleteProj").click(function(){
-	var proj_no = ${project.proj_no};
 	
-
+	if(emp != proj_mgr){
+		alert("작성자만 삭제할 수 있습니다.");
+		return;
+	}	
 	
 	var check = confirm("프로젝트를 삭제하시겠습니까?");
 	// 프로젝트 삭제 여부 확인하기	

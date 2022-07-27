@@ -36,7 +36,7 @@
 						<div style="display: flex;">
 							<div>
 								<select id="select" name="sked_category" class="form-select" aria-label="Default select example">
-									<option value="A">전사</option>
+									<option value="A" style="color:red;">전사</option>
 									<option value="P">개인</option>
 									<c:forEach var="project" items="${project }">
 										<option value="${project.proj_no }">${project.proj_name }</option>
@@ -83,7 +83,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">설명</label>
-							<textarea class="form-control" id="content" name="sked_content" required>${sked.sked_content }</textarea>
+							<input class="form-control" id="content" name="sked_content" value="${sked.sked_content }" required>
 						</div>
 					</div>
 					<div class="modal-footer">
