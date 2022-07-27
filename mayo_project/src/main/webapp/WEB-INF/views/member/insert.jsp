@@ -279,20 +279,19 @@
         </footer>
     </div>
     
-    <!-- 비밀번호 -->
     <script type="text/javascript">
     $("#j_enroll_btn").click(function(){
     	
     	// 비밀번호 공란시 형식 체크
     	var password = $('input[name=password]').val();
-	    if($("#password").val() == " ") {
+	    if($("#password").val() == "") {
 			alert("비밀번호를 입력해주십시오");
 			$("#password").focus();
 			return false;
 		}
 	    
 	    // 비밀번호 재입력 공란시 형식 체크 
-	    if($("#password_chk").val() == " ") {
+	    if($("#password_chk").val() == "") {
 			alert("비밀번호를 한번 더 입력해주십시오");
 			$("#password_chk").focus();
 			return false;

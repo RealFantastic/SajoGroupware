@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +20,11 @@
    	
 </head>
 <body id="j_body">
-   	<script type="text/javascript">
-   		${msg}
-   	</script>
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <jsp:include page="/WEB-INF/views/template_header_login.jsp"/>
     <div style="padding: 5%;">
         <form  id="login" name="login"
@@ -34,11 +37,11 @@
                     <div id="j_container2">
                         <div id="j_emp_no">
                             <label for="emp_no" class="font3">ID</label>
-                            <input type="text" id="emp_no" name="emp_no">
+                            <input type="text" id="emp_no" name="emp_no" maxlength="9" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required="required">
                         </div>
                         <div id="j_pwd">
                             <label for="password" class="font3">PW</label>
-                            <input type="password" id="password" name="password">
+                            <input type="password" id="password" name="password" required="required">
                         </div>
                     </div>
                     <div id="j_login_btn">
@@ -73,10 +76,6 @@
         	$("#password").focus();
             return false;
         }
-    	var frm = $("#login");
-		frm.attr("action","<%=request.getContextPath()%>/member/login"); 
-		frm.attr("method","post");
-		frm.submit();
         
 });	
     </script>

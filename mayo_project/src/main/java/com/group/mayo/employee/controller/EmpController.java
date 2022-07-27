@@ -230,16 +230,18 @@ public class EmpController {
 			, HttpSession session
 			) {
 		
-		Employee result = service.selectLogin(employee);
-		
 		if(session.getAttribute("loginSsInfo") != null ) {
 			session.removeAttribute("loginSsInfo");
 		}
+		Employee result = service.selectLogin(employee);
 		
-		if(pwdEncoding.matches(employee.getPassword(), result.getPassword()) || employee.getPassword().equals(result.getPassword()) ) {
-			session.setAttribute("loginSsInfo", result);
-			rttr.addFlashAttribute("msg", "안녕하세요 "+result.getEmp_name()+" "+result.getJob_name()+"님!");
-			mv.setViewName("redirect:/");
+		if(result != null) {
+			
+			if(pwdEncoding.matches(employee.getPassword(), result.getPassword()) || employee.getPassword().equals(result.getPassword()) ) {
+				session.setAttribute("loginSsInfo", result);
+				rttr.addFlashAttribute("msg", "안녕하세요 "+result.getEmp_name()+" "+result.getJob_name()+"님!");
+				mv.setViewName("redirect:/");
+			}
 		}
 		else {
 		rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
@@ -391,14 +393,23 @@ public class EmpController {
 	    // 아이디 찾기 실행
 		@RequestMapping(value="findId", method=RequestMethod.POST, produces="text/plain;charset=UTF-8" )
 		@ResponseBody
-		public String findId(Employee employee) {
+		public String findId(Employee employee
+				, RedirectAttributes rttr
+				,@RequestParam("emp_name") String emp_name
+				,@RequestParam("rrn") String rrn
+				) {
 			Employee findId = service.findId(employee);
 			String result = "fail";
-			if(findId == null) { 
-				System.out.println("findId : "+findId);
-				return result;
-			} else {
-				result = findId.getEmp_no();
+			  try {
+	
+				  if(findId == null || emp_name.equals("") || rrn.equals("")) { 
+					  return result;
+				  } else {
+					  result = findId.getEmp_no();
+				  }
+				  
+			  }catch (Exception e) {
+				  result = "error";
 			}
 			return result;
 		}

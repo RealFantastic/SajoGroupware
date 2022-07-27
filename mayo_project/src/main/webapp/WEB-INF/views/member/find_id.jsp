@@ -49,10 +49,6 @@
 							<button type="button" id='find_id_btn' onclick="findId_click()" 
 							class="btn_green">ID 찾기</button>
 						</div>
-<!-- 						<div class="j_div"> -->
-<!-- 							<button type="button" id='find_pwd_btn' class="btn_yellow" -->
-<%-- 							onclick="location.href='<%=request.getContextPath()%>/member/findPwd'">PW 찾기</button> --%>
-<!-- 						</div> -->
 						<div class="j_div">
 						<button id="j_back_btn" type="button" onclick="history.go(-1);" 
 						class="btn_gray">뒤로가기</button>
@@ -92,6 +88,18 @@
 			function findId_click(){
 				var emp_name = $('#emp_name').val();
 				var rrn =$('#rrn').val();
+			    if($("#emp_name").val() == "") {
+					alert("이름을 입력해주십시오");
+					$("#emp_name").focus();
+
+					return false;
+				}
+			    if($("#rrn").val() == "") {
+					alert("주민번호를 입력해주십시오");
+					$("#rrn").focus();
+					return false;
+				}
+
 				
 				$.ajax({
 					url:"<%=request.getContextPath()%>/member/findId",
@@ -114,27 +122,31 @@
 			                alert("에러입니다");
 			            }
 				});
+
  			};
 		
 		const modal = document.getElementById("modal")
 		const btnModal = document.getElementById("find_id_btn")
 		
-		btnModal.addEventListener("click", e => {
-		    modal.style.display = "flex"
-		})
+				btnModal.addEventListener("click", e => {
+					if($("#emp_name").val() != "" && $("#rrn").val()){
+						
+				    modal.style.display = "flex"
+					}
+				})
+				    
+				const closeBtn = modal.querySelector(".close-area")
+				closeBtn.addEventListener("click", e => {
+				    modal.style.display = "none"
+				})
+				modal.addEventListener("click", e => {
+				    const evTarget = e.target
+				    if(evTarget.classList.contains("modal-overlay")) {
+				        modal.style.display = "none"
+				    }
+				})
 		
-		    
-		const closeBtn = modal.querySelector(".close-area")
-		closeBtn.addEventListener("click", e => {
-		    modal.style.display = "none"
-		})
-		
-		modal.addEventListener("click", e => {
-		    const evTarget = e.target
-		    if(evTarget.classList.contains("modal-overlay")) {
-		        modal.style.display = "none"
-		    }
-		})
+
 		
 		
 	</script>
