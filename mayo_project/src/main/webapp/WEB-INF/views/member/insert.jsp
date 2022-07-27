@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,9 +80,11 @@
 		    
 </head>
 <body id="j_background">
-<script type="text/javascript">
-	${msg}
-</script>
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
     <div>
         <form id="emp_enroll" name="emp_enroll"
@@ -99,18 +102,18 @@
              <div id="j_container1">
                     <div id="j_cp_number" class="j_e">
                         <label>사업자 번호 : </label>
-                        <input type="text" id="cp_number" name="cp_number" required >
+                        <input type="text" id="cp_number" name="cp_number" maxlength='12' required >
                         <button type="button" id="cp_number_btn" class="j_btn_gray">조회</button>
                         <div><font id="check_cp" class="feedback" size ="2"></font></div>
                     </div>             
                     <div id="j_name" class="j_e">
                         <label for="emp_name">성함 : </label>
-                        <input type="text" id="emp_name" name="emp_name">
+                        <input type="text" id="emp_name" name="emp_name" required="required">
                         <br><font class="feedback" size ="2"></font>
                     </div>
                     <div id="j_emp_number" class="j_e">
                         <label for="rrn">주민 번호 : </label>
-                        <input type="text" id="rrn" name="rrn">
+                        <input type="text" id="rrn" name="rrn" maxlength="14">
                         <button type="button" class="j_btn_gray" onclick = "checkRrn()">조회</button>
                         <div><font id="check_rrn" size ="2"></font></div>
                         <br><font class="feedback" size ="2"></font>
@@ -145,7 +148,7 @@
                     </div>
                     <div id="j_emp_no" class="j_e">
                         <label for="emp_no">아이디(사원번호) : </label>
-                        <input type="text" id="emp_no" name="emp_no" required="required">
+                        <input type="text" id="emp_no" name="emp_no" maxlength="9" required="required">
                         <button type="button" class="j_btn_gray" onclick = "checkNo()">조회</button>
                         <br><font id="check_result" size ="2"></font>
                         <br><font class="feedback" size ="2"></font>
@@ -232,7 +235,7 @@
                     </div>
                     <div id="j_emp_phone" class="j_e">
                         <label for="phone">전화번호 : </label>
-                        <input type="text" id="phone" name="phone" required="required">
+                        <input type="text" id="phone" name="phone" maxlength="13" required="required">
                     </div>
                     <div class="j_e" id="j_pic_file">
                         <label for="pic_file">프로필 사진 : </label>
@@ -267,7 +270,7 @@
 	                        </li>
                   		 </ul>
               	 	</div>
-                <div id="j_btn" style="bottom: 30px; z-index: 9999;">
+                <div id="j_btn" style="bottom: 30px;">
                     <button type="reset" class="btn_yellow">뒤로가기</button>
                     <button type="submit" class="btn_green" id="j_enroll_btn">가입</button>
                 </div>
@@ -283,6 +286,8 @@
     <!-- 비밀번호 -->
     <script type="text/javascript">
     $("#j_enroll_btn").click(function(){
+    	
+    	// 비밀번호 공란시 형식 체크
     	var password = $('input[name=password]').val();
 	    if($("#password").val() == " ") {
 			alert("비밀번호를 입력해주십시오");
@@ -290,12 +295,13 @@
 			return false;
 		}
 	    
+	    // 비밀번호 재입력 공란시 형식 체크 
 	    if($("#password_chk").val() == " ") {
 			alert("비밀번호를 한번 더 입력해주십시오");
 			$("#password_chk").focus();
 			return false;
 		}
-		//var regExpPassword = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,16}$/; // 영문자, 숫자, 특수문자가 적어도 1개이상, 8~16글자
+	    //비밀번호 형식 체크
 		var regExpPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/; // 영문자, 숫자가 적어도 1개이상, 8~16글자
 		if(!regExpPassword.test(password)){
 			alert("패스워드 입력란에는 영문자, 숫자가 적어도 1개이상, 8~16글자를 입력해주세요.");
@@ -304,10 +310,43 @@
 			$("#password").focus();
 			return false;
 		}
-    	var frm = $("#emp_enroll");
-		frm.attr("action","<%=request.getContextPath()%>/member/enroll"); 
-		frm.attr("method","post");
-		frm.submit();
+    	//사업자 번호 형식 체크 
+    	var cp_number = $("#cp_number").val().trim();
+    	var regExpCpnum = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/; // 숫자3-숫자2-숫자5
+    	if(!regExpCpnum.test(cp_number)){
+    		alert("사업자번호 입력란에는 000-00-00000 형식으로 입력해주세요.");
+    		$("#cp_number").val('');
+    		$("#cp_number").focus();
+    		return false;
+    	}
+    	//주민번호 형식 체크 
+    	var rrn = $("#rrn").val().trim();
+    	var regExpRrn = /^[0-9]{6}-[0-9]{7}$/; //숫자6-숫자7
+    	if(!regExpRrn.test(rrn)){
+    		alert("주민번호 입력란에는 000-00-00000 형식으로 입력해주세요.");
+    		$("#rrn").val('');
+    		$("#rrn").focus();
+    		return false;
+    	}
+    	//사원번호 형식 체크 
+    	var emp_no = $("#emp_no").val().trim();
+    	var regExpEmpNo = /^[0-9]{9}$/; //숫자9
+    	if(!regExpEmpNo.test(emp_no)){
+    		alert("사원번호 입력란에는 000000000 형식으로 입력해주세요.");
+    		$("#emp_no").val('');
+    		$("#emp_no").focus();
+    		return false;
+    	}
+    	//핸드폰 번호 형식 체크 
+    	var phone = $("#phone").val().trim();
+    	var regExpPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/; // 숫자3-숫자4-숫자4
+    	if(!regExpPhone.test(phone)){
+    		alert("전화번호 입력란에는 000-0000-0000 형식으로 입력해주세요.");
+    		$("#phone").val('');
+    		$("#phone").focus();
+    		return false;
+    	}
+
     });	
     </script>
     
@@ -341,7 +380,23 @@
 	});
     
     </script>
-    
+    <!--사업자 번호 하이픈 정규식 DOM  -->
+    <script>
+	    $("#cp_number").on("input",
+	            function() {
+	                var target = document.getElementById("cp_number");
+	                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,2})(\d{0,5})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
+	    }); 
+    </script>
+    <!--주민번호 하이픈 정규식 DOM  -->
+    <script>
+	    $("#rrn").on("input",
+	            function() {
+	                var target = document.getElementById("rrn");
+	                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2").replace(/(-{1,2})$/g,"");
+	    }); 
+    </script>
+
     
     <!--아이디 중복체크-->
 	<script type="text/javascript">
@@ -353,7 +408,6 @@
 				url:'<%=request.getContextPath()%>/member/checkno',
 				type:"post",
 				data: {"emp_no":emp_no},
-// 				contentType:"json",
 				success: function(result){
 					console.log("result"+result);
 					if(result == "false" || result == null){
@@ -374,6 +428,7 @@
 		};
 	
 	</script>  
+	
 	<!--주민번호 중복체크-->
 	<script type="text/javascript">
 	function checkRrn(){
@@ -384,7 +439,6 @@
 				url:'<%=request.getContextPath()%>/member/checkrrn',
 				type:"post",
 				data: {"rrn":rrn},
-// 				contentType:"json",
 				success: function(result){
 					console.log("result"+result);
 					if(result == "false" || result == null){
@@ -510,14 +564,7 @@
 		}
 	});
 	</script>
-    <!--사업자 번호 하이픈 정규식 DOM  -->
-    <script>
-    $("#cp_number").on("input",
-            function() {
-                var target = document.getElementById("cp_number");
-                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,3})(\d{0,2})(\d{0,5})$/g, "$1-$2-$3").replace(/(-{1,2})$/g,"");
-    }); 
-    </script>
+
     <!-- 약관 모두 동의 -->
     <script>
         $(document).ready( function() {
@@ -525,7 +572,7 @@
             $( '.clause' ).prop( 'checked', this.checked );
           } );
         } );
-      </script>
+     </script>
    <!--사업자 번호 중복체크  -->
 	<script type="text/javascript">
 	
@@ -543,7 +590,8 @@
 							console.log("result:"+result);
 							$("#check_cp").html('등록되지 않은 사업자번호 입니다.');
 							$("#check_cp").attr('color','red');
-						}else if(result == "ok"){
+						}else if(result == "ok" || result != null){
+							console.log("result:"+result);
 							$("#check_cp").html('사업자번호가 확인 되었습니다.');
 							$("#check_cp").attr('color','green');
 						} 

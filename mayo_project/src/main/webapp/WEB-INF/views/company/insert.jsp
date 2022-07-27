@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,9 +77,11 @@
 
 </head>
 <body id="j_background">
-<script type="text/javascript">
-	${msg}
-</script>
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
     <div style="padding: 50px;">
         <form id="cp_enroll" name="cp_enroll" action="<%=request.getContextPath()%>/company/enroll" method="post">
@@ -93,7 +95,7 @@
                     </div>
                     <div id="j_cp_number" class="j_c">
                         <label>사업자 번호 : </label>
-                        <input type="text" id="cp_number" name="cp_number" required >
+                        <input type="text" id="cp_number" name="cp_number" maxlength='12' required >
                         <button type="button" id="cp_number_btn" class="j_btn_gray" onclick = "checkNum()">조회</button>
                         <br><font id="check_result" size ="2"></font>
                     </div>
@@ -103,7 +105,7 @@
                     </div>
                     <div id="j_cp_tel" class="j_c">
                         <label>전화번호 : </label>
-                        <input type="text" id="cp_tel" name="cp_tel" required>
+                        <input type="text" id="cp_tel" name="cp_tel" maxlength="13" required>
                     </div>
                     <div class="j_c">
                         <label for="cp_category">업종 : </label>
@@ -222,7 +224,6 @@
     
     <!-- 가입 버튼 클릭 이벤트 -->
     <script> 
-    //TODO 순서 정리 + 미기입시 -> 추후 하단에 문구로 띄어 유효성 검사하는걸로 변경
     $("#j_enroll_btn").click(function(){
     	   
 		/*회사명 미기입시 alert창  */
