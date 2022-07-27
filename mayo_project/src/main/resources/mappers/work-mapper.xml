@@ -66,7 +66,8 @@
 
 <!-- 특정 프로젝트의 모든 업무 글 보기 -->
 <select id="selectWork" resultType="Work">
-	select * from work_board where proj_no=#{proj_no} order by work_no desc
+	select * from work_board work join employee emp 
+	on (work.work_mgr = emp.emp_no) where proj_no=#{proj_no} order by work_no desc
 </select>
 
 <!-- 특정 프로젝트의 특정 업무 글 보기 -->

@@ -26,13 +26,22 @@ public class Schedule {
 	private String sked_location;
 	private String sked_category;
 	private String sked_emp_id;
+	private String emp_name;
 	
 	@Override
 	public String toString() {
 		return "Schedule [sked_no=" + sked_no + ", sked_name=" + sked_name + ", sked_date=" + sked_date
 				+ ", sked_content=" + sked_content + ", sked_start_date=" + sked_start_date + ", sked_end_date="
 				+ sked_end_date + ", sked_location=" + sked_location + ", sked_category=" + sked_category
-				+ ", sked_emp_id=" + sked_emp_id + "]";
+				+ ", sked_emp_id=" + sked_emp_id + ", emp_name=" + emp_name + "]";
+	}
+
+	public String getEmp_name() {
+		return emp_name;
+	}
+
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 
 	public int getSked_no() {

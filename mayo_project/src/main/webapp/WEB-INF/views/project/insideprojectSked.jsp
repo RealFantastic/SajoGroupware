@@ -29,6 +29,10 @@
 
 	<aside id="side">
 		<div id="side-content">
+				<!-- 프로젝트 정보 -->
+		<div class="font4 proj" style="color:green;">
+			<div>${project.proj_name } </div>
+		</div>
 			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
 			<div style="display:flex;">
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
@@ -38,6 +42,7 @@
 			  </div>
 				<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add"><i class="fa-solid fa-user-plus fa-lg"></i></button>
 		 </div>
+		 <div id="projPic"></div>
 	</aside>
 
 	<div id="body" style="padding-top:60px;">
@@ -73,7 +78,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
+						<button type="button" id="resetEmp" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
 						<button type="button" class="btn btn_green" id="insertEmp">추가</button>
 					</div>
 				</div>
@@ -110,7 +115,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="proj_content" required>${project.proj_content }</textarea>
+            <textarea class="form-control" id="contentP" name="proj_content" required>${project.proj_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -121,13 +126,9 @@
       </div>
     </div>
   </div>
-		<!-- 프로젝트 정보 -->
-		<div class="font4 proj">
-			<div>${project.proj_name } </div>
-		</div>
 		
 		<!-- 프로젝트 업무, 일정들 load 통해서 불러올 것-->	
-		<div style="display:flex;">
+		<div style="display:flex; margin-left:70px;">
 			<form action="<%=request.getContextPath()%>/project/select" method="GET">
 				<input type="hidden" name="proj_no" value="${project.proj_no }">
 				<button id="workList" type="submit" class="font3 list">업무</button>
@@ -153,7 +154,7 @@
         <div style="display:flex; margin-bottom:10px;">
         <div style="margin-right: 15px;">
         	<select name="work_status" class="form-select" aria-label="Default select example" required="required">
-			  <option selected>상태</option>
+			  <option selected disabled>상태</option>
 			  <option value="0">요청</option>
 			  <option value="1">진행</option>
 			  <option value="2">완료</option>
@@ -186,11 +187,11 @@
 		</div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" id="content" name="work_content" rows="7" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
+            <textarea class="form-control" id="contentW" name="work_content" rows="7" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
         <button id="submitP" type="submit" class="btn_green">등록</button>
       </div>
         </form>
@@ -249,11 +250,11 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="content" name="sked_content" required></textarea>
+            <textarea class="form-control" id="contentS" name="sked_content" required></textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
         <button id="submitS" type="submit" class="btn_green">등록</button>
         </div>
         </form>
@@ -263,6 +264,8 @@
 </div>
 
 <script>
+var emp = ${loginSsInfo.emp_no}; // 로그인 세션
+
 // 페이지 load 될 때 업무/일정 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
@@ -284,19 +287,22 @@ $(function(){
 				success: function(result){
 					console.log(result);
 					var html ="";
-					html +=  "<tr>";
+					html += "<tr>";
    					html += "<td class='emp_no'>"+result.emp_no+"<input type='hidden' name='emp_no' value='"+result.emp_no +"'></td>";
    					html += "<td>"+result.emp_name+"</td>";
    					html += "<td>"+result.dept_name+"</td>";
    					html += "<td>"+result.job_name+"</td>";       				
    					html += "</tr>";
-   					
+   				
    					$("#selected_list tbody").append(html);
 				},
 				error: function(){}
 			});
 			
 		});
+		
+		
+		
 		
  		// 프로젝트 담당자 추가
 		$("#insertEmp").click(function(){
@@ -316,16 +322,18 @@ $(function(){
 		});
 });
 
-	//휴지통 누르면 파일 삭제하기
-	$("#files").on('click','[class=deleteFile]',function(e){
-		$(this).parent('.fileDiv').remove();
-	})
+// 	//휴지통 누르면 파일 삭제하기
+// 	$("#files").on('click','[class=deleteFile]',function(e){
+// 		$(this).parent('.fileDiv').remove();
+// 	})
 
 
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
 	// form data 전부 넘기기	
 	var proj = $("form[name=mProject]").serialize();
+	var referrer = document.referrer; // 이전 페이지
+	
 	
 	$.ajax({
  		type: "POST",
@@ -333,7 +341,6 @@ $("#submitM").click(function(){
 		data: proj, 
  		success: function(result){
 			alert(result);
-			location.reload();
 		}
 		
  	});
@@ -343,6 +350,9 @@ $("#submitM").click(function(){
 // 프로젝트 삭제 ajax
 $("#deleteProj").click(function(){
 	var proj_no = ${project.proj_no};
+	
+
+	
 	var check = confirm("프로젝트를 삭제하시겠습니까?");
 	// 프로젝트 삭제 여부 확인하기	
 	if(check){
@@ -363,6 +373,29 @@ $("#deleteProj").click(function(){
 		return false;
 	}
 });
+
+$("#submitP").click(function(){	
+	var sdate = $("#work_start_date").val();
+	var edate = $("#work_deadline").val();
+
+	if($("#title").val() == ""){
+		alert("업무명을 입력해주세요");
+		$("#work_title").focus();
+		return false;
+	}
+
+	if(sdate > edate) {
+		alert("마감일은 시작일보다 빠를 수 없습니다");
+		$("#work_deadline").focus();
+		return false;
+	}
+
+	if($("#content").val() == ""){
+		alert("내용을 입력해주세요");
+		$("#content").focus();
+		return false;
+	}
+	});
 
 
 // 긴급 버튼
@@ -397,11 +430,32 @@ slider.oninput = function() {
 // 일정 추가하기 
 	$("#submitS").click(function(){
 		
+		var sdate = $("#sked_start_date").val();
+		var edate = $("#sked_end_date").val();
+		
+		if($("#sked_name").val() == ""){
+			alert("일정명을 입력해주세요");
+			$("#sked_name").focus();
+			return false;
+		}
+		
+		if(sdate > edate) {
+			alert("종료일은 시작일보다 빠를 수 없습니다");
+			$("#sked_end_date").focus();
+			return false;
+		}
+		
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요");
+			$("#content").focus();
+			return false;
+		}
+		
 		var sked = $("form[name=newSked]").serialize();
 		
 		$.ajax({
 			type: "POST",
-			url:"<%=request.getContextPath()%>/schedule/insertS",
+			url:"<%=request.getContextPath()%>/schedule/insert",
 			data: sked,
 			success: function(result){
 				alert(result);

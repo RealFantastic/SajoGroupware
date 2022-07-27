@@ -64,7 +64,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
         <button id="submitP" type="submit" class="btn_green">등록</button>
       </div>
         </form>
@@ -82,13 +82,14 @@
 		<tr class="font2" style="background-color:rgb(242, 184, 75);">
 			<td>번호</td>
 			<td>프로젝트명</td>
+			<td>관리자</td>
 			<td>종류</td>
-<!-- 			<td></td> -->
 		</tr>
 	<c:forEach var="project" items="${project }">
 		<tr class="font1">
 			<td>${project.proj_no }</td>
 			<td><a href="<%=request.getContextPath()%>/project/select?proj_no=${project.proj_no}">${project.proj_name }</a></td> <!-- 프로젝트 페이지로 이동 -->
+			<td>${project.emp_name }</td>
 			<td>
 			<c:if test="${not empty project.proj_type }">
 			<c:choose>

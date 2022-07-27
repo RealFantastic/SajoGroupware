@@ -12,14 +12,29 @@ public class ProjectPic {
 	
 	private String emp_no;
 	private int proj_no;
-	
-	private String[] emp_no_arr;
-	
-	
+	private String emp_name;
+	private String job_name;
+
 	@Override
 	public String toString() {
-		return "ProjectPic [emp_no=" + emp_no + ", proj_no=" + proj_no + ", emp_no_arr=" + Arrays.toString(emp_no_arr)
-				+ "]";
+		return "ProjectPic [emp_no=" + emp_no + ", proj_no=" + proj_no + ", emp_name=" + emp_name + ", job_name="
+				+ job_name + ", emp_no_arr=" + Arrays.toString(emp_no_arr) + "]";
+	}
+
+	public String getJob_name() {
+		return job_name;
+	}
+
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
+	private String[] emp_no_arr;
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	public String getEmp_no() {
 		return emp_no;

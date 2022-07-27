@@ -70,11 +70,11 @@
 		</div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" id="content" name="work_content" required="required" style="height:200px;">${work.work_content }</textarea>
+            <textarea class="form-control" id="content" name="work_content" required style="height:200px;">${work.work_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" id="cancel">취소</button>
+        <button type="button" class="btn_gray" id="cancel" style="margin-right:10px;">뒤로가기</button>
         <button id="submit" type="button" class="btn_green">수정</button>
       </div>
         </form>
@@ -85,12 +85,17 @@
 </div>
 
 <script>
-	var loginEmp = ${loginEmp.emp_no};
+
+$('#anyModal').on('hidden.bs.modal', function () {
+	  // something
+	});
+	
+	var emp = ${loginSsInfo.emp_no};
 	var workMgr = ${work.work_mgr};
-	console.log("로그인"+loginEmp);
+	console.log("로그인"+emp);
 	console.log("작성자"+workMgr);
 	
-	if(loginEmp != workMgr){ // 작성자가 아니면 상태만 변경 가능
+	if(emp != workMgr){ // 작성자가 아니면 상태만 변경 가능
 		$('input[name=work_title]').attr('readonly' , true);
 		$('input[name=work_start_date]').attr('readonly' , true);
 		$('input[name=work_deadline]').attr('readonly' , true);
@@ -100,7 +105,7 @@
 
 	// 취소 버튼 누르면 뒤로가기
 	$("#cancel").click(function(){
-		window.history.back();
+		history.go(-1);
 	});
 
 //긴급 버튼
@@ -125,6 +130,27 @@ $("#select").val(status).prop("selected", true);
 	// 업무 글 수정하기
 	$("#submit").click(function(){
 	
+		var sdate = $("#work_start_date").val();
+		var edate = $("#work_deadline").val();
+		
+		if($("#title").val() == ""){
+			alert("업무명을 입력해주세요");
+			$("#work_title").focus();
+			return false;
+		}
+		
+		if(sdate > edate) {
+			alert("마감일은 시작일보다 빠를 수 없습니다");
+			$("#work_deadline").focus();
+			return false;
+		}
+		
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요");
+			$("#content").focus();
+			return false;
+		}
+		
 		var work = $("form[name=updateWork]").serialize();
 		
 			// ajax로 컨트롤러 이동 
@@ -134,6 +160,7 @@ $("#select").val(status).prop("selected", true);
 				data: work,
 				success: function(result){
 					alert(result);
+					history.go(-1);
 				}
 			});
 	});

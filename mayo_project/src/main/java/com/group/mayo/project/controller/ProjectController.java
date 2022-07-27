@@ -1,6 +1,5 @@
 package com.group.mayo.project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.model.service.EmpService;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.service.ProjectService;
@@ -32,8 +30,6 @@ public class ProjectController {
 	private ProjectService service;
 	@Autowired
 	private WorkService workService;
-	@Autowired
-	private EmpService empService;
 	
 	// 전체 프로젝트, 업무 목록
 	@GetMapping("/list") 
@@ -172,9 +168,11 @@ public class ProjectController {
 		// 로그인 세션 불러오기
 		Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
 		
+		List<ProjectPic> projPic = service.selectPic(proj_no);
 		Project proj = service.selectProj(proj_no);
 		System.out.println("프로젝트" + proj);
 		
+		mv.addObject("projPic", projPic);
 		mv.addObject("project", proj);
 		mv.addObject("loginEmp", loginEmp);
 		mv.setViewName("project/insideproject");

@@ -23,6 +23,7 @@
 										<button type='submit' class='btn_gray btn-modify wUpdate'>수정</button>
 									</form>
 									<button type='button' class='btn_red btn-delete deleteW'>삭제</button>
+									<input type='hidden' value="${work.work_mgr }"/>
 								</div>
 						</div>
 						<div class="modal-body">
@@ -66,7 +67,9 @@
 						</div>
 						<div>
 							<div class="mb-3">
-								<label for="work_progress" class="col-form-label">진행률 <input type="text" class="dpercentage dper" name="work_progress" placeholder="${work.work_progress }" readonly/>%</label> 
+								<label for="work_progress" class="col-form-label">진행률 
+								<input type="text" class="dpercentage dper" name="work_progress" style="width:40px;"placeholder="${work.work_progress }" readonly/>%
+								</label> 
 								<div class="progress" style="height: 15px;">
 								  <div class="progress-bar bg-warning" role="progressbar" style="width: ${work.work_progress }%;" aria-valuenow="${work.work_progress }" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
@@ -75,7 +78,7 @@
 					<div class="mb-3">
 						<textarea class="form-control readContent" disabled>${work.work_content }</textarea>
 					</div>
-					<button type="button" class="btn_comment">댓글</button>
+<!-- 					<button type="button" class="btn_comment">댓글</button> -->
 					<div class="mb-3 commentArea">
 						<div class="insertArea">
 							<form name="newComment" class="newComment">
@@ -104,8 +107,6 @@
 
 <script>
 	// 댓글 버튼 누르면 영역 보이기
-	$(".btn_comment").click(function(event){
-		$(this).next(".commentArea").toggle();
 		
 // 		var work_no = $(event.target).next().children('input').val();
 // 		console.log("업무번호"+$(event.target).next().children('input').val());
@@ -122,14 +123,22 @@
 // 			}
 // 		});
 		
-	});
+// 	});
 
-
+		var emp = ${loginSsInfo.emp_no}; 
  		// 업무 글 삭제하기
 			$(".deleteW").click(function(event){ 
 				
 			console.log($(event.target).prev().children('input').val());
-				
+			var work_mgr = $(event.target).next('input').val(); // 업무 작성자
+			console.log(work_mgr);
+			
+			// 업무 작성자만 삭제 가능
+			if(emp != work_mgr){
+				alert("작성자만 삭제할 수 있습니다.");
+				return false;
+			}	
+			
 			//삭제 여부 확인하기
 			var check = confirm("업무를 삭제하시겠습니까?");
 			var work_no = $(event.target).prev().children('input').val();
@@ -173,33 +182,6 @@
 
 		});
 
-// 	// 진행률 변경하기
-// 	$(".dprogress").click(function() {
-// 		console.log($(this).val());
-// 		var slider = $(this).val();
-// 		var outputOrigin = $(this).next().val();
-// 		var outputChange = slider;
-
-// 		// 			output.value = slider.value;
-// 		console.log(slider);
-// 		console.log(outputOrigin);
-// 		console.log(outputChange);
-
-// 		// 			// 프로그래스 바 값 가져오기
-// 		// 			slider.oninput = function() {
-// 		// 			document.getElementsByClassName("dpercentage").value = this.value;
-// 		// 			}
-
-// // 		var result = confirm("진행률을 변경하겠습니까?");
-// // 		if (!result) {
-// // 			$(this).next().val(outputOrigin);
-// // 			slider = outputOrigin;
-// // 		} else {
-// 			$(this).next().val(outputChange);
-// 			confirm("진행률이 변경되었습니다.");
-// // 		}
-
-// 	});
 
 	var sliderd = document.getElementsByClassName('dprogress');
 	console.log(sliderd);

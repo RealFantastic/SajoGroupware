@@ -20,11 +20,40 @@ public class Project {
 	private String proj_content;
 	private String proj_mgr;
 	private int proj_type;
+	private String emp_name;
+	private String job_name;
+	private String emp_no;
 	
+
 	@Override
 	public String toString() {
-		return "Proj [proj_no=" + proj_no + ", proj_name=" + proj_name + ", proj_date=" + proj_date + ", proj_content="
-				+ proj_content + ", proj_mgr=" + proj_mgr + ", proj_type=" + proj_type + "]";
+		return "Project [proj_no=" + proj_no + ", proj_name=" + proj_name + ", proj_date=" + proj_date
+				+ ", proj_content=" + proj_content + ", proj_mgr=" + proj_mgr + ", proj_type=" + proj_type
+				+ ", emp_name=" + emp_name + ", job_name=" + job_name + ", emp_no=" + emp_no + "]";
+	}
+
+	public String getJob_name() {
+		return job_name;
+	}
+
+	public String getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
+	}
+
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
+
+	public String getEmp_name() {
+		return emp_name;
+	}
+	
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	
 	public int getProj_no() {

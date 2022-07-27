@@ -51,6 +51,14 @@ public interface ProjectService {
 	public int insertPic(ProjectPic emp);
 	
 	/**
+	 * 
+	 * @param proj_no
+	 * @return
+	 * @author HyerinK
+	 */
+	public List<ProjectPic> selectPic(String proj_no);
+	
+	/**
 	 * @param emp_no 사원번호
 	 * @return 삭제된 직원 수
 	 * @author HyerinK

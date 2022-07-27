@@ -15,6 +15,10 @@
 	<result column="DEPT_NO" property="dept_no"/>
 </resultMap>
 
+<resultMap type="Job" id="Job">
+	<result column="JOB_NAME" property="job_name"/>
+</resultMap>
+
 <resultMap type="Project" id="Project">
 	<result column="PROJ_NO" property="proj_no"/>
 	<result column="PROJ_NAME" property="proj_name"/>
@@ -23,10 +27,11 @@
 	<result column="PROJ_MGR" property="proj_mgr"/>
 	<result column="PROJ_TYPE" property="proj_type"/>
 	<collection property="Employee" resultMap="Employee"/>
+	<collection property="Job" resultMap="Job"/>
 </resultMap>
 
 <select id="selectAllProj" parameterType="Project" resultType="Project">
-select * from proj where proj_no in
+select * from proj proj join employee emp on (proj.proj_mgr = emp.emp_no) where proj_no in
 (select distinct proj_no
   from proj left outer join project_pic using(proj_no) 
  where emp_no=#{emp_no} or proj_mgr=#{emp_no}) 
@@ -43,6 +48,14 @@ select * from proj where proj_no in
 <insert id="insertPic" parameterType="Project">
 	insert into project_pic values (#{emp_no}, #{proj_no})
 </insert>
+
+<!-- 프로젝트 담당자 조회 -->
+<select id="selectPic" parameterType="string" resultType="Project">
+	select pp.emp_no, a.emp_name, a.job_name from project_pic pp 
+	join (select emp.emp_no, emp.emp_name, job.job_name from employee emp
+        join job job on (emp.job_no = job.job_no)) a
+    on (pp.emp_no = a.emp_no) where proj_no = #{proj_no}
+</select>
 
 <!-- 프로젝트 담당자 삭제 -->
 <delete id="deletePic" parameterType="Project">

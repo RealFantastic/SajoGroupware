@@ -29,6 +29,10 @@
 
 	<aside id="side">
 		<div id="side-content">
+				<!-- 프로젝트 정보 -->
+		<div class="font4 proj" style="color:green;">
+			<div>${project.proj_name }</div>
+		</div>
 			<button class="btn_yellow sidebtn" data-bs-toggle="modal" data-bs-target="#projInfo">프로젝트 정보</button>
 			<div style="display: flex;">
 				<button id="insertWork" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newWork">새 업무</button>
@@ -36,13 +40,22 @@
 			<div style="display: flex;">
 				<button id="insertSch" class="btn_green sidebtn" data-bs-toggle="modal" data-bs-target="#newSked">새 일정</button>
 			</div>
-			<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add">
-				<i class="fa-solid fa-user-plus fa-lg"></i>
-			</button>
+			<!-- 프로젝트 담당자 -->
+			<div id = "ppContent">
+				<div id="pp">
+					<div style="padding-top:10px;">담당자</div>
+					<button id="insertPic" data-bs-toggle="modal" data-bs-target="#add">
+						<i class="fa-solid fa-user-plus fa-lg"></i>
+					</button>
+				</div>
 			<div id="projectPic">
-				
+				<c:forEach var="projPic" items="${projPic }">
+					<div>${projPic.emp_name } ${projPic.job_name }</div>
+					<div class="picempno">${projPic.emp_no }</div>
+				</c:forEach>
 			</div>
-		</div>
+			</div>
+			</div>
 	</aside>
 
 	<div id="body" style="padding-top:60px;">
@@ -116,7 +129,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="content" name="proj_content" required>${project.proj_content }</textarea>
+								<textarea class="form-control" id="contentP" name="proj_content" required>${project.proj_content }</textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -127,13 +140,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- 프로젝트 정보 -->
-		<div class="font4 proj">
-			<div>${project.proj_name }</div>
-		</div>
+
 
 		<!-- 프로젝트 업무, 일정들 load 통해서 불러올 것-->
-		<div style="display:flex;">
+		<div style="display:flex; margin-left:70px;">
 			<form action="<%=request.getContextPath()%>/project/select" method="GET">
 				<input type="hidden" name="proj_no" value="${project.proj_no }">
 				<button id="workList" type="submit" class="font3 list">업무</button>
@@ -197,7 +207,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label font2">내용</label>
-								<textarea class="form-control" id="content" name="work_content" 
+								<textarea class="form-control" id="contentW" name="work_content" 
 									rows="7" placeholder="내용을 입력해주세요" required="required"
 									style="height: 200px;"></textarea>
 							</div>
@@ -262,7 +272,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="content" name="sked_content" required></textarea>
+								<textarea class="form-control" id="contentS" name="sked_content" required></textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -276,15 +286,8 @@
 	</div>
 
 	<script>
-// 파일 추가
-// 	var fileCnt = 1;
-// 	$("#addFile").click(function(){
-// 		fileCnt++;
-// 		var html= "<div class='fileDiv' style='display:flex;'><input type='file' name='uploadfile' class='file'>";
-// 		html += "<button class='deleteFile'><i class='fa-solid fa-trash-can'></i></button></div>";
-// 		$("#files").append(html);
-// 	});
-
+var loginEmp = ${loginSsInfo.emp_no};
+	
 // 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
@@ -299,7 +302,6 @@ $(function(){
 				return;
 			}
 			
-			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/member/detail",
 				type:"POST",
@@ -307,7 +309,22 @@ $(function(){
 				dataType: 'json',
 				success: function(result){
 					console.log(result);
+					
 					var html ="";
+					
+					for(var i=0; i<$(".emp_no").length; i++){
+						
+// 						if(result.emp_no == ) {
+// 							alert("이미 추가된 직원입니다");
+// 							return;
+// 						}
+						
+						if(result.emp_no == $(".emp_no").eq(i).text()){
+							alert("이미 선택한 직원입니다");
+							return;
+						}
+					}
+					
 					html +=  "<tr>";
    					html += "<td class='emp_no'>"+result.emp_no+"<input type='hidden' name='emp_no' value='"+result.emp_no +"'></td>";
    					html += "<td>"+result.emp_name+"</td>";
@@ -332,6 +349,7 @@ $(function(){
 				data: $("#select_add").serialize(),
 				success: function(result){
 					alert(result);
+					location.reload();
 				}
 				
 			});
@@ -339,11 +357,6 @@ $(function(){
 		});
 });
 
-
-	//휴지통 누르면 파일 삭제하기
-	$("#files").on('click','[class=deleteFile]',function(e){
-		$(this).parent('.fileDiv').remove();
-	});
 	
 	
 // 프로젝트 수정 ajax
@@ -388,6 +401,30 @@ $("#deleteProj").click(function(){
 	}
 });
 
+// 업무 추가 체크
+$("#submitP").click(function(){	
+var sdate = $("#work_start_date").val();
+var edate = $("#work_deadline").val();
+
+if($("#title").val() == ""){
+	alert("업무명을 입력해주세요");
+	$("#work_title").focus();
+	return false;
+}
+
+if(sdate > edate) {
+	alert("마감일은 시작일보다 빠를 수 없습니다");
+	$("#work_deadline").focus();
+	return false;
+}
+
+if($("#content").val() == ""){
+	alert("내용을 입력해주세요");
+	$("#content").focus();
+	return false;
+}
+});
+
 
 // 긴급 버튼
 $("#eimg").click(function(){
@@ -421,11 +458,32 @@ slider.oninput = function() {
 // 일정 추가하기 
 	$("#submitS").click(function(){
 		
+		var sdate = $("#sked_start_date").val();
+		var edate = $("#sked_end_date").val();
+		
+		if($("#sked_name").val() == ""){
+			alert("일정명을 입력해주세요");
+			$("#sked_name").focus();
+			return false;
+		}
+		
+		if(sdate > edate) {
+			alert("종료일은 시작일보다 작을 수 없습니다");
+			$("#sked_end_date").focus();
+			return false;
+		}
+		
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요");
+			$("#content").focus();
+			return false;
+		}
+		
 		var sked = $("form[name=newSked]").serialize();
 		
 		$.ajax({
 			type: "POST",
-			url:"<%=request.getContextPath()%>/schedule/insertS",
+			url:"<%=request.getContextPath()%>/schedule/insert",
 			data: sked,
 			success: function(result){
 				alert(result);
@@ -433,7 +491,6 @@ slider.oninput = function() {
 			
 		});
 	});
-
 
 // 카카오 지도
 // 마커를 담을 배열입니다

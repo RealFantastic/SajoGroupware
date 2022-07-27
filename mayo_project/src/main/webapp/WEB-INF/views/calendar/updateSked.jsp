@@ -36,7 +36,6 @@
 						<div style="display: flex;">
 							<div>
 								<select id="select" name="sked_category" class="form-select" aria-label="Default select example">
-									<option selected>종류</option>
 									<option value="A">전사</option>
 									<option value="P">개인</option>
 									<c:forEach var="project" items="${project }">
@@ -53,11 +52,11 @@
 						<div class="date" style="display: flex;">
 							<div class="mb-3" style="margin-right: 13px;">
 								<label for="recipient-name" class="col-form-label">시작일</label>
-								<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" value="${sked.sked_start_date }">
+								<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" value="${sked.sked_start_date }" required>
 							</div>
 							<div class="mb-3">
 								<label for="recipient-name" class="col-form-label" style="color: red;">종료일</label> 
-								<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" value="${sked.sked_end_date }">
+								<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" value="${sked.sked_end_date }" required>
 							</div>
 						</div>
 						<div class="mb-3" id="loca">
@@ -84,8 +83,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">설명</label>
-							<textarea class="form-control" id="content" name="sked_content"
-								required>${sked.sked_content }</textarea>
+							<textarea class="form-control" id="content" name="sked_content" required>${sked.sked_content }</textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -106,10 +104,33 @@
 	
 		//취소 버튼 누르면 뒤로가기
 		$("#cancel").click(function() {
-			window.history.back();
+			    history.back();
 		});
 		
+		// 일정 수정
 		$("#updateSked_submit").click(function(){
+			
+			var sdate = $("#sked_start_date").val();
+			var edate = $("#sked_end_date").val();
+			
+			if($("#sked_name").val() == ""){
+				alert("일정명을 입력해주세요");
+				$("#sked_name").focus();
+				return false;
+			}
+			
+			if(sdate > edate) {
+				alert("종료일은 시작일보다 빠를 수 없습니다");
+				$("#sked_end_date").focus();
+				return false;
+			}
+			
+			if($("#content").val() == ""){
+				alert("내용을 입력해주세요");
+				$("#content").focus();
+				return false;
+			}
+
 			
 			var sked = $("form[name='updateSked']").serialize();
 			
@@ -119,6 +140,7 @@
 				data: sked,
 				success: function(result){
 					alert(result);
+					history.go(-1);
 				}
 				
 			});

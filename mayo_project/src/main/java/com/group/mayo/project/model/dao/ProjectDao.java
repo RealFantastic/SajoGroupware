@@ -40,6 +40,10 @@ public class ProjectDao {
 		return sqlSession.insert("Project.insertPic", emp);
 	}
 	
+	public List<ProjectPic> selectPic(String proj_no) {
+		return sqlSession.selectList("Project.selectPic", proj_no);
+	}
+	
 	public int deletePic(String emp_no) {
 		return sqlSession.delete("Project.deletePic", emp_no);
 	}

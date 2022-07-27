@@ -6,8 +6,8 @@
 	min-width:250px;
 	height:100vh;
 	background-color: rgb(235, 255, 246);
- 	position:fixed; 
- 	top: 60px; 
+	position:fixed;
+	top: 60px;
 }
 
 #side-content {
@@ -38,10 +38,12 @@
 /* 리스트 버튼 디테일 */
 .list{
 	border: none;
+	margin-right: 20px;
+	font-weight: bold;
 /* 	배경 투명 */
 	background-color: transparent;
-	padding: 5px;
 	color: rgb(22, 160, 133);
+	
 }
 
 .list:hover{
@@ -58,13 +60,30 @@
 	margin-left: 10px;
 }
 
+#projectPic {
+	background-color: white;
+	padding: 20px;
+}
+
 input {
 	padding: 5px;	
 }
 
+#ppContent {
+	margin-top: 100px;
+}
+
+#pp{
+	display:flex;
+	padding-left: 15px;
+}
+
+.picempno {
+	display:none;
+}
+
 /* 직원 추가 */
 #insertPic{
-	margin: 50px;
 	padding: 10px;
 	border: none;
 	background-color: transparent;

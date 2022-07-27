@@ -71,7 +71,7 @@ public class ScheduleController {
 			mv.addObject("sked", sked);
 			mv.addObject("proj",projList);
 			mv.addObject("project", proj);
-			mv.addObject("loginEmp", loginEmp);
+			mv.addObject("emp_no", emp_no);
 			
 			mv.setViewName("project/insideprojectSked");
 			

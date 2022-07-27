@@ -53,13 +53,13 @@
 
 <!-- 전체 프로젝트 일정 보기 -->
 <select id="selectAllSked" parameterType="Schedule" resultType="Schedule">
-	select * from schedule s join proj p on (s.SKED_CATEGORY = TO_CHAR(p.proj_no)) 
+	select * from schedule sked join proj proj on (sked.SKED_CATEGORY = TO_CHAR(proj.proj_no)) 
 	where proj_no in (select proj_no from proj left outer join project_pic using(proj_no) where emp_no=#{emp_no} or proj_mgr=#{emp_no})
 </select>
 
 <!-- 전사 일정 보기 -->
 <select id="selectSkedA" resultType="Schedule">
-	select * from schedule where sked_category = 'A'
+	select * from schedule where sked_category = 'A' 
 </select>
 
 <!-- 개인 일정 보기 -->
@@ -69,7 +69,7 @@
 
 <!-- 특정 프로젝트 일정 보기 -->
 <select id="selectSked" resultType="Schedule">
-	select * from schedule where sked_category = #{sked_category} order by sked_date desc
+	select * from schedule sked join employee emp on (sked.sked_emp_id=emp.emp_no) where sked_category = #{sked_category} order by sked_date desc
 </select>
 
 <!-- 일정 상세 보기 -->

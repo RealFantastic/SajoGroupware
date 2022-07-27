@@ -30,6 +30,9 @@
 <!-- 카카오 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=349c4c75c4f78f9628da23a777619359&libraries=services"></script>
     <script>
+    
+    
+    
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
@@ -42,6 +45,7 @@
           // 시간 나타내지 않기
           displayEventTime: false,
           
+          html: true,
           // Bootstrap 5 사용
           themeSystem: 'bootstrap5',
 
@@ -69,6 +73,7 @@
 				  end: new Date ("${sked.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(170, 205, 190)',
 			      extendedProps: {
+			    	  skedEmp: '${sked.sked_emp_id}',
 			    	  skedNo: '${sked.sked_no}',
 			    	  category: '${sked.sked_category}',
 			    	  location: '${sked.sked_location}',
@@ -83,6 +88,7 @@
 				  end: new Date ("${skedA.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(244, 124, 124)',
 			      extendedProps: {
+			    	  skedEmp: '${skedA.sked_emp_id}',
 			    	  skedNo: '${skedA.sked_no}',
 			    	  category: '${skedA.sked_category}',
 			    	  location: '${skedA.sked_location}',
@@ -97,6 +103,7 @@
 				  end: new Date ("${skedP.sked_end_date}"+ " 23:59:59"),
 				  color: 'rgb(250, 217, 161)',
 			      extendedProps: {
+			    	  skedEmp: '${skedP.sked_emp_id}',
 			    	  skedNo: '${skedP.sked_no}',
 			    	  category: '${skedP.sked_category}',
 			    	  location: '${skedP.sked_location}',
@@ -124,6 +131,7 @@
 				    $("#sked .skedType").text('프로젝트 번호');
 				    }
 				    
+				    $("#sked .sked_emp_id").val(info.event.extendedProps.skedEmp);
 				    $("#sked .skedCate").text(info.event.extendedProps.category);
 				    $("#sked .withSked_no").val(info.event.extendedProps.skedNo);
 				    $("#sked .withSked_no").text(info.event.extendedProps.skedNo);
@@ -151,6 +159,11 @@
       });
 
     </script>
+    <style>
+.fc-day-grid-event > .fc-content {
+    white-space: normal;
+}
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
@@ -175,6 +188,7 @@
         <div>
 				<input type="hidden" name="sked_no" class="withSked_no"value="">
 				<button type='button' class='deleteS viewD'>삭제</button>
+				<input type='hidden' class="sked_emp_id" value=""/>
 		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -247,7 +261,7 @@
     <div class="modal-content skedModal">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">일정 추가</h5> 
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close reset" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form name="newSked">
       <div class="modal-body">
@@ -300,11 +314,10 @@
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
             <textarea class="form-control" rows="4" id="content" name="sked_content" required></textarea>
-            
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+        <button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
         <button id="submitS" type="submit" class="btn_green">등록</button>
         </div>
         </form>
@@ -322,8 +335,31 @@
 <!-- SKED_CATEGORY            VARCHAR2(50)    -->
 <!-- SKED_EMP_ID              VARCHAR2(50)    -->
 
+var emp = ${loginSsInfo.emp_no};
+
 // 일정 추가하기 
 	$("#submitS").click(function(){
+		
+		var sdate = $("#sked_start_date").val();
+		var edate = $("#sked_end_date").val();
+		
+		if($("#sked_name").val() == ""){
+			alert("일정명을 입력해주세요");
+			$("#sked_name").focus();
+			return false;
+		}
+		
+		if(sdate > edate) {
+			alert("종료일은 시작일보다 빠를 수 없습니다");
+			$("#sked_end_date").focus();
+			return false;
+		}
+		
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요");
+			$("#content").focus();
+			return false;
+		}
 		
 		var sked = $("form[name=newSked]").serialize();
 		
@@ -334,7 +370,6 @@
 			success: function(result){
 				alert(result);
 			}
-			
 		});
 	});
 
@@ -342,7 +377,14 @@
 	$(".deleteS").click(function(event){ 
 		
 	console.log($(event.target).prev('input').val());
-		
+	var sked_mgr = $(event.target).next('input').val(); // 일정 작성자	
+	
+	// 일정 작성자만 삭제 가능
+	if(emp != sked_mgr){
+		alert("작성자만 삭제할 수 있습니다.");
+		return false;
+	}	
+	
 	//삭제 여부 확인하기
 	var check = confirm("일정을 삭제하시겠습니까?");
 	var sked_no = $(event.target).prev('input').val();
@@ -526,7 +568,7 @@ function selectInfo(thisEle){
 	// 장소 지번 주소
 	var jibun = $(thisEle).children(".infoAddr").text();
 	
-	var html = "<div id='newLoca'><div style='display:flex;'><div style='font-weight:bold;'>"+name+"</div><button class='deleteLoca'><i class='fa-solid fa-trash-can'></i></button></div>";
+	var html = "<div id='newLoca'><div style='display:flex;'><div style='font-weight:bold;'>"+name+"</div>";
 	html += "<div>"+road+"</div>";
 	html += "<div style='color:#8a8a8a;'>"+jibun+"</div></div>";
 	
@@ -572,9 +614,6 @@ geocoder.addressSearch(jibun, function(result, status) {
 
 }
 
-// $(".selectedLoca").on('click','[class=deleteLoca]',function(e){
-// 	$("#newLoca").remove();
-// });
 
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다

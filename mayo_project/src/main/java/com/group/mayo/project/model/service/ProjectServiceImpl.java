@@ -53,5 +53,10 @@ public class ProjectServiceImpl implements ProjectService{
 		return dao.deletePic(emp_no);
 	}
 
+	@Override
+	public List<ProjectPic> selectPic(String proj_no) {
+		return dao.selectPic(proj_no);
+	}
+
 	
 }

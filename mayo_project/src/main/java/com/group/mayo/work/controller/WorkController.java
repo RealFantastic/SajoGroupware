@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.employee.domain.Employee;
+import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.schedule.domain.Schedule;
 import com.group.mayo.schedule.model.service.ScheduleService;
 import com.group.mayo.work.domain.Work;
@@ -28,6 +29,7 @@ public class WorkController {
 	private WorkService service;
 	@Autowired 
 	private ScheduleService skedService;
+	
 	// 업무 리스트 불러오기
 	@PostMapping("/detail") 
 	public ModelAndView detailWork(ModelAndView mv, @RequestParam("proj_no") String proj_no){
@@ -44,7 +46,7 @@ public class WorkController {
 	// 프로젝트 일정 리스트 불러오기
 	@PostMapping("/detailS") 
 	public ModelAndView detailSked(ModelAndView mv, @RequestParam("proj_no") String sked_category){
-		
+
 		List<Schedule> sked = skedService.selectSked(sked_category);
 		
 		mv.addObject("sked", sked);
@@ -61,10 +63,7 @@ public class WorkController {
 
 		// 로그인 세션 불러오기
 		Employee employee = (Employee)session.getAttribute("loginSsInfo");
-		if (employee == null) {
-			mv.setViewName("redirect:/member/login");
-			return mv;
-		}
+
 		// 로그인 아이디 저장 
 		work.setWork_mgr(employee.getEmp_no());
 		
@@ -84,17 +83,12 @@ public class WorkController {
 	// 업무 글 수정 페이지로 이동
 	@PostMapping("/toUpdate") 
 	public ModelAndView updateWorkPage(ModelAndView mv,
-			@RequestParam(name="work_no", required=false) String work_no
-			, HttpSession session) {
+			@RequestParam(name="work_no", required=false) String work_no) {
 
-			// 로그인 세션 불러오기
-			Employee loginEmp = (Employee)session.getAttribute("loginSsInfo");
-			
 			System.out.println("업데이트 들어왔니");
 			Work work = service.viewWork(work_no);
 			
 			mv.addObject("work", work);
-			mv.addObject("loginEmp", loginEmp);
 			
 			mv.setViewName("project/updateWork");
 			
