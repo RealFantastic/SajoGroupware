@@ -18,8 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.service.EapService;
 import com.group.mayo.employee.domain.Employee;
@@ -45,7 +43,9 @@ public class EapController {
 	public ModelAndView mainPage(ModelAndView mv,HttpSession session,
 			@RequestParam(name="form_code",required=false) String form_code) {
 		session.setAttribute("formlist",service.selectListEaForm());
-//		mv.addObject("formlist", service.selectListEaForm());
+		Employee curUser =(Employee)session.getAttribute("loginSsInfo");
+		mv.addObject("proceeding", service.selectMyListProceeding(curUser));
+		mv.addObject("completeList",service.selectMyListComplete(curUser));
 		mv.addObject("form_code",form_code);
 		mv.setViewName("eap/main");
 		

@@ -58,4 +58,10 @@ public class EapDao {
 	public int updateReject(EapDomain eap) {
 		return sqlSession.update("Eap.updateReject",eap);
 	}
+	public List<EapDomain> selectMyListProceeding(Employee employee) {
+		return sqlSession.selectList("Eap.selectMyListProceeding",employee);
+	}
+	public List<EapDomain> selectMyListComplete(Employee employee) {
+		return sqlSession.selectList("Eap.selectMyListComplete",employee);
+	}
 }

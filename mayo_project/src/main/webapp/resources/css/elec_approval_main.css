@@ -57,28 +57,21 @@
 }
 /* 메인페이지 content css 종료 */
 /* 기안 진행문서 css시작 */
-#home_my_draftedlist{
-	position:relative;
-	margin-bottom:20px;
-}
-#home_my_draftedlist>h1{
-	font-size:22px;
-	font-family:'GmarketSansMedium';
+/* #home_my_draftedlist{ */
+/* 	position:relative; */
+/* 	margin-bottom:20px; */
+/* } */
+.list_title{
 	padding:24px;
 }
-table#list_app{
-	width:100%;
-	border:1px solid #ddd;
+.list_title>h1{
+	font-size:22px;
+	font-family:'GmarketSansMedium';
+	
 }
-table#list_app th{
-	padding: 0 16px;
-	height:30px;
+#drafted_doc_table_container{
+	margin: 0 30px;
 }
-table#list_app th:first-child{
-	padding-left:24px;
-	padding-right:0;
-}
-/* 기안 진행문서 css 종료 */
 
 /* 휴가신청서 display:none  */
 #vacationForm{
@@ -92,6 +85,10 @@ table#list_app th:first-child{
 #my_doc_list_container{
 	margin: 0 30px;
 }
+#complete_doc_table_list{
+	margin: 0 30px;
+}
+
 .draft_list{
 	width:1200px;
 	text-align: center;

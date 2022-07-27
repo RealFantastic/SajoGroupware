@@ -39,10 +39,11 @@
 		</div>
 		<div class="content_page">
 			<div id="home_my_draftedlist">
-				<h1>기안 진행중</h1>
+				<div class="list_title">
+					<h1>기안 진행중</h1>				
+				</div>
 				<div id="drafted_doc_table_container">
-					<div>
-						<table id="list_app">
+					<table id="list_app" class="table draft_list">
 							<thead>
 								<tr>
 									<th>기안일</th>
@@ -53,11 +54,116 @@
 									<th>결재상태</th>
 								</tr>
 							</thead>
-							<tbody>
-								<!-- TODO : 결재 작성 후 리스트 뿌릴 예정 -->
-							</tbody>
-						</table>
-					</div>
+							<tbody class="table-group-divider">
+							<c:choose>
+								<c:when test="${empty proceeding }">
+									<tr>
+										<td colspan="6" style="font-weight:bold; color: blue;"> 기안한 문서가 없습니다. </td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="list" items="${proceeding }" begin="0" step="1" end="4" >
+										<tr class="my_list" data-eano="${list.ea_no }" data-drafter_id="${list.drafter_id }">
+							  				<th scope="row">${list.ea_no }</th>
+											<td>${list.form_title }</td>
+											<c:choose>
+										      	<c:when test="${list.isemergency eq 'N' }">
+													<td><img src="<%=request.getContextPath()%>/resources/images/blackalert.png" style="width:22.2px;"></td>
+										      	</c:when>
+										      	<c:otherwise>
+											      	<td><img src="<%=request.getContextPath()%>/resources/images/alert.png" style="width:22.2px;"></td>
+										      	</c:otherwise>
+										    </c:choose>
+										    <td>${list.ea_title }</td>
+										    <c:choose>
+										      	<c:when test="${not empty list.approvalFiles }">
+										      		<td><i class="fa-solid fa-paperclip"></i></td>
+										      	</c:when>
+										      	<c:otherwise>
+										      		<td>${list.approvalFiles.f_no }</td>
+										      	</c:otherwise>
+										    </c:choose>
+											<c:choose>
+										      	<c:when test="${list.result_code gt 0 }">
+										      		<c:choose>
+										      			<c:when test="${list.result_code eq 1 }">
+										      				<td><div class="btn_gray">회수</div></td>
+										      			</c:when>
+										      			<c:when test="${list.result_code eq 2 }">
+										      				<td><div class="btn_yellow">진행</div></td>
+										      			</c:when>
+										      			<c:when test="${list.result_code eq 3 }">
+										      				<td><div class="btn_red">반려</div></td>
+										      			</c:when>
+										      			<c:otherwise>
+										      				<td><div class="btn_gray">완료</div></td>
+										      			</c:otherwise>
+										      		</c:choose>
+										      	</c:when>
+										      	<c:otherwise>
+										      		<td><div class="btn_green">접수</div></td>
+										      	</c:otherwise>
+										    </c:choose>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="complete_list">
+				<div class="list_title">
+					<h1>완료 문서</h1>				
+				</div>
+				<div id="complete_doc_table_list">
+					<table id="list_app" class="table draft_list">
+						<thead>
+							<tr>
+								<th>기안일</th>
+								<th>결재양식</th>
+								<th>긴급</th>
+								<th>제목</th>
+								<th>첨부</th>
+								<th>결재상태</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<c:choose>
+								<c:when test="${empty completeList }">
+									<tr>
+										<td colspan="6" style="font-weight:bold; color: blue;"> 완료된 문서가 없습니다. </td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="list" items="${completeList }" begin="0" step="1" end="4" >
+										<tr class="my_list" data-eano="${list.ea_no }" data-drafter_id="${list.drafter_id }">
+							  				<th scope="row">${list.ea_no }</th>
+											<td>${list.form_title }</td>
+											<c:choose>
+										      	<c:when test="${list.isemergency eq 'N' }">
+													<td><img src="<%=request.getContextPath()%>/resources/images/blackalert.png" style="width:22.2px;"></td>
+										      	</c:when>
+										      	<c:otherwise>
+											      	<td><img src="<%=request.getContextPath()%>/resources/images/alert.png" style="width:22.2px;"></td>
+										      	</c:otherwise>
+										    </c:choose>
+										    <td>${list.ea_title }</td>
+										    <c:choose>
+										      	<c:when test="${not empty list.approvalFiles }">
+										      		<td><i class="fa-solid fa-paperclip"></i></td>
+										      	</c:when>
+										      	<c:otherwise>
+										      		<td>${list.approvalFiles.f_no }</td>
+										      	</c:otherwise>
+										    </c:choose>
+											<td><div class="btn_gray">완료</div></td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div id="vacationForm">
@@ -68,6 +174,7 @@
 			</div>
 		</div>
     </div>
+    
     <c:if test="${not empty form_code }">
 	    <script>
 	    	var form_code = '${form_code}';
@@ -91,5 +198,19 @@
 	    	<% request.getSession().removeAttribute("form_code");%>
 	    </script>
     </c:if>
+    
+    <script>
+     $('.my_list').click(function(){
+    	var ea_no = $(this).data('eano');
+    	var drafter_id = $(this).data('drafter_id');
+    	console.log(ea_no);
+    	console.log(drafter_id);
+    	let form = document.createElement('form');
+    	form.setAttribute('method','POST');
+    	form.setAttribute('action','<%=request.getContextPath()%>/eap/list/detail?ea_no='+ea_no+'&drafter_id=' + drafter_id);
+    	document.body.appendChild(form);
+    	form.submit();
+     });
+    </script>
 </body>
 </html>

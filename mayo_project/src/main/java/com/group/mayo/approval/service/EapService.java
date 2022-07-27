@@ -5,7 +5,6 @@ import java.util.List;
 import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.domain.Holiday;
 
 public interface EapService {
 	/**
@@ -93,4 +92,20 @@ public interface EapService {
 	 * @return 0 or 1
 	 */
 	public int updateReject(EapDomain eap);
+	
+	/**
+	 * 
+	 * @param employee : 사용자
+	 * @return 본인이 작성한 기안문 중 진행중 목록
+	 * @author JHPark
+	 */
+	public List<EapDomain> selectMyListProceeding(Employee employee);
+	
+	/**
+	 * 
+	 * @param employee
+	 * @return 본인이 작성한 기안문 중 완료 목록
+	 * @author JHPark
+	 */
+	public List<EapDomain> selectMyListComplete(Employee employee);
 }

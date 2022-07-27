@@ -111,4 +111,22 @@
 		WHERE EA_NO = #{ea_no}
 	</update>
 	
+	
+	<select id="selectMyListProceeding" parameterType="Employee" resultType="Eap">
+		SELECT EAP.*,FORM.FORM_TITLE,AF.*
+    	FROM ELEC_APPROVAL EAP
+    	JOIN EA_FORM FORM ON EAP.FORM_CODE = FORM.FORM_CODE
+    	LEFT OUTER JOIN APPROVAL_FILE AF ON EAP.EA_NO = AF.DOC_NO
+    	WHERE DRAFTER_ID = #{emp_no} and RESULT_CODE = 2
+    	ORDER BY DRAFT_DATE DESC
+	</select>
+	
+	<select id="selectMyListComplete" parameterType="Employee" resultType="Eap">
+		SELECT EAP.*,FORM.FORM_TITLE,AF.*
+    	FROM ELEC_APPROVAL EAP
+    	JOIN EA_FORM FORM ON EAP.FORM_CODE = FORM.FORM_CODE
+    	LEFT OUTER JOIN APPROVAL_FILE AF ON EAP.EA_NO = AF.DOC_NO
+    	WHERE DRAFTER_ID = #{emp_no} and RESULT_CODE = 4
+    	ORDER BY DRAFT_DATE DESC
+	</select>
 </mapper>

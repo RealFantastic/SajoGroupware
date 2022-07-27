@@ -393,7 +393,7 @@
 								empNo = $('.emp_no').eq(i).text();
 								if(emp_no === empNo){ 
 									alert("이미 등록된 결재자입니다.");
-									return ;
+									return;
 								}
 							}
 							html += '<tr class="tmp">';

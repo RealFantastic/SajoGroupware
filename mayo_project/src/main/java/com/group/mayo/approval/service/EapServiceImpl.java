@@ -10,7 +10,6 @@ import com.group.mayo.approval.domain.EapDomain;
 import com.group.mayo.approval.model.dao.EapDao;
 import com.group.mayo.eaform.domain.EaForm;
 import com.group.mayo.employee.domain.Employee;
-import com.group.mayo.employee.domain.Holiday;
 
 @Service
 @Transactional
@@ -94,6 +93,20 @@ public class EapServiceImpl implements EapService {
 	public int updateReject(EapDomain eap) {
 		return dao.updateReject(eap);
 	}
+
+
+	@Override
+	public List<EapDomain> selectMyListProceeding(Employee employee) {
+		return dao.selectMyListProceeding(employee);
+	}
+
+
+	@Override
+	public List<EapDomain> selectMyListComplete(Employee employee) {
+		return dao.selectMyListComplete(employee);
+	}
+	
+	
 	
 	
 	

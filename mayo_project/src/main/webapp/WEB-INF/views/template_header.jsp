@@ -12,7 +12,7 @@
 					<div class="modal-body" id="emp_info">
 						<div id="emp_list">
 							<input type="text" id="empchart_search">
-							<div class="jstree_empchart">
+							<div id="jstree_empchart">
 							</div>
 						</div>
 						<div id="emp_detail_container">
@@ -131,40 +131,40 @@
 		sessionStorage.setItem("contextPath","${pageContext.request.contextPath}");
 		console.log("1");
 		$(function () {
-			setTimeout(orgChart($('.jstree_empchart')),250);
+			orgChart($('#jstree_empchart'));
 			var to = false;
 			$('#empchart_search').keyup(function(event){
 			  	var target = $(event.target);
 				searchJstree(target);
 			});
-		});
-		$("#jstree_empchart").bind('select_node.jstree',function(event,data){
-			var emp_no = data.instance.get_node(data.selected).id;
-			console.log(emp_no);
-			$.ajax({
-				url:'<%= request.getContextPath() %>/member/detail',
-				type:"post",
-				data:{emp_no : emp_no},
-				dataType:"json",
-				success:function(data){
-// 					console.log(data);
-					console.log(data.emp_name);
-					$("#emp_detail table th td input").empty();
-					$("#emp_detail2 table th td input").empty();
-					$("input[name=emp_name]").val(data.emp_name);
-					$("input[name=phone]").val(data.phone);
-					$("input[name=email]").val(data.email);
-					$("input[name=rrn]").val(data.rrn);
-					$("input[name=emp_no]").val(data.emp_no);
-					$("input[name=job_name]").val(data.job_name);
-					$("input[name=dept_name]").val(data.dept_name);
-					$("input[name=hire_date]").val(data.hire_date);
-					$("input[name=address]").val(data.address);
-				},
-				error:function(){
-					alert("동작실패");
-				}		
-			})
+			$("#jstree_empchart").bind('select_node.jstree',function(event,data){
+				var emp_no = data.instance.get_node(data.selected).id;
+				console.log(emp_no);
+				$.ajax({
+					url:'<%= request.getContextPath() %>/member/detail',
+					type:"post",
+					data:{emp_no : emp_no},
+					dataType:"json",
+					success:function(data){
+	// 					console.log(data);
+						console.log(data.emp_name);
+						$("#emp_detail table th td input").empty();
+						$("#emp_detail2 table th td input").empty();
+						$("input[name=emp_name]").val(data.emp_name);
+						$("input[name=phone]").val(data.phone);
+						$("input[name=email]").val(data.email);
+						$("input[name=rrn]").val(data.rrn);
+						$("input[name=emp_no]").val(data.emp_no);
+						$("input[name=job_name]").val(data.job_name);
+						$("input[name=dept_name]").val(data.dept_name);
+						$("input[name=hire_date]").val(data.hire_date);
+						$("input[name=address]").val(data.address);
+					},
+					error:function(){
+						alert("동작실패");
+					}		
+				});
+			});
 		});
 		</script>
 		<script>
