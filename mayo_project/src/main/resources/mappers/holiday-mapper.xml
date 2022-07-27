@@ -18,21 +18,19 @@
 
 <!-- 개인 연차내역 아래 테이블 리스트 띄우기 TODO-->
 	<select id="holidayMystatus" parameterType="hashmap" resultType="Holiday">
-	
-	
-    SELECT
-        TO_CHAR(a.req_date, 'YYYY-MM-DD') REQ_DATE_str
-        , to_char(a.hd_start,'YYYY-MM-DD') HD_START_str
-        , to_char(a.hd_end, 'YYYY-MM-DD') HD_END_str
-        , a.hd_count HD_COUNT
-        ,a.ea_no HD_REASON
-        ,(b.total - sum(a.hd_count) over(order by a.hd_start) )as LEFT_COUNT
-    from holiday_history a, employee_holiday b
-    
-    WHERE a.emp_no = b.emp_no
-    AND a.emp_no=#{id} and to_char(a.hd_start,'YYYY')=#{birthYear}
-    AND b.birth_year =#{birthYear}
-    ORDER BY A.HD_START , A.HD_END
+		SELECT
+			TO_CHAR(a.req_date, 'YYYY-MM-DD') REQ_DATE_str
+			, to_char(a.hd_start,'YYYY-MM-DD') HD_START_str
+			, to_char(a.hd_end, 'YYYY-MM-DD') HD_END_str
+			, a.hd_count HD_COUNT
+			, a.ea_no HD_REASON
+			, (b.total - sum(a.hd_count) over(order by a.hd_start) )as LEFT_COUNT
+		from holiday_history a, employee_holiday b
+
+		WHERE a.emp_no = b.emp_no
+		AND a.emp_no=#{id} and to_char(a.hd_start,'YYYY')=#{birthYear}
+		AND b.birth_year =#{birthYear}
+		ORDER BY A.HD_START , A.HD_END
 	</select>
 
 <!-- 	해당연도 총 연차발생 개수 -->
@@ -42,7 +40,37 @@
 	</select>
 
 
-
+	<!-- 	전체직원리스트에서 검색 -->
+	<select id="holidayEmpSearch" parameterType="CommuteEmployee" resultType="CommuteEmployee">
+		
+		SELECT EMP.EMP_NO EMP_NO
+			  ,EMP.EMP_NAME EMP_NAME
+			  ,EMP.PHONE PHONE
+			  ,NVL(EMP_HOLIDAY.LEFT_COUNT,0) LEFT_COUNT
+			  ,D.DEPT_NAME DEPT_NM
+			  ,J.JOB_NAME JOB_NM
+		FROM EMPLOYEE EMP
+			LEFT OUTER JOIN(
+				SELECT * FROM EMPLOYEE_HOLIDAY 
+				WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE)) EMP_HOLIDAY 
+				ON EMP.EMP_NO = EMP_HOLIDAY.EMP_NO
+			JOIN DEPARTMENT D USING (DEPT_NO)
+			JOIN JOB J USING(JOB_NO)
+			
+		<where>
+			<choose>
+				<when test="search_type !=null and search_type.equals('search_no')">
+					and emp.EMP_NO like '%'||#{search_keyword}||'%'
+				</when>
+				<when test="search_type !=null and search_type.equals('search_name')">
+					and emp.EMP_NAME like '%'||#{search_keyword}||'%'
+				</when>
+				<when test="search_type !=null and search_type.equals('search_dept')">
+					and d.DEPT_NAME like '%'||#{search_keyword}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
 
 
 

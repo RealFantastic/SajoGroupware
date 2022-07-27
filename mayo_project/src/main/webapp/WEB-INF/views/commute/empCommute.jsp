@@ -355,6 +355,12 @@
 					$(function(){
 						// 모달 수정버튼 클릭 시
 						$("#changemodal").on("click", function(){
+							
+							if ($("#modal_start_time").val() > $("#modal_end_time").val() ) {
+								alert("퇴근시간이 출근시간보다 빠를 수 없습니다.")
+								return
+							}
+							
 							$.ajax({
 								type:"post"
 								,url:"<%=request.getContextPath()%>/commute/change"
@@ -363,6 +369,7 @@
 									modal_day:$('#modal_day').val(),
 									modal_start_time:$('#modal_start_time').val(),
 									modal_end_time:$('#modal_end_time').val()
+									
 								}
 								,dataType:"text"
 								,success : function(result) {
@@ -376,7 +383,6 @@
 									}
 								}
 							})
-	
 						});
 					})
 				</script>

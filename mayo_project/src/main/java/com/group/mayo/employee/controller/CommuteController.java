@@ -184,6 +184,7 @@ public class CommuteController {
 		return result;
 	}
 	
+//	직원별 근태내역 수정하기 - 모달창
 	@RequestMapping(value = "/change", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String change(@RequestParam("empNo") String empNo, @RequestParam("modal_day") String modal_day

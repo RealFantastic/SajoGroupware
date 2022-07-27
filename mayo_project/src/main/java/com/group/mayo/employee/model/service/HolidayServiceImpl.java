@@ -44,7 +44,7 @@ public class HolidayServiceImpl implements HolidayService{
 //	인사팀 직원조회
 	@Override
 	public List<CommuteEmployee> commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception {
-		return dao.commuteEmpSearch(empCommuteSearch);
+		return dao.holidayEmpSearch(empCommuteSearch);
 	}
 	
 //	해당연도 발생연차 갯수

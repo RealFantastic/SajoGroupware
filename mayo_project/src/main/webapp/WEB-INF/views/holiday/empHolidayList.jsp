@@ -66,7 +66,7 @@
 		function commuteEmpSearch() {
 			$.ajax({
 				type:"post"
-				,url:"<%=request.getContextPath()%>/commute/empCommuteSearch"
+				,url:"<%=request.getContextPath()%>/holiday/empCommuteSearch"
 				,data:$("form[name=search_form]").serialize()
 				,success:function(result){
 					//테이블 초기화
@@ -81,7 +81,6 @@
 							str += "<td class='holiday_table_list_td'>"+item.dept_nm+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.phone+"</td>";
 							str += "<td class='holiday_table_list_td'>"+item.left_count+"</td>";
-							//str += "<td class='holiday_table_list_td'><button class='btn_yellow'>상세보기</button></td>";
 							str += "<td class='holiday_table_list_td'>";
 							str += '<form action="<%= request.getContextPath()%>/holiday/empHolidayDetail" method="POST">';
 							str += '<input type="hidden" name="empNo" value="'+item.emp_no+'">';

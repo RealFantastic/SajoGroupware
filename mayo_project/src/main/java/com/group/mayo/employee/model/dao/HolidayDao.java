@@ -37,9 +37,9 @@ public class HolidayDao {
 		return sqlSession.selectOne("Holiday.selectTotalHoliday", paramMap);
 	}
 
-	//	인사팀 - 직원 검색하기
-	public List<CommuteEmployee>commuteEmpSearch(CommuteEmployee empCommuteSearch) throws Exception{
-		return sqlSession.selectList("CommuteRecord.commuteEmpSearch", empCommuteSearch);
+	//	인사팀 - 직원 검색하기 -연차용
+	public List<CommuteEmployee>holidayEmpSearch(CommuteEmployee empCommuteSearch) throws Exception{
+		return sqlSession.selectList("Holiday.holidayEmpSearch", empCommuteSearch);
 	}
 	
 	

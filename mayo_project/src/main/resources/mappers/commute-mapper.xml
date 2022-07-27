@@ -137,7 +137,7 @@
 			,b.dept_name DEPT_NM
 			, (SELECT job_name FROM job b WHERE b.job_no = a.job_no) JOB_NM
 		FROM employee a ,department b 
-        WHERE a.dept_no =b.dept_no
+        WHERE a.dept_no = b.dept_no
 		
 		<choose>
 			<when test="search_type !=null and search_type.equals('search_no')">
