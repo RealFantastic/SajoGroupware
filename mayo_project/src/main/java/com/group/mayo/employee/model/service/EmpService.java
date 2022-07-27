@@ -66,5 +66,5 @@ public interface EmpService {
 	 * @return 비밀번호 재설정
 	 * @author XeonSnee
 	 */
-	public Employee updatePwd(Employee employee);
+	public int updatePwd(Employee employee);
 }

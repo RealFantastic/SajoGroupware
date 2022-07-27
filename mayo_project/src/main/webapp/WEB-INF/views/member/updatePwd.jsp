@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +23,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 </head>
 <body id="j_body">
-<script>
-	${msg}
-</script>
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
   <form action="<%=request.getContextPath()%>/member/updatePwd" method="post" id="updatePwd" name="updatePwd">
     <div id="j_container" style="position: relative; top: 100px;">
@@ -34,7 +37,7 @@
                 <p>변경하실 비밀번호를 입력해 주세요.</p>
     			<div id="j_emp_no" class="j_div">
     				<label for="emp_no">아이디 : </label>
-    				<input type="text" id="emp_no" name="emp_no" placeholder="아이디 입력"  required="required">
+    				<input type="text" id="emp_no" name="emp_no" placeholder="아이디 입력" maxlength="9"  required="required">
     			</div>
                 <div id="j_pwd1" class="j_div">
                     <input type="password" id="password_new" name="password" placeholder="새 비밀번호" required="required"/>
@@ -43,7 +46,7 @@
                     <input type="password" id="password_new_chk" name="password_new_chk"  placeholder="새 비밀번호 확인" required="required"/>
                 </div>
                 <div id="j_btn">
-               		<button type="reset" id="j_cancle_btn" name="j_cancle_btn" class="btn_yellow">취소</button>
+               		<button type="button" id="j_cancle_btn" name="j_cancle_btn" class="btn_yellow">뒤로가기</button>
                 	<button type="submit" id="updatePwd_btn" name="updatePwd_btn" class="btn_green">비밀번호 변경</button> 
                 </div> 
             </div>
@@ -56,30 +59,63 @@
 
     </div>
     </form>
-    
+ 	<!-- 뒤로 가기 버튼 -->
+	<script>
+	   //뒤로 가기
+	   $("#j_cancle_btn").click(function() {
+	        var result = confirm('이전페이지로 이동하시겠습니까?'); 
+	        if(result) { 
+	            location.href="history.go(-1);";
+	            } else { 
+	            //no 
+            	 location.href="history.go(0);";
+	            }
+	    });
+	</script>   
 <script type="text/javascript">
 		
 			$("#updatePwd_btn").on("click", function(){
+				var emp_no = $('#emp_no').val();
+				var password = $('input[name=password]').val();
+				
+			    if(emp_no == "") {
+					alert("아이디를 입력해주십시오");
+					$("#emp_no").focus();
 
+					return false;
+				}
+		    	var regExpEmpNo = /^[0-9]{8,9}$/; //숫자9
+		    	if(!regExpEmpNo.test(emp_no)){
+		    		alert("유효하지 않는 아이디 입니다.");
+		    		$("#emp_no").val('');
+		    		$("#emp_no").focus();
+		    		return false;
+		    	}
 				if($("#password_new").val() == ""){
-					alert("변경비밀번호을를 입력해주세요");
+					alert("새 비밀번호를 입력해주세요");
 					$("#password_new").focus();
 					return false
 				}
 				if($("#password_new_chk").val() == ""){
-					alert("변경비밀번호를 입력해주세요");
+					alert("새 비밀번호 확인을 입력해주세요");
 					$("#password_new_chk").focus();
 					return false
+				}
+			    //새 비밀번호 형식 체크
+				var regExpPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/; // 영문자, 숫자가 적어도 1개이상, 8~16글자
+				if(!regExpPassword.test(password)){
+					alert("패스워드 입력란에는 영문자, 숫자가 적어도 1개이상, 8~16글자를 입력해주세요.");
+					$("#password_new").val("");
+					$("#password_new_chk").val("");
+					$("#password_new").focus();
+					return false;
 				}
 				if ($("#password_new").val() != $("#password_new_chk").val()) {
-					alert("변경비밀번호가 일치하지 않습니다.");
+					alert("새 비밀번호가 일치하지 않습니다.");
 					$("#password_new_chk").focus();
 					return false
 				}
-		    	var frm = $("#updatePwd");
-				frm.attr("action","<%=request.getContextPath()%>/member/updatePwd"); 
-				frm.attr("method","post");
-				frm.submit();
+
 				
 			});
 			

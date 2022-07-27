@@ -65,7 +65,7 @@ public class EmpServiceImpl implements EmpService{
 	}
 	// 비밀번호 재설정
 	@Override
-	public Employee updatePwd(Employee employee) {
+	public int updatePwd(Employee employee) {
 		return dao.updatePwd(employee) ;
 	}
 	

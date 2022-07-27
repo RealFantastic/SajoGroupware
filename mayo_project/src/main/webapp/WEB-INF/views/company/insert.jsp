@@ -244,15 +244,21 @@
 		} 	
 		/* 사업자 성함 */
 		var replaceName = /^[가-힣a-zA-Z\s]+$/
+			if(!replaceName.test(cp_king)){
+				alert("성함은 한글, 영문만 입력 가능합니다.");
+				$("#cp_king").val('');
+				$("#cp_king").focus();
+				return false;
+			} 	
 			 
-		$("#cp_king").on("focusout", function() {
-		    var x = $(this).val();
-		    if (x.length > 0) {
-		        if (!x.match(replaceName)) {
-		           alert("성함은 한글, 영문만 입력 가능합니다.");
-		        } 
-		    }
-		});
+// 		$("#cp_king").on("focusout", function() {
+// 		    var x = $(this).val();
+// 		    if (x.length > 0) {
+// 		        if (!x.match(replaceName)) {
+// 		           alert("성함은 한글, 영문만 입력 가능합니다.");
+// 		        } 
+// 		    }
+// 		});
 
     	/*전화번호 형식 체크*/
  		var phone = $("#cp_tel").val().trim();
@@ -283,11 +289,11 @@
 			return false;
 		}
 		   
-	var frm = $("#cp_enroll");
-	frm.attr("action","<%= request.getContextPath()%>/company/enroll"); 
-	frm.attr("method","post");
-	frm.submit(); 
-	});
+// 	var frm = $("#cp_enroll");
+<%-- 	frm.attr("action","<%= request.getContextPath()%>/company/enroll");  --%>
+// 	frm.attr("method","post");
+// 	frm.submit(); 
+// 	});
     
     </script>
     
@@ -316,12 +322,13 @@
 	<script>
 	   //뒤로 가기
 	   $("#j_cancle_btn").click(function() {
-	        var result = confirm('메인페이지로 이동하시겠습니까?'); 
+	        var result = confirm('이전페이지로 이동하시겠습니까?'); 
 	        if(result) { 
 	            //yes //TODO 메인페이지로 이동
-	            location.href="<%= request.getContextPath()%>";
+	            location.href="history.go(-1);";
 	            } else { 
 	            //no 
+            	 location.href="history.go(0);";
 	            }
 	    });
 	</script>

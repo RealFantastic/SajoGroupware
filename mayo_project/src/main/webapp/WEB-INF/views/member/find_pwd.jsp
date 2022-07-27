@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 </head>
 <body id="j_body">
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+	</script>
+</c:if>
 <jsp:include page="/WEB-INF/views/template_header.jsp"/>
 	<form action="findPwd" method="post" name="findPwd">
 		<div id="j_container">
@@ -39,11 +45,11 @@
 					</div>
 					<div id="j_emp_no" class="j_div">
 						<label for="emp_no" class="font3">사원번호 : </label>
-						<input type="text" id="emp_no" name="emp_no" placeholder="아이디를 입력해주세요." required> 
+						<input type="text" id="emp_no" name="emp_no" placeholder="아이디를 입력해주세요." maxlength="9" required> 
 					</div>
 					<div id="j_rrn" class="j_div">
 						<label for="rrn" class="font3">주민번호 : </label>
-						<input type="text" id="rrn" name="rrn" placeholder="주민번호를 입력해주세요." required>
+						<input type="text" id="rrn" name="rrn" placeholder="주민번호를 입력해주세요." maxlength="14" required>
 					</div>
 				</div>
 				<div id="j_btn" >
@@ -52,7 +58,7 @@
 							onclick="findPwd_click()" >PW 찾기</button>
 						</div>
 						<div class="j_div">
-						<button id="j_back_btn" type="button" onclick="history.go(-1);" 
+						<button id="j_back_btn" type="button" 
 						class="btn_gray">뒤로가기</button>
 						</div>
 				</div>
@@ -80,16 +86,78 @@
              </div>
         </div>
     </div>
-	
+	<!-- 뒤로 가기 버튼 -->
+	<script>
+	   //뒤로 가기
+	   $("#j_back_btn").click(function() {
+	        var result = confirm('이전페이지로 이동하시겠습니까?'); 
+	        if(result) { 
+	            location.href="history.go(-1);";
+	            } else { 
+	            //no 
+            	 location.href="history.go(0);";
+	            }
+	    });
+	</script>
+	    <!--주민번호 하이픈 정규식 DOM  -->
+    <script>
+	    $("#rrn").on("input",
+	            function() {
+	                var target = document.getElementById("rrn");
+	                target.value = target.value.replace(/[^0-9]/g,'').replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2").replace(/(-{1,2})$/g,"");
+	    }); 
+	    
+
+    </script>
 	<script>
 		/* 비밀번호 찾기 */ 
 			// 비밀번호 값 받고 출력하는 ajax
 			
 			function findPwd_click(){
-			console.log('ㅎㅇ');
 				var emp_name = $('#emp_name').val();
 				var emp_no = $('#emp_no').val();
 				var rrn =$('#rrn').val();
+				
+			    if(emp_name == "") {
+					alert("이름을 입력해주십시오");
+					$("#emp_name").focus();
+
+					return false;
+				}
+				var replaceName = /^[가-힣a-zA-Z\s]+$/
+					if(!replaceName.test(emp_name)){
+						alert("성함은 한글, 영문만 입력 가능합니다.");
+						$("#emp_name").val('');
+						$("#emp_name").focus();
+						return false;
+					} 
+			    if(emp_no == "") {
+					alert("아이디를 입력해주십시오");
+					$("#emp_no").focus();
+
+					return false;
+				}
+		    	var regExpEmpNo = /^[0-9]{8,9}$/; //숫자9
+		    	if(!regExpEmpNo.test(emp_no)){
+		    		alert("유효하지 않는 아이디 입니다.");
+		    		$("#emp_no").val('');
+		    		$("#emp_no").focus();
+		    		return false;
+		    	}
+			    if(rrn == "") {
+					alert("주민번호를 입력해주십시오");
+					$("#rrn").focus();
+					return false;
+				}
+		    	//주민번호 형식 체크 
+		    	var rrn = $("#rrn").val().trim();
+		    	var regExpRrn = /^[0-9]{6}-[0-9]{7}$/; //숫자6-숫자7
+		    	if(!regExpRrn.test(rrn)){
+		    		alert("주민번호를 다시 확인해주세요.");
+		    		$("#rrn").val('');
+		    		$("#rrn").focus();
+		    		return false;
+		    	}
 				
 				$.ajax({
 					url:"<%=request.getContextPath()%>/member/findPwd",
@@ -134,7 +202,10 @@
 		
 		
 		btnModal.addEventListener("click", e => {
-		    modal.style.display = "flex"
+			if($("#emp_name").val() != "" && $("#emp_no").val() && $("#rrn").val()){
+				
+			    modal.style.display = "flex"
+				}
 		})
 		
 		    

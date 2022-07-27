@@ -281,9 +281,9 @@
     
     <script type="text/javascript">
     $("#j_enroll_btn").click(function(){
+    	var password = $('input[name=password]').val();
     	
     	// 비밀번호 공란시 형식 체크
-    	var password = $('input[name=password]').val();
 	    if($("#password").val() == "") {
 			alert("비밀번호를 입력해주십시오");
 			$("#password").focus();

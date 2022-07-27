@@ -489,9 +489,9 @@ public class EmpController {
 			,HttpSession session) {
 			
 			employee.setPassword(pwdEncoding.encode(employee.getPassword()));
-			Employee updatdPwd = service.updatePwd(employee);
+			int updatdPwd = service.updatePwd(employee);
 		
-			if(updatdPwd == null) {
+			if(updatdPwd == 0) {
 				rttr.addFlashAttribute("msg", "비밀번호 변경을 실패하였습니다. 다시시도 해주세요.");
 				mv.setViewName("redirect:/member/updatePwd");
 			}else {
