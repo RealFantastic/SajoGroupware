@@ -1,7 +1,7 @@
 @charset "UTF-8";
 #j_section{
 /* 	margin-top: 60px; */
-	margin-left: 250px;
+	margin-left: 320px;
 }
 /* article1  */
 #j_commute{
@@ -10,7 +10,7 @@
 	
 	display: flex;
     width: 1200px;
-/*     margin: 0 auto; */
+    margin: 0 auto;
 }
 }
 /* commute.css */

@@ -357,25 +357,30 @@ public class EmpController {
 	 @RequestMapping(value = "/inviteMail", method = RequestMethod.GET)
 	 @ResponseBody
 	 public boolean  inviteMail(
-			 @RequestParam("email") String email
+			 @RequestParam("email") String[] emailArr
+			
 			 ) throws Exception{
 	     
 	     String from = "xeonsnee@naver.com";//보내는 이 메일주소
-	     String to = email;
+	     //String to = email;
+	     String[] to = emailArr;
 	     String title = "[MAYO 그룹웨어] 마요그룹웨어에 초대 받았습니다! ";
-	     //String content = "아래 링크를 클릭하여 회원가입을 진행해주세요./n ";
-	    // String url = "";
+	     
+	         
 	     try {
 	     	 MimeMessage mail = mailSender.createMimeMessage();
 	         MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
 	         
-	         mailHelper.setFrom(from);
-	         mailHelper.setTo(to);
-	         mailHelper.setSubject(title);
-	         mailHelper.setText("text/html","<html><p>아래 링크를 클릭하여 회원가입을 완료해주십시오.</p><div><a href='localhost:8090/mayo/member/enroll'>회원가입 하러가기</a></div></html>");       
+	         for(int i = 0 ; i < emailArr.length ; i ++) {
+	        	 System.out.println("emailArr = "+emailArr[i]);
+	         
+	        	 mailHelper.setFrom(from);
+	        	 mailHelper.setTo(to);
+	        	 mailHelper.setSubject(title);
+	        	 mailHelper.setText("text/html","<html><p>아래 링크를 클릭하여 회원가입을 완료해주십시오.</p><div><a href='localhost:8090/mayo/member/enroll'>회원가입 하러가기</a></div></html>");       
+	         }
 	         
 	         mailSender.send(mail);
-	         //url = "member/invite";
 	         
 	     } catch(Exception e) {
 	    	 return false;

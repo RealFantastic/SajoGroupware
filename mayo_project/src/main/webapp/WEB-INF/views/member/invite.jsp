@@ -38,21 +38,14 @@
 	                <div>
 	                    <p class="point successEmailChk">초대받을 직원의 메일주소를 입력해주세요.</p>
 	                </div>
-	                <div>
-	                    <div>
-	                    	<input type="hidden" value="cp_number">
-	                        <input type="text" name="email" placeholder="이메일 주소" id="email" class="email">
-	                        
-	                    </div>
-	                    <div>
+	                <div id="send_btn_event">
 	                    	<div class='addInput'>
-	                    	
+	                    		<input type="hidden" value="cp_number">
+		                    	<input type="hidden" id="emailArr" name="emailArr">
+	                        	<input type="email" name="email" placeholder="이메일 주소" id="email" class="email">
 	                    	</div>
 	                        <button type="button" id="add_btn" class="btn_yellow">+</button>
-	                    </div>
-	                    <div>
 	                    	<button type="button" class="btn_green" id="invite_btn">초대하기</button>
-	                    </div>
 	                </div>
 	                <div id="j_logo_black">
 	                    <img alt="마요로고" 
@@ -70,13 +63,13 @@
 	        </footer>
 		</div>
 	</div>        
-    
+
     <!-- 추가버튼 -->
     <script type="text/javascript">
     	$(invite).ready (function (){
     		$('#add_btn').click(function(){
     			$('.addInput').append (
-    				'<input type="type" name="email" placeholder="이메일 주소" class="email">\
+    				'<input type="email" name="email" placeholder="이메일 주소" class="email">\
     				<button type="button" class="btnRemove">삭제</button><br>'
     			); //input taf 추가
     			$('.btnRemove').on('click',function(){
@@ -91,29 +84,53 @@
     <script>
 	//var code = "";
 	$("#invite_btn").click(function(){
-		var email = $(".email").val();
-		console.log(email);
+		var email = $("input[type=email]");
+		var emailArr = [];
+		
+		for ( var i = 0; i < email.length ; i++){
+			var val = $("input[type=email]").eq(i).val();
+			
+			if(val == "" || val == null){
+				alert("이메일을 입력해주세요.");
+				return ;
+			}else {
+				var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+					if(!emailPattern.test(val)){
+						alert("성함은 한글, 영문만 입력 가능합니다.");
+						$(".email").val('');
+						$("#email").focus();
+						return ;
+					} 
+			}
+			
+			
+			emailArr.push(val);
+			
+			
+		}
+		$("#emailArr").val(emailArr);
+
+// 		console.log($('input[name=email]'));
+// 		console.log($('input[name=email]').val()); //값 안나옴.
+
+		console.log("emailArr = "+emailArr);
+		console.log("email = "+ email);
 		$.ajax({
 	        type:"GET",
-	        url:"<%=request.getContextPath()%>/member/inviteMail?email=" + email,
+	        url:"<%=request.getContextPath()%>/member/inviteMail?email=" + emailArr,
 	        cache : false,
+	        async: false,
 	        success:function(data){
-	        	if(data == "error"){
+	        	if(data == "false"){
 	        		console.log(data);
 	        		alert("이메일 주소가 올바르지 않습니다. 유효한 이메일 주소를 입력해주세요.");
 					$(".email").attr("autofocus",true);
-					$(".successEmailChk").text("유효한 이메일 주소를 입력해주세요.");
-					$(".successEmailChk").css("color","red");
 	        	}else{	        	
 	        		console.log(data);
 					alert("직원 초대 이메일 발송이 완료 되었습니다.");
 					$("#email").val('');
 					$(".email").val('');
 	        		$("#email_check_btn").css("display","inline-block");
-// 					$(".successEmailChk").text("직원 초대 이메일 발송이 완료 되었습니다.");
-// 					$(".successEmailChk").css("color","green");
-
-	        		//code = data;
 	        	}
 	        }
 	    });

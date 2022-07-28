@@ -251,14 +251,6 @@
 				return false;
 			} 	
 			 
-// 		$("#cp_king").on("focusout", function() {
-// 		    var x = $(this).val();
-// 		    if (x.length > 0) {
-// 		        if (!x.match(replaceName)) {
-// 		           alert("성함은 한글, 영문만 입력 가능합니다.");
-// 		        } 
-// 		    }
-// 		});
 
     	/*전화번호 형식 체크*/
  		var phone = $("#cp_tel").val().trim();
@@ -289,11 +281,6 @@
 			return false;
 		}
 		   
-// 	var frm = $("#cp_enroll");
-<%-- 	frm.attr("action","<%= request.getContextPath()%>/company/enroll");  --%>
-// 	frm.attr("method","post");
-// 	frm.submit(); 
-// 	});
     
     </script>
     
