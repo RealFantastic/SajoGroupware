@@ -248,7 +248,7 @@
 						$('.overAlert').hide();
 						var left = total - holiday;
 						$('input[name=left_count]').val(left);
-						console.log(left);
+						console.log("현재 잔여 - 신청일 = " + $('input[name=left_count]').val());
 					}
 					
 				});
@@ -321,7 +321,7 @@
 						var total = $('#total_count').val();
 						var left = total - holiday;
 						$('input[name=left_count]').val(left);
-						console.log(left);
+						console.log("현재 잔여 - 신청일 = " + $('input[name=left_count]').val());
 					}
 				});
 				$('input[type=radio]').click(function(event){
@@ -345,7 +345,7 @@
 					var total = $('#total_count').val();
 					var left = total - holidayCount;
 					$('input[name=left_count]').val(left);
-					console.log(left);
+					console.log("현재 잔여 - 신청일 = " + $('input[name=left_count]').val());
 				});
 				
 				/* SummerNote Library */

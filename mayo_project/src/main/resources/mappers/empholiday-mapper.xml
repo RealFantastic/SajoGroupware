@@ -12,7 +12,7 @@
 		USED_COUNT = (select
 						to_number(nvl(
 							(SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}),0)) + #{used_count}
-					from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no})		
+					from DUAL)		
 		, LEFT_COUNT = #{left_count} 
 		WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}
 	</update>
@@ -21,9 +21,11 @@
 		UPDATE EMPLOYEE_HOLIDAY SET
 		USED_COUNT = (select
 						to_number(nvl(
-							(SELECT used_count FROM EMPLOYEE_HOLIDAY WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}),0)) - #{used_count}
+							(SELECT used_count FROM EMPLOYEE_HOLIDAY
+								 WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}),0))
+						 - #{used_count}
 					from employee_holiday WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no})		
-		, LEFT_COUNT = #{left_count} 
+		, LEFT_COUNT = #{left_count}
 		WHERE BIRTH_YEAR = EXTRACT(YEAR FROM SYSDATE) AND EMP_NO = #{emp_no}
 	</update>
 </mapper>

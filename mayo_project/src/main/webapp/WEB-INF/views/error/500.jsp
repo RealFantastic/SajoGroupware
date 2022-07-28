@@ -20,7 +20,7 @@
 	</div>
 	<div>
 		<!-- 메인 버튼 눌러서 돌아가는 로그인 페이지로 일단 설정해둠 / 로그인은 안풀림/ TODO 홈화면으로 넘겨줘야 할듯  -->
-		<button type="button" class="btn_green main_btn" onclick="location.href='<%=request.getContextPath()%>/member/login'" >
+		<button type="button" class="btn_green main_btn" onclick="location.href='<%=request.getContextPath()%>/'" >
 			<i class="fa-solid fa-person-walking-arrow-loop-left"></i>
 			MAIN
 		</button>

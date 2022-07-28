@@ -82,6 +82,13 @@
 /* --------------------- */
 
 /* nav mini_calendar css 시작 */
+.complete_attend {
+	display: none;
+}
+
+/* nav digital_watch css 종료 */
+
+/* nav mini_calendar css 시작 */
 #mini_calendar{
 	margin-top:25px;
 	height:300px;
