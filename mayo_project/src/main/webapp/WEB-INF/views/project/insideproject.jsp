@@ -51,7 +51,7 @@
 			<div id="projectPic">
 				<c:forEach var="projPic" items="${projPic }">
 					<div class="pickPic">${projPic.emp_name } ${projPic.job_name }</div>
-					<input type="hidden" value="${projPic.emp_no }">
+					<input class="picempno" type="hidden" value="${projPic.emp_no }">
 				</c:forEach>
 			</div>
 			</div>
@@ -319,7 +319,7 @@ $(function(){
 					// 이미 담당자인 직원 추가 못하게 
 					for(var i=0; i<$(".picempno").length; i++){
 						
-						if(result.emp_no == $(".picempno").eq(i).text()){
+						if(result.emp_no == $(".picempno").eq(i).val()){
 							alert("이미 추가된 직원입니다");
 							return;
 						}
@@ -351,11 +351,6 @@ $(function(){
 		$("#insertEmp").click(function(){
 			
 			console.log($("#select_add").serialize());
-			
-			if(emp != proj_mgr){
-				$("#insertPic button").attr('disabled', true);
-				return;
-			};
 			
 			$.ajax({
 				type: "POST",
@@ -544,6 +539,7 @@ slider.oninput = function() {
 			data: sked,
 			success: function(result){
 				alert(result);
+				location.reload();
 			}
 			
 		});
@@ -744,9 +740,6 @@ geocoder.addressSearch(jibun, function(result, status) {
             content: '<div style="width:150px;text-align:center;padding:6px 0;">'+$(thisEle).children(".infoName").text()+'</div>'
         });
         infowindow.open(map, marker);
-
-        // 지도 크기 조정
-        $("#map").css("height","300px");
         
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);

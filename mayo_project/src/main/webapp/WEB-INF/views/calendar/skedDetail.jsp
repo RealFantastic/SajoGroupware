@@ -84,7 +84,7 @@ var sked_mgr = $(event.target).next('input').val(); // 일정 작성자
 console.log($(event.target).prev('input').val());
 
 // 일정 작성자만 수정 가능
-if(emp != sked_){
+if(emp != sked_mgr){
 	alert("작성자만 수정할 수 있습니다.");
 	return false;
 }	

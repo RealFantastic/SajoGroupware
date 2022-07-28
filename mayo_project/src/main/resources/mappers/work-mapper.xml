@@ -61,13 +61,13 @@
  select * from work_board join proj using (proj_no) where proj_no in
 (select distinct proj_no
   from proj left outer join project_pic using(proj_no) 
- where emp_no=#{emp_no} or proj_mgr=#{emp_no})
+ where emp_no=#{emp_no} or proj_mgr=#{emp_no}) order by work_no desc
 </select>
 
 <!-- 특정 프로젝트의 모든 업무 글 보기 -->
 <select id="selectWork" resultType="Work">
 	select * from work_board work join employee emp 
-	on (work.work_mgr = emp.emp_no) where proj_no=#{proj_no} order by work_no desc
+	on (work.work_mgr = emp.emp_no) where proj_no=#{proj_no} order by work.work_no desc
 </select>
 
 <!-- 특정 프로젝트의 특정 업무 글 보기 -->
