@@ -486,7 +486,7 @@
 			        <form id="reject">
 			          <div class="mb-3">
 			            <label for="message-text" class="col-form-label">반려 사유를 적어주세요:</label>
-			            <textarea class="form-control" id="return_reson" required="required"></textarea>
+			            <textarea class="form-control" name="return_reson" id="return_reson" required="required"></textarea>
 			            <input type="hidden" name="ea_no" value="${detail.ea_no }">
 			            <input type="hidden" name="form_code" value="${detail.form_code }">
 			            <input type="hidden" name="result_code" value="${detail.result_code }">

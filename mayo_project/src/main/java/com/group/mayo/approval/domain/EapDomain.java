@@ -30,9 +30,6 @@ public class EapDomain {
 	private String drafter_id;	//NN
 	private Timestamp draft_date;
 	private String first_approver;
-
-
-
 	private String second_approver;
 	private String third_approver;
 	private String final_approver;

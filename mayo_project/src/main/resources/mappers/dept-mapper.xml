@@ -15,5 +15,6 @@
   		(select dept_no, emp_no,concat(concat(emp_name,' '),job_name) as emp_name
   		 from employee join job using(job_no))
   	using (dept_no)
+  	order by dept_no
   </select>
 </mapper>

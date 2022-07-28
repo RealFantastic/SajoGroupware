@@ -89,7 +89,7 @@
 		
 		SELECT info.*,e.emp_name drafter_name, hh.left_count left_count FROM view_elec_appr_infos info
 		join employee e on drafter_id = emp_no
-		join holiday_history hh on info.ea_no = hh.ea_no
+		join (select * from holiday_history where emp_no = #{emp_no}) hh on info.ea_no = hh.ea_no
 		WHERE RESULT_CODE = 0 AND DRAFTER_ID = #{emp_no}
 		OR 
 		(RESULT_CODE = 2 

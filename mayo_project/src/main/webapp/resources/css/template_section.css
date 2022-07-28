@@ -1,13 +1,12 @@
 @charset "UTF-8";
 #j_section{
-/* 	margin-top: 60px; */
-	margin-left: 320px;
+	margin-top: 60px;
+	margin-left: 250px;
+	padding-left: 30px;
 }
 /* article1  */
 #j_commute{
 	position: relative;
-	top: 60px;
-	
 	display: flex;
     width: 1200px;
     margin: 0 auto;
