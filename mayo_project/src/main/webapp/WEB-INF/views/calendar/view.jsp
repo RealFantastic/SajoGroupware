@@ -14,7 +14,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/calendar.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js"></script>
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -118,8 +118,6 @@
 			  	
 			 	// 일정일 때, 띄우는 모달
 			 	if(info.event.extendedProps.emergency == null){
-				    $("#sked").modal("show");
-				    
 				    if(info.event.extendedProps.category == 'A'){  			// 전사 일정
 				    	$("#sked .skedType").text('전사');
 				    
@@ -140,15 +138,20 @@
 					$("#sked .skedEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
 				    $("#sked .skedLoca").text(info.event.extendedProps.location);
 				    $("#sked .skedContent").text(info.event.extendedProps.content);
-
+				    var logginId= "${loginSsInfo.emp_no}";
+				    if(logginId != info.event.extendedProps.skedEmp) {
+				    	$(".sUpdate.viewM").hide();
+				    	$(".deleteS.viewD").hide();
+				    }
+				    $("#sked").modal("show");
 			 	} else {
-			 		$("#work").modal("show");
 				    $("#work .work_no").text(info.event.extendedProps.workNo);
 				    $("#work .proj_no").text(info.event.extendedProps.proj);
 				    $("#work .workTitle").text(info.event.title);
 				    $("#work .workStatus").text(info.event.extendedProps.category);
 				    $("#work .workStart").text(moment(info.event.start).format('YYYY-MM-DD')); // format 바꾸기
 					$("#work .workEnd").text(moment(info.event.end).format('YYYY-MM-DD'));
+			 		$("#work").modal("show");
 			 	}
 			 	
 		  }
@@ -273,7 +276,8 @@
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">일정명</label>
-            <input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
+            <input type="text" class="form-control" id="sked_name" maxlength="16"
+            	name="sked_name" required="required">
           </div>
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
@@ -307,7 +311,7 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <input class="form-control" id="content" name="sked_content" required>
+            <input class="form-control" id="content" maxlength="500" name="sked_content" required>
           </div>
       </div>
       <div class="modal-footer">
@@ -369,16 +373,7 @@ var emp = ${loginSsInfo.emp_no};
 
 	// 일정 글 삭제하기
 	$(".deleteS").click(function(event){ 
-		
-	console.log($(event.target).prev('input').val());
-	var sked_mgr = $(event.target).next('input').val(); // 일정 작성자	
-	
-	// 일정 작성자만 삭제 가능
-	if(emp != sked_mgr){
-		alert("작성자만 삭제할 수 있습니다.");
-		return false;
-	}	
-	
+
 	//삭제 여부 확인하기
 	var check = confirm("일정을 삭제하시겠습니까?");
 	var sked_no = $(event.target).prev('input').val();

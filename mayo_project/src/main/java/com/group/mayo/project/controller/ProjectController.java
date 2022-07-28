@@ -113,8 +113,8 @@ public class ProjectController {
 	@ResponseBody
 	public String insertPic(HttpServletRequest req
 			,ProjectPic pic) {
-		String msg = "";
-		System.out.println(pic);
+		
+		String msg="";
 		
 		pic.setProj_no(pic.getProj_no());
 		System.out.println(pic.getEmp_no());
@@ -131,10 +131,10 @@ public class ProjectController {
 		}
 		
 		if(result <= 0) {
-			System.out.println("직원 추가 성공!!");
-			msg="직원 추가에 실패했습니다";
+			System.out.println("직원 추가 실패!!");
+			msg="직원 추가에 실패했습니다.";
 		} else {
-			msg="직원이 추가되었습니다";
+			msg="직원이 추가됐습니다.";
 		}
 		
 		return msg;
@@ -143,7 +143,7 @@ public class ProjectController {
 	// 프로젝트 담당 직원 삭제
 	@PostMapping(value="/deletePic", produces="text/plain;charset=UTF-8") 
 	@ResponseBody
-	public String deletePic(String emp_no) {
+	public String deletePic(@RequestParam(name="emp_no", required=false) String emp_no) {
 		
 		int result = service.deletePic(emp_no);
 		String msg="";

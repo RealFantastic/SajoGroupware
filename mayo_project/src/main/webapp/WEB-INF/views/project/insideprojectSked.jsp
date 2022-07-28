@@ -16,7 +16,7 @@
 <link href="<%=request.getContextPath() %>/resources/css/insideproj.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/workDetail.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/calendar.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js"></script>
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -50,8 +50,8 @@
 				</div>
 			<div id="projectPic">
 				<c:forEach var="projPic" items="${projPic }">
-					<div>${projPic.emp_name } ${projPic.job_name }</div>
-					<div class="picempno">${projPic.emp_no }</div>
+					<div class="pickPic">${projPic.emp_name } ${projPic.job_name }</div>
+					<input type="hidden" value="${projPic.emp_no }">
 				</c:forEach>
 			</div>
 		 </div>
@@ -91,7 +91,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" id="resetEmp" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
+						<button type="button" class="btn btn_gray" data-bs-dismiss="modal">취소</button>
 						<button type="button" class="btn btn_green" id="insertEmp">추가</button>
 					</div>
 				</div>
@@ -124,11 +124,13 @@
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">프로젝트명</label>
-            <input type="text" class="form-control" id="title" name="proj_name" value="${project.proj_name }" required="required">
+            <input type="text" class="form-control" id="title" maxlength="16" 
+            	name="proj_name" value="${project.proj_name }" required="required">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <textarea class="form-control" id="contentP" name="proj_content" required>${project.proj_content }</textarea>
+            <textarea class="form-control" id="contentP" maxlength="500" 
+            	name="proj_content" required>${project.proj_content }</textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -161,7 +163,7 @@
         <h5 class="modal-title font3" id="exampleModalLabel1" style="font-weight:bold;">새 업무</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-        <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST" enctype="multipart/form-data">
+        <form name="newWork" action="<%=request.getContextPath()%>/work/insert" method="POST">
       <div class="modal-body insidebody">
       <input type="hidden" class="form-control" id="proj_no" name="proj_no" value="${project.proj_no }">
         <div style="display:flex; margin-bottom:10px;">
@@ -181,16 +183,17 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label font2">제목</label>
-            <input type="text" class="form-control" id="title" name="work_title" placeholder="제목을 입력해주세요" required="required">
+            <input type="text" class="form-control" id="title" maxlength="16"
+            	name="work_title" placeholder="제목을 입력해주세요" required="required">
           </div>
           <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
             	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" id="work_start_date" name="work_start_date">
+            	<input type="Date" class="form-control" id="work_start_date" name="work_start_date" required>
           	</div>
           	<div class="mb-3">
             	<label for="recipient-name" class="col-form-label" style="color:red;">마감일</label>
-            	<input type="Date" class="form-control" id="work_deadline" name="work_deadline">
+            	<input type="Date" class="form-control" id="work_deadline" name="work_deadline" required>
           	</div>
           </div>
 	    <div class="mb-3">
@@ -200,7 +203,8 @@
 		</div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label font2">내용</label>
-            <textarea class="form-control" id="contentW" name="work_content" rows="7" placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
+            <textarea class="form-control" id="contentW" name="work_content" rows="7" maxlength="1000"
+            	placeholder="내용을 입력해주세요" required="required" style="height:200px;"></textarea>
           </div>
       </div>
       <div class="modal-footer">
@@ -229,16 +233,17 @@
       	</div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">일정명</label>
-            <input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
+            <input type="text" class="form-control" id="sked_name" maxlength="16"
+            	name="sked_name" required="required">
           </div>
            <div class="date" style="display:flex;">
           	<div class="mb-3" style="margin-right:13px;">
             	<label for="recipient-name" class="col-form-label">시작일</label>
-            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date">
+            	<input type="Date" class="form-control" id="sked_start_date" name="sked_start_date" required>
           	</div>
           	<div class="mb-3">
             	<label for="recipient-name" class="col-form-label" style="color:red;">종료일</label>
-            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date">
+            	<input type="Date" class="form-control" id="sked_end_date" name="sked_end_date" required>
           	</div>
           </div>
           <div class="mb-3" id="loca">
@@ -263,7 +268,7 @@
 			 </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">설명</label>
-            <input class="form-control" id="contentS" name="sked_content" required>
+            <input class="form-control" id="contentS" maxlength="500" name="sked_content" required>
           </div>
       </div>
       <div class="modal-footer">
@@ -339,7 +344,12 @@ $(function(){
 		$("#insertEmp").click(function(){
 
 			console.log($("#select_add").serialize());
-
+			
+			if(emp != proj_mgr){
+				$("#insertPic button").attr('disabled', true);
+				return;
+			};
+			
 			$.ajax({
 				type: "POST",
 				url: "<%=request.getContextPath()%>/project/insertPic",
@@ -352,20 +362,48 @@ $(function(){
 			});
 		
 		});
+		
+	});
+
+//담당자 삭제 ajax
+$(document).on('click', '.pickPic', function(e){
+  
+    var emp_no = $(this).next('input').val();
+    var emp = $(this).text();
+	
+	console.log(emp_no);	
+	var check = confirm(emp+"을(를) 삭제하시겠습니까?");
+	
+	// 담당자 삭제 여부 확인하기	
+	if(check){
+		
+		$.ajax({
+	 		type: "POST",
+			url: "<%=request.getContextPath()%>/project/deletePic",
+			data: { 
+	 				emp_no: emp_no
+	 				},
+	 		success: function(result){
+	 			console.log("삭제");
+				alert(result);
+				location.reload();
+			}
+ 		});
+		
+	} else {
+		return false;
+	}
+	
 });
-
-// 	//휴지통 누르면 파일 삭제하기
-// 	$("#files").on('click','[class=deleteFile]',function(e){
-// 		$(this).parent('.fileDiv').remove();
-// 	})
-
-
-
+	
+	
+	
+	
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
 	
 	if(emp != proj_mgr){
-		alert("작성자만 수정할 수 있습니다.");
+		alert("매니저만 수정할 수 있습니다.");
 		return;
 	}	
 	// form data 전부 넘기기	
@@ -377,6 +415,7 @@ $("#submitM").click(function(){
 		data: proj, 
  		success: function(result){
 			alert(result);
+			location.reload();
 		}
 		
  	});
@@ -387,10 +426,11 @@ $("#submitM").click(function(){
 $("#deleteProj").click(function(){
 	
 	if(emp != proj_mgr){
-		alert("작성자만 삭제할 수 있습니다.");
+		alert("매니저만 삭제할 수 있습니다.");
 		return;
 	}	
-	
+		
+	var proj_no = ${project.proj_no};
 	var check = confirm("프로젝트를 삭제하시겠습니까?");
 	// 프로젝트 삭제 여부 확인하기	
 	if(check){

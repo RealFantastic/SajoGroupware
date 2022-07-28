@@ -12,7 +12,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/template_header.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/projectmain.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js"></script>
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>

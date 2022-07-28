@@ -2,7 +2,6 @@ package com.group.mayo.project.model.service;
 
 import java.util.List;
 
-import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.domain.ProjectPic;
 

@@ -54,7 +54,7 @@ select * from proj proj join employee emp on (proj.proj_mgr = emp.emp_no) where 
 	select pp.emp_no, a.emp_name, a.job_name from project_pic pp 
 	join (select emp.emp_no, emp.emp_name, job.job_name from employee emp
         join job job on (emp.job_no = job.job_no)) a
-    on (pp.emp_no = a.emp_no) where proj_no = #{proj_no}
+    on (pp.emp_no = a.emp_no) where proj_no = #{proj_no} order by emp_name
 </select>
 
 <!-- 프로젝트 담당자 삭제 -->
@@ -63,7 +63,7 @@ select * from proj proj join employee emp on (proj.proj_mgr = emp.emp_no) where 
 </delete>
 
 <!-- 프로젝트 선택 -->
-<select id="selectProj" resultType="Project">
+<select id="selectProj" parameterType="string" resultType="Project">
 	select * from proj where proj_no=#{proj_no} order by proj_no desc
 </select>
 

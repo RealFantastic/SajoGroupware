@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
 import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.dao.ProjectDao;

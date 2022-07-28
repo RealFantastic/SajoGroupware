@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group.mayo.employee.domain.Employee;
 import com.group.mayo.project.domain.Project;
@@ -20,7 +19,6 @@ import com.group.mayo.project.domain.ProjectPic;
 import com.group.mayo.project.model.service.ProjectService;
 import com.group.mayo.schedule.domain.Schedule;
 import com.group.mayo.schedule.model.service.ScheduleService;
-import com.group.mayo.work.domain.Work;
 
 @Controller
 @RequestMapping("schedule")
@@ -133,6 +131,7 @@ public class ScheduleController {
 //		
 //		String msg="";
 //		
+//		if(result == null) {
 //			System.out.println("일정 수정 실패~!");
 //			msg = "일정 수정에 실패했습니다";
 //		} else {

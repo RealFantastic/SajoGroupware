@@ -16,7 +16,7 @@
 <link href="<%=request.getContextPath() %>/resources/css/insideproj.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/resources/css/workDetail.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/calendar.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/ef09f998fc.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ef09f998fc.js"></script>
 <!-- JSTree -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -50,8 +50,8 @@
 				</div>
 			<div id="projectPic">
 				<c:forEach var="projPic" items="${projPic }">
-					<div>${projPic.emp_name } ${projPic.job_name }</div>
-					<div class="picempno">${projPic.emp_no }</div>
+					<div class="pickPic">${projPic.emp_name } ${projPic.job_name }</div>
+					<input type="hidden" value="${projPic.emp_no }">
 				</c:forEach>
 			</div>
 			</div>
@@ -124,12 +124,13 @@
 							</div>
 							<div class="mb-3">
 								<label for="recipient-name" class="col-form-label">프로젝트명</label>
-								<input type="text" class="form-control" id="title" 
+								<input type="text" class="form-control" id="title" maxlength="16"
 									name="proj_name" value="${project.proj_name }" required="required">
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label">설명</label>
-								<textarea class="form-control" id="contentP" name="proj_content" required>${project.proj_content }</textarea>
+								<textarea class="form-control" id="contentP" maxlength="500" 
+									name="proj_content" required>${project.proj_content }</textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -154,7 +155,7 @@
 			</form>
 		</div>
 		<div id="worklist"></div>
-		<div id="skedlist"></div>
+
 
 		<!--  새 업무 추가 모달창 -->
 		<div class="modal fade modal-lg" id="newWork" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" data-bs-backdrop="static">
@@ -188,7 +189,8 @@
 							</div>
 							<div class="mb-3">
 								<label for="recipient-name" class="col-form-label font2">제목</label>
-								<input type="text" class="form-control" id="title" name="work_title" placeholder="제목을 입력해주세요" required="required">
+								<input type="text" class="form-control" id="title" maxlength="16" 
+									name="work_title" placeholder="제목을 입력해주세요" required="required">
 							</div>
 							<div class="date" style="display: flex;">
 								<div class="mb-3" style="margin-right: 13px;">
@@ -207,13 +209,13 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label font2">내용</label>
-								<textarea class="form-control" id="contentW" name="work_content" 
+								<textarea class="form-control" id="contentW" name="work_content" maxlength="1000"
 									rows="7" placeholder="내용을 입력해주세요" required="required"
 									style="height: 200px;"></textarea>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+							<button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
 							<button id="submitP" type="submit" class="btn_green">등록</button>
 						</div>
 					</form>
@@ -238,7 +240,8 @@
 							</div>
 							<div class="mb-3">
 								<label for="recipient-name" class="col-form-label">일정명</label> 
-								<input type="text" class="form-control" id="sked_name" name="sked_name" required="required">
+								<input type="text" class="form-control" id="sked_name" maxlength="16" 
+									name="sked_name" required="required">
 							</div>
 							<div class="date" style="display: flex;">
 								<div class="mb-3" style="margin-right: 13px;">
@@ -272,11 +275,11 @@
 							</div>
 							<div class="mb-3">
 								<label for="message-text" class="col-form-label">설명</label>
-								<input class="form-control" id="contentS" name="sked_content" required>
+								<input class="form-control" id="contentS" name="sked_content" maxlength="500" required>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn_gray" data-bs-dismiss="modal">취소</button>
+							<button type="reset" class="btn_gray" data-bs-dismiss="modal">취소</button>
 							<button id="submitS" type="submit" class="btn_green">등록</button>
 						</div>
 					</form>
@@ -286,14 +289,14 @@
 	</div>
 
 	<script>
-var loginEmp = ${loginSsInfo.emp_no};
+var emp = ${loginSsInfo.emp_no};
 var proj_mgr = ${project.proj_mgr};
 	
 // 페이지 load 될 때 업무 가져오기 - 틀 수정 예정
 $(function(){
 		var proj_no = ${project.proj_no};
 		$("#worklist").load("<%=request.getContextPath()%>/work/detail",{proj_no:proj_no});
-		
+				
 		orgChart($("#empJstree"));
 		
 		// 조직도
@@ -346,30 +349,68 @@ $(function(){
 		
  		// 프로젝트 담당자 추가
 		$("#insertEmp").click(function(){
-
+			
 			console.log($("#select_add").serialize());
-
+			
+			if(emp != proj_mgr){
+				$("#insertPic button").attr('disabled', true);
+				return;
+			};
+			
 			$.ajax({
 				type: "POST",
 				url: "<%=request.getContextPath()%>/project/insertPic",
 				data: $("#select_add").serialize(),
 				success: function(result){
-					alert(result);
-					location.reload();
-				}
+						alert(result);
+						location.reload();
+					}					
+				});
 				
 			});
 		
 		});
-});
 
+
+//담당자 삭제 ajax
+$(document).on('click', '.pickPic', function(e){
+  
+    var emp_no = $(this).next('input').val();
+    var emp = $(this).text();
+	
+	console.log(emp_no);	
+	var check = confirm(emp+"을(를) 삭제하시겠습니까?");
+	
+	// 담당자 삭제 여부 확인하기	
+	if(check){
+		
+		$.ajax({
+	 		type: "POST",
+			url: "<%=request.getContextPath()%>/project/deletePic",
+			data: { 
+	 				emp_no: emp_no
+	 				},
+	 		success: function(result){
+	 			console.log("삭제");
+				alert(result);
+				location.reload();
+			}
+ 		});
+		
+	} else {
+		return false;
+	}
+	
+});
+	
+	
 	
 	
 // 프로젝트 수정 ajax
 $("#submitM").click(function(){
 	
 	if(emp != proj_mgr){
-		alert("작성자만 수정할 수 있습니다.");
+		alert("매니저만 수정할 수 있습니다.");
 		return;
 	}	
 	
@@ -393,7 +434,7 @@ $("#submitM").click(function(){
 $("#deleteProj").click(function(){
 	
 	if(emp != proj_mgr){
-		alert("작성자만 삭제할 수 있습니다.");
+		alert("매니저만 삭제할 수 있습니다.");
 		return;
 	}	
 		
@@ -424,9 +465,7 @@ $("#submitP").click(function(){
 var sdate = $("#work_start_date").val();
 var edate = $("#work_deadline").val();
 
-console.log($("#title").length);
-
-if($("#title").val() == "" || $("#title").val().length>20){
+if($("#title").val() == ""){
 	alert("20자 이하 업무명을 입력해주세요");
 	$("#work_title").focus();
 	return false;
@@ -470,8 +509,6 @@ output.value = slider.value;
 slider.oninput = function() {
   document.getElementById("percentage").value = this.value;
 }
-
-
 </script>
 
 <script>
@@ -488,7 +525,7 @@ slider.oninput = function() {
 		}
 		
 		if(sdate > edate) {
-			alert("종료일은 시작일보다 작을 수 없습니다");
+			alert("종료일은 시작일보다 빠를 수 없습니다");
 			$("#sked_end_date").focus();
 			return false;
 		}
