@@ -121,14 +121,11 @@
                         <label for="dept_no">부서 : </label>
                         <select id="dept_no" name="dept_no" required="required">
                             <option value="">선택</option>
-                            <option value="10">인사팀</option>
-                            <option value="20">영업팀</option>
-                            <option value="30">총무팀</option>
-                            <option value="40">기획팀</option>
-                            <option value="50">회계팀</option>
-                            <option value="60">개발팀</option>
-                            <option value="70">마케팅팀</option>
-                            <option value="80">연구개발팀</option>
+                            <option value="10">경영인사팀</option>
+                            <option value="20">영업마케팅팀</option>
+                            <option value="30">회계총무팀</option>
+                            <option value="40">기획개발팀</option>
+                            <option value="5">기업대표</option>
                         </select>
                         <br><font class="feedback" size ="2"></font>
                     </div>
@@ -585,17 +582,16 @@
 				console.log("cp_number: "+cp_number);
 				
 				$.ajax({
-					url:'<%=request.getContextPath()%>/member/checkcpnum',
+					url:'<%=request.getContextPath()%>/company/check',
 					type:"post",
 					data: {"cp_number":cp_number},
 					success: function(result){
 						console.log("result:"+result);
-						if(result == "false" || result == null){
-							console.log("result:"+result);
+						if(result == "ok" || result == null){
 							$("#check_cp").html('등록되지 않은 사업자번호 입니다.');
 							$("#check_cp").attr('color','red');
 							$("#j_enroll_btn").attr("disabled",true);
-						}else if(result == "ok" || result != null){
+						}else if(result == "false" && result != null){
 							console.log("result:"+result);
 							$("#check_cp").html('사업자번호가 확인 되었습니다.');
 							$("#check_cp").attr('color','green');

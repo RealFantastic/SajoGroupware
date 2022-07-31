@@ -159,7 +159,7 @@
                         <div>
                         <input type="text" id="email_id" name="email_id" required="required">
                         <span id="middle">@</span>
-                        <input type="text" id="domain" name="domain" required="required"/>
+                        <input type="text" id="domain" name="domain" />
                         <select id="domain_list" name="domain_list" required="required">
                             <option value="naver.com">naver.com</option>
                             <option value="google.com">google.com</option>
@@ -281,7 +281,7 @@
 			return false;
 		}
 		   
-    
+    )};
     </script>
     
 
@@ -445,12 +445,11 @@
 				data: {"cp_number":cp_number},
 // 				contentType:"json",
 				success: function(result){
-					console.log("result"+result);
-					if(result == "false"){
-						console.log("안녕");
+					console.log("result:"+result || result == null);
+					if(result == "false" ){
 						$("#check_result").html('이미 등록된 사업자번호 입니다');
 						$("#check_result").attr('color','red');
-					}else if(result == "ok"){
+					}else if(result == "ok"  && result != null ){
 						$("#check_result").html('사업자번호가 등록되었습니다.');
 						$("#check_result").attr('color','green');
 					} 

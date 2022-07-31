@@ -294,22 +294,22 @@ public class EmpController {
 			 	return ro;
 	 }
 	//사업자번호 조회
-	 @PostMapping(value="/checkcpnum",produces="text/plain;charset=UTF-8")
-	 @ResponseBody
-	 public String chkcpNum(
-			 @RequestParam("cp_number") String cp_number
-			 ) {
-		 	
-		 	int result=service.checkCpNumber(cp_number);  
-		 	String ro = null;
-		 	if(result == 1 || cp_number.equals("") || cp_number.length() != 12) {
-		 		ro= "false";
-		 	}else {
-		 		ro ="ok";
-		 	}
-		 	System.out.println(ro);
-		 	return ro;
-	 }
+//	 @PostMapping(value="/checkcpnum",produces="text/plain;charset=UTF-8")
+//	 @ResponseBody
+//	 public String chkcpNum(
+//			 @RequestParam("cp_number") String cp_number
+//			 ) {
+//		 	
+//		 	int result=service.checkCpNumber(cp_number);  
+//		 	String ro = null;
+//		 	if(result == 0 || cp_number.equals("") || cp_number.length() != 12) {
+//		 		ro= "false";
+//		 	}else {
+//		 		ro ="ok";
+//		 	}
+//		 	System.out.println(result);
+//		 	return ro;
+//	 }
 	 
 	 @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	 @ResponseBody

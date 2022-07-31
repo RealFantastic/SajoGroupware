@@ -100,7 +100,7 @@
                     <strong>${loginSsInfo.emp_name}</strong>
                 </a>
                 <c:choose>
-					<c:when test="${loginSsInfo.emp_no != null && loginSsInfo.dept_no == 10}">
+					<c:when test="${loginSsInfo.emp_no != null && loginSsInfo.dept_no == 10 || loginSsInfo.job_no == 7}">
 						<ul class="dropdown_menu hide">
 						    <li><a href="#">내 정보</a></li>
 						    <li><a href="<%=request.getContextPath()%>/member/updatePwd">비밀번호 재설정</a></li>
