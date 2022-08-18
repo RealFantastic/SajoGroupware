@@ -16,15 +16,23 @@ KH 정보교육원 FINAL_PROJECT
 ![팀원소개](https://user-images.githubusercontent.com/98301780/184783048-d4b78a9a-f3be-478e-a91c-38f30cd901ad.png)
 ![사조참치ERD](https://user-images.githubusercontent.com/98301780/184936390-729a4b65-4e9c-4daa-aa97-3892ad676e34.png)
 ## 3️⃣ 기능 구현 / 화면
+<details>
+  <summary><h3>박정환</h3></summary>
+  <details>
+    <summary><h4>조직도</h4></summary>
+![조직도](https://user-images.githubusercontent.com/98301780/185380128-96eeeb02-2772-4887-949c-ffd76a3f047a.gif)
+  </details>
 
-### 박정환
-
-### 전승희
-
-### 김혜린
-
-### 홍샛별
-
+</details>
+<details>
+  <summary><h3>전승희</h3></summary>
+</details>
+<details>
+  <summary><h3>김혜린</h3></summary>
+</details>
+<details>
+  <summary><h3>홍샛별</h3></summary>
+</details>
 ## 4️⃣ 산출물
 
 ## 5️⃣ 개발 일정
