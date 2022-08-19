@@ -98,5 +98,6 @@ KH 정보교육원 FINAL_PROJECT
 </details>   
 
 ## 4️⃣ 산출물
-
+[최종 사본.pdf](https://github.com/RealFantastic/SajoGroupware/files/9379573/default.pdf)
 ## 5️⃣ 개발 일정
+![image](https://user-images.githubusercontent.com/98301780/185554520-0a13d4bb-c89e-4d05-9d8b-9ae40a606648.png)
