@@ -92,6 +92,31 @@ KH 정보교육원 FINAL_PROJECT
 </details>
 <details>
   <summary><h3>김혜린</h3></summary>
+    <details>
+    <summary><h4>업무관리</h4></summary>
+      <ul>
+        <li>
+          프로젝트, 업무 추가, 수정, 삭제<br>
+          <img src="https://github.com/RealFantastic/SajoGroupware/assets/98301775/b721ca01-6e0c-412f-9ad1-d28592355459" alt="프로젝트, 업무">   
+        </li>
+        <li>
+          업무, 일정 수정 삭제<br>
+          <img src="https://github.com/RealFantastic/SajoGroupware/assets/98301775/f246eb6a-ced2-4b87-a0f7-06af1096eb93" alt="업무, 일정 수정 삭제">      
+        </li>
+        <li>
+           담당자 추가, 삭제<br>
+          <img src="https://github.com/RealFantastic/SajoGroupware/assets/98301775/429e5e7a-3073-4f06-bd51-b349943b3eed" alt="담당자 추가, 삭제">   
+        </li>
+      </ul>
+  </details>
+    <details>
+      <summary><h4>캘린더</h4></summary>
+      <img src="https://github.com/RealFantastic/SajoGroupware/assets/98301775/e47cfda1-e1db-4d2a-b227-4b7c02f465a1" alt="캘린더">
+    </details>
+    <details>
+      <summary><h4>오류페이지</h4></summary>
+      <img src="https://github.com/RealFantastic/SajoGroupware/assets/98301775/674e8a7a-0dd4-4501-b07e-33bb5b56fb81" alt="오류페이지">
+    </details>
 </details>
 <details>
   <summary><h3>홍샛별</h3></summary>
